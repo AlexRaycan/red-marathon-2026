@@ -1,0 +1,6 @@
+{
+  "name": "@app/schemas",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts"
+}

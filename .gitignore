@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+
+# Package-manager logs and caches
+.pnpm-store
+.npm
+.npmrc.local
+*.log*
+
+# Build output and tooling caches
+dist
+build
+out
+.output
+.expo
+.next
+.nuxt
+.vite
+.turbo
+.cache
+coverage
+*.tsbuildinfo
+
+# Keys
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Editor and OS files
+.zed
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local reference materials
+refs
