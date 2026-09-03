@@ -4,14 +4,14 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/assets/*": ["./assets/*"],
-      "@app/api": ["../../packages/api/src"],
-      "@app/constants": ["../../packages/constants/src"],
-      "@app/hooks": ["../../packages/hooks/src"],
-      "@app/schemas": ["../../packages/schemas/src"],
-      "@app/tokens": ["../../packages/tokens/src"],
-      "@app/types": ["../../packages/types/src"],
-      "@app/ui": ["../../packages/ui/src"],
-      "@app/utils": ["../../packages/utils/src"]
+      "@apps/api": ["../../packages/api/src"],
+      "@apps/constants": ["../../packages/constants/src"],
+      "@apps/hooks": ["../../packages/hooks/src"],
+      "@apps/schemas": ["../../packages/schemas/src"],
+      "@apps/tokens": ["../../packages/tokens/src"],
+      "@apps/types": ["../../packages/types/src"],
+      "@apps/ui": ["../../packages/ui/src"],
+      "@apps/utils": ["../../packages/utils/src"]
     }
   },
   "include": [
