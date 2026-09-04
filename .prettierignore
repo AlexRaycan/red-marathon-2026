@@ -1,0 +1,9 @@
+.claude
+node_modules
+dist
+.expo
+.next
+android
+ios
+pnpm-lock.yaml
+*.md

@@ -9,5 +9,19 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true
-  }
+  },
+  "exclude": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/.nuxt/**",
+    "**/.output/**",
+    "**/.turbo/**",
+    "**/android/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/dist/**",
+    "**/example/**",
+    "**/ios/**",
+    "**/out/**"
+  ]
 }
