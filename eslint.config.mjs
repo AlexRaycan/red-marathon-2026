@@ -5,13 +5,17 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
-const sourceFiles = ['**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}']
-const typescriptFiles = ['**/*.{ts,tsx,mts,cts}']
+const sourceExtensions = '{js,jsx,mjs,cjs,ts,tsx,mts,cts}'
+const reactExtensions = '{js,jsx,ts,tsx}'
+const typescriptExtensions = '{ts,tsx,mts,cts}'
+
+const sourceFiles = [`**/*.${sourceExtensions}`]
+const typescriptFiles = [`**/*.${typescriptExtensions}`]
 const reactFiles = [
-  'apps/mobile/**/*.{js,jsx,ts,tsx}',
-  'packages/{hooks,ui}/**/*.{js,jsx,ts,tsx}'
+  `apps/mobile/src/**/*.${reactExtensions}`,
+  `packages/{hooks,ui}/src/**/*.${reactExtensions}`
 ]
-const mobileFiles = ['apps/mobile/**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}']
+const mobileFiles = [`apps/mobile/**/*.${sourceExtensions}`]
 
 export default defineConfig([
   globalIgnores(
@@ -38,6 +42,14 @@ export default defineConfig([
     linterOptions: {
       reportUnusedDisableDirectives: 'error',
       reportUnusedInlineConfigs: 'error'
+    },
+    rules: {
+      'no-console': [
+        'warn',
+        {
+          allow: ['warn', 'error']
+        }
+      ]
     }
   },
   {
@@ -73,7 +85,7 @@ export default defineConfig([
         }
       ],
       '@typescript-eslint/no-unused-vars': [
-        'warn',
+        'error',
         {
           args: 'after-used',
           argsIgnorePattern: '^_',
@@ -82,7 +94,8 @@ export default defineConfig([
           ignoreRestSiblings: true,
           varsIgnorePattern: '^_'
         }
-      ]
+      ],
+      '@typescript-eslint/no-explicit-any': 'error'
     }
   },
   {
