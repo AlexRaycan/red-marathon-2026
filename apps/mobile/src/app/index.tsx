@@ -1,6 +1,5 @@
-import { TYPE_LABELS } from '@apps/constants'
-import { MEDIA_TYPES } from '@apps/types'
-// import { MEDIA_TYPES } from '@apps/types'
+import { TYPE_LABELS } from '@app/constants'
+import { MEDIA_TYPES } from '@app/types'
 import { StyleSheet, Text, View } from 'react-native'
 
 export default function Index() {
@@ -8,7 +7,10 @@ export default function Index() {
     <View style={styles.container}>
       <Text style={styles.title}>RED Marathon</Text>
       {MEDIA_TYPES.map(type => (
-        <Text key={type} style={styles.item}>
+        <Text
+          key={type}
+          style={styles.item}
+        >
           {TYPE_LABELS[type]}
         </Text>
       ))}
