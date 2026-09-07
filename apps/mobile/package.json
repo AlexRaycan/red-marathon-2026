@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@app/constants": "workspace:^",
+    "@app/tokens": "workspace:^",
     "@app/types": "workspace:^",
     "@expo/ui": "~57.0.16",
     "expo": "~57.0.20",

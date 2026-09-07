@@ -20,11 +20,11 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "11.25.0",
+      "version": "12.3.4",
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@12.3.4",
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
