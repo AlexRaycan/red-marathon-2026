@@ -14,3 +14,5 @@ export interface ICard {
   cover: string | null
   status: TStatus
 }
+
+export * from './ui'

@@ -1,11 +1,27 @@
 import { TYPE_LABELS } from '@app/constants'
 import { MEDIA_TYPES } from '@app/types'
+import { Download, Play, Plus } from 'lucide-react-native'
 import { StyleSheet, Text, View } from 'react-native'
+
+import { Button } from '@/components/Button'
 
 export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>RED Marathon</Text>
+
+      <Button icon={Play}>Watch</Button>
+      <Button
+        variant='secondary'
+        icon={Download}
+      >
+        Download
+      </Button>
+      <Button
+        variant='secondary'
+        icon={Plus}
+      />
+
       {MEDIA_TYPES.map(type => (
         <Text
           key={type}
