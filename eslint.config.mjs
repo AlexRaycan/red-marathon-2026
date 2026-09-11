@@ -95,7 +95,9 @@ export default defineConfig([
           varsIgnorePattern: '^_'
         }
       ],
-      '@typescript-eslint/no-explicit-any': 'error'
+      '@typescript-eslint/no-explicit-any': 'error',
+
+      '@typescript-eslint/require-await': 'off'
     }
   },
   {
