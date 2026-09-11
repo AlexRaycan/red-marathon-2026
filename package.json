@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "ts-check": "pnpm -r exec tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "backend:dev": "ssh -N -T -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 127.0.0.1:4000:127.0.0.1:14000 oracle_arm"
   },
   "keywords": [],
   "author": "",
