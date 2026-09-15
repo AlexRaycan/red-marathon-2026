@@ -34,6 +34,8 @@ export function Button({
   const isIconOnly = !children && !!Icon
   const contentColor = CONTENT_COLOR[variant]
 
+  // TODO добавить поддержку GlassEffect
+
   return (
     <Pressable
       onPress={onPress}
