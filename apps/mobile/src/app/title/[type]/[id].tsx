@@ -1,15 +1,22 @@
 import { router, useLocalSearchParams } from 'expo-router'
 import { Pressable, Text } from 'react-native'
 
-import { Screen } from '@/components/Screen'
+import { Screen } from '@/components/ui/Screen'
+import { Toolbar } from '@/components/ui/Toolbar'
 
 export default function ItemDetailScreen() {
   const { id, type } = useLocalSearchParams<{ id: string; type: string }>()
   return (
     <Screen>
-      <Text>
-        Item Detail {type} - {id}
-      </Text>
+      <Toolbar
+        leftSide={
+          <Text>
+            Item Detail {type} - {id}
+          </Text>
+        }
+        isBackButton
+        onPress={() => router.back()}
+      />
       <Pressable onPress={() => router.back()}>
         <Text>Back</Text>
       </Pressable>

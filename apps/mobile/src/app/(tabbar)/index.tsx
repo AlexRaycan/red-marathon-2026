@@ -3,34 +3,38 @@ import { MEDIA_TYPES } from '@app/types'
 import { Download, Play, Plus } from 'lucide-react-native'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button } from '@/components/Button'
+import { HomeHeader } from '@/components/HomeHeader'
+import { Button } from '@/components/ui/Button'
+import { Screen } from '@/components/ui/Screen'
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>RED Marathon</Text>
+    <Screen>
+      <HomeHeader />
 
-      <Button icon={Play}>Watch</Button>
-      <Button
-        variant='secondary'
-        icon={Download}
-      >
-        Download
-      </Button>
-      <Button
-        variant='secondary'
-        icon={Plus}
-      />
-
-      {MEDIA_TYPES.map(type => (
-        <Text
-          key={type}
-          style={styles.item}
+      <View style={{ marginTop: 60 }}>
+        <Button icon={Play}>Watch</Button>
+        <Button
+          variant='secondary'
+          icon={Download}
         >
-          {TYPE_LABELS[type]}
-        </Text>
-      ))}
-    </View>
+          Download
+        </Button>
+        <Button
+          variant='secondary'
+          icon={Plus}
+        />
+
+        {MEDIA_TYPES.map(type => (
+          <Text
+            key={type}
+            style={styles.item}
+          >
+            {TYPE_LABELS[type]}
+          </Text>
+        ))}
+      </View>
+    </Screen>
   )
 }
 

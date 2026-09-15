@@ -1,11 +1,10 @@
-import { Text } from 'react-native'
-
-import { Screen } from '@/components/Screen'
+import { Screen } from '@/components/ui/Screen'
+import { Toolbar } from '@/components/ui/Toolbar'
 
 export default function Account() {
   return (
     <Screen>
-      <Text>Account</Text>
+      <Toolbar leftSide='Account' />
     </Screen>
   )
 }

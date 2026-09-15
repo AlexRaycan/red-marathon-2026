@@ -13,3 +13,6 @@ export const TYPE_LABELS: Record<TMediaType, string> = {
   game: 'Game',
   book: 'Book'
 }
+
+export const PROJECT_NAME = 'SagaSet'
+export const AI_NAME = 'SagaCue'

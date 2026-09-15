@@ -14,7 +14,8 @@ interface Props extends PropsWithChildren {
 
 const CONTENT_COLOR: Record<TButtonVariant, string> = {
   primary: COLORS.text.secondary,
-  secondary: COLORS.text.primary
+  secondary: COLORS.text.primary,
+  transparent: COLORS.text.primary
 }
 
 const ICON_SIZE: Record<TButtonSize, number> = {
@@ -90,6 +91,9 @@ const variantSyles = StyleSheet.create({
   },
   secondary: {
     backgroundColor: COLORS.bg.card
+  },
+  transparent: {
+    backgroundColor: 'transparent'
   }
 })
 
