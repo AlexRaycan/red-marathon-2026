@@ -17,10 +17,11 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 interface Props {
   title: TitleListItemResponse
+  width: number
   onPress: () => void
 }
 
-export function TitleCard({ title, onPress }: Props) {
+export function TitleCard({ title, width, onPress }: Props) {
   const config = CARD_CONFIG[title.type]
 
   const scale = useSharedValue(1)
@@ -36,7 +37,7 @@ export function TitleCard({ title, onPress }: Props) {
     <View
       style={{
         position: 'relative',
-        width: config.width,
+        width,
         height: config.height
       }}
     >

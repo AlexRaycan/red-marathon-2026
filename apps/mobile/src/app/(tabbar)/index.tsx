@@ -1,11 +1,10 @@
 import type { TitleListItemResponse } from '@app/api'
 import { SPACINGS } from '@app/tokens'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 
-import { Carousel } from '@/components/carousel/Carousel'
 import { HomeHeader } from '@/components/pages/home/HomeHeader'
 import { HomeHeroSlider } from '@/components/pages/home/HomeHeroSlider'
-import { TitleCard } from '@/components/title-card/TitleCard'
+import { HomeSliders } from '@/components/pages/home/HomeSliders'
 import { Screen } from '@/components/ui/Screen'
 
 export const SAMPLE_TITLES: TitleListItemResponse[] = [
@@ -65,6 +64,8 @@ export const SAMPLE_TITLES: TitleListItemResponse[] = [
 ]
 
 export default function Index() {
+  const { width: windowWidth } = useWindowDimensions()
+
   return (
     <Screen>
       <HomeHeader />
@@ -76,30 +77,8 @@ export default function Index() {
         >
           <HomeHeroSlider items={SAMPLE_TITLES} />
 
-          <Carousel
-            title={'Top picks for you'}
-            onPress={() => console.debug('Top picks for you!')}
-          >
-            {SAMPLE_TITLES.map(item => (
-              <TitleCard
-                key={item.id}
-                title={item}
-                onPress={() => console.warn({ ...item })}
-              />
-            ))}
-          </Carousel>
-          <Carousel
-            title={'Popular now'}
-            onPress={() => console.debug('Popular now!')}
-          >
-            {SAMPLE_TITLES.map(item => (
-              <TitleCard
-                key={item.id}
-                title={item}
-                onPress={() => console.warn({ ...item })}
-              />
-            ))}
-          </Carousel>
+          <HomeSliders.TopPick windowWidth={windowWidth} />
+          <HomeSliders.PopularNow windowWidth={windowWidth} />
         </ScrollView>
       </View>
     </Screen>

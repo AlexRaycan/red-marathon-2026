@@ -3,19 +3,30 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Play, Plus } from 'lucide-react-native'
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
+import {
+  FlatList,
+  type StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  type ViewStyle,
+  useWindowDimensions
+} from 'react-native'
 
 import { Button } from '@/components/ui/Button'
-
-const { width } = Dimensions.get('window')
-const HEIGHT = width * 1.25
 
 interface Props {
   items: TitleListItemResponse[]
 }
 
-const Item = ({ item }: { item: TitleListItemResponse }) => (
-  <View style={styles.slide}>
+const Item = ({
+  item,
+  style
+}: {
+  item: TitleListItemResponse
+  style?: StyleProp<ViewStyle>
+}) => (
+  <View style={[style, styles.slide]}>
     <Image
       source={item.coverUrl}
       contentFit='cover'
@@ -54,23 +65,29 @@ const Item = ({ item }: { item: TitleListItemResponse }) => (
 )
 
 export function HomeHeroSlider({ items }: Props) {
+  const { width } = useWindowDimensions()
+  const height = width * 1.25
+
   return (
     <FlatList
       data={items}
-      renderItem={({ item }) => <Item item={item} />}
+      renderItem={({ item }) => (
+        <Item
+          item={item}
+          style={{ width, height }}
+        />
+      )}
       keyExtractor={item => item.id}
       horizontal
       pagingEnabled
       showsHorizontalScrollIndicator={false}
-      style={{ height: HEIGHT }}
+      style={{ height }}
     />
   )
 }
 
 const styles = StyleSheet.create({
   slide: {
-    height: HEIGHT,
-    width,
     justifyContent: 'flex-end'
   },
   content: {
