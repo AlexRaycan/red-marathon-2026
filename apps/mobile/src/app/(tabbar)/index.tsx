@@ -65,7 +65,7 @@ export const SAMPLE_TITLES: TitleListItemResponse[] = [
 
 export default function Index() {
   return (
-    <Screen edges={[]}>
+    <Screen>
       <HomeHeader />
 
       <View>

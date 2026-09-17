@@ -4,7 +4,7 @@ import { NativeTabs } from 'expo-router/build/native-tabs'
 export default function TabBarLayout() {
   return (
     <NativeTabs
-      minimizeBehavior='onScrollDown'
+      // minimizeBehavior='onScrollDown'
       tintColor={COLORS.primary}
       iconColor={{
         default: COLORS.text['little-muted'],
