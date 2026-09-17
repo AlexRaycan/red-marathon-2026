@@ -77,8 +77,7 @@ export default function Index() {
         >
           <HomeHeroSlider items={SAMPLE_TITLES} />
 
-          <HomeSliders.TopPick windowWidth={windowWidth} />
-          <HomeSliders.PopularNow windowWidth={windowWidth} />
+          <HomeSliders width={windowWidth} />
         </ScrollView>
       </View>
     </Screen>

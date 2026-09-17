@@ -38,14 +38,14 @@ export function Carousel({ title, children, onPress }: Props) {
 
 const styles = StyleSheet.create({
   root: {
-    gap: SPACINGS[3],
-    marginTop: SPACINGS[6]
+    gap: SPACINGS[3]
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: LAYOUT['space-horizontal']
+    paddingHorizontal: LAYOUT['space-horizontal'],
+    paddingVertical: SPACINGS[2]
   },
   title: {
     color: COLORS.text.primary,
