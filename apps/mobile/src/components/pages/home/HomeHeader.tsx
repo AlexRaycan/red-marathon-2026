@@ -1,9 +1,8 @@
 import { PROJECT_NAME } from '@app/constants'
 import { COLORS } from '@app/tokens'
+import { Toolbar } from '@components/ui/Toolbar'
 import { Bell } from 'lucide-react-native'
 import { Pressable } from 'react-native'
-
-import { Toolbar } from './ui/Toolbar'
 
 export function HomeHeader() {
   return (

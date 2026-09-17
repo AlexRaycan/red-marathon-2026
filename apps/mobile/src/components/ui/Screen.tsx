@@ -1,17 +1,23 @@
-import { COLORS, SPACINGS } from '@app/tokens'
+import { COLORS } from '@app/tokens'
 import type { PropsWithChildren } from 'react'
 import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  type Edge,
+  SafeAreaView,
+  useSafeAreaInsets
+} from 'react-native-safe-area-context'
 
 interface Props extends PropsWithChildren {
-  edges?: ('top' | 'bottom' | 'left' | 'right')[]
+  edges?: Edge[]
 }
 
-export function Screen({ edges = ['top'], children }: Props) {
+export function Screen({ edges = ['left', 'right'], children }: Props) {
+  const inset = useSafeAreaInsets()
+
   return (
     <SafeAreaView
       edges={edges}
-      style={styles.root}
+      style={[styles.root, { marginTop: -inset.top }]}
     >
       {children}
     </SafeAreaView>
@@ -21,7 +27,6 @@ export function Screen({ edges = ['top'], children }: Props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: COLORS.bg.base,
-    paddingHorizontal: SPACINGS[6]
+    backgroundColor: COLORS.bg.base
   }
 })

@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import type { PropsWithChildren, ReactNode } from 'react'
 import {
   type StyleProp,
@@ -33,7 +33,13 @@ export function Toolbar({
 
   return (
     <View
-      style={[styles.root, style, { paddingTop: insets.top + SPACINGS[2] }]}
+      style={[
+        styles.root,
+        style,
+        {
+          marginTop: insets.top * 2
+        }
+      ]}
     >
       <View style={[styles.content, styles.leftContent]}>
         <LeftActionButton
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: SPACINGS[5]
+    paddingHorizontal: LAYOUT['space-horizontal']
   },
   content: {
     flexDirection: 'row',

@@ -11,6 +11,11 @@ export const SPACINGS = {
   10: 40
 } as const
 
+export const LAYOUT = {
+  'space-horizontal': SPACINGS[4],
+  'space-vertical': SPACINGS[4]
+} as const
+
 export const RADIUS = {
   sm: 8,
   md: 12,

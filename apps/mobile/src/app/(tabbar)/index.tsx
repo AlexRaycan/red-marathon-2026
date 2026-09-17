@@ -1,11 +1,10 @@
 import type { TitleListItemResponse } from '@app/api'
-import { SPACINGS } from '@app/tokens'
-import { Download, Play, Plus } from 'lucide-react-native'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
-import { HomeHeader } from '@/components/HomeHeader'
+import { Carousel } from '@/components/carousel/Carousel'
+import { HomeHeader } from '@/components/pages/home/HomeHeader'
+import { HomeHeroSlider } from '@/components/pages/home/HomeHeroSlider'
 import { TitleCard } from '@/components/title-card/TitleCard'
-import { Button } from '@/components/ui/Button'
 import { Screen } from '@/components/ui/Screen'
 
 export const SAMPLE_TITLES: TitleListItemResponse[] = [
@@ -69,56 +68,44 @@ export default function Index() {
     <Screen>
       <HomeHeader />
 
-      <View style={{ marginTop: 60 }}>
-        <Button icon={Play}>Watch</Button>
-        <Button
-          variant='secondary'
-          icon={Download}
-        >
-          Download
-        </Button>
-        <Button
-          variant='secondary'
-          icon={Plus}
-        />
+      <View
+        style={
+          {
+            // marginTop: 60
+          }
+        }
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <HomeHeroSlider items={SAMPLE_TITLES} />
 
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            gap: SPACINGS[3],
-            marginTop: SPACINGS[5]
-          }}
-        >
-          {SAMPLE_TITLES.map(item => (
-            <TitleCard
-              key={item.id}
-              title={item}
-              onPress={() => console.warn({ ...item })}
-            />
-          ))}
+          <Carousel
+            title={'Top picks for you'}
+            onPress={() => console.debug('Top picks for you!')}
+          >
+            {SAMPLE_TITLES.map(item => (
+              <TitleCard
+                key={item.id}
+                title={item}
+                onPress={() => console.warn({ ...item })}
+              />
+            ))}
+          </Carousel>
+          <Carousel
+            title={'Popular now'}
+            onPress={() => console.debug('Popular now!')}
+          >
+            {SAMPLE_TITLES.map(item => (
+              <TitleCard
+                key={item.id}
+                title={item}
+                onPress={() => console.warn({ ...item })}
+              />
+            ))}
+          </Carousel>
         </ScrollView>
       </View>
     </Screen>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0B0B0F',
-    justifyContent: 'center',
-    paddingHorizontal: 24
-  },
-  title: {
-    color: '#f6f6f6',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16
-  },
-  item: {
-    color: '#A1A1AA',
-    fontSize: 16,
-    paddingVertical: 4
-  }
-})
+const styles = StyleSheet.create({})
