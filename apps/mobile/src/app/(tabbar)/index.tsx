@@ -1,5 +1,5 @@
 import type { TitleListItemResponse } from '@app/api'
-import { SPACINGS } from '@app/tokens'
+import { LAYOUT } from '@app/tokens'
 import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 
 import { HomeHeader } from '@/components/pages/home/HomeHeader'
@@ -86,6 +86,6 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   scroll: {
-    paddingBottom: SPACINGS[4]
+    paddingBottom: LAYOUT['space-vertical']
   }
 })

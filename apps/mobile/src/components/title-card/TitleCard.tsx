@@ -38,7 +38,7 @@ export function TitleCard({ title, width, onPress }: Props) {
       style={{
         position: 'relative',
         width,
-        height: config.height
+        height: width * 1.5
       }}
     >
       <AnimatedPressable
