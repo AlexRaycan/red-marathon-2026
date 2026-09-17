@@ -1,10 +1,10 @@
 import type { TitleListItemResponse } from '@app/api'
 import { LAYOUT } from '@app/tokens'
+import { HomeHeader } from '@components/pages/home/HomeHeader'
+import { HomeHeroSlider } from '@components/pages/home/HomeHeroSlider/HomeHeroSlider'
+import { HomeSliders } from '@components/pages/home/HomeSliders'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
-import { HomeHeader } from '@/components/pages/home/HomeHeader'
-import { HomeHeroSlider } from '@/components/pages/home/HomeHeroSlider'
-import { HomeSliders } from '@/components/pages/home/HomeSliders'
 import { Screen } from '@/components/ui/Screen'
 
 export const SAMPLE_TITLES: TitleListItemResponse[] = [

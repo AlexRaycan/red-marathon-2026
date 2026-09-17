@@ -1,52 +1,22 @@
 import type { TitleListItemResponse } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
-import { Image } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
 import {
   FlatList,
-  type StyleProp,
   StyleSheet,
   Text,
   View,
-  type ViewStyle,
   useWindowDimensions
 } from 'react-native'
 
 import { Button } from '@/components/ui/Button'
 
+import { HomeHeroSliderItem } from './HomeHeroSliderItem'
+
 interface Props {
   items: TitleListItemResponse[]
 }
-
-const Item = ({
-  item,
-  style
-}: {
-  item: TitleListItemResponse
-  style?: StyleProp<ViewStyle>
-}) => (
-  <View style={[style]}>
-    <Image
-      source={item.coverUrl}
-      contentFit='cover'
-      transition={300}
-      style={StyleSheet.absoluteFill}
-    />
-    <LinearGradient
-      colors={[
-        'rgba(2, 0, 3, 0.7)',
-        'transparent',
-        'rgba(2, 0, 3, 0.8)',
-        COLORS.bg.base
-      ]}
-      locations={[0, 0.35, 0.75, 1]}
-      style={StyleSheet.absoluteFill}
-      pointerEvents='none'
-    />
-  </View>
-)
 
 export function HomeHeroSlider({ items }: Props) {
   const { width } = useWindowDimensions()
@@ -63,7 +33,7 @@ export function HomeHeroSlider({ items }: Props) {
       <FlatList
         data={items}
         renderItem={({ item }) => (
-          <Item
+          <HomeHeroSliderItem
             item={item}
             style={{ width, height }}
           />
