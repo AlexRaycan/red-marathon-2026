@@ -1,4 +1,5 @@
 import type { TitleListItemResponse } from '@app/api'
+import { SPACINGS } from '@app/tokens'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
 import { Carousel } from '@/components/carousel/Carousel'
@@ -68,14 +69,11 @@ export default function Index() {
     <Screen>
       <HomeHeader />
 
-      <View
-        style={
-          {
-            // marginTop: 60
-          }
-        }
-      >
-        <ScrollView showsVerticalScrollIndicator={false}>
+      <View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scroll}
+        >
           <HomeHeroSlider items={SAMPLE_TITLES} />
 
           <Carousel
@@ -108,4 +106,8 @@ export default function Index() {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  scroll: {
+    paddingBottom: SPACINGS[4]
+  }
+})

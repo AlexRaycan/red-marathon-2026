@@ -31,7 +31,13 @@ export function TitleCardBadge({
           />
         </GlassView>
       ) : (
-        <View style={[styles.glass, styles.fallback]}>
+        <View
+          style={[
+            styles.glass,
+            styles.fallback,
+            { backgroundColor: accentColor }
+          ]}
+        >
           <Icon
             size={13}
             color={COLORS.text.primary}
