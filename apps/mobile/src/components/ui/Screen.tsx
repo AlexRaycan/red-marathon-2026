@@ -13,7 +13,7 @@ interface Props extends PropsWithChildren {
   edges?: Edge[]
 }
 
-export function Screen({ edges = ['left', 'right'], children }: Props) {
+export function Screen({ edges = ['top'], children }: Props) {
   const inset = useSafeAreaInsets()
   const marginTop =
     currentPlatform === 'ios' ? -inset.top : -inset.top + SPACINGS[4]

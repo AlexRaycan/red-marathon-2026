@@ -1,6 +1,6 @@
 import type { TitleListItemResponse } from '@app/api'
 import { LAYOUT } from '@app/tokens'
-import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 import { HomeHeader } from '@/components/pages/home/HomeHeader'
 import { HomeHeroSlider } from '@/components/pages/home/HomeHeroSlider'
@@ -64,10 +64,8 @@ export const SAMPLE_TITLES: TitleListItemResponse[] = [
 ]
 
 export default function Index() {
-  const { width: windowWidth } = useWindowDimensions()
-
   return (
-    <Screen>
+    <Screen edges={[]}>
       <HomeHeader />
 
       <View>
@@ -77,7 +75,7 @@ export default function Index() {
         >
           <HomeHeroSlider items={SAMPLE_TITLES} />
 
-          <HomeSliders width={windowWidth} />
+          <HomeSliders items={SAMPLE_TITLES} />
         </ScrollView>
       </View>
     </Screen>

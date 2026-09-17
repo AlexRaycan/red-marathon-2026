@@ -1,22 +1,22 @@
+import type { TitleListItemResponse } from '@app/api'
 import { SPACINGS } from '@app/tokens'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
 
 import { Carousel } from '@/components/carousel/Carousel'
 import { TitleCard } from '@/components/title-card/TitleCard'
 
-import { SAMPLE_TITLES } from '@/app/(tabbar)'
-
 interface Props {
+  items: TitleListItemResponse[]
   width: number
 }
 
-function HomeTopPickSlider({ width }: Props) {
+function HomeTopPickSlider({ items, width }: Props) {
   return (
     <Carousel
       title={'Top picks for you'}
       onPress={() => console.debug('Top picks for you!')}
     >
-      {SAMPLE_TITLES.map(item => (
+      {items.map(item => (
         <TitleCard
           key={item.id}
           title={item}
@@ -28,13 +28,13 @@ function HomeTopPickSlider({ width }: Props) {
   )
 }
 
-function HomePopularNowSlider({ width }: Props) {
+function HomePopularNowSlider({ items, width }: Props) {
   return (
     <Carousel
       title={'Popular now'}
       onPress={() => console.debug('Popular now!')}
     >
-      {SAMPLE_TITLES.map(item => (
+      {items.map(item => (
         <TitleCard
           key={item.id}
           title={item}
@@ -46,7 +46,13 @@ function HomePopularNowSlider({ width }: Props) {
   )
 }
 
-export function HomeSliders({ width: windowWidth }: Props) {
+interface HomeSlidersProps {
+  items: TitleListItemResponse[]
+}
+
+export function HomeSliders({ items }: HomeSlidersProps) {
+  const { width: windowWidth } = useWindowDimensions()
+
   const cardCountPerScreen = Math.trunc(windowWidth / 110)
   const cardCountMultiplier = cardCountPerScreen * 1.05
   const totalGap = SPACINGS[3] * (cardCountPerScreen + 1)
@@ -55,8 +61,14 @@ export function HomeSliders({ width: windowWidth }: Props) {
 
   return (
     <View style={styles.root}>
-      <HomeTopPickSlider width={cardWidth} />
-      <HomePopularNowSlider width={cardWidth} />
+      <HomeTopPickSlider
+        width={cardWidth}
+        items={items}
+      />
+      <HomePopularNowSlider
+        width={cardWidth}
+        items={items}
+      />
     </View>
   )
 }
