@@ -10,6 +10,7 @@
     "@expo/ui": "~57.0.19",
     "@react-native/metro-config": "^0.87.1",
     "expo": "~57.0.24",
+    "expo-blur": "~57.0.3",
     "expo-constants": "~57.0.19",
     "expo-device": "~57.0.2",
     "expo-font": "~57.0.4",

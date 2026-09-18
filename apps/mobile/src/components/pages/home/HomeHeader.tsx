@@ -3,10 +3,16 @@ import { COLORS } from '@app/tokens'
 import { Toolbar } from '@components/ui/Toolbar'
 import { Bell } from 'lucide-react-native'
 import { Pressable } from 'react-native'
+import { type SharedValue } from 'react-native-reanimated'
 
-export function HomeHeader() {
+interface IHomeHeaderProps {
+  scrollY: SharedValue<number>
+}
+
+export function HomeHeader({ scrollY }: IHomeHeaderProps) {
   return (
     <Toolbar
+      scrollY={scrollY}
       leftSide={PROJECT_NAME}
       rightSide={
         <Pressable hitSlop={12}>

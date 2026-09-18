@@ -8,7 +8,7 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 
-import { CARD_CONFIG } from './TitleCard.config'
+import { TITLE_CARD_CONFIG } from './TitleCard.config'
 import { TitleCardBadge } from './TitleCardBadge'
 import { TitleCardBookFX } from './TitleCardBookFX'
 import { TitleCardStack } from './TitleCardStack'
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function TitleCard({ title, width, onPress }: Props) {
-  const config = CARD_CONFIG[title.type]
+  const config = TITLE_CARD_CONFIG[title.type]
 
   const scale = useSharedValue(1)
 

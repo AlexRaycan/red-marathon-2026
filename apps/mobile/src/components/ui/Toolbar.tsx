@@ -1,4 +1,5 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
+import { BlurView } from 'expo-blur'
 import type { PropsWithChildren, ReactNode } from 'react'
 import {
   type StyleProp,
@@ -7,11 +8,17 @@ import {
   View,
   type ViewStyle
 } from 'react-native'
+import Animated, {
+  type SharedValue,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { LeftActionButton } from './ToolbarButton'
 
 interface Props extends PropsWithChildren {
+  scrollY?: SharedValue<number>
   leftSide?: ReactNode | string
   rightSide?: ReactNode
   isBackButton?: boolean
@@ -21,6 +28,7 @@ interface Props extends PropsWithChildren {
 }
 
 export function Toolbar({
+  scrollY,
   leftSide,
   rightSide,
   isBackButton,
@@ -31,32 +39,51 @@ export function Toolbar({
 }: Props) {
   const insets = useSafeAreaInsets()
 
+  const blurStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(scrollY?.get() ?? 0, [0, 100], [0, 1], 'clamp')
+  }))
+
   return (
     <View
-      style={[
-        styles.root,
-        style,
-        {
-          marginTop: insets.top * 2
-        }
-      ]}
+      style={[styles.root, style]}
+      pointerEvents='box-none'
     >
-      <View style={[styles.content, styles.leftContent]}>
-        <LeftActionButton
-          isBackButton={isBackButton}
-          isCloseButton={isCloseButton}
-          onPress={onPress}
+      <Animated.View
+        pointerEvents='box-none'
+        style={[StyleSheet.absoluteFill, blurStyle]}
+      >
+        <BlurView
+          intensity={80}
+          tint='systemChromeMaterialDark'
+          style={StyleSheet.absoluteFill}
         />
-        {typeof leftSide === 'string' ? (
-          <Text style={styles.text}>{leftSide}</Text>
-        ) : (
-          leftSide
-        )}
+        <View style={styles.overlay} />
+      </Animated.View>
+      <View
+        style={[
+          styles.contentWrapper,
+          {
+            paddingTop: insets.top * 2
+          }
+        ]}
+      >
+        <View style={[styles.content, styles.leftContent]}>
+          <LeftActionButton
+            isBackButton={isBackButton}
+            isCloseButton={isCloseButton}
+            onPress={onPress}
+          />
+          {typeof leftSide === 'string' ? (
+            <Text style={styles.text}>{leftSide}</Text>
+          ) : (
+            leftSide
+          )}
+        </View>
+
+        {children}
+
+        <View style={[styles.content, styles.rightContent]}>{rightSide}</View>
       </View>
-
-      {children}
-
-      <View style={[styles.content, styles.rightContent]}>{rightSide}</View>
     </View>
   )
 }
@@ -67,10 +94,24 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 10,
+    paddingBottom: LAYOUT['space-horizontal'],
+    overflow: 'hidden'
+  },
+  overlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)'
+  },
+  contentWrapper: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: LAYOUT['space-horizontal']
+    paddingHorizontal: LAYOUT['space-horizontal'],
+    gap: SPACINGS[2]
   },
   content: {
     flexDirection: 'row',

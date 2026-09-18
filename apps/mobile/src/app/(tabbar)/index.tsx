@@ -3,7 +3,11 @@ import { LAYOUT } from '@app/tokens'
 import { HomeHeader } from '@components/pages/home/HomeHeader'
 import { HomeHeroSlider } from '@components/pages/home/HomeHeroSlider/HomeHeroSlider'
 import { HomeSliders } from '@components/pages/home/HomeSliders'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue
+} from 'react-native-reanimated'
 
 import { Screen } from '@/components/ui/Screen'
 
@@ -64,19 +68,27 @@ export const SAMPLE_TITLES: TitleListItemResponse[] = [
 ]
 
 export default function Index() {
+  const scrollY = useSharedValue(0)
+
+  const scrollHandler = useAnimatedScrollHandler(e => {
+    scrollY.set(e.contentOffset.y)
+  })
+
   return (
     <Screen>
-      <HomeHeader />
+      <HomeHeader scrollY={scrollY} />
 
       <View>
-        <ScrollView
+        <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scroll}
+          scrollEventThrottle={16}
+          onScroll={scrollHandler}
         >
           <HomeHeroSlider items={SAMPLE_TITLES} />
 
           <HomeSliders items={SAMPLE_TITLES} />
-        </ScrollView>
+        </Animated.ScrollView>
       </View>
     </Screen>
   )
