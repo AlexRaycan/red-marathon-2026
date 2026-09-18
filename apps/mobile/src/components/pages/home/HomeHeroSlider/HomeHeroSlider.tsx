@@ -2,17 +2,16 @@ import type { TitleListItemResponse } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions
-} from 'react-native'
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue
+} from 'react-native-reanimated'
 
 import { Button } from '@/components/ui/Button'
 
 import { HomeHeroSliderItem } from './HomeHeroSliderItem'
+import { PaginationDot } from './PaginationDot'
 
 interface Props {
   items: TitleListItemResponse[]
@@ -23,6 +22,12 @@ export function HomeHeroSlider({ items }: Props) {
 
   const [index, setIndex] = useState(0)
 
+  const scrollX = useSharedValue(0)
+
+  const handleScroll = useAnimatedScrollHandler(e => {
+    scrollX.set(e.contentOffset.x)
+  })
+
   if (!items.length) return null
 
   const height = width * 1.35
@@ -30,7 +35,7 @@ export function HomeHeroSlider({ items }: Props) {
 
   return (
     <View style={[styles.root, { height }]}>
-      <FlatList
+      <Animated.FlatList
         data={items}
         renderItem={({ item }) => (
           <HomeHeroSliderItem
@@ -48,6 +53,7 @@ export function HomeHeroSlider({ items }: Props) {
           setIndex(newIndex)
         }}
         style={StyleSheet.absoluteFill}
+        onScroll={handleScroll}
       />
 
       <View
@@ -93,22 +99,13 @@ export function HomeHeroSlider({ items }: Props) {
         </View>
       </View>
       <View style={styles.dots}>
-        {items.map((_, i) => {
-          const distance = Math.abs(i - index)
-          const size = Math.max(4, 9 - distance)
-
+        {items.map((item, index) => {
           return (
-            <View
-              key={`heroSliderDot${i}`}
-              style={[
-                styles.dot,
-                {
-                  width: size,
-                  height: size,
-                  borderRadius: size / 2
-                },
-                i === index && styles.dotActive
-              ]}
+            <PaginationDot
+              key={`heroSliderDot_${item.id}_${index}`}
+              index={index}
+              width={width}
+              scrollX={scrollX}
             />
           )
         })}
