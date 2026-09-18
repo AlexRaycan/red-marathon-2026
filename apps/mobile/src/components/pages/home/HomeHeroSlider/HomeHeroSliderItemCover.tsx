@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { type StyleProp, StyleSheet, View } from 'react-native'
 import type { ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
 
-export const HomeHeroSliderItem = ({
+export const HomeHeroSliderItemCover = ({
   item,
   style
 }: {

@@ -1,8 +1,8 @@
 import type { TitleListItemResponse } from '@app/api'
-import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
+import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
@@ -10,7 +10,8 @@ import Animated, {
 
 import { Button } from '@/components/ui/Button'
 
-import { HomeHeroSliderItem } from './HomeHeroSliderItem'
+import { HomeHeroSliderItemCover } from './HomeHeroSliderItemCover'
+import { HomeHeroItemInfo } from './HomeHeroSliderItemInfo'
 import { PaginationDot } from './PaginationDot'
 
 interface Props {
@@ -38,7 +39,7 @@ export function HomeHeroSlider({ items }: Props) {
       <Animated.FlatList
         data={items}
         renderItem={({ item }) => (
-          <HomeHeroSliderItem
+          <HomeHeroSliderItemCover
             item={item}
             style={{ width, height }}
           />
@@ -60,29 +61,7 @@ export function HomeHeroSlider({ items }: Props) {
         style={styles.bottom}
         pointerEvents='box-none'
       >
-        <Text
-          numberOfLines={2}
-          style={styles.name}
-        >
-          {currentItem?.name}
-        </Text>
-
-        <Text
-          numberOfLines={1}
-          style={styles.genres}
-        >
-          {currentItem?.genres}
-          {['Sci-Fi', 'Adventure', 'Drama'].join(' • ')}
-        </Text>
-
-        <Text
-          numberOfLines={2}
-          style={styles.description}
-        >
-          {currentItem?.description}
-          Paul Atreides joins the Fremen and rises against the forces
-          threatening Arrakis.
-        </Text>
+        <HomeHeroItemInfo item={currentItem} />
 
         <View style={styles.actions}>
           <Button
@@ -103,8 +82,8 @@ export function HomeHeroSlider({ items }: Props) {
           return (
             <PaginationDot
               key={`heroSliderDot_${item.id}_${index}`}
-              index={index}
               width={width}
+              index={index}
               scrollX={scrollX}
             />
           )
@@ -118,22 +97,6 @@ const styles = StyleSheet.create({
   root: {
     justifyContent: 'flex-end',
     position: 'relative'
-  },
-  name: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE['3xl'],
-    fontWeight: FONT_WEIGHT.bold
-  },
-  genres: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE.sm,
-    fontWeight: FONT_WEIGHT.regular
-  },
-  description: {
-    color: COLORS.text.primary,
-    opacity: 0.5,
-    fontSize: FONT_SIZE.sm,
-    fontWeight: FONT_WEIGHT.regular
   },
   bottom: {
     paddingHorizontal: LAYOUT['space-horizontal'],
