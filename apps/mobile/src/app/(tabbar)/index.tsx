@@ -17,7 +17,8 @@ export const SAMPLE_TITLES: TitleListItemResponse[] = [
     type: 'MOVIE',
     name: 'Dune: Part Two',
     slug: 'dune-part-two',
-    coverUrl: 'https://poster4.me/wp-content/uploads/2021/10/dyuna_10.jpg',
+    coverUrl:
+      'https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
     releaseDate: '2024-03-01T00:00:00.000Z',
     rating: 8.4,
     ratingCount: 1200

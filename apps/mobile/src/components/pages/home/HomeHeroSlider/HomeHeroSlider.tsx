@@ -8,6 +8,7 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
+import { TITLE_CARD_CONFIG } from '@/components/title-card/TitleCard.config'
 import { Button } from '@/components/ui/Button'
 
 import { HomeHeroSliderItemCover } from './HomeHeroSliderItemCover'
@@ -33,6 +34,9 @@ export function HomeHeroSlider({ items }: Props) {
 
   const height = width * 1.35
   const currentItem = items[index]
+  const accentColor = currentItem?.type
+    ? (TITLE_CARD_CONFIG[currentItem.type]?.accent ?? 'transparent')
+    : 'transparent'
 
   return (
     <View style={[styles.root, { height }]}>
@@ -65,11 +69,13 @@ export function HomeHeroSlider({ items }: Props) {
 
         <View style={styles.actions}>
           <Button
+            label='Watch Movie'
             icon={Play}
+            style={{
+              backgroundColor: accentColor
+            }}
             onPress={() => console.log('Pressed "Watch Movie"')}
-          >
-            Watch Movie
-          </Button>
+          />
           <Button
             icon={Plus}
             variant='secondary'
