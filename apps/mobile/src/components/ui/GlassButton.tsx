@@ -15,7 +15,7 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 
-import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
 interface GlassButtonProps
   extends

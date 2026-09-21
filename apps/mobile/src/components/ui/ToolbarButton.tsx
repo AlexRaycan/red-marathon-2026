@@ -3,7 +3,7 @@ import { GlassView } from 'expo-glass-effect'
 import { ChevronLeft, type LucideIcon, X } from 'lucide-react-native'
 import { Pressable, type PressableProps, StyleSheet, View } from 'react-native'
 
-import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
 interface LeftActionButtonProps extends PressableProps {
   isBackButton?: boolean

@@ -4,7 +4,7 @@ import {
 } from 'expo-glass-effect'
 import { View, type ViewProps } from 'react-native'
 
-import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
 interface Props extends GlassContainerProps, ViewProps {}
 

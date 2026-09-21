@@ -3,7 +3,7 @@ import { GlassView } from 'expo-glass-effect'
 import { type LucideIcon, Sparkle } from 'lucide-react-native'
 import { StyleSheet, View } from 'react-native'
 
-import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
 interface Props {
   accentColor?: string
