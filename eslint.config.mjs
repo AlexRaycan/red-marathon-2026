@@ -97,7 +97,9 @@ export default defineConfig([
       ],
       '@typescript-eslint/no-explicit-any': 'error',
 
-      '@typescript-eslint/require-await': 'off'
+      '@typescript-eslint/require-await': 'off',
+
+      '@typescript-eslint/no-misused-promises': 'off'
     }
   },
   {
