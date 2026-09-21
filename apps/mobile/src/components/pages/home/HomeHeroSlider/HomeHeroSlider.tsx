@@ -1,6 +1,5 @@
 import type { TitleListItemResponse } from '@app/api'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
-import { GlassContainer } from 'expo-glass-effect'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
@@ -11,6 +10,7 @@ import Animated, {
 
 import { TITLE_CARD_CONFIG } from '@/components/title-card/TitleCard.config'
 import { Button } from '@/components/ui/Button'
+import { GlassContainer } from '@/components/ui/GlassContainer'
 
 import { HomeHeroSliderItemCover } from './HomeHeroSliderItemCover'
 import { HomeHeroItemInfo } from './HomeHeroSliderItemInfo'
@@ -38,6 +38,23 @@ export function HomeHeroSlider({ items }: Props) {
   const accentColor = currentItem?.type
     ? (TITLE_CARD_CONFIG[currentItem.type]?.accent ?? 'transparent')
     : 'transparent'
+
+  const ActionSection = (
+    <>
+      <Button
+        label='Watch Movie'
+        icon={Play}
+        tintColor={accentColor}
+        // disabled
+        onPress={() => console.log('Pressed "Watch Movie"')}
+      />
+      <Button
+        icon={Plus}
+        variant='secondary'
+        onPress={() => console.log('Pressed "Add to Watchlist"')}
+      />
+    </>
+  )
 
   return (
     <View style={[styles.root, { height }]}>
@@ -68,7 +85,6 @@ export function HomeHeroSlider({ items }: Props) {
       >
         <HomeHeroItemInfo item={currentItem} />
 
-        {/*<View style={styles.actions}>*/}
         <GlassContainer
           spacing={10}
           style={styles.actions}
@@ -77,7 +93,6 @@ export function HomeHeroSlider({ items }: Props) {
             label='Watch Movie'
             icon={Play}
             tintColor={accentColor}
-            // disabled
             onPress={() => console.log('Pressed "Watch Movie"')}
           />
           <Button
@@ -86,7 +101,6 @@ export function HomeHeroSlider({ items }: Props) {
             onPress={() => console.log('Pressed "Add to Watchlist"')}
           />
         </GlassContainer>
-        {/*</View>*/}
       </View>
       <View style={styles.dots}>
         {items.map((item, index) => {
@@ -115,9 +129,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     gap: SPACINGS[3],
-    flexDirection: 'row',
-    padding: 20,
-    margin: -20
+    flexDirection: 'row'
   },
   dots: {
     position: 'absolute',
