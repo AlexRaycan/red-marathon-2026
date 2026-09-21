@@ -39,6 +39,7 @@
     "typescript-eslint": "^8.69.0"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.102.8"
+    "@tanstack/react-query": "^5.102.8",
+    "hex-to-rgba": "^2.0.1"
   }
 }

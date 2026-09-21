@@ -21,3 +21,6 @@ export const TYPE_LABELS: Record<TitleListItemResponseType, string> = {
 
 export const PROJECT_NAME = 'SagaSet'
 export const AI_NAME = 'SagaCue'
+
+export const ACCESS_TOKEN = 'accessToken'
+export const REFRESH_TOKEN = 'refreshToken'

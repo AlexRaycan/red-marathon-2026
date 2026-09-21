@@ -1,5 +1,5 @@
 import { COLORS, RADIUS, SPACINGS } from '@app/tokens'
-import { GlassView, type GlassViewProps } from 'expo-glass-effect'
+import { type GlassViewProps } from 'expo-glass-effect'
 import { type PropsWithChildren } from 'react'
 import {
   type GestureResponderEvent,
@@ -15,6 +15,7 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 
+import { GlassView } from './GlassView'
 import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
 interface GlassButtonProps

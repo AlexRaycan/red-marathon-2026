@@ -27,6 +27,7 @@
     "expo-symbols": "~57.0.3",
     "expo-system-ui": "~57.0.4",
     "expo-web-browser": "~57.0.3",
+    "hex-to-rgba": "^2.0.1",
     "lucide-react-native": "^1.40.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",

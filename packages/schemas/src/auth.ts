@@ -9,4 +9,4 @@ export const authSchema = z.object({
     .max(100, 'Password must be at most 100 characters')
 }) satisfies z.ZodType<RegisterDto>
 
-export type TAuthSchema = z.infer<typeof authSchema>
+export type TAuthForm = z.infer<typeof authSchema>

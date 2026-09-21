@@ -8,7 +8,12 @@ import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
 interface Props extends GlassContainerProps, ViewProps {}
 
-export function GlassContainer({ children, spacing, style, ...props }: Props) {
+export function GlassContainer({
+  children,
+  spacing = 10,
+  style,
+  ...props
+}: Props) {
   if (!isGlassEffectAvailable()) {
     return (
       <View
