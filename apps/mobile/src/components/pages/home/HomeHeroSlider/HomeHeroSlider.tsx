@@ -1,5 +1,6 @@
 import type { TitleListItemResponse } from '@app/api'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
+import { GlassContainer } from 'expo-glass-effect'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
@@ -67,13 +68,16 @@ export function HomeHeroSlider({ items }: Props) {
       >
         <HomeHeroItemInfo item={currentItem} />
 
-        <View style={styles.actions}>
+        {/*<View style={styles.actions}>*/}
+        <GlassContainer
+          spacing={10}
+          style={styles.actions}
+        >
           <Button
             label='Watch Movie'
             icon={Play}
-            style={{
-              backgroundColor: accentColor
-            }}
+            tintColor={accentColor}
+            // disabled
             onPress={() => console.log('Pressed "Watch Movie"')}
           />
           <Button
@@ -81,7 +85,8 @@ export function HomeHeroSlider({ items }: Props) {
             variant='secondary'
             onPress={() => console.log('Pressed "Add to Watchlist"')}
           />
-        </View>
+        </GlassContainer>
+        {/*</View>*/}
       </View>
       <View style={styles.dots}>
         {items.map((item, index) => {
@@ -110,7 +115,9 @@ const styles = StyleSheet.create({
   },
   actions: {
     gap: SPACINGS[3],
-    flexDirection: 'row'
+    flexDirection: 'row',
+    padding: 20,
+    margin: -20
   },
   dots: {
     position: 'absolute',

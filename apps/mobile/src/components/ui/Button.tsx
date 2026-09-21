@@ -1,9 +1,10 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
 import type { TButtonSize, TButtonVariant } from '@app/types'
+import type { GlassViewProps } from 'expo-glass-effect'
 import type { LucideIcon } from 'lucide-react-native'
-import { type PropsWithChildren, useState } from 'react'
+import { type PropsWithChildren } from 'react'
 import {
-  Pressable,
+  type ColorValue,
   type StyleProp,
   StyleSheet,
   Text,
@@ -11,8 +12,9 @@ import {
 } from 'react-native'
 
 import { GlassButton } from './GlassButton'
+import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
 
-interface Props extends PropsWithChildren {
+interface Props extends PropsWithChildren, GlassViewProps {
   label?: string
   variant?: TButtonVariant
   size?: TButtonSize
@@ -23,7 +25,7 @@ interface Props extends PropsWithChildren {
 }
 
 const CONTENT_COLOR: Record<TButtonVariant, string> = {
-  primary: COLORS.text.primary,
+  primary: COLORS.text.secondary,
   secondary: COLORS.text.primary,
   transparent: COLORS.text.primary
 }
@@ -38,50 +40,58 @@ export function Button({
   variant = 'primary',
   size = 'md',
   icon: Icon,
+  tintColor,
   style,
   disabled,
   children,
   onPress
 }: Props) {
-  const [isPressed, setIsPressed] = useState(false)
-
   const isIconOnly = !children && (!label || label.length === 0) && !!Icon
-  const contentColor = CONTENT_COLOR[variant]
+
+  const hasGlassEffect = isGlassEffectAvailable()
+
+  const contentColor = hasGlassEffect
+    ? COLORS.text.primary
+    : tintColor
+      ? COLORS.text.primary
+      : CONTENT_COLOR[variant]
+
+  const buttonTintColor: Record<TButtonVariant, ColorValue> = {
+    primary:
+      tintColor ??
+      (hasGlassEffect ? 'rgba(255, 255, 255, 0.3)' : COLORS.primary),
+    secondary: hasGlassEffect ? '' : COLORS.bg.card,
+    transparent: 'transparent'
+  }
+
+  // const buttonTintColor =
+  //   variant === 'primary' ? tintColor : 'rgba(255, 255, 255, 0.8)'
 
   return (
-    <Pressable
+    <GlassButton
       onPress={onPress}
       disabled={disabled}
-      style={[styles.root]}
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
+      tintColor={buttonTintColor[variant]}
+      style={[
+        style,
+        sizeStyles[size],
+        // variantSyles[variant],
+        isIconOnly && [styles.iconOnly, iconOnlySizes[size]]
+      ]}
     >
-      <GlassButton
-        style={[
-          style,
-          sizeStyles[size],
-          variantSyles[variant],
-          isIconOnly && [styles.iconOnly, iconOnlySizes[size]],
-          isPressed && styles.pressed,
-          disabled && styles.disabled
-        ]}
-      >
-        {Icon && (
-          <Icon
-            size={!isIconOnly ? ICON_SIZE[size] : ICON_SIZE[size] + 4}
-            color={contentColor}
-          />
-        )}
-        {label && (
-          <Text
-            style={[styles.label, labelSizes[size], { color: contentColor }]}
-          >
-            {label}
-          </Text>
-        )}
-        {children}
-      </GlassButton>
-    </Pressable>
+      {Icon && (
+        <Icon
+          size={!isIconOnly ? ICON_SIZE[size] : ICON_SIZE[size] + 4}
+          color={contentColor}
+        />
+      )}
+      {label && (
+        <Text style={[styles.label, labelSizes[size], { color: contentColor }]}>
+          {label}
+        </Text>
+      )}
+      {children}
+    </GlassButton>
   )
 }
 
@@ -91,27 +101,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     aspectRatio: 1
   },
-  pressed: {
-    opacity: 0.7
-  },
-  disabled: {
-    opacity: 0.4
-  },
   label: {
     fontWeight: FONT_WEIGHT.semibold,
     color: COLORS.text.primary
   }
 })
 
-const variantSyles = StyleSheet.create({
-  primary: {},
+/* const variantSyles = StyleSheet.create({
   secondary: {
     backgroundColor: 'transparent'
-  },
-  transparent: {
-    backgroundColor: 'transparent'
   }
-})
+}) */
 
 const sizeStyles = StyleSheet.create({
   md: {

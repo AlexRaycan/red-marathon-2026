@@ -1,7 +1,9 @@
 import { COLORS, RADIUS } from '@app/tokens'
-import { GlassView, isGlassEffectAPIAvailable } from 'expo-glass-effect'
+import { GlassView } from 'expo-glass-effect'
 import { ChevronLeft, type LucideIcon, X } from 'lucide-react-native'
 import { Pressable, type PressableProps, StyleSheet, View } from 'react-native'
+
+import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
 
 interface LeftActionButtonProps extends PressableProps {
   isBackButton?: boolean
@@ -21,7 +23,7 @@ export const LeftActionButton = ({
 
   if (!Icon) return null
 
-  if (!isGlassEffectAPIAvailable) {
+  if (!isGlassEffectAvailable()) {
     return (
       <Pressable
         hitSlop={12}

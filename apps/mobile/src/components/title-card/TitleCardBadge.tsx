@@ -1,7 +1,9 @@
 import { COLORS, RADIUS, SPACINGS } from '@app/tokens'
-import { GlassView, isGlassEffectAPIAvailable } from 'expo-glass-effect'
+import { GlassView } from 'expo-glass-effect'
 import { type LucideIcon, Sparkle } from 'lucide-react-native'
 import { StyleSheet, View } from 'react-native'
+
+import { isGlassEffectAvailable } from '@/lib/is-glass-effect-available'
 
 interface Props {
   accentColor?: string
@@ -14,7 +16,7 @@ export function TitleCardBadge({
 }: Props) {
   return (
     <View style={styles.badge}>
-      {isGlassEffectAPIAvailable() ? (
+      {isGlassEffectAvailable() ? (
         <GlassView
           glassEffectStyle='clear'
           style={[
