@@ -2,7 +2,13 @@ import type { TitleListItemResponse } from '@app/api'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
-import { StyleSheet, View, useWindowDimensions } from 'react-native'
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  StyleSheet,
+  View,
+  useWindowDimensions
+} from 'react-native'
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
@@ -31,6 +37,14 @@ export function HomeHeroSlider({ items }: Props) {
     scrollX.set(e.contentOffset.x)
   })
 
+  const onMomentumScrollEnd = (
+    event: NativeSyntheticEvent<NativeScrollEvent>
+  ) => {
+    const { contentOffset } = event.nativeEvent
+    const index = Math.round(contentOffset.x / width)
+    setIndex(index)
+  }
+
   if (!items.length) return null
 
   const height = width * 1.35
@@ -38,23 +52,6 @@ export function HomeHeroSlider({ items }: Props) {
   const accentColor = currentItem?.type
     ? (TITLE_CARD_CONFIG[currentItem.type]?.accent ?? 'transparent')
     : 'transparent'
-
-  const ActionSection = (
-    <>
-      <Button
-        label='Watch Movie'
-        icon={Play}
-        tintColor={accentColor}
-        // disabled
-        onPress={() => console.log('Pressed "Watch Movie"')}
-      />
-      <Button
-        icon={Plus}
-        variant='secondary'
-        onPress={() => console.log('Pressed "Add to Watchlist"')}
-      />
-    </>
-  )
 
   return (
     <View style={[styles.root, { height }]}>
@@ -70,11 +67,7 @@ export function HomeHeroSlider({ items }: Props) {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={event => {
-          const { contentOffset } = event.nativeEvent
-          const newIndex = Math.round(contentOffset.x / width)
-          setIndex(newIndex)
-        }}
+        onMomentumScrollEnd={onMomentumScrollEnd}
         style={StyleSheet.absoluteFill}
         onScroll={handleScroll}
       />
@@ -87,6 +80,7 @@ export function HomeHeroSlider({ items }: Props) {
 
         <GlassContainer
           spacing={10}
+          pointerEvents='box-none'
           style={styles.actions}
         >
           <Button

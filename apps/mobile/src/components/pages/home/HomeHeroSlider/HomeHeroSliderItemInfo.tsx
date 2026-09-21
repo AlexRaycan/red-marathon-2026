@@ -1,11 +1,11 @@
 import type { TitleListItemResponse } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, type ViewProps } from 'react-native'
 import Animated, { FadeInUp, FadeOutDown } from 'react-native-reanimated'
 
 const DURATION_MS = 300
 
-interface HomeHeroItemInfoProps {
+interface HomeHeroItemInfoProps extends ViewProps {
   item?: TitleListItemResponse
 }
 
@@ -15,7 +15,10 @@ export function HomeHeroItemInfo({ item }: HomeHeroItemInfoProps) {
     FadeOutDown.duration(DURATION_MS / 2).delay(delay)
 
   return (
-    <View style={styles.root}>
+    <View
+      pointerEvents='none'
+      style={styles.root}
+    >
       <Animated.Text
         key={`heroSliderItemInfo_name_${item?.id}`}
         numberOfLines={2}
