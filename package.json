@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --fix",
     "ts-check": "pnpm -r exec tsc --noEmit",
     "format": "prettier --write .",
-    "backend:dev": "ssh -N -T -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 127.0.0.1:4000:127.0.0.1:14000 oracle_arm"
+    "backend:dev": "ssh -N -T -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 192.168.0.14:4000:127.0.0.1:14000 oracle_arm"
   },
   "keywords": [],
   "author": "",
