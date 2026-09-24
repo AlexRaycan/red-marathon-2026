@@ -56,6 +56,7 @@ export function Button({
       ? COLORS.text.primary
       : CONTENT_COLOR[variant]
 
+  // tintColor принимать извне, тут только отрабатываем его отсуствие
   const buttonTintColor: Record<TButtonVariant, ColorValue> = {
     primary:
       tintColor ??
@@ -71,7 +72,7 @@ export function Button({
     <GlassButton
       onPress={onPress}
       disabled={disabled}
-      tintColor={buttonTintColor[variant]}
+      tintColor={tintColor ?? buttonTintColor[variant]}
       style={[
         style,
         sizeStyles[size],

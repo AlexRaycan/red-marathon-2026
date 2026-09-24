@@ -1,11 +1,12 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { BlurView } from 'expo-blur'
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import {
   type StyleProp,
   StyleSheet,
   Text,
   View,
+  type ViewProps,
   type ViewStyle
 } from 'react-native'
 import Animated, {
@@ -17,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { LeftActionButton } from './ToolbarButton'
 
-interface Props extends PropsWithChildren {
+interface Props extends ViewProps {
   scrollY?: SharedValue<number>
   leftSide?: ReactNode | string
   rightSide?: ReactNode
@@ -42,6 +43,8 @@ export function Toolbar({
   const blurStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY?.get() ?? 0, [0, 100], [0, 1], 'clamp')
   }))
+
+  // TOFIX: разобраться с отступом сверху
 
   return (
     <View

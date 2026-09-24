@@ -3,14 +3,12 @@ import { LAYOUT } from '@app/tokens'
 import { HomeHeader } from '@components/pages/home/HomeHeader'
 import { HomeHeroSlider } from '@components/pages/home/HomeHeroSlider/HomeHeroSlider'
 import { HomeSliders } from '@components/pages/home/HomeSliders'
-import { router } from 'expo-router'
 import { StyleSheet, View } from 'react-native'
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
 } from 'react-native-reanimated'
 
-import { Button } from '@/components/ui/Button'
 import { Screen } from '@/components/ui/Screen'
 
 export const SAMPLE_TITLES: TitleListItemResponse[] = [
@@ -91,10 +89,10 @@ export default function Index() {
           <HomeHeroSlider items={SAMPLE_TITLES} />
 
           <HomeSliders items={SAMPLE_TITLES} />
-          <Button
+          {/* <Button
             label='Sign up'
             onPress={() => router.push('/register')}
-          />
+          /> */}
         </Animated.ScrollView>
       </View>
     </Screen>

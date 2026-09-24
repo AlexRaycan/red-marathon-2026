@@ -19,6 +19,10 @@ export class ApiError extends Error {
 }
 
 export const http = async <T>(url: string, init?: RequestInit): Promise<T> => {
+  if (!baseUrl) {
+    throw new Error('API is not configured. Please call configureApi() first.')
+  }
+
   const token = await getToken()
 
   const response = await fetch(`${baseUrl}${url}`, {
@@ -37,7 +41,8 @@ export const http = async <T>(url: string, init?: RequestInit): Promise<T> => {
     throw new ApiError(response.status, Array.isArray(raw) ? raw : [raw])
   }
 
-  if (response.status === 204) return undefined as T
+  const data =
+    response.status === 204 ? undefined : ((await response.json()) as T)
 
-  return response.json() as Promise<T>
+  return { data, status: response.status, headers: response.headers } as T
 }

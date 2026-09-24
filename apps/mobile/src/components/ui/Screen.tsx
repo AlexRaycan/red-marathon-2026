@@ -1,4 +1,4 @@
-import { COLORS, SPACINGS } from '@app/tokens'
+import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { Platform, StyleSheet } from 'react-native'
 import {
   SafeAreaView,
@@ -10,11 +10,13 @@ const currentPlatform = Platform.OS
 
 interface Props extends SafeAreaViewProps {
   isInfitinyMode?: boolean
+  withPaddings?: boolean
 }
 
 export function Screen({
   edges = ['top'],
   isInfitinyMode,
+  withPaddings,
   style,
   children,
   ...props
@@ -27,7 +29,15 @@ export function Screen({
     <SafeAreaView
       {...props}
       edges={edges}
-      style={[styles.root, isInfitinyMode && { marginTop }, style]}
+      style={[
+        styles.root,
+        isInfitinyMode && { marginTop },
+        withPaddings && {
+          paddingHorizontal: LAYOUT['space-horizontal'],
+          paddingBottom: inset.bottom + LAYOUT['space-vertical']
+        },
+        style
+      ]}
     >
       {children}
     </SafeAreaView>
