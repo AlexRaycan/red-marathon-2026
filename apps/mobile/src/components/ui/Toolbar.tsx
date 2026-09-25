@@ -14,7 +14,6 @@ import Animated, {
   interpolate,
   useAnimatedStyle
 } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { LeftActionButton } from './ToolbarButton'
 
@@ -24,6 +23,7 @@ interface Props extends ViewProps {
   rightSide?: ReactNode
   isBackButton?: boolean
   isCloseButton?: boolean
+  withBlur?: boolean
   style?: StyleProp<ViewStyle>
   onPress?: () => void
 }
@@ -34,12 +34,11 @@ export function Toolbar({
   rightSide,
   isBackButton,
   isCloseButton,
+  withBlur,
   style,
   children,
   onPress
 }: Props) {
-  const insets = useSafeAreaInsets()
-
   const blurStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY?.get() ?? 0, [0, 100], [0, 1], 'clamp')
   }))
@@ -51,25 +50,20 @@ export function Toolbar({
       style={[styles.root, style]}
       pointerEvents='box-none'
     >
-      <Animated.View
-        pointerEvents='box-none'
-        style={[StyleSheet.absoluteFill, blurStyle]}
-      >
-        <BlurView
-          intensity={80}
-          tint='systemChromeMaterialDark'
-          style={StyleSheet.absoluteFill}
-        />
-        <View style={styles.overlay} />
-      </Animated.View>
-      <View
-        style={[
-          styles.contentWrapper,
-          {
-            paddingTop: insets.top * 2
-          }
-        ]}
-      >
+      {withBlur && (
+        <Animated.View
+          pointerEvents='box-none'
+          style={[StyleSheet.absoluteFill, blurStyle]}
+        >
+          <BlurView
+            intensity={80}
+            tint='systemChromeMaterialDark'
+            style={StyleSheet.absoluteFill}
+          />
+          <View style={styles.overlay} />
+        </Animated.View>
+      )}
+      <View style={[styles.contentWrapper]}>
         <View style={[styles.content, styles.leftContent]}>
           <LeftActionButton
             isBackButton={isBackButton}
@@ -93,27 +87,20 @@ export function Toolbar({
 
 const styles = StyleSheet.create({
   root: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
     zIndex: 10,
-    paddingBottom: LAYOUT['space-horizontal'],
+    paddingBottom: LAYOUT['space-vertical'],
     overflow: 'hidden'
   },
   overlay: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    inset: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.45)'
   },
   contentWrapper: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: LAYOUT['space-horizontal'],
     gap: SPACINGS[2]
   },
   content: {

@@ -65,10 +65,10 @@ export function GlassButton({
         onPressOut={handlePressOut}
         disabled={disabled}
         style={[
-          style,
           { backgroundColor: disabled ? COLORS.primary : tintColor },
           styles.buttonContainer,
           styles.button,
+          style,
           disabled && styles.disabled,
           animated
         ]}
@@ -91,7 +91,7 @@ export function GlassButton({
         disabled={disabled}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        style={[style, styles.button]}
+        style={[styles.button, style]}
         {...props}
       >
         {children}

@@ -6,12 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { router } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { Controller, useForm } from 'react-hook-form'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text } from 'react-native'
 
 import { Button } from '@/components/ui/Button'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { Input } from '@/components/ui/Input'
 import { Screen } from '@/components/ui/Screen'
+import { ViewLayout } from '@/components/ui/ViewLayout'
 
 interface AuthFormProps {
   type: keyof typeof AUTH_CONTENT
@@ -29,8 +30,8 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
 
   return (
     <Screen withPaddings>
-      <View style={styles.root}>
-        <View style={styles.center}>
+      <ViewLayout.Root>
+        <ViewLayout.Center style={styles.center}>
           <Text style={styles.title}>{content.title}</Text>
 
           <GlassContainer style={styles.form}>
@@ -83,7 +84,7 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
               onPress={handleSubmit(onSubmit)}
             />
           </GlassContainer>
-        </View>
+        </ViewLayout.Center>
 
         <Pressable onPress={() => router.replace(content.footerHref)}>
           <Text style={styles.link}>
@@ -91,18 +92,13 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
             <Text style={styles.linkAccent}>{content.footerAction}</Text>
           </Text>
         </Pressable>
-      </View>
+      </ViewLayout.Root>
     </Screen>
   )
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1
-  },
   center: {
-    flex: 1,
-    justifyContent: 'center',
     gap: SPACINGS[10]
   },
   title: {

@@ -9,16 +9,18 @@ export const HomeHeroSliderItemCover = ({
   item,
   style
 }: {
-  item: TitleListItemResponse
+  item?: TitleListItemResponse
   style?: StyleProp<ViewStyle>
 }) => (
   <View style={[style]}>
-    <Image
-      source={item.coverUrl}
-      contentFit='cover'
-      transition={300}
-      style={StyleSheet.absoluteFill}
-    />
+    {item && (
+      <Image
+        source={item.coverUrl}
+        contentFit='cover'
+        transition={300}
+        style={StyleSheet.absoluteFill}
+      />
+    )}
     <LinearGradient
       colors={[
         'rgba(2, 0, 3, 0.7)',

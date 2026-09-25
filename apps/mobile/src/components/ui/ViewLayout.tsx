@@ -1,17 +1,38 @@
-import { LAYOUT } from '@app/tokens'
-import type { PropsWithChildren } from 'react'
-import { type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native'
+import { StyleSheet, View, type ViewProps } from 'react-native'
 
-interface Props extends PropsWithChildren {
-  style?: StyleProp<ViewStyle>
+function ViewLayoutRoot({ style, children, ...props }: ViewProps) {
+  return (
+    <View
+      style={[styles.root, style]}
+      {...props}
+    >
+      {children}
+    </View>
+  )
 }
 
-export function ViewLayout({ style, children }: Props) {
-  return <View style={[style, styles.root]}>{children}</View>
+function ViewLayoutCenter({ style, children, ...props }: ViewProps) {
+  return (
+    <View
+      style={[styles.centered, style]}
+      {...props}
+    >
+      {children}
+    </View>
+  )
+}
+
+export const ViewLayout = {
+  Root: ViewLayoutRoot,
+  Center: ViewLayoutCenter
 }
 
 const styles = StyleSheet.create({
   root: {
-    marginHorizontal: LAYOUT['space-horizontal']
+    flex: 1
+  },
+  centered: {
+    flex: 1,
+    justifyContent: 'center'
   }
 })

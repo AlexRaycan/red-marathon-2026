@@ -10,3 +10,8 @@ export const authSchema = z.object({
 }) satisfies z.ZodType<RegisterDto>
 
 export type TAuthForm = z.infer<typeof authSchema>
+
+export const authTokenSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string()
+})

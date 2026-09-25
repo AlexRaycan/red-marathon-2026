@@ -2,25 +2,36 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
 import type { TButtonSize, TButtonVariant } from '@app/types'
 import type { GlassViewProps } from 'expo-glass-effect'
 import type { LucideIcon } from 'lucide-react-native'
-import { type PropsWithChildren } from 'react'
 import {
   type ColorValue,
   type StyleProp,
   StyleSheet,
   Text,
+  View,
   type ViewStyle
 } from 'react-native'
 
 import { GlassButton } from './GlassButton'
 import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
-interface Props extends PropsWithChildren, GlassViewProps {
+const _CONTENT_TYPES = {
+  CONTENT: 'content',
+  MAIN_CONTENT: 'mainContent'
+} as const
+
+interface Props extends GlassViewProps {
   label?: string
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
   disabled?: boolean
   style?: StyleProp<ViewStyle>
+  contentStyle?: Partial<
+    Record<
+      (typeof _CONTENT_TYPES)[keyof typeof _CONTENT_TYPES],
+      StyleProp<ViewStyle>
+    >
+  >
   onPress?: () => void
 }
 
@@ -42,6 +53,7 @@ export function Button({
   icon: Icon,
   tintColor,
   style,
+  contentStyle,
   disabled,
   children,
   onPress
@@ -74,30 +86,48 @@ export function Button({
       disabled={disabled}
       tintColor={tintColor ?? buttonTintColor[variant]}
       style={[
-        style,
         sizeStyles[size],
         // variantSyles[variant],
-        isIconOnly && [styles.iconOnly, iconOnlySizes[size]]
+        isIconOnly && [styles.iconOnly, iconOnlySizes[size]],
+        style
       ]}
     >
-      {Icon && (
-        <Icon
-          size={!isIconOnly ? ICON_SIZE[size] : ICON_SIZE[size] + 4}
-          color={contentColor}
-        />
-      )}
-      {label && (
-        <Text style={[styles.label, labelSizes[size], { color: contentColor }]}>
-          {label}
-        </Text>
-      )}
-      {children}
+      <View style={[styles.content, contentStyle?.content]}>
+        <View style={[styles.mainContent, contentStyle?.mainContent]}>
+          {Icon && (
+            <Icon
+              size={!isIconOnly ? ICON_SIZE[size] : ICON_SIZE[size] + 4}
+              color={contentColor}
+            />
+          )}
+          {label && (
+            <Text
+              style={[styles.label, labelSizes[size], { color: contentColor }]}
+            >
+              {label}
+            </Text>
+          )}
+        </View>
+        {children}
+      </View>
     </GlassButton>
   )
 }
 
 const styles = StyleSheet.create({
-  root: {},
+  content: {
+    // flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: SPACINGS[2]
+  },
+  mainContent: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: SPACINGS[2]
+  },
   iconOnly: {
     paddingHorizontal: 0,
     aspectRatio: 1
