@@ -223,24 +223,6 @@ const menuStyles = StyleSheet.create({
     borderRadius: RADIUS.lg,
     overflow: 'hidden'
   },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: SPACINGS[5],
-    borderBottomColor: hexToRgba(COLORS.primary, 0.1),
-    borderBottomWidth: 1
-  },
-  mainContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACINGS[3]
-  },
-  label: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE.sm,
-    fontWeight: FONT_WEIGHT.bold
-  },
   premium: {
     color: COLORS.text.muted,
     fontSize: FONT_SIZE.xs,
