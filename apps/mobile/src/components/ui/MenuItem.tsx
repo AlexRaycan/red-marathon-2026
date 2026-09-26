@@ -14,6 +14,7 @@ interface MenuItemProps extends PressableProps {
   label: string
   icon?: LucideIcon
   withChevron?: boolean
+  isLastItem?: boolean
   children?: ReactNode
 }
 
@@ -21,12 +22,17 @@ export function MenuItem({
   label,
   icon: Icon,
   withChevron,
+  isLastItem,
   children,
   ...props
 }: MenuItemProps) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.root, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.root,
+        pressed && styles.pressed,
+        isLastItem && styles.lastItem
+      ]}
       {...props}
     >
       <View style={styles.content}>
@@ -60,6 +66,9 @@ const styles = StyleSheet.create({
     paddingVertical: SPACINGS[5],
     borderBottomColor: hexToRgba(COLORS.primary, 0.1),
     borderBottomWidth: 1
+  },
+  lastItem: {
+    borderBottomColor: 'transparent'
   },
   pressed: {
     backgroundColor: COLORS.bg.card

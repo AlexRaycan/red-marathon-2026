@@ -1,11 +1,11 @@
 import { PROJECT_NAME } from '@app/constants'
 import { LAYOUT } from '@app/tokens'
-import { Toolbar } from '@components/ui/Toolbar'
 import { Bell } from 'lucide-react-native'
 import { StyleSheet } from 'react-native'
 import { type SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { Toolbar } from '@/components/toolbar/Toolbar'
 import { Button } from '@/components/ui/Button'
 
 interface IHomeHeaderProps {

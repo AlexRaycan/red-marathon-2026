@@ -14,8 +14,9 @@ import Animated, {
   interpolate,
   useAnimatedStyle
 } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { LeftActionButton } from './ToolbarButton'
+import { ToolbarActionButton } from './ToolbarActionButton'
 
 interface Props extends ViewProps {
   scrollY?: SharedValue<number>
@@ -24,6 +25,7 @@ interface Props extends ViewProps {
   isBackButton?: boolean
   isCloseButton?: boolean
   withBlur?: boolean
+  isAbsolute?: boolean
   style?: StyleProp<ViewStyle>
   onPress?: () => void
 }
@@ -35,19 +37,30 @@ export function Toolbar({
   isBackButton,
   isCloseButton,
   withBlur,
+  isAbsolute,
   style,
   children,
   onPress
 }: Props) {
+  const insets = useSafeAreaInsets()
+
   const blurStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY?.get() ?? 0, [0, 100], [0, 1], 'clamp')
   }))
 
-  // TOFIX: разобраться с отступом сверху
-
   return (
     <View
-      style={[styles.root, style]}
+      style={[
+        styles.root,
+        style,
+        isAbsolute && [
+          StyleSheet.absoluteFill,
+          {
+            paddingTop: insets.top * 2,
+            paddingHorizontal: LAYOUT['space-horizontal']
+          }
+        ]
+      ]}
       pointerEvents='box-none'
     >
       {withBlur && (
@@ -63,9 +76,10 @@ export function Toolbar({
           <View style={styles.overlay} />
         </Animated.View>
       )}
+
       <View style={[styles.contentWrapper]}>
         <View style={[styles.content, styles.leftContent]}>
-          <LeftActionButton
+          <ToolbarActionButton
             isBackButton={isBackButton}
             isCloseButton={isCloseButton}
             onPress={onPress}
@@ -116,7 +130,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.text.primary,
-    fontSize: FONT_SIZE['2xl'],
+    textAlign: 'center',
+    fontSize: FONT_SIZE['1.5xl'],
     fontWeight: FONT_WEIGHT.bold
   }
 })

@@ -1,9 +1,24 @@
 import { StyleSheet, View, type ViewProps } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-function ViewLayoutRoot({ style, children, ...props }: ViewProps) {
+interface ViewLayoutRootProps extends ViewProps {
+  isInfinity?: boolean
+  withToolbar?: boolean
+}
+
+function ViewLayoutRoot({
+  style,
+  children,
+  isInfinity,
+  withToolbar,
+  ...props
+}: ViewLayoutRootProps) {
+  const insets = useSafeAreaInsets()
+  const marginTop = withToolbar ? insets.top + 44 : insets.top
+
   return (
     <View
-      style={[styles.root, style]}
+      style={[styles.root, style, isInfinity && { marginTop }]}
       {...props}
     >
       {children}
