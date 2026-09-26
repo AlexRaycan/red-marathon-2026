@@ -101,6 +101,7 @@ export default function Account() {
                     {...item}
                     key={item.label}
                     isLastItem={index === ACCOUNT_MENU_ITEMS.length - 1}
+                    withChevron
                   >
                     {item.content && (
                       <Text style={menuStyles.premium}>{item.content}</Text>
