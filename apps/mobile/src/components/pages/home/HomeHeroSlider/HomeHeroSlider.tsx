@@ -52,6 +52,8 @@ export function HomeHeroSlider({ items: allItems }: Props) {
     ? (TITLE_CARD_CONFIG[currentItem.type]?.accent ?? 'transparent')
     : 'transparent'
 
+  if (!items.length) return null
+
   return (
     <View style={[styles.root, { height }]}>
       <Animated.FlatList

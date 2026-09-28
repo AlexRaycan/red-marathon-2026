@@ -66,16 +66,23 @@ export function HomeSliders({ items: allItems }: HomeSlidersProps) {
 
   const cardWidth = (windowWidth - totalGap) / cardCountMultiplier
 
+  if (!allItems.length) return null
+
   return (
     <View style={styles.root}>
-      <HomeTopPickSlider
-        width={cardWidth}
-        items={topPicksItems}
-      />
-      <HomePopularNowSlider
-        width={cardWidth}
-        items={popularNowItems}
-      />
+      {!!topPicksItems.length && (
+        <HomeTopPickSlider
+          width={cardWidth}
+          items={topPicksItems}
+        />
+      )}
+
+      {!!popularNowItems.length && (
+        <HomePopularNowSlider
+          width={cardWidth}
+          items={popularNowItems}
+        />
+      )}
     </View>
   )
 }

@@ -30,38 +30,44 @@ export function HomeHeroItemInfo({ item }: HomeHeroItemInfoProps) {
       pointerEvents='none'
       style={styles.root}
     >
-      <Animated.Text
-        key={`heroSliderItemInfo_name_${itemDetails?.key}`}
-        numberOfLines={2}
-        entering={entering()}
-        exiting={exiting()}
-        style={[styles.name]}
-      >
-        {itemDetails?.name}
-      </Animated.Text>
-
-      <Animated.Text
-        key={`heroSliderItemInfo_genres_${itemDetails?.key}`}
-        numberOfLines={1}
-        entering={entering(50)}
-        exiting={exiting(50)}
-        style={styles.genres}
-      >
-        {itemDetails?.genres.join(' • ')}
-      </Animated.Text>
-
-      <Animated.View
-        key={`heroSliderItemInfo_description_${itemDetails?.key}`}
-        entering={entering(100)}
-        exiting={exiting(100)}
-      >
+      {itemDetails.name && (
         <Animated.Text
+          key={`heroSliderItemInfo_name_${itemDetails?.key}`}
           numberOfLines={2}
-          style={styles.description}
+          entering={entering()}
+          exiting={exiting()}
+          style={[styles.name]}
         >
-          {itemDetails?.description}
+          {itemDetails?.name}
         </Animated.Text>
-      </Animated.View>
+      )}
+
+      {!!itemDetails.genres.length && (
+        <Animated.Text
+          key={`heroSliderItemInfo_genres_${itemDetails?.key}`}
+          numberOfLines={1}
+          entering={entering(50)}
+          exiting={exiting(50)}
+          style={styles.genres}
+        >
+          {itemDetails?.genres.slice(0, 3).join(' • ')}
+        </Animated.Text>
+      )}
+
+      {itemDetails?.description && (
+        <Animated.View
+          key={`heroSliderItemInfo_description_${itemDetails?.key}`}
+          entering={entering(100)}
+          exiting={exiting(100)}
+        >
+          <Animated.Text
+            numberOfLines={2}
+            style={styles.description}
+          >
+            {itemDetails?.description}
+          </Animated.Text>
+        </Animated.View>
+      )}
     </View>
   )
 }

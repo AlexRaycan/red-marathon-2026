@@ -24,8 +24,6 @@ export default function Index() {
   })
 
   const items = data?.data ?? []
-  const heroItems = items.slice(0, 5)
-  const trendingItems = items.slice(5)
 
   return (
     <Screen isInfitinyMode>
