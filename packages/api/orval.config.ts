@@ -1,8 +1,14 @@
+import { loadEnvFile } from 'node:process'
 import { defineConfig } from 'orval'
+
+loadEnvFile(new URL('./.env', import.meta.url))
+
+const baseUrl = process.env.BASE_URL
+if (!baseUrl) throw new Error('BASE_URL не задан в packages/api/.env')
 
 export default defineConfig({
   api: {
-    input: 'http://localhost:4000/api/docs-json',
+    input: `${baseUrl}/api/docs-json`,
     output: {
       mode: 'tags-split',
       target: './src/generated/endpoints.ts',
