@@ -8,6 +8,7 @@ import hexToRgba from 'hex-to-rgba'
 import { Controller, useForm } from 'react-hook-form'
 import { Pressable, StyleSheet, Text } from 'react-native'
 
+import { Toolbar } from '@/components/toolbar/Toolbar'
 import { Button } from '@/components/ui/Button'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { Input } from '@/components/ui/Input'
@@ -30,6 +31,11 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
 
   return (
     <Screen withPaddings>
+      <Toolbar
+        isBackButton
+        isAbsolute
+      />
+
       <ViewLayout.Root>
         <ViewLayout.Center style={styles.center}>
           <Text style={styles.title}>{content.title}</Text>
@@ -86,7 +92,14 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
           </GlassContainer>
         </ViewLayout.Center>
 
-        <Pressable onPress={() => router.replace(content.footerHref)}>
+        <Pressable
+          style={({ pressed }) => ({
+            ...styles.textButton,
+            ...{ marginBottom: -SPACINGS[2] },
+            opacity: pressed ? 0.7 : 1
+          })}
+          onPress={() => router.replace(content.footerHref)}
+        >
           <Text style={styles.link}>
             {content.footerText}{' '}
             <Text style={styles.linkAccent}>{content.footerAction}</Text>
@@ -115,6 +128,14 @@ const styles = StyleSheet.create({
   },
   error: {
     color: COLORS.status.error,
+    fontSize: FONT_SIZE.sm,
+    textAlign: 'center'
+  },
+  textButton: {
+    paddingVertical: SPACINGS[2]
+  },
+  subText: {
+    color: COLORS.text['little-muted'],
     fontSize: FONT_SIZE.sm,
     textAlign: 'center'
   },

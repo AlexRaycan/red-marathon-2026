@@ -56,7 +56,7 @@ export function Toolbar({
         isAbsolute && [
           StyleSheet.absoluteFill,
           {
-            paddingTop: insets.top * 2,
+            paddingTop: insets.top,
             paddingHorizontal: LAYOUT['space-horizontal']
           }
         ]

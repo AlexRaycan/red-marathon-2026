@@ -14,6 +14,14 @@ export const ToolbarActionButton = ({
   isCloseButton,
   onPress
 }: ToolbarActionButtonProps) => {
+  const handleBack = () => {
+    if (router.canGoBack()) {
+      router.back() // Safely goes back to the previous screen
+    } else {
+      router.replace('/') // Fallback to home page if no history exists
+    }
+  }
+
   const Icon: LucideIcon | null =
     isBackButton && !isCloseButton
       ? ChevronLeft
@@ -27,7 +35,7 @@ export const ToolbarActionButton = ({
     <Button
       icon={Icon}
       variant='secondary'
-      {...(isBackButton ? { onPress: router.back } : { onPress: onPress })}
+      {...(isBackButton ? { onPress: handleBack } : { onPress: onPress })}
     />
   )
 }
