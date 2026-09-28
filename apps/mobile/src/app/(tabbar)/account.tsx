@@ -6,7 +6,6 @@ import hexToRgba from 'hex-to-rgba'
 import { Bell, CreditCard, LogOut, Users2 } from 'lucide-react-native'
 import { Heart } from 'lucide-react-native/icons'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AccountUserInfo } from '@/components/pages/account/AccountUserInfo'
 import { Toolbar } from '@/components/toolbar/Toolbar'
@@ -44,8 +43,6 @@ const ACCOUNT_MENU_ITEMS = [
 ]
 
 export default function Account() {
-  const inset = useSafeAreaInsets()
-
   const queryClient = useQueryClient()
   const { data, isPending: isLoading, isError } = useUserFindMe()
 
@@ -110,17 +107,6 @@ export default function Account() {
                 ))}
               </GlassView>
             </ScrollView>
-
-            {/* <View style={styles.fullWidth}>
-              <Button
-                label='Sign Out'
-                icon={LogOut}
-                variant='secondary'
-                tintColor={hexToRgba(COLORS.status.error, 0.3)}
-                disabled={isPending}
-                onPress={handleLogout}
-              />
-            </View> */}
           </View>
 
           {/*{__DEV__ && <TokenDebug />}*/}
