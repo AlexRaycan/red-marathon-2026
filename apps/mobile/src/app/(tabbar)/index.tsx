@@ -82,6 +82,8 @@ export default function Index() {
     scrollY.set(e.contentOffset.y)
   })
 
+  if (status !== 200 && isPending) return null
+
   if (!items) return null
 
   return (
@@ -100,10 +102,6 @@ export default function Index() {
           <HomeHeroSlider items={items} />
 
           <HomeSliders items={items} />
-          {/* <Button
-            label='Sign up'
-            onPress={() => router.push('/register')}
-          /> */}
         </Animated.ScrollView>
       </View>
     </Screen>
