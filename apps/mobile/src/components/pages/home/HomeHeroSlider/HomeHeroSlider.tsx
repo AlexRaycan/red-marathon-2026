@@ -1,4 +1,4 @@
-import type { TitleListItemResponse } from '@app/api'
+import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
@@ -23,7 +23,7 @@ import { HomeHeroItemInfo } from './HomeHeroSliderItemInfo'
 import { PaginationDot } from './PaginationDot'
 
 interface Props {
-  items: TitleListItemResponse[]
+  items: DiscoverItemResponse[]
 }
 
 export function HomeHeroSlider({ items }: Props) {
@@ -63,7 +63,7 @@ export function HomeHeroSlider({ items }: Props) {
             style={{ width, height }}
           />
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.key}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}

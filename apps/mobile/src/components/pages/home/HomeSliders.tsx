@@ -1,4 +1,4 @@
-import type { TitleListItemResponse } from '@app/api'
+import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { SPACINGS } from '@app/tokens'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 
@@ -6,7 +6,7 @@ import { Carousel } from '@/components/carousel/Carousel'
 import { TitleCard } from '@/components/title-card/TitleCard'
 
 interface Props {
-  items: TitleListItemResponse[]
+  items: DiscoverItemResponse[]
   width: number
 }
 
@@ -18,7 +18,7 @@ function HomeTopPickSlider({ items, width }: Props) {
     >
       {items.map(item => (
         <TitleCard
-          key={item.id}
+          key={item.key}
           title={item}
           width={width}
           onPress={() => console.warn({ ...item })}
@@ -36,7 +36,7 @@ function HomePopularNowSlider({ items, width }: Props) {
     >
       {items.map(item => (
         <TitleCard
-          key={item.id}
+          key={item.key}
           title={item}
           width={width}
           onPress={() => console.warn({ ...item })}
@@ -47,7 +47,7 @@ function HomePopularNowSlider({ items, width }: Props) {
 }
 
 interface HomeSlidersProps {
-  items: TitleListItemResponse[]
+  items: DiscoverItemResponse[]
 }
 
 export function HomeSliders({ items }: HomeSlidersProps) {

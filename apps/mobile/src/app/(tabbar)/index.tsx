@@ -1,13 +1,14 @@
-import type { TitleListItemResponse } from '@app/api'
+import { type TitleListItemResponse, useDiscoverGetTrending } from '@app/api'
 import { LAYOUT } from '@app/tokens'
 import { HomeHeader } from '@components/pages/home/HomeHeader'
 import { HomeHeroSlider } from '@components/pages/home/HomeHeroSlider/HomeHeroSlider'
 import { HomeSliders } from '@components/pages/home/HomeSliders'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
 } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Screen } from '@/components/ui/Screen'
 
@@ -69,11 +70,19 @@ export const SAMPLE_TITLES: TitleListItemResponse[] = [
 ]
 
 export default function Index() {
+  const inset = useSafeAreaInsets()
+
+  const { data, isPending } = useDiscoverGetTrending({ take: 10 })
+
+  const { data: items, status } = data ?? {}
+
   const scrollY = useSharedValue(0)
 
   const scrollHandler = useAnimatedScrollHandler(e => {
     scrollY.set(e.contentOffset.y)
   })
+
+  if (!items) return null
 
   return (
     <Screen isInfitinyMode>
@@ -82,13 +91,15 @@ export default function Index() {
       <View>
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scroll}
+          contentContainerStyle={{
+            paddingBottom: inset.bottom + LAYOUT['space-vertical']
+          }}
           scrollEventThrottle={16}
           onScroll={scrollHandler}
         >
-          <HomeHeroSlider items={SAMPLE_TITLES} />
+          <HomeHeroSlider items={items} />
 
-          <HomeSliders items={SAMPLE_TITLES} />
+          <HomeSliders items={items} />
           {/* <Button
             label='Sign up'
             onPress={() => router.push('/register')}
@@ -98,9 +109,3 @@ export default function Index() {
     </Screen>
   )
 }
-
-const styles = StyleSheet.create({
-  scroll: {
-    paddingBottom: LAYOUT['space-vertical']
-  }
-})
