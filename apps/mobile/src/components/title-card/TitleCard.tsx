@@ -1,4 +1,4 @@
-import type { TitleListItemResponse } from '@app/api'
+import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { COLORS, RADIUS } from '@app/tokens'
 import { Image } from 'expo-image'
 import { Pressable, StyleSheet, View } from 'react-native'
@@ -16,7 +16,7 @@ import { TitleCardStack } from './TitleCardStack'
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 interface Props {
-  title: TitleListItemResponse
+  title: DiscoverItemResponse
   width: number
   onPress: () => void
 }

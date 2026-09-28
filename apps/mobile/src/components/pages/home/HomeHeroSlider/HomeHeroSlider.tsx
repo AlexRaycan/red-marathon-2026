@@ -48,11 +48,15 @@ export function HomeHeroSlider({ items: allItems }: Props) {
 
   const height = width * 1.35
   const currentItem = items[index]
-  const accentColor = currentItem?.type
-    ? (TITLE_CARD_CONFIG[currentItem.type]?.accent ?? 'transparent')
-    : 'transparent'
+
+  const config = currentItem?.type ? TITLE_CARD_CONFIG[currentItem.type] : null
+
+  const accentColor = config ? config.accent : 'transparent'
 
   if (!items.length) return null
+
+  const icon = currentItem?.type ? config?.icon : Play
+  const buttonAction = config ? config.buttonAction : 'Play'
 
   return (
     <View style={[styles.root, { height }]}>
@@ -85,8 +89,8 @@ export function HomeHeroSlider({ items: allItems }: Props) {
           style={styles.actions}
         >
           <Button
-            label='Watch Movie'
-            icon={Play}
+            label={buttonAction}
+            icon={icon}
             tintColor={accentColor}
             onPress={() => console.log('Pressed "Watch Movie"')}
           />
