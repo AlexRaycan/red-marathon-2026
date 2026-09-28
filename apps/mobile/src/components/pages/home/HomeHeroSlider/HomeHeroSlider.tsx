@@ -100,7 +100,7 @@ export function HomeHeroSlider({ items }: Props) {
         {items.map((item, index) => {
           return (
             <PaginationDot
-              key={`heroSliderDot_${item.id}_${index}`}
+              key={`heroSliderDot_${item.key}`}
               width={width}
               index={index}
               scrollX={scrollX}
