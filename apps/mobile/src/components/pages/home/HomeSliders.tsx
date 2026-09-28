@@ -50,7 +50,14 @@ interface HomeSlidersProps {
   items: DiscoverItemResponse[]
 }
 
-export function HomeSliders({ items }: HomeSlidersProps) {
+const getItems = (items: DiscoverItemResponse[]) => ({
+  topPicksItems: items.slice(0, items.length / 2 - 1),
+  popularNowItems: items.slice(items.length / 2 - 1)
+})
+
+export function HomeSliders({ items: allItems }: HomeSlidersProps) {
+  const { topPicksItems, popularNowItems } = getItems(allItems.slice(5))
+
   const { width: windowWidth } = useWindowDimensions()
 
   const cardCountPerScreen = Math.trunc(windowWidth / 110)
@@ -63,11 +70,11 @@ export function HomeSliders({ items }: HomeSlidersProps) {
     <View style={styles.root}>
       <HomeTopPickSlider
         width={cardWidth}
-        items={items}
+        items={topPicksItems}
       />
       <HomePopularNowSlider
         width={cardWidth}
-        items={items}
+        items={popularNowItems}
       />
     </View>
   )

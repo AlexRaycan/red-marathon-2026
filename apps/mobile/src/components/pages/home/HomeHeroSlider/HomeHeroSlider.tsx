@@ -26,7 +26,8 @@ interface Props {
   items: DiscoverItemResponse[]
 }
 
-export function HomeHeroSlider({ items }: Props) {
+export function HomeHeroSlider({ items: allItems }: Props) {
+  const items = allItems.slice(0, 5)
   const { width } = useWindowDimensions()
 
   const [index, setIndex] = useState(0)
@@ -44,8 +45,6 @@ export function HomeHeroSlider({ items }: Props) {
     const index = Math.round(contentOffset.x / width)
     setIndex(index)
   }
-
-  if (!items.length) return null
 
   const height = width * 1.35
   const currentItem = items[index]

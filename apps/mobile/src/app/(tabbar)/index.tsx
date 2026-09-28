@@ -15,9 +15,7 @@ import { Screen } from '@/components/ui/Screen'
 export default function Index() {
   const inset = useSafeAreaInsets()
 
-  const { data, isPending } = useDiscoverGetTrending({ take: 10 })
-
-  const { data: items, status } = data ?? {}
+  const { data, isPending } = useDiscoverGetTrending({ take: 20 })
 
   const scrollY = useSharedValue(0)
 
@@ -25,9 +23,9 @@ export default function Index() {
     scrollY.set(e.contentOffset.y)
   })
 
-  if (status !== 200 && isPending) return null
-
-  if (!items) return null
+  const items = data?.data ?? []
+  const heroItems = items.slice(0, 5)
+  const trendingItems = items.slice(5)
 
   return (
     <Screen isInfitinyMode>
