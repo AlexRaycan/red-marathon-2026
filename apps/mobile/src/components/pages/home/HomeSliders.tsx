@@ -2,7 +2,7 @@ import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { SPACINGS } from '@app/tokens'
 import { StyleSheet, View } from 'react-native'
 
-import { TitleSlider } from '@/components/titles'
+import { TitlesSlider } from '@/components/titles'
 
 interface HomeSlidersProps {
   items: DiscoverItemResponse[]
@@ -21,7 +21,7 @@ export function HomeSliders({ items: allItems }: HomeSlidersProps) {
   return (
     <View style={styles.root}>
       {!!topPicksItems.length && (
-        <TitleSlider
+        <TitlesSlider
           title={'Top picks for you'}
           items={topPicksItems}
           onPress={() => console.debug('Top picks for you!')}
@@ -29,7 +29,7 @@ export function HomeSliders({ items: allItems }: HomeSlidersProps) {
       )}
 
       {!!popularNowItems.length && (
-        <TitleSlider
+        <TitlesSlider
           title={'Popular now'}
           items={popularNowItems}
           onPress={() => console.debug('Popular now!')}

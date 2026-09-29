@@ -3,7 +3,8 @@ import { SPACINGS } from '@app/tokens'
 import { useWindowDimensions } from 'react-native'
 
 import { Carousel } from '@/components/carousel'
-import { TitleCard } from '@/components/titles'
+
+import { TitleCard } from './title-card'
 
 interface Props {
   title?: string
@@ -20,7 +21,7 @@ const getCardWidth = (windowWidth: number) => {
   return (windowWidth - totalGap) / cardCountMultiplier
 }
 
-export function TitleSlider({
+export function TitlesSlider({
   items,
   cardWidth: customCardWidth,
   ...rest

@@ -14,15 +14,9 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
+import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { TITLE_CARD_CONFIG } from '@/components/titles'
-import {
-  Button,
-  GlassContainer,
-  HeroBackdrop,
-  PaginationDot
-} from '@/components/ui'
-
-import { HomeHeroItemInfo } from './HomeHeroSliderItemInfo'
+import { Button, GlassContainer, PaginationDot } from '@/components/ui'
 
 interface Props {
   items: DiscoverItemResponse[]
@@ -79,30 +73,41 @@ export function HomeHeroSlider({ items: allItems }: Props) {
         onScroll={handleScroll}
       />
 
-      <View
-        style={styles.bottom}
-        pointerEvents='box-none'
-      >
-        <HomeHeroItemInfo item={currentItem} />
-
-        <GlassContainer
-          spacing={10}
+      {!!currentItem && (
+        <View
+          style={styles.bottom}
           pointerEvents='box-none'
-          style={styles.actions}
         >
-          <Button
-            label={buttonAction}
-            icon={icon}
-            tintColor={accentColor}
-            onPress={() => console.log('Pressed "Watch Movie"')}
+          <HeroTitleInfo
+            keyItem={currentItem?.key}
+            name={currentItem?.name}
+            nameLines={1}
+            genres={currentItem?.genres}
+            description={
+              "Follow Ted Kaczynski's transformation from Harvard prodigy into the infamous Unabomber. Subjected to controversial psychological experiments by Professor Henry Murray, Kaczynski's troubled past resurfaces decades later when his manhunt, led by FBI agent Joanne Miller, brings to light the chilling consequences of ambition and isolation."
+            }
           />
-          <Button
-            icon={Plus}
-            variant='secondary'
-            onPress={() => console.log('Pressed "Add to Watchlist"')}
-          />
-        </GlassContainer>
-      </View>
+
+          <GlassContainer
+            spacing={10}
+            pointerEvents='box-none'
+            style={styles.actions}
+          >
+            <Button
+              label={buttonAction}
+              icon={icon}
+              tintColor={accentColor}
+              onPress={() => console.log('Pressed "Watch Movie"')}
+            />
+            <Button
+              icon={Plus}
+              variant='secondary'
+              onPress={() => console.log('Pressed "Add to Watchlist"')}
+            />
+          </GlassContainer>
+        </View>
+      )}
+
       <View style={styles.dots}>
         {items.map((item, index) => {
           return (
