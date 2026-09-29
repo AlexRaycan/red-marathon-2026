@@ -1,8 +1,12 @@
-import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { COLORS } from '@app/tokens'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
-import { type StyleProp, StyleSheet, View } from 'react-native'
+import {
+  type StyleProp,
+  StyleSheet,
+  View,
+  useWindowDimensions
+} from 'react-native'
 import type { ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
 
 const HERO_GRADIENT = {
@@ -16,25 +20,34 @@ const HERO_GRADIENT = {
 } as const
 
 interface HeroBackdropProps {
-  item?: Pick<DiscoverItemResponse, 'coverUrl'>
+  coverUrl: string | null
+  height?: number
   style?: StyleProp<ViewStyle>
 }
 
-export const HeroBackdrop = ({ item, style }: HeroBackdropProps) => (
-  <View style={[style]}>
-    {item && (
-      <Image
-        source={item.coverUrl}
-        contentFit='cover'
-        transition={300}
+export const HeroBackdrop = ({
+  coverUrl,
+  height = 300,
+  style
+}: HeroBackdropProps) => {
+  const { width } = useWindowDimensions()
+
+  return (
+    <View style={[{ width, height }, style]}>
+      {coverUrl && (
+        <Image
+          source={coverUrl}
+          contentFit='cover'
+          transition={300}
+          style={StyleSheet.absoluteFill}
+        />
+      )}
+      <LinearGradient
+        colors={HERO_GRADIENT.colors}
+        locations={HERO_GRADIENT.locations}
         style={StyleSheet.absoluteFill}
+        pointerEvents='none'
       />
-    )}
-    <LinearGradient
-      colors={HERO_GRADIENT.colors}
-      locations={HERO_GRADIENT.locations}
-      style={StyleSheet.absoluteFill}
-      pointerEvents='none'
-    />
-  </View>
-)
+    </View>
+  )
+}

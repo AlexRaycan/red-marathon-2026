@@ -66,8 +66,8 @@ export function HomeHeroSlider({ items: allItems }: Props) {
         data={items}
         renderItem={({ item }) => (
           <HeroBackdrop
-            item={item}
-            style={{ width, height }}
+            coverUrl={item.coverUrl}
+            height={height}
           />
         )}
         keyExtractor={item => item.key}
