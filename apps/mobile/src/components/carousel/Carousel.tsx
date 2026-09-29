@@ -4,27 +4,30 @@ import type { PropsWithChildren } from 'react'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 interface Props extends PropsWithChildren {
-  title: string
+  title?: string
   onPress?: () => void
 }
 
 export function Carousel({ title, children, onPress }: Props) {
   return (
     <View style={styles.root}>
-      <Pressable
-        onPress={onPress}
-        disabled={!onPress}
-        hitSlop={12}
-        style={styles.header}
-      >
-        <Text style={styles.title}>{title}</Text>
-        {Boolean(onPress) && (
-          <ChevronRight
-            size={22}
-            color={COLORS.text.primary}
-          />
-        )}
-      </Pressable>
+      {(title ?? Boolean(onPress)) && (
+        <Pressable
+          onPress={onPress}
+          disabled={!onPress}
+          hitSlop={12}
+          style={styles.header}
+        >
+          <Text style={styles.title}>{title}</Text>
+
+          {Boolean(onPress) && (
+            <ChevronRight
+              size={22}
+              color={COLORS.text.primary}
+            />
+          )}
+        </Pressable>
+      )}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

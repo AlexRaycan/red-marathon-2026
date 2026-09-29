@@ -14,7 +14,7 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
-import { TITLE_CARD_CONFIG } from '@/components/title-card'
+import { TITLE_CARD_CONFIG } from '@/components/titles'
 import {
   Button,
   GlassContainer,

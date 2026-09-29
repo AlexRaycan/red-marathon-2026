@@ -16,7 +16,7 @@ import { TitleCardStack } from './TitleCardStack'
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 interface Props {
-  title: DiscoverItemResponse
+  title: Pick<DiscoverItemResponse, 'type' | 'coverUrl'>
   width: number
   onPress: () => void
 }
