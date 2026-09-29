@@ -1,9 +1,8 @@
 import { useAuthMobileLogin } from '@app/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { router } from 'expo-router'
-import { Keyboard } from 'react-native'
 
-import { AuthForm } from '@/components/pages/auth/AuthForm'
+import { AuthForm } from '@/components/pages/auth'
 
 import { saveTokens } from '@/lib/token'
 

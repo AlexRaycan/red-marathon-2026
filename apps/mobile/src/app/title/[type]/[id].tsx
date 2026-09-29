@@ -1,8 +1,8 @@
 import { router, useLocalSearchParams } from 'expo-router'
 import { Pressable, Text } from 'react-native'
 
-import { Toolbar } from '@/components/toolbar/Toolbar'
-import { Screen } from '@/components/ui/Screen'
+import { Toolbar } from '@/components/toolbar'
+import { Screen } from '@/components/ui'
 
 export default function ItemDetailScreen() {
   const { id, type } = useLocalSearchParams<{ id: string; type: string }>()

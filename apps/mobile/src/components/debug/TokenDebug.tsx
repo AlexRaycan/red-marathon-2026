@@ -1,12 +1,11 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/constants'
 import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
-import { Button } from '@components/ui/Button'
-import { GlassContainer } from '@components/ui/GlassContainer'
-import { GlassView } from '@components/ui/GlassView'
 import { useQueryClient } from '@tanstack/react-query'
 import * as SecureStore from 'expo-secure-store'
 import { useState } from 'react'
 import { StyleSheet, Text } from 'react-native'
+
+import { Button, GlassContainer, GlassView } from '@/components/ui'
 
 export function TokenDebug() {
   const queryClient = useQueryClient()

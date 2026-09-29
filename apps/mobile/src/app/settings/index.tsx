@@ -1,7 +1,5 @@
-import { Toolbar } from '@/components/toolbar/Toolbar'
-import { MenuItem } from '@/components/ui/MenuItem'
-import { Screen } from '@/components/ui/Screen'
-import { ViewLayout } from '@/components/ui/ViewLayout'
+import { Toolbar } from '@/components/toolbar'
+import { MenuItem, Screen, ViewLayout } from '@/components/ui'
 
 export default function Settings() {
   return (

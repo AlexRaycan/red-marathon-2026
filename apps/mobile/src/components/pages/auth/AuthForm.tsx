@@ -8,12 +8,14 @@ import hexToRgba from 'hex-to-rgba'
 import { Controller, useForm } from 'react-hook-form'
 import { Pressable, StyleSheet, Text } from 'react-native'
 
-import { Toolbar } from '@/components/toolbar/Toolbar'
-import { Button } from '@/components/ui/Button'
-import { GlassContainer } from '@/components/ui/GlassContainer'
-import { Input } from '@/components/ui/Input'
-import { Screen } from '@/components/ui/Screen'
-import { ViewLayout } from '@/components/ui/ViewLayout'
+import { Toolbar } from '@/components/toolbar'
+import {
+  Button,
+  GlassContainer,
+  Input,
+  Screen,
+  ViewLayout
+} from '@/components/ui'
 
 interface AuthFormProps {
   type: keyof typeof AUTH_CONTENT

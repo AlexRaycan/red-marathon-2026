@@ -1,4 +1,4 @@
-import type { DiscoverItemResponse } from '@app/api/src/generated/model'
+import type { DiscoverItemResponse } from '@app/api'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
@@ -14,13 +14,15 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
-import { TITLE_CARD_CONFIG } from '@/components/title-card/TitleCard.config'
-import { Button } from '@/components/ui/Button'
-import { GlassContainer } from '@/components/ui/GlassContainer'
+import { TITLE_CARD_CONFIG } from '@/components/title-card'
+import {
+  Button,
+  GlassContainer,
+  HeroBackdrop,
+  PaginationDot
+} from '@/components/ui'
 
-import { HomeHeroSliderItemCover } from './HomeHeroSliderItemCover'
 import { HomeHeroItemInfo } from './HomeHeroSliderItemInfo'
-import { PaginationDot } from './PaginationDot'
 
 interface Props {
   items: DiscoverItemResponse[]
@@ -63,7 +65,7 @@ export function HomeHeroSlider({ items: allItems }: Props) {
       <Animated.FlatList
         data={items}
         renderItem={({ item }) => (
-          <HomeHeroSliderItemCover
+          <HeroBackdrop
             item={item}
             style={{ width, height }}
           />
@@ -106,7 +108,7 @@ export function HomeHeroSlider({ items: allItems }: Props) {
           return (
             <PaginationDot
               key={`heroSliderDot_${item.key}`}
-              width={width}
+              itemWidth={width}
               index={index}
               scrollX={scrollX}
             />

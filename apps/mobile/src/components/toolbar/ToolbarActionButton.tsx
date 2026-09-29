@@ -1,7 +1,8 @@
-import { Button } from '@components/ui/Button'
 import { router } from 'expo-router'
 import { ChevronLeft, type LucideIcon, X } from 'lucide-react-native'
 import { type PressableProps } from 'react-native'
+
+import { Button } from '@/components/ui'
 
 interface ToolbarActionButtonProps extends PressableProps {
   isBackButton?: boolean

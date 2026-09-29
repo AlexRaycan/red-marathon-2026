@@ -5,8 +5,8 @@ import { StyleSheet } from 'react-native'
 import { type SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Toolbar } from '@/components/toolbar/Toolbar'
-import { Button } from '@/components/ui/Button'
+import { Toolbar } from '@/components/toolbar'
+import { Button } from '@/components/ui'
 
 interface IHomeHeaderProps {
   scrollY: SharedValue<number>

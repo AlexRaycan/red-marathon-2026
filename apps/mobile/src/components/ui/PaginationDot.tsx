@@ -8,14 +8,22 @@ import Animated, {
 } from 'react-native-reanimated'
 
 interface PaginationDotProps {
-  width: number
+  itemWidth: number
   index: number
   scrollX: SharedValue<number>
 }
 
-export function PaginationDot({ width, index, scrollX }: PaginationDotProps) {
+export function PaginationDot({
+  itemWidth,
+  index,
+  scrollX
+}: PaginationDotProps) {
   const animatedStyle = useAnimatedStyle(() => {
-    const inputRange = [(index - 1) * width, index * width, (index + 1) * width]
+    const inputRange = [
+      (index - 1) * itemWidth,
+      index * itemWidth,
+      (index + 1) * itemWidth
+    ]
 
     return {
       width: interpolate(
@@ -34,7 +42,7 @@ export function PaginationDot({ width, index, scrollX }: PaginationDotProps) {
     }
   })
 
-  return <Animated.View style={[styles.dot, animatedStyle]}></Animated.View>
+  return <Animated.View style={[styles.dot, animatedStyle]} />
 }
 
 const styles = StyleSheet.create({

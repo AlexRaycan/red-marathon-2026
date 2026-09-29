@@ -2,8 +2,8 @@ import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { SPACINGS } from '@app/tokens'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 
-import { Carousel } from '@/components/carousel/Carousel'
-import { TitleCard } from '@/components/title-card/TitleCard'
+import { Carousel } from '@/components/carousel'
+import { TitleCard } from '@/components/title-card'
 
 interface Props {
   items: DiscoverItemResponse[]

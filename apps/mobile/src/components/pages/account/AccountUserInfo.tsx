@@ -15,7 +15,7 @@ import { useMemo } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { GlassView } from '@/components/ui/GlassView'
+import { GlassView } from '@/components/ui'
 
 interface AccountHeaderProps {
   data: UserResponse

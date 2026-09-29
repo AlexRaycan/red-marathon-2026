@@ -1,8 +1,8 @@
 import { COLORS, FONT_SIZE, SPACINGS } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
-import { Toolbar } from '@/components/toolbar/Toolbar'
-import { Screen } from '@/components/ui/Screen'
+import { Toolbar } from '@/components/toolbar'
+import { Screen } from '@/components/ui'
 
 export default function LibraryScreen() {
   return (

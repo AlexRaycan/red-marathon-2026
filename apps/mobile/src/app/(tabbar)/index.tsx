@@ -1,8 +1,5 @@
 import { useDiscoverGetTrending } from '@app/api'
 import { LAYOUT } from '@app/tokens'
-import { HomeHeader } from '@components/pages/home/HomeHeader'
-import { HomeHeroSlider } from '@components/pages/home/HomeHeroSlider/HomeHeroSlider'
-import { HomeSliders } from '@components/pages/home/HomeSliders'
 import { View } from 'react-native'
 import Animated, {
   useAnimatedScrollHandler,
@@ -10,7 +7,12 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Screen } from '@/components/ui/Screen'
+import {
+  HomeHeader,
+  HomeHeroSlider,
+  HomeSliders
+} from '@/components/pages/home'
+import { Screen } from '@/components/ui'
 
 export default function Index() {
   const inset = useSafeAreaInsets()
