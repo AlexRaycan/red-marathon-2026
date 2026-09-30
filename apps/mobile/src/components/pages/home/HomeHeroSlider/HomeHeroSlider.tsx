@@ -1,5 +1,6 @@
 import type { DiscoverItemResponse } from '@app/api'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
+import { router } from 'expo-router'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
 import {
@@ -97,7 +98,9 @@ export function HomeHeroSlider({ items: allItems }: Props) {
               label={buttonAction}
               icon={icon}
               tintColor={accentColor}
-              onPress={() => console.log('Pressed "Watch Movie"')}
+              onPress={() =>
+                router.push(`/title/${currentItem?.type}/${currentItem?.key}`)
+              }
             />
             <Button
               icon={Plus}

@@ -56,7 +56,7 @@ export function HeroTitleInfo({
           numberOfLines={1}
           entering={entering(50)}
           exiting={exiting(50)}
-          style={styles.genres}
+          style={[styles.baseText, styles.genres]}
         >
           {genres.slice(0, 3).join(' • ')}
         </Animated.Text>
@@ -68,7 +68,7 @@ export function HeroTitleInfo({
           numberOfLines={1}
           entering={entering(75)}
           exiting={exiting(75)}
-          style={styles.meta}
+          style={[styles.baseText, styles.meta]}
         >
           {meta}
         </Animated.Text>
@@ -82,7 +82,7 @@ export function HeroTitleInfo({
         >
           <Animated.Text
             numberOfLines={descriptionLines}
-            style={styles.description}
+            style={[styles.baseText, styles.description]}
           >
             {description}
           </Animated.Text>
@@ -101,18 +101,14 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE['3xl'],
     fontWeight: FONT_WEIGHT.bold
   },
-  genres: {
+  baseText: {
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.sm
   },
-  meta: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE.sm
-  },
+  genres: {},
+  meta: {},
   description: {
-    color: COLORS.text.primary,
     opacity: 0.5,
-    fontSize: FONT_SIZE.sm,
     lineHeight: FONT_SIZE.sm * 1.5
   }
 })

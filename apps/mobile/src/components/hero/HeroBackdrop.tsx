@@ -27,10 +27,11 @@ interface HeroBackdropProps {
 
 export const HeroBackdrop = ({
   coverUrl,
-  height = 300,
+  height: customHeight,
   style
 }: HeroBackdropProps) => {
   const { width } = useWindowDimensions()
+  const height = customHeight ?? width * 1.35
 
   return (
     <View style={[{ width, height }, style]}>

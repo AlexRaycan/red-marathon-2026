@@ -1,3 +1,4 @@
+import { RADIUS } from '@app/tokens'
 import { LinearGradient } from 'expo-linear-gradient'
 import { StyleSheet, View } from 'react-native'
 
@@ -25,12 +26,14 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    width: 10
+    width: 20,
+    borderTopLeftRadius: RADIUS.sm,
+    borderBottomLeftRadius: RADIUS.sm
   },
   pages: {
     position: 'absolute',
-    top: 4,
-    bottom: 4,
+    top: 0,
+    bottom: 0,
     right: 0,
     width: 2,
     backgroundColor: 'rgba(255, 255, 255, 0.18)'

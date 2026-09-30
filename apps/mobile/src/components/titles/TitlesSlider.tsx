@@ -1,5 +1,6 @@
-import type { DiscoverItemResponse } from '@app/api'
+import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
 import { SPACINGS } from '@app/tokens'
+import { router } from 'expo-router'
 import { useWindowDimensions } from 'react-native'
 
 import { Carousel } from '@/components/carousel'
@@ -8,7 +9,7 @@ import { TitleCard } from './title-card'
 
 interface Props {
   title?: string
-  items: DiscoverItemResponse[]
+  items: DiscoverItemResponse[] | DiscoverDetailsResponse[]
   cardWidth?: number
   onPress?: () => void
 }
@@ -37,7 +38,7 @@ export function TitlesSlider({
           key={item.key}
           title={item}
           width={cardWidth}
-          onPress={() => console.warn({ ...item })}
+          onPress={() => router.push(`/title/${item?.type}/${item?.key}`)}
         />
       ))}
     </Carousel>
