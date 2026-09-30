@@ -1,4 +1,4 @@
-import type { TitleListItemResponseType } from '@app/api/src/generated/model'
+import type { TitleListItemResponseType } from '@app/api'
 import { RADIUS } from '@app/tokens'
 import {
   BookOpen,

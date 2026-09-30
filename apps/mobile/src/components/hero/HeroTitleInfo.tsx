@@ -40,39 +40,41 @@ export function HeroTitleInfo({
       pointerEvents='none'
       style={[styles.root, style]}
     >
-      <Animated.Text
-        key={`heroSliderItemInfo_name_${keyItem}`}
-        numberOfLines={nameLines}
-        entering={entering()}
-        exiting={exiting()}
-        style={[styles.name]}
-      >
-        {name}
-      </Animated.Text>
-
-      {!!genres.length && (
+      <View style={[styles.metaContainer]}>
         <Animated.Text
-          key={`heroSliderItemInfo_genres_${keyItem}`}
-          numberOfLines={1}
-          entering={entering(50)}
-          exiting={exiting(50)}
-          style={[styles.baseText, styles.genres]}
+          key={`heroSliderItemInfo_name_${keyItem}`}
+          numberOfLines={nameLines}
+          entering={entering()}
+          exiting={exiting()}
+          style={[styles.name]}
         >
-          {genres.slice(0, 3).join(' • ')}
+          {name}
         </Animated.Text>
-      )}
 
-      {!!meta && (
-        <Animated.Text
-          key={`heroSliderItemInfo_meta_${keyItem}`}
-          numberOfLines={1}
-          entering={entering(75)}
-          exiting={exiting(75)}
-          style={[styles.baseText, styles.meta]}
-        >
-          {meta}
-        </Animated.Text>
-      )}
+        {!!genres.length && (
+          <Animated.Text
+            key={`heroSliderItemInfo_genres_${keyItem}`}
+            numberOfLines={1}
+            entering={entering(50)}
+            exiting={exiting(50)}
+            style={[styles.baseText, styles.genres]}
+          >
+            {genres.slice(0, 3).join(' • ')}
+          </Animated.Text>
+        )}
+
+        {!!meta && (
+          <Animated.Text
+            key={`heroSliderItemInfo_meta_${keyItem}`}
+            numberOfLines={1}
+            entering={entering(75)}
+            exiting={exiting(75)}
+            style={[styles.baseText, styles.meta]}
+          >
+            {meta}
+          </Animated.Text>
+        )}
+      </View>
 
       {!!description && (
         <Animated.View
@@ -94,7 +96,7 @@ export function HeroTitleInfo({
 
 const styles = StyleSheet.create({
   root: {
-    gap: SPACINGS[1]
+    gap: SPACINGS[2]
   },
   name: {
     color: COLORS.text.primary,
@@ -104,6 +106,9 @@ const styles = StyleSheet.create({
   baseText: {
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.sm
+  },
+  metaContainer: {
+    gap: SPACINGS[1]
   },
   genres: {},
   meta: {},

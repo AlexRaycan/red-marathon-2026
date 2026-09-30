@@ -29,10 +29,10 @@ interface CardProps extends ViewProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function Card({
-  cardWidth,
-  cardStyle,
   sourceImage,
+  cardWidth,
   isStacked,
+  cardStyle,
   coverStyle,
   children,
   style,

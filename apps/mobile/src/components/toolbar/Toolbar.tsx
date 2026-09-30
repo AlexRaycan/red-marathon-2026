@@ -52,14 +52,17 @@ export function Toolbar({
     <View
       style={[
         styles.root,
-        style,
         isAbsolute && [
-          StyleSheet.absoluteFill,
           {
-            paddingTop: insets.top,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            paddingTop: insets.top * 2,
             paddingHorizontal: LAYOUT['space-horizontal']
           }
-        ]
+        ],
+        style
       ]}
       pointerEvents='box-none'
     >

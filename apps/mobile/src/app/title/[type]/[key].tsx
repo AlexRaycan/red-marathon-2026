@@ -1,17 +1,33 @@
-import { useDiscoverFindByKey } from '@app/api'
+import { TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
+import { getCardWidth } from '@app/utils'
 import { useLocalSearchParams } from 'expo-router'
 import { Plus } from 'lucide-react-native'
-import { ScrollView, StyleSheet, Text, useWindowDimensions } from 'react-native'
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { Carousel } from '@/components/carousel'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
-import { TitlesSlider } from '@/components/titles'
+import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
 import { Button, Screen, ViewLayout } from '@/components/ui'
+import { Card } from '@/components/ui/Card'
 
 export default function ItemDetailScreen() {
-  const { key, type } = useLocalSearchParams<{ key: string; type: string }>()
+  const { key, type } = useLocalSearchParams<{
+    key: string
+    type: TitleListItemResponseType
+  }>()
+
+  const config = TITLE_CARD_CONFIG[type]
+
+  const accentColor = config ? config.accent : 'transparent'
 
   const inset = useSafeAreaInsets()
 
@@ -40,7 +56,6 @@ export default function ItemDetailScreen() {
       <Toolbar
         isBackButton
         isAbsolute
-        withBlur
       />
 
       <ScrollView
@@ -57,7 +72,13 @@ export default function ItemDetailScreen() {
         />
 
         <ViewLayout.Root style={[styles.root]}>
-          <ViewLayout.Root style={[styles.descriptionContainer, { height }]}>
+          <ViewLayout.Root
+            style={[
+              styles.baseContainer,
+              styles.descriptionContainer,
+              { height }
+            ]}
+          >
             <HeroTitleInfo
               keyItem={key}
               name={title.name}
@@ -66,28 +87,42 @@ export default function ItemDetailScreen() {
               description={title.description}
               descriptionLines={4}
             />
+          </ViewLayout.Root>
 
+          <View style={[styles.baseContainer]}>
             <Button
               label='Add to Library'
               icon={Plus}
               size='lg'
+              tintColor={accentColor}
               onPress={() => console.log('Add to Library')}
             />
+          </View>
 
-            {!!cast && (
-              <Text style={[styles.baseText]}>
-                <Text style={[styles.labelText]}>Cast: </Text>
-                <Text style={[styles.castList]}>{cast}</Text>
-              </Text>
-            )}
+          {!!title?.similar?.length && (
+            <TitlesSlider
+              title='You may also like'
+              items={title.similar}
+            />
+          )}
 
-            {!!title?.similar?.length && (
-              <TitlesSlider
-                title='You may also like'
-                items={title.similar}
-              />
-            )}
-          </ViewLayout.Root>
+          {!!cast && (
+            <Carousel title='Cast'>
+              {title.actors.slice(0, 10).map(actor => (
+                <View
+                  key={actor.name}
+                  style={[styles.castCardContainer]}
+                >
+                  <Card
+                    sourceImage={actor.photoUrl}
+                    cardWidth={getCardWidth(width)}
+                    onPress={() => console.log(actor)}
+                  />
+                  <Text style={[styles.castLabel]}>{actor.name}</Text>
+                </View>
+              ))}
+            </Carousel>
+          )}
         </ViewLayout.Root>
       </ScrollView>
     </Screen>
@@ -97,21 +132,24 @@ export default function ItemDetailScreen() {
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
-    gap: SPACINGS[5],
+    gap: SPACINGS[5]
+  },
+  baseContainer: {
     marginHorizontal: LAYOUT['space-horizontal']
   },
   descriptionContainer: {
-    gap: SPACINGS[2],
+    gap: SPACINGS[4],
     justifyContent: 'flex-end'
-  },
-  baseText: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE.sm
   },
   labelText: {
     fontWeight: FONT_WEIGHT.bold
   },
-  castList: {
-    opacity: 0.7
+  castCardContainer: {
+    gap: SPACINGS[2]
+  },
+  castLabel: {
+    color: COLORS.text['little-muted'],
+    textAlign: 'center',
+    fontSize: FONT_SIZE.sm
   }
 })

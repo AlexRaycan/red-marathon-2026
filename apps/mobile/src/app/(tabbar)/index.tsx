@@ -5,7 +5,6 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
 } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
   HomeHeader,
@@ -15,8 +14,6 @@ import {
 import { Screen } from '@/components/ui'
 
 export default function Index() {
-  const inset = useSafeAreaInsets()
-
   const { data, isPending } = useDiscoverGetTrending({ take: 20 })
 
   const scrollY = useSharedValue(0)
@@ -35,7 +32,7 @@ export default function Index() {
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingBottom: inset.bottom + LAYOUT['space-vertical']
+            paddingBottom: LAYOUT['space-vertical']
           }}
           scrollEventThrottle={16}
           onScroll={scrollHandler}
