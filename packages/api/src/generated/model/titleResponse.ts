@@ -5,8 +5,9 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ActorResponse } from './actorResponse';
+import type { CreatorResponse } from './creatorResponse';
 import type { GenreResponse } from './genreResponse';
+import type { PersonResponse } from './personResponse';
 import type { TitleListItemResponse } from './titleListItemResponse';
 import type { TitleResponseMetadata } from './titleResponseMetadata';
 import type { TitleResponseStatus } from './titleResponseStatus';
@@ -35,8 +36,15 @@ export interface TitleResponse {
      * @nullable
      */
   description: string | null;
-  /** Актёры у фильмов, студии у игр и аниме, авторы у книг */
-  actors: ActorResponse[];
+  /**
+     * PG-13, TV-MA, M, R-17+ — у каждого источника своя система
+     * @nullable
+     */
+  ageRating: string | null;
+  /** Актёры — только у фильмов и сериалов, у остальных пустой список */
+  cast: PersonResponse[];
+  /** Режиссёр, автор идеи сериала, студия игры или аниме, автор книги */
+  creators: CreatorResponse[];
   /** Страницы книги, платформы игры, число серий */
   metadata: TitleResponseMetadata;
 }

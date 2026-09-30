@@ -5,8 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
+import type { CreatorRole } from './creatorRole';
 
-export interface ActorResponse {
+export interface CreatorResponse {
+  role: CreatorRole;
   name: string;
   /** @nullable */
   photoUrl: string | null;

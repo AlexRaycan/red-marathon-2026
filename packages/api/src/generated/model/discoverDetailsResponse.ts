@@ -5,10 +5,12 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ActorResponse } from './actorResponse';
+import type { CreatorResponse } from './creatorResponse';
 import type { DiscoverDetailsResponseExternalSource } from './discoverDetailsResponseExternalSource';
 import type { DiscoverDetailsResponseMetadata } from './discoverDetailsResponseMetadata';
 import type { DiscoverDetailsResponseType } from './discoverDetailsResponseType';
+import type { DiscoverItemResponse } from './discoverItemResponse';
+import type { PersonResponse } from './personResponse';
 
 export interface DiscoverDetailsResponse {
   /** Ключ для детальной страницы: `tmdb-movie-603`, `rawg-game-3328` */
@@ -30,8 +32,17 @@ export interface DiscoverDetailsResponse {
   description: string | null;
   /** @nullable */
   ratingCount: number | null;
-  /** Актёры у фильмов, студии у игр и аниме, авторы у книг */
-  actors: ActorResponse[];
+  /**
+     * PG-13, TV-MA, M, R-17+ — у каждого источника своя система
+     * @nullable
+     */
+  ageRating: string | null;
+  /** Актёры — только у фильмов и сериалов, у остальных пустой список */
+  cast: PersonResponse[];
+  /** Режиссёр, автор идеи сериала, студия игры или аниме, автор книги */
+  creators: CreatorResponse[];
   /** Страницы книги, платформы игры, число серий */
   metadata: DiscoverDetailsResponseMetadata;
+  /** «You may also like» — приходит вместе со страницей, отдельный запрос не нужен */
+  similar: DiscoverItemResponse[];
 }
