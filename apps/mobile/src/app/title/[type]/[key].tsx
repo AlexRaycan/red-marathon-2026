@@ -1,4 +1,4 @@
-import { TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
+import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { getCardWidth } from '@app/utils'
 import { useLocalSearchParams } from 'expo-router'
@@ -20,14 +20,10 @@ import { Button, Screen, ViewLayout } from '@/components/ui'
 import { Card } from '@/components/ui/Card'
 
 export default function ItemDetailScreen() {
-  const { key, type } = useLocalSearchParams<{
+  const { key } = useLocalSearchParams<{
     key: string
     type: TitleListItemResponseType
   }>()
-
-  const config = TITLE_CARD_CONFIG[type]
-
-  const accentColor = config ? config.accent : 'transparent'
 
   const inset = useSafeAreaInsets()
 
@@ -39,6 +35,10 @@ export default function ItemDetailScreen() {
   if (isPending || !data || data?.status !== 200) return <Screen />
 
   const title = data.data
+
+  const config = TITLE_CARD_CONFIG[title.type]
+
+  const accentColor = config ? config.accent : 'transparent'
 
   const year = title.releaseDate
     ? new Date(title.releaseDate).getFullYear()
