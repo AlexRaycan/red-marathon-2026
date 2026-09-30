@@ -8,6 +8,7 @@
     "@app/schemas": "workspace:^",
     "@app/tokens": "workspace:^",
     "@app/types": "workspace:^",
+    "@app/utils": "workspace:^",
     "@expo/ui": "~57.0.21",
     "@hookform/resolvers": "^5.9.1",
     "@react-native/metro-config": "^0.87.1",

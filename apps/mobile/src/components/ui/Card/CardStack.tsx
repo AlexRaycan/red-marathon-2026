@@ -6,12 +6,7 @@ interface Props extends ImageProps {
   borderRadius?: number
 }
 
-export function TitleCardStack({
-  source,
-  borderRadius,
-  style,
-  ...props
-}: Props) {
+export function CardStack({ source, borderRadius, style, ...props }: Props) {
   return (
     <>
       <Image

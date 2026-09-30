@@ -1,5 +1,5 @@
 import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
-import { SPACINGS } from '@app/tokens'
+import { getCardWidth } from '@app/utils'
 import { router } from 'expo-router'
 import { useWindowDimensions } from 'react-native'
 
@@ -14,13 +14,13 @@ interface Props {
   onPress?: () => void
 }
 
-const getCardWidth = (windowWidth: number) => {
+/* const getCardWidth = (windowWidth: number) => {
   const cardCountPerScreen = Math.trunc(windowWidth / 110)
   const cardCountMultiplier = cardCountPerScreen * 1.05
   const totalGap = SPACINGS[3] * (cardCountPerScreen + 1)
 
   return (windowWidth - totalGap) / cardCountMultiplier
-}
+} */
 
 export function TitlesSlider({
   items,
