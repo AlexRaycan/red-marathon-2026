@@ -1,1 +1,4 @@
+export * from './convert-mins-to-hrs'
+export * from './first-letter-upper-case'
 export * from './get-card-width'
+export * from './normalize-platform'

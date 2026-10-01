@@ -1,7 +1,9 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
+import type { ReactNode } from 'react'
 import {
   type StyleProp,
   StyleSheet,
+  Text,
   View,
   type ViewProps,
   type ViewStyle
@@ -16,6 +18,7 @@ interface HeroTitleInfoProps extends ViewProps {
   nameLines?: number
   genres: string[]
   meta?: string
+  platforms?: ReactNode[]
   description: string | null
   descriptionLines?: number
   style?: StyleProp<ViewStyle>
@@ -27,6 +30,7 @@ export function HeroTitleInfo({
   nameLines = 2,
   genres,
   meta,
+  platforms,
   description,
   descriptionLines = 2,
   style
@@ -40,7 +44,7 @@ export function HeroTitleInfo({
       pointerEvents='none'
       style={[styles.root, style]}
     >
-      <View style={[styles.metaContainer]}>
+      <View style={[styles.infoContainer]}>
         <Animated.Text
           key={`heroSliderItemInfo_name_${keyItem}`}
           numberOfLines={nameLines}
@@ -64,15 +68,24 @@ export function HeroTitleInfo({
         )}
 
         {!!meta && (
-          <Animated.Text
-            key={`heroSliderItemInfo_meta_${keyItem}`}
-            numberOfLines={1}
-            entering={entering(75)}
-            exiting={exiting(75)}
-            style={[styles.baseText, styles.meta]}
-          >
-            {meta}
-          </Animated.Text>
+          <View style={styles.metaContainer}>
+            <Animated.Text
+              key={`heroSliderItemInfo_meta_${keyItem}`}
+              numberOfLines={1}
+              entering={entering(75)}
+              exiting={exiting(75)}
+              style={[styles.baseText]}
+            >
+              {meta}
+
+              {!!platforms?.length && (
+                <>
+                  <Text style={[styles.baseText]}>{' • '}</Text>
+                  <View style={styles.platforms}>{platforms}</View>
+                </>
+              )}
+            </Animated.Text>
+          </View>
         )}
       </View>
 
@@ -107,11 +120,22 @@ const styles = StyleSheet.create({
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.sm
   },
-  metaContainer: {
+  infoContainer: {
     gap: SPACINGS[1]
   },
   genres: {},
+  metaContainer: {
+    flexDirection: 'row',
+    gap: SPACINGS[1],
+    alignItems: 'center'
+  },
   meta: {},
+  platforms: {
+    flexDirection: 'row',
+    gap: SPACINGS[1],
+    alignItems: 'center',
+    transform: [{ translateY: 1.7 }]
+  },
   description: {
     opacity: 0.5,
     lineHeight: FONT_SIZE.sm * 1.5

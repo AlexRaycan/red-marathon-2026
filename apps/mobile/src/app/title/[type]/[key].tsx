@@ -1,23 +1,22 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
+import { type Platform, TYPE_LABELS } from '@app/constants'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
-import { getCardWidth } from '@app/utils'
-import { useLocalSearchParams } from 'expo-router'
-import { Plus } from 'lucide-react-native'
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions
-} from 'react-native'
+  convertMinsToHrs,
+  firstLetterUpperCase,
+  normalizePlatform
+} from '@app/utils'
+import { router, useLocalSearchParams } from 'expo-router'
+import { Home, Plus, Share } from 'lucide-react-native'
+import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Carousel } from '@/components/carousel'
+import { CastCard } from '@/components/cast-card/CastCard'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
-import { Button, Screen, ViewLayout } from '@/components/ui'
-import { Card } from '@/components/ui/Card'
+import { Button, PlatformIcon, Screen, ViewLayout } from '@/components/ui'
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
@@ -44,18 +43,53 @@ export default function ItemDetailScreen() {
     ? new Date(title.releaseDate).getFullYear()
     : null
 
-  const meta = [year, ...title.genres.slice(0, 3)].filter(Boolean).join(' • ')
+  // FIXME: Refactor and add types
+  let normalizedPlatforms: Platform[]
 
-  const cast = title.actors
-    .slice(0, 3)
-    .map(actor => actor.name)
-    .join(', ')
+  const metadata = Object.entries(title.metadata).map(([key, val]) => {
+    switch (key) {
+      case 'averagePlaytimeHours':
+        return `${val}h`
+      case 'runtimeMinutes': {
+        const { hours, minutes } = convertMinsToHrs(Number(val))
+
+        return `${hours}h ${minutes}m`
+      }
+      case 'platforms':
+        normalizedPlatforms = [...new Set(val.map(normalizePlatform))]
+        break
+      default: {
+        return `${firstLetterUpperCase(key)}: ${val}`
+      }
+    }
+  })
+
+  const platforms = normalizedPlatforms?.map(p => {
+    return (
+      <PlatformIcon
+        key={p}
+        platform={p}
+        color={COLORS.text.primary}
+        size={FONT_SIZE.sm}
+      />
+    )
+  })
+
+  const meta = [year, ...metadata, title.ageRating].filter(Boolean).join(' • ')
+
+  const hasCast = !!title.cast?.length || !!title.creators?.length
 
   return (
     <Screen isInfitinyMode>
       <Toolbar
         isBackButton
         isAbsolute
+        rightSide={
+          <Button
+            icon={Share}
+            variant='transparent'
+          />
+        }
       />
 
       <ScrollView
@@ -71,7 +105,12 @@ export default function ItemDetailScreen() {
           style={StyleSheet.absoluteFill}
         />
 
-        <ViewLayout.Root style={[styles.root]}>
+        <ViewLayout.Root
+          style={[
+            styles.root,
+            { paddingBottom: inset.bottom + LAYOUT['space-vertical'] }
+          ]}
+        >
           <ViewLayout.Root
             style={[
               styles.baseContainer,
@@ -84,6 +123,7 @@ export default function ItemDetailScreen() {
               name={title.name}
               genres={title.genres}
               meta={meta}
+              platforms={platforms}
               description={title.description}
               descriptionLines={4}
             />
@@ -99,32 +139,61 @@ export default function ItemDetailScreen() {
             />
           </View>
 
+          {/* TODO: add seperate view for developers */}
+          {hasCast && (
+            <Carousel
+              title={
+                title.type === TYPE_LABELS.GAME.toUpperCase()
+                  ? 'Developers'
+                  : 'Cast'
+              }
+            >
+              {title.creators.map(creator => (
+                <CastCard
+                  key={creator.name}
+                  type='creator'
+                  name={creator.name}
+                  role={creator.role}
+                  photoUrl={creator.photoUrl}
+                />
+              ))}
+
+              {title.cast.slice(0, 10).map(actor => (
+                <CastCard
+                  key={actor.name}
+                  type='actor'
+                  name={actor.name}
+                  photoUrl={actor.photoUrl}
+                />
+              ))}
+            </Carousel>
+          )}
+
           {!!title?.similar?.length && (
             <TitlesSlider
               title='You may also like'
               items={title.similar}
             />
           )}
-
-          {!!cast && (
-            <Carousel title='Cast'>
-              {title.actors.slice(0, 10).map(actor => (
-                <View
-                  key={actor.name}
-                  style={[styles.castCardContainer]}
-                >
-                  <Card
-                    sourceImage={actor.photoUrl}
-                    cardWidth={getCardWidth(width)}
-                    onPress={() => console.log(actor)}
-                  />
-                  <Text style={[styles.castLabel]}>{actor.name}</Text>
-                </View>
-              ))}
-            </Carousel>
-          )}
         </ViewLayout.Root>
       </ScrollView>
+
+      {/* FIXME: temporary Home button - make a Tabbar */}
+      <View
+        pointerEvents='box-none'
+        style={{
+          position: 'absolute',
+          left: LAYOUT['space-horizontal'],
+          bottom: inset.bottom
+        }}
+      >
+        <Button
+          icon={Home}
+          size='lg'
+          variant='transparent'
+          onPress={() => router.push('/')}
+        />
+      </View>
     </Screen>
   )
 }
@@ -143,13 +212,5 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontWeight: FONT_WEIGHT.bold
-  },
-  castCardContainer: {
-    gap: SPACINGS[2]
-  },
-  castLabel: {
-    color: COLORS.text['little-muted'],
-    textAlign: 'center',
-    fontSize: FONT_SIZE.sm
   }
 })
