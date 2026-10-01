@@ -16,6 +16,8 @@ export function TokenDebug() {
   const handleReadTokens = async () => {
     const aToken = await SecureStore.getItemAsync(ACCESS_TOKEN)
     const rToken = await SecureStore.getItemAsync(REFRESH_TOKEN)
+    console.log('Access Token:', aToken)
+    console.log('Refresh Token:', rToken)
     setAccessToken(aToken)
     setRefreshToken(rToken)
   }
