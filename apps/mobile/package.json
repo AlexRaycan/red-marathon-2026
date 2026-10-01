@@ -14,6 +14,8 @@
     "@fortawesome/free-brands-svg-icons": "^7.3.1",
     "@fortawesome/react-native-fontawesome": "^1.0.0",
     "@hookform/resolvers": "^5.9.1",
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react-native": "^1.0.16",
     "@react-native/metro-config": "^0.87.1",
     "expo": "~57.0.26",
     "expo-blur": "~57.0.3",
