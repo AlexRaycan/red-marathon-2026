@@ -20,7 +20,7 @@ const HERO_GRADIENT = {
 } as const
 
 interface HeroBackdropProps {
-  coverUrl: string | null
+  coverUrl?: string | null
   height?: number
   style?: StyleProp<ViewStyle>
 }

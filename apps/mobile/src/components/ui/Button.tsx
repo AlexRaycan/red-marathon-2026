@@ -11,8 +11,9 @@ import {
   type ViewStyle
 } from 'react-native'
 
-import { GlassButton } from './GlassButton'
 import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
+
+import { GlassButton } from './GlassButton'
 
 const _CONTENT_TYPES = {
   CONTENT: 'content',
@@ -74,7 +75,7 @@ export function Button({
   const buttonTintColor: Record<TButtonVariant, ColorValue> = {
     primary:
       tintColor ??
-      (hasGlassEffect ? 'rgba(255, 255, 255, 0.3)' : COLORS.primary),
+      (hasGlassEffect ? 'rgba(255, 255, 255, 0.13)' : COLORS.primary),
     secondary: hasGlassEffect ? '' : COLORS.bg.card,
     transparent: 'transparent'
   }

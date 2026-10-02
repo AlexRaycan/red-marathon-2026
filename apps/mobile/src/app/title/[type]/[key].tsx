@@ -8,7 +8,13 @@ import {
 } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Bookmark, Home, Plus, Share, Star } from 'lucide-react-native'
-import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
+import Animated, {
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue
+} from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
@@ -25,6 +31,8 @@ import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
 
+const OVERLAP_HEIGHT = SPACINGS[10]
+
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
     key: string
@@ -34,7 +42,35 @@ export default function ItemDetailScreen() {
   const inset = useSafeAreaInsets()
 
   const { width } = useWindowDimensions()
-  const height = width * 1.35
+  const heroHeight = width * 1.35
+
+  // Parallax effect BLOCK BEGIN
+  const scrollY = useSharedValue(0)
+  const scrollHandler = useAnimatedScrollHandler(e =>
+    scrollY.set(e.contentOffset.y)
+  )
+
+  const heroStyle = useAnimatedStyle(() => {
+    const y = scrollY.get()
+
+    return {
+      opacity: interpolate(y, [0, heroHeight], [1, 0.1], 'clamp'),
+      transform: [
+        {
+          translateY: interpolate(
+            y,
+            [-heroHeight, 0, heroHeight],
+            [heroHeight / 2, 0, -heroHeight * 0.3],
+            'clamp'
+          )
+        },
+        {
+          scale: interpolate(y, [-heroHeight, 0], [2, 1], 'clamp')
+        }
+      ]
+    }
+  })
+  // Parallax effect BLOCK END
 
   const { data, isPending } = useDiscoverFindByKey(key)
 
@@ -98,31 +134,37 @@ export default function ItemDetailScreen() {
           />
         }
       />
+      <Animated.View
+        style={[styles.hero, heroStyle]}
+        pointerEvents={'none'}
+      >
+        <HeroBackdrop
+          coverUrl={title.coverUrl}
+          height={heroHeight}
+        />
+      </Animated.View>
 
-      <ScrollView
+      <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: inset.bottom + LAYOUT['space-vertical']
         }}
         scrollEventThrottle={16}
+        onScroll={scrollHandler}
       >
-        <HeroBackdrop
-          coverUrl={title.coverUrl}
-          height={height}
-          style={StyleSheet.absoluteFill}
-        />
-
         <ViewLayout.Root
           style={[
             styles.root,
-            { paddingBottom: inset.bottom + LAYOUT['space-vertical'] }
+            {
+              paddingBottom: inset.bottom + LAYOUT['space-vertical']
+            }
           ]}
         >
           <ViewLayout.Root
             style={[
               styles.baseContainer,
               styles.descriptionContainer,
-              { height }
+              { height: heroHeight }
             ]}
           >
             <HeroTitleInfo
@@ -150,13 +192,13 @@ export default function ItemDetailScreen() {
                   label='Add to Watchlist'
                   icon={Bookmark}
                   fullWidth
-                  onPress={() => console.log('')}
+                  onPress={() => console.log('Pressed Add to Watchlist')}
                 />
                 <Button
                   label='Rate'
                   icon={Star}
                   fullWidth
-                  onPress={() => console.log('')}
+                  onPress={() => console.log('Pressed Rate')}
                 />
               </View>
             </View>
@@ -199,7 +241,7 @@ export default function ItemDetailScreen() {
             />
           )}
         </ViewLayout.Root>
-      </ScrollView>
+      </Animated.ScrollView>
 
       {/* FIXME: temporary Home button - make a Tabbar */}
       <View
@@ -222,9 +264,22 @@ export default function ItemDetailScreen() {
 }
 
 const styles = StyleSheet.create({
+  hero: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0
+  },
   root: {
     position: 'relative',
     gap: SPACINGS[5]
+  },
+  bodyFade: {
+    position: 'absolute',
+    top: -OVERLAP_HEIGHT,
+    left: 0,
+    right: 0,
+    height: OVERLAP_HEIGHT
   },
   baseContainer: {
     marginHorizontal: LAYOUT['space-horizontal']
