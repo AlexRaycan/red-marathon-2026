@@ -6,8 +6,10 @@ import {
   firstLetterUpperCase,
   normalizePlatform
 } from '@app/utils'
+import BottomSheet from '@expo/ui/community/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Bookmark, Home, Plus, Share, Star } from 'lucide-react-native'
+import { useRef } from 'react'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
   interpolate,
@@ -28,6 +30,7 @@ import {
 import { Carousel } from '@/components/carousel'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { CastCard } from '@/components/pages/details/cast-card/CastCard'
+import { ShareBottomSheet } from '@/components/pages/details/share'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
 
@@ -40,6 +43,8 @@ export default function ItemDetailScreen() {
   }>()
 
   const inset = useSafeAreaInsets()
+
+  const sheetRef = useRef<BottomSheet>(null)
 
   const { width } = useWindowDimensions()
   const heroHeight = width * 1.35
@@ -131,7 +136,8 @@ export default function ItemDetailScreen() {
           <Button
             icon={Share}
             variant='transparent'
-            onPress={() => router.push(`/share/${title.key}`)}
+            // onPress={() => router.push(`/share/${title.key}`)}
+            onPress={() => sheetRef.current?.snapToIndex(0)}
           />
         }
       />
@@ -262,6 +268,10 @@ export default function ItemDetailScreen() {
           onPress={() => router.push('/')}
         />
       </View>
+      <ShareBottomSheet
+        title={title}
+        ref={sheetRef}
+      />
     </Screen>
   )
 }

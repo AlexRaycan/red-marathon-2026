@@ -3,6 +3,7 @@ import hexToRgba from 'hex-to-rgba'
 import { Eye, EyeOff } from 'lucide-react-native'
 import { useState } from 'react'
 import {
+  type ColorValue,
   Pressable,
   type StyleProp,
   StyleSheet,
@@ -16,6 +17,7 @@ import {
 import { GlassView } from './GlassView'
 
 interface InputProps extends TextInputProps {
+  tintColor?: ColorValue
   error?: string
   isPassword?: boolean
   containerStyle?: StyleProp<ViewStyle>
@@ -23,6 +25,7 @@ interface InputProps extends TextInputProps {
 
 export function Input({
   multiline,
+  tintColor,
   error,
   isPassword,
   containerStyle,
@@ -35,10 +38,10 @@ export function Input({
     <View style={[styles.root]}>
       <GlassView
         isInteractive
-        tintColor={error && hexToRgba(COLORS.status.error, 0.15)}
+        tintColor={error ? hexToRgba(COLORS.status.error, 0.15) : tintColor}
         style={[
           styles.container,
-          !multiline && { alignItems: 'center' },
+          multiline && styles.multilineContainer,
           containerStyle
         ]}
       >
@@ -80,10 +83,17 @@ const styles = StyleSheet.create({
     gap: SPACINGS[1]
   },
   container: {
+    alignItems: 'center',
     paddingHorizontal: SPACINGS[4],
     borderRadius: RADIUS.full,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  multilineContainer: {
+    alignItems: 'flex-start',
+    height: undefined,
+    minHeight: 110,
+    borderRadius: RADIUS.sm
   },
   input: {
     flex: 1,
