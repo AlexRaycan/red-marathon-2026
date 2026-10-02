@@ -1,3 +1,4 @@
+import { COLORS } from '@app/tokens'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Stack } from 'expo-router'
 import { DarkTheme, ThemeProvider } from 'expo-router/build/react-navigation'
@@ -25,7 +26,19 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false
             }}
-          />
+          >
+            <Stack.Screen
+              name='share/[key]'
+              options={{
+                presentation: 'formSheet',
+                sheetAllowedDetents: 'fitToContents',
+                sheetGrabberVisible: true,
+                contentStyle: {
+                  backgroundColor: COLORS.bg.base
+                }
+              }}
+            />
+          </Stack>
         </ThemeProvider>
       </SafeAreaProvider>
     </QueryClientProvider>

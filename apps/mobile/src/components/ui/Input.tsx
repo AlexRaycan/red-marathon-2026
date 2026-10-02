@@ -4,11 +4,13 @@ import { Eye, EyeOff } from 'lucide-react-native'
 import { useState } from 'react'
 import {
   Pressable,
+  type StyleProp,
   StyleSheet,
   Text,
   TextInput,
   type TextInputProps,
-  View
+  View,
+  type ViewStyle
 } from 'react-native'
 
 import { GlassView } from './GlassView'
@@ -16,9 +18,17 @@ import { GlassView } from './GlassView'
 interface InputProps extends TextInputProps {
   error?: string
   isPassword?: boolean
+  containerStyle?: StyleProp<ViewStyle>
 }
 
-export function Input({ error, isPassword, ...props }: InputProps) {
+export function Input({
+  multiline,
+  error,
+  isPassword,
+  containerStyle,
+  style,
+  ...props
+}: InputProps) {
   const [isSecure, setIsSecure] = useState(isPassword)
 
   return (
@@ -26,12 +36,17 @@ export function Input({ error, isPassword, ...props }: InputProps) {
       <GlassView
         isInteractive
         tintColor={error && hexToRgba(COLORS.status.error, 0.15)}
-        style={[styles.container]}
+        style={[
+          styles.container,
+          !multiline && { alignItems: 'center' },
+          containerStyle
+        ]}
       >
         <TextInput
           placeholderTextColor={COLORS.text.muted}
           secureTextEntry={isPassword && isSecure}
-          style={[styles.input]}
+          multiline={multiline}
+          style={[styles.input, style]}
           {...props}
         />
 
@@ -68,12 +83,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACINGS[4],
     borderRadius: RADIUS.full,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between'
   },
   input: {
     flex: 1,
     height: 52,
+    paddingVertical: SPACINGS[3],
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.base
   },

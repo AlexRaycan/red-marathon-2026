@@ -26,8 +26,8 @@ import {
 } from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
-import { CastCard } from '@/components/cast-card/CastCard'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
+import { CastCard } from '@/components/pages/details/cast-card/CastCard'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
 
@@ -131,6 +131,7 @@ export default function ItemDetailScreen() {
           <Button
             icon={Share}
             variant='transparent'
+            onPress={() => router.push(`/share/${title.key}`)}
           />
         }
       />
@@ -206,6 +207,13 @@ export default function ItemDetailScreen() {
             </View>
           </GlassContainer>
 
+          {!!title?.similar?.length && (
+            <TitlesSlider
+              title='You may also like'
+              items={title.similar}
+            />
+          )}
+
           {/* TODO: add seperate view for developers */}
           {hasCast && (
             <Carousel
@@ -234,13 +242,6 @@ export default function ItemDetailScreen() {
                 />
               ))}
             </Carousel>
-          )}
-
-          {!!title?.similar?.length && (
-            <TitlesSlider
-              title='You may also like'
-              items={title.similar}
-            />
           )}
         </ViewLayout.Root>
       </Animated.ScrollView>

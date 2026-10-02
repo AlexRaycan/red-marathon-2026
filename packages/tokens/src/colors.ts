@@ -12,7 +12,7 @@ export const COLORS = {
     card: '#262626',
     elevated: '#000000'
   },
-  border: '#171717',
+  border: 'rgba(255, 255, 255, 0.24)',
   select: 'rgba(129, 65, 248, 0.14)',
   status: {
     success: '#8141F8',
