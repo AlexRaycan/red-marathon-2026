@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 52,
+    minHeight: 52,
     paddingVertical: SPACINGS[3],
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.base

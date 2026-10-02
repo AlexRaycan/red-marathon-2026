@@ -1,5 +1,5 @@
 import { useDiscoverFindByKey } from '@app/api'
-import { COLORS, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -12,8 +12,6 @@ import {
   ScreenTitle
 } from '@/components/ui'
 
-import { Carousel } from '@/components/carousel'
-import { FriendCard } from '@/components/pages/details/share/FriendCard'
 import { SHARE_FRIENDS_MOCK_DATA } from '@/components/pages/details/share/share-friends.mock.data'
 
 export default function ShareScreen() {
@@ -57,7 +55,7 @@ export default function ShareScreen() {
           <View style={styles.divider} />
         </View>
 
-        <Carousel
+        {/* <Carousel
           title={heading}
           titleStyle={styles.carouselTitle}
         >
@@ -70,16 +68,18 @@ export default function ShareScreen() {
               onPress={() => toggleFriends(friend.id)}
             />
           ))}
-        </Carousel>
+        </Carousel> */}
 
         <View style={[styles.form]}>
-          {!!recipients && <Text>To: {recipients}</Text>}
+          <Text style={[styles.inset, styles.recipients]}>
+            To: {recipients}
+          </Text>
 
           <View style={[styles.inset]}>
             <Input
               placeholder='Check this out!'
               multiline
-              containerStyle={styles.input}
+              containerStyle={styles.inputCuntainer}
             />
           </View>
 
@@ -128,7 +128,11 @@ const styles = StyleSheet.create({
   form: {
     gap: SPACINGS[2]
   },
-  input: {
+  recipients: {
+    fontSize: FONT_SIZE.sm,
+    color: COLORS.text.muted
+  },
+  inputCuntainer: {
     height: undefined,
     minHeight: 110,
     borderRadius: RADIUS.sm
