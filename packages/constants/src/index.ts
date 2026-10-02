@@ -1,7 +1,7 @@
 import type {
   LibraryEntryResponseStatus,
   TitleListItemResponseType
-} from '../../api/src/generated/model'
+} from '@app/api'
 
 export const STATUS_LABELS: Record<LibraryEntryResponseStatus, string> = {
   PLANNED: 'Planned',
@@ -27,3 +27,4 @@ export const REFRESH_TOKEN = 'refreshToken'
 
 export * from './auth'
 export * from './platforms'
+export * from './roles'

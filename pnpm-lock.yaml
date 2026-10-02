@@ -349,6 +349,9 @@ importers:
 
   packages/constants:
     dependencies:
+      '@app/api':
+        specifier: workspace:^
+        version: link:../api
       '@app/types':
         specifier: workspace:^
         version: link:../types
