@@ -32,7 +32,7 @@ export default function TabBarLayout() {
           }}
           md='favorite'
         />
-        <NativeTabs.Trigger.Label>My Favorites</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>My Library</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name='account'>
         <NativeTabs.Trigger.Icon
