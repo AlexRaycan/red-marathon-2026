@@ -146,23 +146,18 @@ export default function ItemDetailScreen() {
                 onPress={() => console.log('Add to Library')}
               />
               <View style={[styles.actionButtonGroup]}>
-                <View style={[styles.actionButton]}>
-                  <Button
-                    label='Add to Watchlist'
-                    icon={Bookmark}
-                    fullWidth
-                    onPress={() => console.log('')}
-                  />
-                </View>
-
-                <View style={[styles.actionButton]}>
-                  <Button
-                    label='Rate'
-                    icon={Star}
-                    fullWidth
-                    onPress={() => console.log('')}
-                  />
-                </View>
+                <Button
+                  label='Add to Watchlist'
+                  icon={Bookmark}
+                  fullWidth
+                  onPress={() => console.log('')}
+                />
+                <Button
+                  label='Rate'
+                  icon={Star}
+                  fullWidth
+                  onPress={() => console.log('')}
+                />
               </View>
             </View>
           </GlassContainer>
@@ -246,13 +241,7 @@ const styles = StyleSheet.create({
   },
   actionButtonGroup: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     alignItems: 'center',
     gap: SPACINGS[3]
-  },
-  actionButton: {
-    flexGrow: 1,
-    flexBasis: 0,
-    minWidth: 0
   }
 })

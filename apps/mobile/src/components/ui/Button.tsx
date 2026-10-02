@@ -120,7 +120,9 @@ export function Button({
 
 const styles = StyleSheet.create({
   fullWidth: {
-    width: '100%'
+    width: '100%',
+    flexShrink: 1,
+    minWidth: 0
   },
   content: {
     // flex: 1,
