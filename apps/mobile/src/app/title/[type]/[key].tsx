@@ -150,7 +150,7 @@ export default function ItemDetailScreen() {
                   <Button
                     label='Add to Watchlist'
                     icon={Bookmark}
-
+                    fullWidth
                     onPress={() => console.log('')}
                   />
                 </View>
@@ -159,6 +159,7 @@ export default function ItemDetailScreen() {
                   <Button
                     label='Rate'
                     icon={Star}
+                    fullWidth
                     onPress={() => console.log('')}
                   />
                 </View>
@@ -250,6 +251,8 @@ const styles = StyleSheet.create({
     gap: SPACINGS[3]
   },
   actionButton: {
-    flex: 1
+    flexGrow: 1,
+    flexBasis: 0,
+    minWidth: 0
   }
 })

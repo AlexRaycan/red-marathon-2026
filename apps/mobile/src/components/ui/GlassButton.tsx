@@ -24,6 +24,7 @@ interface GlassButtonProps
     GlassViewProps,
     Omit<PressableProps, 'children' | 'style'> {
   style?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
@@ -34,6 +35,7 @@ export function GlassButton({
   tintColor,
   disabled,
   style,
+  containerStyle,
   onPressIn,
   onPressOut,
   ...props
@@ -69,6 +71,7 @@ export function GlassButton({
           styles.buttonContainer,
           styles.button,
           style,
+          containerStyle,
           disabled && styles.disabled,
           animated
         ]}
@@ -85,7 +88,7 @@ export function GlassButton({
       colorScheme='dark'
       isInteractive={!disabled}
       tintColor={disabled ? undefined : tintColor}
-      style={[styles.buttonContainer, disabled && styles.disabled]}
+      style={[styles.buttonContainer, containerStyle, disabled && styles.disabled]}
     >
       <Pressable
         disabled={disabled}

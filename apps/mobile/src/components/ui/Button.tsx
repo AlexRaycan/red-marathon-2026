@@ -25,6 +25,7 @@ interface Props extends GlassViewProps {
   size?: TButtonSize
   icon?: LucideIcon
   disabled?: boolean
+  fullWidth?: boolean
   style?: StyleProp<ViewStyle>
   contentStyle?: Partial<
     Record<
@@ -53,6 +54,7 @@ export function Button({
   icon: Icon,
   tintColor,
   style,
+  fullWidth = false,
   contentStyle,
   disabled,
   children,
@@ -85,11 +87,13 @@ export function Button({
       onPress={onPress}
       disabled={disabled}
       tintColor={tintColor ?? buttonTintColor[variant]}
+      containerStyle={fullWidth && styles.fullWidth}
       style={[
         sizeStyles[size],
         // variantSyles[variant],
         isIconOnly && [styles.iconOnly, iconOnlySizes[size]],
-        style
+        style,
+        fullWidth && styles.fullWidth
       ]}
     >
       <View style={[styles.content, contentStyle?.content]}>
@@ -115,6 +119,9 @@ export function Button({
 }
 
 const styles = StyleSheet.create({
+  fullWidth: {
+    width: '100%'
+  },
   content: {
     // flex: 1,
     flexDirection: 'row',
