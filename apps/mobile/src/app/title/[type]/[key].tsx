@@ -7,16 +7,23 @@ import {
   normalizePlatform
 } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
-import { Home, Plus, Share } from 'lucide-react-native'
+import { Bookmark, Home, Plus, Share, Star } from 'lucide-react-native'
 import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import {
+  Button,
+  GlassContainer,
+  PlatformIcon,
+  Screen,
+  ViewLayout
+} from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
 import { CastCard } from '@/components/cast-card/CastCard'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
-import { Button, PlatformIcon, Screen, ViewLayout } from '@/components/ui'
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
@@ -129,15 +136,35 @@ export default function ItemDetailScreen() {
             />
           </ViewLayout.Root>
 
-          <View style={[styles.baseContainer]}>
-            <Button
-              label='Add to Library'
-              icon={Plus}
-              size='lg'
-              tintColor={accentColor}
-              onPress={() => console.log('Add to Library')}
-            />
-          </View>
+          <GlassContainer>
+            <View style={[styles.baseContainer, styles.actionButtonContainer]}>
+              <Button
+                label='Add to Library'
+                icon={Plus}
+                size='lg'
+                tintColor={accentColor}
+                onPress={() => console.log('Add to Library')}
+              />
+              <View style={[styles.actionButtonGroup]}>
+                <View style={[styles.actionButton]}>
+                  <Button
+                    label='Add to Watchlist'
+                    icon={Bookmark}
+
+                    onPress={() => console.log('')}
+                  />
+                </View>
+
+                <View style={[styles.actionButton]}>
+                  <Button
+                    label='Rate'
+                    icon={Star}
+                    onPress={() => console.log('')}
+                  />
+                </View>
+              </View>
+            </View>
+          </GlassContainer>
 
           {/* TODO: add seperate view for developers */}
           {hasCast && (
@@ -212,5 +239,17 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontWeight: FONT_WEIGHT.bold
+  },
+  actionButtonContainer: {
+    gap: SPACINGS[4]
+  },
+  actionButtonGroup: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: SPACINGS[3]
+  },
+  actionButton: {
+    flex: 1
   }
 })
