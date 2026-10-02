@@ -19,9 +19,13 @@
     "^app/api$",
     "^app/hooks$",
     "^app/ui$",
+    "@/components/pages$",
+    "@/components/ui$",
     "^@/components/(.*)$",
     "^@/features/(.*)$",
     "^@/hooks/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/utils/(.*)$",
     "^@/assets/(.*)$",
     "^(../.*)$",
     "^(./.*)$"
