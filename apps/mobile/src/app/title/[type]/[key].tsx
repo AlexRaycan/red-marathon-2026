@@ -194,6 +194,8 @@ export default function ItemDetailScreen() {
                   fullWidth
                   onPress={() => console.log('Pressed Add to Watchlist')}
                 />
+
+                {/* TODO: long press let user quick rate; press to show clickable pop-up */}
                 <Button
                   label='Rate'
                   icon={Star}
