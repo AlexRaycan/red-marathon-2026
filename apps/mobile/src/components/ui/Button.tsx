@@ -65,23 +65,21 @@ export function Button({
 
   const hasGlassEffect = isGlassEffectAvailable()
 
-  const contentColor = hasGlassEffect
+  const fallbackContentColor = tintColor
     ? COLORS.text.primary
-    : tintColor
-      ? COLORS.text.primary
-      : CONTENT_COLOR[variant]
+    : CONTENT_COLOR[variant]
+  const contentColor = tintColor ? COLORS.text.primary : fallbackContentColor
 
   // tintColor принимать извне, тут только отрабатываем его отсуствие
-  const buttonTintColor: Record<TButtonVariant, ColorValue> = {
-    primary:
-      tintColor ??
-      (hasGlassEffect ? 'rgba(255, 255, 255, 0.13)' : COLORS.primary),
-    secondary: hasGlassEffect ? '' : COLORS.bg.card,
-    transparent: 'transparent'
+  const fallbackTintColor = {
+    primary: hasGlassEffect ? 'rgba(255, 255, 255, 0.24)' : COLORS.primary,
+    secondary: hasGlassEffect ? 'rgba(255, 255, 255, 0.08)' : COLORS.bg.card
   }
-
-  // const buttonTintColor =
-  //   variant === 'primary' ? tintColor : 'rgba(255, 255, 255, 0.8)'
+  const buttonTintColor: Record<TButtonVariant, ColorValue> = {
+    primary: tintColor ?? fallbackTintColor.primary,
+    secondary: tintColor ?? fallbackTintColor.secondary,
+    transparent: ''
+  }
 
   return (
     <GlassButton

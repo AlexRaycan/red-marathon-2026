@@ -1,19 +1,10 @@
 import type { DiscoverDetailsResponse } from '@app/api'
-import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
-import BottomSheet, {
-  type BottomSheetProps,
-  BottomSheetView
-} from '@expo/ui/community/bottom-sheet'
+import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
+import BottomSheet, { BottomSheetView } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import {
-  Button,
-  GlassContainer,
-  Input,
-  ScreenTitle,
-  ViewLayout
-} from '@/components/ui'
+import { Button, GlassContainer, Input, ScreenTitle } from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
 
