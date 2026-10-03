@@ -65,6 +65,9 @@ export function ShareBottomSheet({
     onCloseSpread()
   }, [recipients, inputText, onCloseSpread])
 
+  const isSubmitButtonDisabled =
+    inputText.trim().length === 0 || selectedIds.length === 0
+
   return (
     <BottomSheet
       {...props}
@@ -128,6 +131,7 @@ export function ShareBottomSheet({
                 label='Send'
                 tintColor={COLORS.status.success}
                 size='lg'
+                disabled={isSubmitButtonDisabled}
                 onPress={handleShare}
               />
               <Button

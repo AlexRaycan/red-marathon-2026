@@ -148,12 +148,6 @@ const styles = StyleSheet.create({
   }
 })
 
-/* const variantSyles = StyleSheet.create({
-  secondary: {
-    backgroundColor: 'transparent'
-  }
-}) */
-
 const sizeStyles = StyleSheet.create({
   md: {
     height: 44,
