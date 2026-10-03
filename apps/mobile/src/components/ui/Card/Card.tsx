@@ -23,7 +23,7 @@ interface CardProps extends ViewProps {
   cardStyle?: StyleProp<ViewStyle>
   coverStyle?: StyleProp<ImageStyle>
   style?: StyleProp<ViewStyle>
-  onPress: () => void
+  onPress?: () => void
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)

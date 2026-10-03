@@ -41,7 +41,7 @@ export function Input({
         tintColor={error ? hexToRgba(COLORS.status.error, 0.15) : tintColor}
         style={[
           styles.container,
-          multiline && styles.multilineContainer,
+          multiline && [styles.multilineContainer, styles.multilineHeight],
           containerStyle
         ]}
       >
@@ -49,7 +49,7 @@ export function Input({
           placeholderTextColor={COLORS.text.muted}
           secureTextEntry={isPassword && isSecure}
           multiline={multiline}
-          style={[styles.input, style]}
+          style={[styles.input, multiline && styles.multilineHeight, style]}
           {...props}
         />
 
@@ -89,10 +89,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  multilineHeight: {
+    minHeight: 110
+  },
   multilineContainer: {
     alignItems: 'flex-start',
     height: undefined,
-    minHeight: 110,
     borderRadius: RADIUS.sm
   },
   input: {

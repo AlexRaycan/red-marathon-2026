@@ -11,10 +11,18 @@ import { TitleCardBookFX } from './TitleCardBookFX'
 interface Props {
   title: Pick<DiscoverItemResponse, 'type' | 'coverUrl'>
   width: number
-  onPress: () => void
+  withBadge?: boolean
+  borderRadius?: number
+  onPress?: () => void
 }
 
-export function TitleCard({ title, width, onPress }: Props) {
+export function TitleCard({
+  title,
+  width,
+  withBadge,
+  borderRadius,
+  onPress
+}: Props) {
   const config = TITLE_CARD_CONFIG[title.type]
 
   return (
@@ -29,17 +37,27 @@ export function TitleCard({ title, width, onPress }: Props) {
         config.spine && {
           borderRadius: RADIUS.sm,
           overflow: 'hidden'
+        },
+        !!borderRadius && {
+          borderRadius: borderRadius
         }
       ]}
-      coverStyle={config.spine && styles.bookCover}
+      coverStyle={[
+        config.spine && styles.bookCover,
+        !!borderRadius && {
+          borderRadius: borderRadius
+        }
+      ]}
       onPress={onPress}
     >
       {config.spine && <TitleCardBookFX />}
 
-      <TitleCardBadge
-        accentColor={config.accent}
-        icon={config.icon}
-      />
+      {withBadge && (
+        <TitleCardBadge
+          accentColor={config.accent}
+          icon={config.icon}
+        />
+      )}
     </Card>
   )
 }

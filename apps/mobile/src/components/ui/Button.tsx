@@ -65,10 +65,12 @@ export function Button({
 
   const hasGlassEffect = isGlassEffectAvailable()
 
-  const fallbackContentColor = tintColor
+  const fallbackContentColor = hasGlassEffect
     ? COLORS.text.primary
     : CONTENT_COLOR[variant]
-  const contentColor = tintColor ? COLORS.text.primary : fallbackContentColor
+  const contentColor = hasGlassEffect
+    ? COLORS.text.primary
+    : fallbackContentColor
 
   // tintColor принимать извне, тут только отрабатываем его отсуствие
   const fallbackTintColor = {

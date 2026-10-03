@@ -1,6 +1,6 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { ChevronRight } from 'lucide-react-native'
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import {
   Pressable,
   ScrollView,
@@ -14,10 +14,17 @@ import {
 interface Props extends PropsWithChildren {
   title?: string
   titleStyle?: StyleProp<TextStyle>
+  beforeTitle?: ReactNode
   onPress?: () => void
 }
 
-export function Carousel({ title, children, titleStyle, onPress }: Props) {
+export function Carousel({
+  title,
+  titleStyle,
+  beforeTitle,
+  children,
+  onPress
+}: Props) {
   return (
     <View style={styles.root}>
       {(title ?? Boolean(onPress)) && (
@@ -27,7 +34,10 @@ export function Carousel({ title, children, titleStyle, onPress }: Props) {
           hitSlop={12}
           style={styles.header}
         >
-          <Text style={[styles.title, titleStyle]}>{title}</Text>
+          <View style={styles.beforeTitle}>
+            {beforeTitle}
+            <Text style={[styles.title, titleStyle]}>{title}</Text>
+          </View>
 
           {Boolean(onPress) && (
             <ChevronRight
@@ -58,6 +68,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: LAYOUT['space-horizontal'],
     paddingVertical: SPACINGS[2]
+  },
+  beforeTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACINGS[2]
   },
   title: {
     color: COLORS.text.primary,
