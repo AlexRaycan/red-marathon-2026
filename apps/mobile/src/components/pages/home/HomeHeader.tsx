@@ -2,8 +2,9 @@ import { PROJECT_NAME } from '@app/constants'
 import { Bell } from 'lucide-react-native'
 import { type SharedValue } from 'react-native-reanimated'
 
-import { Toolbar } from '@/components/toolbar'
 import { Button } from '@/components/ui'
+
+import { Toolbar } from '@/components/toolbar'
 
 interface IHomeHeaderProps {
   scrollY: SharedValue<number>

@@ -15,9 +15,10 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
+import { Button, GlassContainer, PaginationDot } from '@/components/ui'
+
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { TITLE_CARD_CONFIG } from '@/components/titles'
-import { Button, GlassContainer, PaginationDot } from '@/components/ui'
 
 interface Props {
   items: DiscoverItemResponse[]

@@ -7,8 +7,6 @@ import { Bell, CreditCard, LogOut, Users2 } from 'lucide-react-native'
 import { Heart } from 'lucide-react-native/icons'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
-import { AccountUserInfo } from '@/components/pages/account'
-import { Toolbar } from '@/components/toolbar'
 import {
   Button,
   GlassContainer,
@@ -17,6 +15,9 @@ import {
   Screen,
   ViewLayout
 } from '@/components/ui'
+
+import { AccountUserInfo } from '@/components/pages/account'
+import { Toolbar } from '@/components/toolbar'
 
 import { clearTokens, getRefreshToken } from '@/lib/token'
 

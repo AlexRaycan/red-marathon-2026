@@ -15,8 +15,9 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 
-import { GlassView } from './GlassView'
 import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
+
+import { GlassView } from './GlassView'
 
 interface GlassButtonProps
   extends
@@ -88,7 +89,11 @@ export function GlassButton({
       colorScheme='dark'
       isInteractive={!disabled}
       tintColor={disabled ? undefined : tintColor}
-      style={[styles.buttonContainer, containerStyle, disabled && styles.disabled]}
+      style={[
+        styles.buttonContainer,
+        containerStyle,
+        disabled && styles.disabled
+      ]}
     >
       <Pressable
         disabled={disabled}

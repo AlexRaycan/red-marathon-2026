@@ -6,12 +6,13 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 
+import { Screen } from '@/components/ui'
+
 import {
   HomeHeader,
   HomeHeroSlider,
   HomeSliders
 } from '@/components/pages/home'
-import { Screen } from '@/components/ui'
 
 export default function Index() {
   const { data, isPending } = useDiscoverGetTrending({ take: 20 })
