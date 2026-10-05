@@ -7,7 +7,7 @@
  */
 
 /**
- * TMDB отдаёт фильмы и сериалы по разным путям — тип нужен ему
+ * Часть ключа тайтла: у TMDB фильм и сериал с одним id — разные тайтлы
  */
 export type ImportTitleDtoType = typeof ImportTitleDtoType[keyof typeof ImportTitleDtoType];
 

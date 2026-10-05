@@ -27,6 +27,8 @@ import type {
 import type {
   CreateReviewDto,
   MyReviewListResponse,
+  ReviewFieldsDto,
+  ReviewFindByDiscoverKeyParams,
   ReviewFindByTitleParams,
   ReviewFindMyParams,
   ReviewListResponse,
@@ -187,7 +189,234 @@ export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFin
 
 
 
-export type reviewFindMyResponse200 = {
+export type reviewFindByDiscoverKeyResponse200 = {
+  data: ReviewListResponse
+  status: 200
+}
+
+export type reviewFindByDiscoverKeyResponseSuccess = (reviewFindByDiscoverKeyResponse200) & {
+  headers: Headers;
+};
+;
+
+export type reviewFindByDiscoverKeyResponse = (reviewFindByDiscoverKeyResponseSuccess)
+
+export const getReviewFindByDiscoverKeyUrl = (key: string,
+    params?: ReviewFindByDiscoverKeyParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/reviews/discover/${key}?${stringifiedParams}` : `/reviews/discover/${key}`
+}
+
+/**
+ * @summary Отзывы по ключу витрины: `tmdb-movie-603`. Тайтла у нас нет — пустой список
+ */
+export const reviewFindByDiscoverKey = async (key: string,
+    params?: ReviewFindByDiscoverKeyParams, options?: Parameters<typeof http>[1]): Promise<reviewFindByDiscoverKeyResponse> => {
+
+  return http<reviewFindByDiscoverKeyResponse>(getReviewFindByDiscoverKeyUrl(key,params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getReviewFindByDiscoverKeyQueryKey = (key: string,
+    params?: ReviewFindByDiscoverKeyParams,) => {
+    return [
+    `/reviews/discover/${key}`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getReviewFindByDiscoverKeyQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(key: string,
+    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getReviewFindByDiscoverKeyQueryKey(key,params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>> = ({ signal }) => reviewFindByDiscoverKey(key,params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ReviewFindByDiscoverKeyQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>>
+export type ReviewFindByDiscoverKeyQueryError = unknown
+
+
+export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+ key: string,
+    params: undefined |  ReviewFindByDiscoverKeyParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>,
+          TError,
+          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+ key: string,
+    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>,
+          TError,
+          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+ key: string,
+    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Отзывы по ключу витрины: `tmdb-movie-603`. Тайтла у нас нет — пустой список
+ */
+
+export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+ key: string,
+    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getReviewFindByDiscoverKeyQueryOptions(key,params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+export type reviewCreateByDiscoverKeyResponse201 = {
+  data: ReviewResponse
+  status: 201
+}
+
+export type reviewCreateByDiscoverKeyResponseSuccess = (reviewCreateByDiscoverKeyResponse201) & {
+  headers: Headers;
+};
+;
+
+export type reviewCreateByDiscoverKeyResponse = (reviewCreateByDiscoverKeyResponseSuccess)
+
+export const getReviewCreateByDiscoverKeyUrl = (key: string,) => {
+
+
+
+
+  return `/reviews/discover/${key}`
+}
+
+/**
+ * @summary Отзыв по ключу витрины — тайтл сохранится у нас вместе с отзывом
+ */
+export const reviewCreateByDiscoverKey = async (key: string,
+    reviewFieldsDto: ReviewFieldsDto, options?: Parameters<typeof http>[1]): Promise<reviewCreateByDiscoverKeyResponse> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return http<reviewCreateByDiscoverKeyResponse>(getReviewCreateByDiscoverKeyUrl(key),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(reviewFieldsDto)
+  }
+);}
+
+
+
+
+
+export const getReviewCreateByDiscoverKeyMutationKey = () => ['reviewCreateByDiscoverKey'] as const;
+
+export const getReviewCreateByDiscoverKeyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext> => {
+
+const mutationKey = getReviewCreateByDiscoverKeyMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, ReviewCreateByDiscoverKeyMutationVariables> = (props) => {
+          const {key,data} = props ?? {};
+
+          return  reviewCreateByDiscoverKey(key,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReviewCreateByDiscoverKeyMutationResult = NonNullable<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>>
+    export type ReviewCreateByDiscoverKeyMutationBody = ReviewFieldsDto
+    export type ReviewCreateByDiscoverKeyMutationError = unknown
+    export type ReviewCreateByDiscoverKeyMutationVariables = {key: string;data: ReviewFieldsDto}
+
+    /**
+ * @summary Отзыв по ключу витрины — тайтл сохранится у нас вместе с отзывом
+ */
+export const useReviewCreateByDiscoverKey = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>,
+        TError,
+        ReviewCreateByDiscoverKeyMutationVariables,
+        TContext
+      > => {
+      return useMutation(getReviewCreateByDiscoverKeyMutationOptions(options), queryClient);
+    }
+    export type reviewFindMyResponse200 = {
   data: MyReviewListResponse
   status: 200
 }
@@ -300,12 +529,12 @@ export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>
 
 
 
-export type reviewCreateResponse200 = {
+export type reviewCreateResponse201 = {
   data: ReviewResponse
-  status: 200
+  status: 201
 }
 
-export type reviewCreateResponseSuccess = (reviewCreateResponse200) & {
+export type reviewCreateResponseSuccess = (reviewCreateResponse201) & {
   headers: Headers;
 };
 ;

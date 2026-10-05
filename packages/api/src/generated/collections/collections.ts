@@ -174,12 +174,12 @@ export function useCollectionFindAll<TData = Awaited<ReturnType<typeof collectio
 
 
 
-export type collectionCreateResponse200 = {
+export type collectionCreateResponse201 = {
   data: CollectionResponse
-  status: 200
+  status: 201
 }
 
-export type collectionCreateResponseSuccess = (collectionCreateResponse200) & {
+export type collectionCreateResponseSuccess = (collectionCreateResponse201) & {
   headers: Headers;
 };
 ;

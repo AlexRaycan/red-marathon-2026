@@ -11,6 +11,6 @@ import type { ImportTitleDtoType } from './importTitleDtoType';
 export interface ImportTitleDto {
   source: ImportTitleDtoSource;
   externalId: string;
-  /** TMDB отдаёт фильмы и сериалы по разным путям — тип нужен ему */
-  type?: ImportTitleDtoType;
+  /** Часть ключа тайтла: у TMDB фильм и сериал с одним id — разные тайтлы */
+  type: ImportTitleDtoType;
 }

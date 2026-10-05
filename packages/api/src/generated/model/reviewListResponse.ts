@@ -10,4 +10,6 @@ import type { ReviewResponse } from './reviewResponse';
 export interface ReviewListResponse {
   items: ReviewResponse[];
   isHasMore: boolean;
+  /** Сколько всего отзывов под этим фильтром — для подписи «N reviews» */
+  total: number;
 }

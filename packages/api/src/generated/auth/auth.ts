@@ -33,12 +33,12 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 
-export type authRegisterResponse200 = {
+export type authRegisterResponse201 = {
   data: AuthResponse
-  status: 200
+  status: 201
 }
 
-export type authRegisterResponseSuccess = (authRegisterResponse200) & {
+export type authRegisterResponseSuccess = (authRegisterResponse201) & {
   headers: Headers;
 };
 ;

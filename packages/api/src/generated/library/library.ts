@@ -29,6 +29,7 @@ import type {
   LibraryEntryResponse,
   LibraryFindAllParams,
   LibraryListResponse,
+  SetLibraryStatusDto,
   UpdateLibraryEntryDto
 } from '../model';
 
@@ -179,12 +180,12 @@ export function useLibraryFindAll<TData = Awaited<ReturnType<typeof libraryFindA
 
 
 
-export type libraryCreateResponse200 = {
+export type libraryCreateResponse201 = {
   data: LibraryEntryResponse
-  status: 200
+  status: 201
 }
 
-export type libraryCreateResponseSuccess = (libraryCreateResponse200) & {
+export type libraryCreateResponseSuccess = (libraryCreateResponse201) & {
   headers: Headers;
 };
 ;
@@ -556,4 +557,183 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getLibraryDeleteMutationOptions(options), queryClient);
+    }
+    export type librarySetStatusByDiscoverKeyResponse200 = {
+  data: LibraryEntryResponse
+  status: 200
+}
+
+export type librarySetStatusByDiscoverKeyResponseSuccess = (librarySetStatusByDiscoverKeyResponse200) & {
+  headers: Headers;
+};
+;
+
+export type librarySetStatusByDiscoverKeyResponse = (librarySetStatusByDiscoverKeyResponseSuccess)
+
+export const getLibrarySetStatusByDiscoverKeyUrl = (key: string,) => {
+
+
+
+
+  return `/library/discover/${key}`
+}
+
+/**
+ * @summary Статус по ключу витрины: `tmdb-movie-603`. Нет записи — создаст
+ */
+export const librarySetStatusByDiscoverKey = async (key: string,
+    setLibraryStatusDto: SetLibraryStatusDto, options?: Parameters<typeof http>[1]): Promise<librarySetStatusByDiscoverKeyResponse> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return http<librarySetStatusByDiscoverKeyResponse>(getLibrarySetStatusByDiscoverKeyUrl(key),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(setLibraryStatusDto)
+  }
+);}
+
+
+
+
+
+export const getLibrarySetStatusByDiscoverKeyMutationKey = () => ['librarySetStatusByDiscoverKey'] as const;
+
+export const getLibrarySetStatusByDiscoverKeyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof librarySetStatusByDiscoverKey>>, TError,LibrarySetStatusByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof librarySetStatusByDiscoverKey>>, TError,LibrarySetStatusByDiscoverKeyMutationVariables, TContext> => {
+
+const mutationKey = getLibrarySetStatusByDiscoverKeyMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof librarySetStatusByDiscoverKey>>, LibrarySetStatusByDiscoverKeyMutationVariables> = (props) => {
+          const {key,data} = props ?? {};
+
+          return  librarySetStatusByDiscoverKey(key,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type LibrarySetStatusByDiscoverKeyMutationResult = NonNullable<Awaited<ReturnType<typeof librarySetStatusByDiscoverKey>>>
+    export type LibrarySetStatusByDiscoverKeyMutationBody = SetLibraryStatusDto
+    export type LibrarySetStatusByDiscoverKeyMutationError = unknown
+    export type LibrarySetStatusByDiscoverKeyMutationVariables = {key: string;data: SetLibraryStatusDto}
+
+    /**
+ * @summary Статус по ключу витрины: `tmdb-movie-603`. Нет записи — создаст
+ */
+export const useLibrarySetStatusByDiscoverKey = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof librarySetStatusByDiscoverKey>>, TError,LibrarySetStatusByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof librarySetStatusByDiscoverKey>>,
+        TError,
+        LibrarySetStatusByDiscoverKeyMutationVariables,
+        TContext
+      > => {
+      return useMutation(getLibrarySetStatusByDiscoverKeyMutationOptions(options), queryClient);
+    }
+    export type libraryDeleteByDiscoverKeyResponse204 = {
+  data: boolean
+  status: 204
+}
+
+export type libraryDeleteByDiscoverKeyResponseSuccess = (libraryDeleteByDiscoverKeyResponse204) & {
+  headers: Headers;
+};
+;
+
+export type libraryDeleteByDiscoverKeyResponse = (libraryDeleteByDiscoverKeyResponseSuccess)
+
+export const getLibraryDeleteByDiscoverKeyUrl = (key: string,) => {
+
+
+
+
+  return `/library/discover/${key}`
+}
+
+export const libraryDeleteByDiscoverKey = async (key: string, options?: Parameters<typeof http>[1]): Promise<libraryDeleteByDiscoverKeyResponse> => {
+
+  return http<libraryDeleteByDiscoverKeyResponse>(getLibraryDeleteByDiscoverKeyUrl(key),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getLibraryDeleteByDiscoverKeyMutationKey = () => ['libraryDeleteByDiscoverKey'] as const;
+
+export const getLibraryDeleteByDiscoverKeyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof libraryDeleteByDiscoverKey>>, TError,LibraryDeleteByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof libraryDeleteByDiscoverKey>>, TError,LibraryDeleteByDiscoverKeyMutationVariables, TContext> => {
+
+const mutationKey = getLibraryDeleteByDiscoverKeyMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof libraryDeleteByDiscoverKey>>, LibraryDeleteByDiscoverKeyMutationVariables> = (props) => {
+          const {key} = props ?? {};
+
+          return  libraryDeleteByDiscoverKey(key,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type LibraryDeleteByDiscoverKeyMutationResult = NonNullable<Awaited<ReturnType<typeof libraryDeleteByDiscoverKey>>>
+
+    export type LibraryDeleteByDiscoverKeyMutationError = unknown
+    export type LibraryDeleteByDiscoverKeyMutationVariables = {key: string}
+
+    export const useLibraryDeleteByDiscoverKey = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof libraryDeleteByDiscoverKey>>, TError,LibraryDeleteByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof libraryDeleteByDiscoverKey>>,
+        TError,
+        LibraryDeleteByDiscoverKeyMutationVariables,
+        TContext
+      > => {
+      return useMutation(getLibraryDeleteByDiscoverKeyMutationOptions(options), queryClient);
     }

@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CreateReviewDto {
-  titleId: string;
+export interface ReviewFieldsDto {
   /**
      * Оценки везде десятибалльные, клиент показывает их по своей шкале
      * @minimum 1

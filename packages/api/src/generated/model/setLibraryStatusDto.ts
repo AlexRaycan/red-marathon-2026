@@ -5,10 +5,8 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { MyReviewResponse } from './myReviewResponse';
+import type { SetLibraryStatusDtoStatus } from './setLibraryStatusDtoStatus';
 
-export interface MyReviewListResponse {
-  items: MyReviewResponse[];
-  isHasMore: boolean;
-  total: number;
+export interface SetLibraryStatusDto {
+  status?: SetLibraryStatusDtoStatus;
 }

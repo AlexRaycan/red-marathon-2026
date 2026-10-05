@@ -14,11 +14,6 @@ export interface CreateLibraryEntryDto {
   /** @minimum 0 */
   progress?: number;
   progressUnit?: CreateLibraryEntryDtoProgressUnit;
-  /**
-     * @minimum 1
-     * @maximum 10
-     */
-  rating?: number;
   /** @maxLength 1000 */
   note?: string;
   isFavorite?: boolean;

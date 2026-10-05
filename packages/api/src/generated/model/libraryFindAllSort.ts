@@ -11,6 +11,5 @@ export type LibraryFindAllSort = typeof LibraryFindAllSort[keyof typeof LibraryF
 
 export const LibraryFindAllSort = {
   name: 'name',
-  rating: 'rating',
   recent: 'recent',
 } as const;

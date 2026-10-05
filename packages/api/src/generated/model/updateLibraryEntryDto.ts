@@ -13,11 +13,6 @@ export interface UpdateLibraryEntryDto {
   /** @minimum 0 */
   progress?: number;
   progressUnit?: UpdateLibraryEntryDtoProgressUnit;
-  /**
-     * @minimum 1
-     * @maximum 10
-     */
-  rating?: number;
   /** @maxLength 1000 */
   note?: string;
   isFavorite?: boolean;

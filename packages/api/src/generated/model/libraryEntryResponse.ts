@@ -16,7 +16,10 @@ export interface LibraryEntryResponse {
   progress: number | null;
   /** @nullable */
   progressUnit: LibraryEntryResponseProgressUnit;
-  /** @nullable */
+  /**
+     * Оценка из отзыва пользователя на этот тайтл — в библиотеке её нет
+     * @nullable
+     */
   rating: number | null;
   /** @nullable */
   note: string | null;

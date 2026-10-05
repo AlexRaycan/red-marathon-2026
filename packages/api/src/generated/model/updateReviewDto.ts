@@ -14,6 +14,7 @@ export interface UpdateReviewDto {
      */
   rating?: number;
   /**
+     * null очищает текст — отзыв становится просто оценкой
      * @minLength 10
      * @maxLength 5000
      */
