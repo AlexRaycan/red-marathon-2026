@@ -8,7 +8,7 @@ import {
 } from '@app/utils'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
-import { Bookmark, Home, Plus, Share, Star } from 'lucide-react-native'
+import { Home } from 'lucide-react-native'
 import { useRef } from 'react'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
@@ -19,22 +19,15 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import {
-  Button,
-  GlassContainer,
-  PlatformIcon,
-  Screen,
-  ViewLayout
-} from '@/components/ui'
+import { Button, PlatformIcon, Screen, ViewLayout } from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { CastCard } from '@/components/pages/details/cast-card/CastCard'
-import { ShareBottomSheet } from '@/components/pages/details/share'
+import { DetailsActionButtons } from '@/components/pages/details/details-action-buttons/DetailsActionButtons'
+import { ShareButton } from '@/components/pages/details/share/ShareButton'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
-
-const OVERLAP_HEIGHT = SPACINGS[10]
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
@@ -44,7 +37,8 @@ export default function ItemDetailScreen() {
 
   const inset = useSafeAreaInsets()
 
-  const sheetRef = useRef<BottomSheet>(null)
+  const shareSheetRef = useRef<BottomSheet>(null)
+  const reviewSheetRef = useRef<BottomSheet>(null)
 
   const { width } = useWindowDimensions()
   const heroHeight = width * 1.35
@@ -132,14 +126,7 @@ export default function ItemDetailScreen() {
       <Toolbar
         isBackButton
         isAbsolute
-        rightSide={
-          <Button
-            icon={Share}
-            variant='transparent'
-            hapticStyle='success'
-            onPress={() => sheetRef.current?.snapToIndex(0)}
-          />
-        }
+        rightSide={<ShareButton title={title} />}
       />
       <Animated.View
         style={[styles.hero, heroStyle]}
@@ -185,35 +172,10 @@ export default function ItemDetailScreen() {
             />
           </ViewLayout.Root>
 
-          <GlassContainer>
-            <View style={[styles.baseContainer, styles.actionButtonContainer]}>
-              <Button
-                label='Add to Library'
-                icon={Plus}
-                size='lg'
-                tintColor={accentColor}
-                onPress={() => console.log('Add to Library')}
-              />
-              <View style={[styles.actionButtonGroup]}>
-                <Button
-                  label='Add to Watchlist'
-                  variant='secondary'
-                  icon={Bookmark}
-                  fullWidth
-                  onPress={() => console.log('Pressed Add to Watchlist')}
-                />
-
-                {/* TODO: long press let user quick rate; press to show clickable pop-up */}
-                <Button
-                  label='Rate'
-                  variant='secondary'
-                  icon={Star}
-                  fullWidth
-                  onPress={() => console.log('Pressed Rate')}
-                />
-              </View>
-            </View>
-          </GlassContainer>
+          <DetailsActionButtons
+            titleKey={key}
+            accentColor={accentColor}
+          />
 
           {!!title?.similar?.length && (
             <TitlesSlider
@@ -270,10 +232,10 @@ export default function ItemDetailScreen() {
           onPress={() => router.push('/')}
         />
       </View>
-      <ShareBottomSheet
+      {/*<ShareBottomSheet
         title={title}
-        ref={sheetRef}
-      />
+        ref={shareSheetRef}
+      />*/}
     </Screen>
   )
 }
@@ -289,13 +251,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     gap: SPACINGS[5]
   },
-  bodyFade: {
-    position: 'absolute',
-    top: -OVERLAP_HEIGHT,
-    left: 0,
-    right: 0,
-    height: OVERLAP_HEIGHT
-  },
   baseContainer: {
     marginHorizontal: LAYOUT['space-horizontal']
   },
@@ -305,13 +260,5 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontWeight: FONT_WEIGHT.bold
-  },
-  actionButtonContainer: {
-    gap: SPACINGS[4]
-  },
-  actionButtonGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACINGS[3]
   }
 })
