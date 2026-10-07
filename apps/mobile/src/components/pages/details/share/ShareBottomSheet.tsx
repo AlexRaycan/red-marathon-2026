@@ -99,9 +99,6 @@ const styles = StyleSheet.create({
     paddingBottom: StyleSheet.hairlineWidth,
     gap: SPACINGS[4]
   },
-  carouselTitle: {
-    fontSize: FONT_SIZE.base
-  },
   divider: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: COLORS.border
