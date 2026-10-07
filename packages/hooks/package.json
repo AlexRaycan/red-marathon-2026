@@ -4,6 +4,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "dependencies": {
-    "@app/api": "workspace:^"
+    "@app/api": "workspace:^",
+    "@app/types": "workspace:^"
   }
 }

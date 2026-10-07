@@ -1,10 +1,10 @@
 import {
-  type LibraryEntryResponseStatus,
   getDiscoverFindMyStateQueryKey,
   useDiscoverFindMyState,
   useLibrarySetStatusByDiscoverKey,
   useUserFindMe
 } from '@app/api'
+import type { TLibraryStatus } from '@app/types'
 import { useQueryClient } from '@tanstack/react-query'
 
 export function useLibraryStatus(key: string) {
@@ -31,7 +31,7 @@ export function useLibraryStatus(key: string) {
   const pendingStatus = isPending ? variables?.data.status : undefined
   const savedStatus = myState?.data.libraryEntry?.status ?? null
 
-  const setStatus = (status: LibraryEntryResponseStatus) => {
+  const setStatus = (status: TLibraryStatus) => {
     mutate({
       key,
       data: {

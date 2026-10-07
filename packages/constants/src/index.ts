@@ -26,6 +26,7 @@ export const ACCESS_TOKEN = 'accessToken'
 export const REFRESH_TOKEN = 'refreshToken'
 
 export * from './auth'
+export * from './library'
 export * from './platforms'
 export * from './reviews'
 export * from './roles'

@@ -367,6 +367,9 @@ importers:
       '@app/api':
         specifier: workspace:^
         version: link:../api
+      '@app/types':
+        specifier: workspace:^
+        version: link:../types
 
   packages/schemas:
     dependencies:
@@ -382,7 +385,11 @@ importers:
 
   packages/tokens: {}
 
-  packages/types: {}
+  packages/types:
+    dependencies:
+      '@app/api':
+        specifier: workspace:^
+        version: link:../api
 
   packages/ui: {}
 
