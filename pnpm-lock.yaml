@@ -209,6 +209,9 @@ importers:
       '@app/constants':
         specifier: workspace:^
         version: link:../../packages/constants
+      '@app/hooks':
+        specifier: workspace:^
+        version: link:../../packages/hooks
       '@app/schemas':
         specifier: workspace:^
         version: link:../../packages/schemas
@@ -359,7 +362,11 @@ importers:
         specifier: workspace:^
         version: link:../types
 
-  packages/hooks: {}
+  packages/hooks:
+    dependencies:
+      '@app/api':
+        specifier: workspace:^
+        version: link:../api
 
   packages/schemas:
     dependencies:
