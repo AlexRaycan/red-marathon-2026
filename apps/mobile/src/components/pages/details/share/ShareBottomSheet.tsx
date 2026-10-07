@@ -1,18 +1,14 @@
 import type { DiscoverDetailsResponse } from '@app/api'
-import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useCallback, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { BottomSheetWindow, Input, ScreenTitle } from '@/components/ui'
 
-import { Carousel } from '@/components/carousel'
-import { TitleCard } from '@/components/titles'
+import { FriendCarousel } from '@/components/pages/details/share/FriendCarousel'
 
 import { useSelectFriends } from '@/hooks/useSelectFriends'
-
-import { FriendCard } from './FriendCard'
-import { SHARE_FRIENDS_MOCK_DATA } from './share-friends.mock.data'
 
 interface ShareBottomSheetProps {
   title: DiscoverDetailsResponse
@@ -26,14 +22,8 @@ export function ShareBottomSheet({
 }: ShareBottomSheetProps) {
   const { selectedIds, setSelectedIds, clearSelectedIds, recipients } =
     useSelectFriends()
+
   const [inputText, setInputText] = useState('')
-
-  const titleName = title.name
-  const year = title.releaseDate
-    ? new Date(title.releaseDate).getFullYear()
-    : null
-
-  const heading = `${titleName}${year ? ` (${year})` : ''}`
 
   const handleInputTextChange = (text: string) => {
     setInputText(text)
@@ -69,27 +59,11 @@ export function ShareBottomSheet({
       </View>
 
       <View style={styles.content}>
-        <Carousel
-          title={heading}
-          titleStyle={styles.carouselTitle}
-          beforeTitle={
-            <TitleCard
-              title={title}
-              width={30}
-              borderRadius={RADIUS.sm}
-            />
-          }
-        >
-          {SHARE_FRIENDS_MOCK_DATA.map(friend => (
-            <FriendCard
-              key={friend.id}
-              name={friend.name}
-              avatarUrl={friend.avatarUrl}
-              isSelected={selectedIds.includes(friend.id)}
-              onPress={() => setSelectedIds(friend.id)}
-            />
-          ))}
-        </Carousel>
+        <FriendCarousel
+          title={title}
+          selectedIds={selectedIds}
+          setSelectedIds={setSelectedIds}
+        />
 
         <View style={[styles.form]}>
           <Text
