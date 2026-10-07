@@ -366,6 +366,9 @@ importers:
       '@app/api':
         specifier: workspace:^
         version: link:../api
+      '@app/constants':
+        specifier: workspace:^
+        version: link:../constants
       zod:
         specifier: ^4.6.5
         version: 4.6.5
