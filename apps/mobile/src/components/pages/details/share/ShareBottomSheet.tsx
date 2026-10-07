@@ -1,13 +1,15 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
-import BottomSheet, { BottomSheetView } from '@expo/ui/community/bottom-sheet'
+import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useCallback, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button, GlassContainer, Input, ScreenTitle } from '@/components/ui'
+import { BottomSheetWindow, Input, ScreenTitle } from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
 import { TitleCard } from '@/components/titles'
+
+import { useSelectFriends } from '@/hooks/useSelectFriends'
 
 import { FriendCard } from './FriendCard'
 import { SHARE_FRIENDS_MOCK_DATA } from './share-friends.mock.data'
@@ -22,7 +24,8 @@ export function ShareBottomSheet({
   ref,
   ...props
 }: ShareBottomSheetProps) {
-  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const { selectedIds, setSelectedIds, clearSelectedIds, recipients } =
+    useSelectFriends()
   const [inputText, setInputText] = useState('')
 
   const titleName = title.name
@@ -32,28 +35,12 @@ export function ShareBottomSheet({
 
   const heading = `${titleName}${year ? ` (${year})` : ''}`
 
-  const toggleFriends = (id: string) => {
-    setSelectedIds(ids =>
-      ids.includes(id) ? ids.filter(item => item !== id) : [...ids, id]
-    )
-  }
-
-  const recipients = SHARE_FRIENDS_MOCK_DATA.filter(friend =>
-    selectedIds.includes(friend.id)
-  )
-    .map(friend => friend.name)
-    .join(', ')
-
   const handleInputTextChange = (text: string) => {
     setInputText(text)
   }
 
-  const onCloseSpread = useCallback(() => {
-    ref.current?.dismiss()
-  }, [ref])
-
   const handleClose = () => {
-    setSelectedIds([])
+    clearSelectedIds()
     setInputText('')
   }
 
@@ -61,97 +48,72 @@ export function ShareBottomSheet({
     const text = inputText
     console.log('To:', recipients, '\nText:', text)
     // send share request
-
-    onCloseSpread()
-  }, [recipients, inputText, onCloseSpread])
+  }, [recipients, inputText])
 
   const isSubmitButtonDisabled =
     inputText.trim().length === 0 || selectedIds.length === 0
 
   return (
-    <BottomSheet
-      {...props}
+    <BottomSheetWindow
       ref={ref}
-      index={-1}
-      enablePanDownToClose
-      enableDynamicSizing
+      isSubmitButtonDisabled={isSubmitButtonDisabled}
+      onSubmit={handleShare}
       onClose={handleClose}
+      {...props}
     >
-      <BottomSheetView style={styles.view}>
-        <View style={[styles.title]}>
-          <ScreenTitle style={[styles.inset]}>
-            Share with your friends
-          </ScreenTitle>
-          <View style={styles.divider} />
-        </View>
+      <View style={[styles.title]}>
+        <ScreenTitle style={[styles.inset]}>
+          Share with your friends
+        </ScreenTitle>
+        <View style={styles.divider} />
+      </View>
 
-        <View style={styles.content}>
-          <Carousel
-            title={heading}
-            titleStyle={styles.carouselTitle}
-            beforeTitle={
-              <TitleCard
-                title={title}
-                width={30}
-                borderRadius={RADIUS.sm}
-              />
-            }
+      <View style={styles.content}>
+        <Carousel
+          title={heading}
+          titleStyle={styles.carouselTitle}
+          beforeTitle={
+            <TitleCard
+              title={title}
+              width={30}
+              borderRadius={RADIUS.sm}
+            />
+          }
+        >
+          {SHARE_FRIENDS_MOCK_DATA.map(friend => (
+            <FriendCard
+              key={friend.id}
+              name={friend.name}
+              avatarUrl={friend.avatarUrl}
+              isSelected={selectedIds.includes(friend.id)}
+              onPress={() => setSelectedIds(friend.id)}
+            />
+          ))}
+        </Carousel>
+
+        <View style={[styles.form]}>
+          <Text
+            style={[styles.inset, styles.recipients]}
+            numberOfLines={1}
           >
-            {SHARE_FRIENDS_MOCK_DATA.map(friend => (
-              <FriendCard
-                key={friend.id}
-                name={friend.name}
-                avatarUrl={friend.avatarUrl}
-                isSelected={selectedIds.includes(friend.id)}
-                onPress={() => toggleFriends(friend.id)}
-              />
-            ))}
-          </Carousel>
+            To: {recipients}
+          </Text>
 
-          <View style={[styles.form]}>
-            <Text
-              style={[styles.inset, styles.recipients]}
-              numberOfLines={1}
-            >
-              To: {recipients}
-            </Text>
-
-            <View style={[styles.inset]}>
-              <Input
-                placeholder='Check this out!'
-                multiline
-                tintColor={'rgba(255, 255, 255, 0.08)'}
-                onChangeText={handleInputTextChange}
-              />
-            </View>
+          <View style={[styles.inset]}>
+            <Input
+              placeholder='Check this out!'
+              multiline
+              tintColor={'rgba(255, 255, 255, 0.08)'}
+              onChangeText={handleInputTextChange}
+            />
           </View>
-          <GlassContainer>
-            <View style={[styles.inset, styles.buttonsContainer]}>
-              <Button
-                label='Send'
-                tintColor={COLORS.status.success}
-                size='lg'
-                disabled={isSubmitButtonDisabled}
-                onPress={handleShare}
-              />
-              <Button
-                label='Cancel'
-                variant='secondary'
-                size='lg'
-                onPress={onCloseSpread}
-              />
-            </View>
-          </GlassContainer>
         </View>
-      </BottomSheetView>
-    </BottomSheet>
+      </View>
+    </BottomSheetWindow>
   )
 }
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1
-  },
   content: {
     gap: SPACINGS[4]
   },
@@ -172,14 +134,9 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: SPACINGS[2]
-    // paddingBottom: SPACINGS[4]
   },
   recipients: {
     fontSize: FONT_SIZE.sm,
     color: COLORS.text.muted
-  },
-  buttonsContainer: {
-    flexDirection: 'column',
-    gap: SPACINGS[2]
   }
 })

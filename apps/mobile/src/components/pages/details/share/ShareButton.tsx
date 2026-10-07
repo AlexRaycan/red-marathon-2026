@@ -14,6 +14,8 @@ interface ShareButtonProps {
 export function ShareButton({ title }: ShareButtonProps) {
   const shareSheetRef = useRef<BottomSheet>(null)
 
+  // TODO: how to save opening state of share sheet when navigating away from the login page
+
   return (
     <>
       <Button

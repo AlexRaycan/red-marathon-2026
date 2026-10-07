@@ -6,10 +6,8 @@ import {
   firstLetterUpperCase,
   normalizePlatform
 } from '@app/utils'
-import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
-import { useRef } from 'react'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
   interpolate,
@@ -36,9 +34,6 @@ export default function ItemDetailScreen() {
   }>()
 
   const inset = useSafeAreaInsets()
-
-  const shareSheetRef = useRef<BottomSheet>(null)
-  const reviewSheetRef = useRef<BottomSheet>(null)
 
   const { width } = useWindowDimensions()
   const heroHeight = width * 1.35
