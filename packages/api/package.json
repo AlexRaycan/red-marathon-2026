@@ -8,8 +8,5 @@
   },
   "devDependencies": {
     "orval": "^8.30.0"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^5.102.8"
   }
 }
