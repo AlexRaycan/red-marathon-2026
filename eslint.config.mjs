@@ -31,7 +31,8 @@ export default defineConfig([
       '**/dist/',
       '**/example/',
       '**/ios/',
-      '**/out/'
+      '**/out/',
+      'scripts/'
     ],
     'Generated files'
   ),
