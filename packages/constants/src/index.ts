@@ -27,4 +27,5 @@ export const REFRESH_TOKEN = 'refreshToken'
 
 export * from './auth'
 export * from './platforms'
+export * from './reviews'
 export * from './roles'

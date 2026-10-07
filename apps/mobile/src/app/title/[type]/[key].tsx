@@ -6,7 +6,7 @@ import {
   firstLetterUpperCase,
   normalizePlatform
 } from '@app/utils'
-import BottomSheet from '@expo/ui/community/bottom-sheet'
+import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Bookmark, Home, Plus, Share, Star } from 'lucide-react-native'
 import { useRef } from 'react'
@@ -136,7 +136,7 @@ export default function ItemDetailScreen() {
           <Button
             icon={Share}
             variant='transparent'
-            // onPress={() => router.push(`/share/${title.key}`)}
+            hapticStyle='success'
             onPress={() => sheetRef.current?.snapToIndex(0)}
           />
         }
@@ -197,6 +197,7 @@ export default function ItemDetailScreen() {
               <View style={[styles.actionButtonGroup]}>
                 <Button
                   label='Add to Watchlist'
+                  variant='secondary'
                   icon={Bookmark}
                   fullWidth
                   onPress={() => console.log('Pressed Add to Watchlist')}
@@ -205,6 +206,7 @@ export default function ItemDetailScreen() {
                 {/* TODO: long press let user quick rate; press to show clickable pop-up */}
                 <Button
                   label='Rate'
+                  variant='secondary'
                   icon={Star}
                   fullWidth
                   onPress={() => console.log('Pressed Rate')}

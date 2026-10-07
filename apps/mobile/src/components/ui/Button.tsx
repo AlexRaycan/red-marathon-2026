@@ -4,12 +4,15 @@ import type { GlassViewProps } from 'expo-glass-effect'
 import type { LucideIcon } from 'lucide-react-native'
 import {
   type ColorValue,
+  type PressableProps,
   type StyleProp,
   StyleSheet,
   Text,
   View,
   type ViewStyle
 } from 'react-native'
+
+import { HAPTIC_TRIGGERS, type HapticTrigger } from '@/lib/haptics'
 
 import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
 
@@ -20,13 +23,15 @@ const _CONTENT_TYPES = {
   MAIN_CONTENT: 'mainContent'
 } as const
 
-interface Props extends GlassViewProps {
+interface Props
+  extends GlassViewProps, Omit<PressableProps, 'children' | 'style'> {
   label?: string
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
   disabled?: boolean
   fullWidth?: boolean
+  hapticStyle?: HapticTrigger
   style?: StyleProp<ViewStyle>
   contentStyle?: Partial<
     Record<
@@ -54,12 +59,14 @@ export function Button({
   size = 'md',
   icon: Icon,
   tintColor,
-  style,
-  fullWidth = false,
-  contentStyle,
   disabled,
+  fullWidth = false,
+  hapticStyle,
+  style,
+  contentStyle,
   children,
-  onPress
+  onPress,
+  ...rest
 }: Props) {
   const isIconOnly = !children && (!label || label.length === 0) && !!Icon
 
@@ -83,9 +90,25 @@ export function Button({
     transparent: ''
   }
 
+  const hapticTrigger = hapticStyle
+    ? HAPTIC_TRIGGERS[hapticStyle]
+    : variant === 'primary'
+      ? HAPTIC_TRIGGERS.impact
+      : HAPTIC_TRIGGERS.selection
+
+  const handlePress = () => {
+    if (variant === 'primary') {
+      void hapticTrigger?.('Heavy')
+    } else {
+      void hapticTrigger?.()
+    }
+
+    onPress?.()
+  }
+
   return (
     <GlassButton
-      onPress={onPress}
+      onPress={handlePress}
       disabled={disabled}
       tintColor={tintColor ?? buttonTintColor[variant]}
       containerStyle={fullWidth && styles.fullWidth}
@@ -96,6 +119,7 @@ export function Button({
         style,
         fullWidth && styles.fullWidth
       ]}
+      {...rest}
     >
       <View style={[styles.content, contentStyle?.content]}>
         <View style={[styles.mainContent, contentStyle?.mainContent]}>
