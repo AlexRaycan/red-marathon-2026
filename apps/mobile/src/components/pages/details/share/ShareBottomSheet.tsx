@@ -7,8 +7,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { BottomSheetWindow, Input, ScreenTitle } from '@/components/ui'
 
 import { FriendCarousel } from '@/components/pages/details/share/FriendCarousel'
-
-import { useSelectFriends } from '@/hooks/useSelectFriends'
+import { useSelectFriends } from '@/components/pages/details/share/hooks/useSelectFriends'
 
 interface ShareBottomSheetProps {
   title: DiscoverDetailsResponse
