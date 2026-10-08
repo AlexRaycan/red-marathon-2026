@@ -3,8 +3,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
 import { Redirect, router } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
-import { Bell, CreditCard, LogOut, Users2 } from 'lucide-react-native'
-import { Heart } from 'lucide-react-native/icons'
+import { LogOut } from 'lucide-react-native'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import {
@@ -21,29 +20,7 @@ import { Toolbar } from '@/components/toolbar'
 
 import { clearTokens, getRefreshToken } from '@/lib/token'
 
-const ACCOUNT_MENU_ITEMS = [
-  {
-    label: 'Subscription',
-    icon: CreditCard,
-    content: 'Premium',
-    onPress: () => router.push('/subscription')
-  },
-  {
-    label: 'Watchlist',
-    icon: Heart,
-    onPress: () => router.push('/library')
-  },
-  {
-    label: 'Friends',
-    icon: Users2,
-    onPress: () => router.push('/')
-  },
-  {
-    label: 'Notifications',
-    icon: Bell,
-    onPress: () => router.push('/')
-  }
-]
+import { ACCOUNT_MENU } from '@/constants/account-menu.data'
 
 export default function Account() {
   const queryClient = useQueryClient()
@@ -96,11 +73,11 @@ export default function Account() {
                 pointerEvents='box-none'
                 style={menuStyles.glass}
               >
-                {ACCOUNT_MENU_ITEMS.map((item, index) => (
+                {ACCOUNT_MENU.map((item, index) => (
                   <MenuItem
                     {...item}
                     key={item.label}
-                    isLastItem={index === ACCOUNT_MENU_ITEMS.length - 1}
+                    isLastItem={index === ACCOUNT_MENU.length - 1}
                     withChevron
                   >
                     {item.content && (

@@ -1,3 +1,4 @@
+import { MAIN_MENU } from '@app/constants'
 import { COLORS } from '@app/tokens'
 import { NativeTabs } from 'expo-router/build/native-tabs'
 
@@ -22,7 +23,7 @@ export default function TabBarLayout() {
           }}
           md='home'
         />
-        <NativeTabs.Trigger.Label>For You</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{MAIN_MENU.index}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name='library'>
         <NativeTabs.Trigger.Icon
@@ -32,7 +33,7 @@ export default function TabBarLayout() {
           }}
           md='favorite'
         />
-        <NativeTabs.Trigger.Label>My Library</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{MAIN_MENU.library}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name='account'>
         <NativeTabs.Trigger.Icon
@@ -42,7 +43,7 @@ export default function TabBarLayout() {
           }}
           md='account_circle'
         />
-        <NativeTabs.Trigger.Label>Account</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{MAIN_MENU.account}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger
         name='search'
@@ -55,7 +56,7 @@ export default function TabBarLayout() {
           }}
           md='search'
         />
-        <NativeTabs.Trigger.Label>Search</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{MAIN_MENU.search}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   )
