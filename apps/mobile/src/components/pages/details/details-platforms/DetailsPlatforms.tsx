@@ -19,7 +19,7 @@ export function DetailsPlatforms({ metadata }: DetailsPlatformsProps) {
       return [
         ...new Set(Object.values(metadata.platforms).map(normalizePlatform))
       ]
-  }, [metadata.platforms])
+  }, [metadata])
 
   return platforms
     ? !!platforms.length && (

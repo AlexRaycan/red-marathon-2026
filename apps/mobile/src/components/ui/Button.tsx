@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
     minWidth: 0
   },
   content: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -173,10 +172,12 @@ const styles = StyleSheet.create({
 })
 
 const sizeStyles = StyleSheet.create({
+  // eslint-disable-next-line react-native/no-unused-styles
   md: {
     height: 44,
     paddingHorizontal: SPACINGS[5]
   },
+  // eslint-disable-next-line react-native/no-unused-styles
   lg: {
     height: 56,
     paddingHorizontal: SPACINGS[6]
@@ -184,18 +185,22 @@ const sizeStyles = StyleSheet.create({
 })
 
 const iconOnlySizes = StyleSheet.create({
+  // eslint-disable-next-line react-native/no-unused-styles
   md: {
     width: 44
   },
+  // eslint-disable-next-line react-native/no-unused-styles
   lg: {
     width: 56
   }
 })
 
 const labelSizes = StyleSheet.create({
+  // eslint-disable-next-line react-native/no-unused-styles
   md: {
     fontSize: FONT_SIZE.sm
   },
+  // eslint-disable-next-line react-native/no-unused-styles
   lg: {
     fontSize: FONT_SIZE.base
   }

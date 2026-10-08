@@ -137,11 +137,6 @@ const styles = StyleSheet.create({
   textButton: {
     paddingVertical: SPACINGS[2]
   },
-  subText: {
-    color: COLORS.text['little-muted'],
-    fontSize: FONT_SIZE.sm,
-    textAlign: 'center'
-  },
   link: {
     color: COLORS.text.primary,
     textAlign: 'center',

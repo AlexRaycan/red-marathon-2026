@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     gap: SPACINGS[1],
     alignItems: 'center'
   },
-  meta: {},
   description: {
     opacity: 0.5,
     lineHeight: FONT_SIZE.sm * 1.5

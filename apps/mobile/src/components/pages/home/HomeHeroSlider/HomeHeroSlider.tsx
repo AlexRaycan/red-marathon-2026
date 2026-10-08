@@ -1,5 +1,5 @@
 import type { DiscoverItemResponse } from '@app/api'
-import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
+import { LAYOUT, SPACINGS } from '@app/tokens'
 import { router } from 'expo-router'
 import { Play, Plus } from 'lucide-react-native'
 import { useState } from 'react'
@@ -147,14 +147,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: SPACINGS[2]
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: COLORS.secondary
-  },
-  dotActive: {
-    backgroundColor: COLORS.primary
   }
 })

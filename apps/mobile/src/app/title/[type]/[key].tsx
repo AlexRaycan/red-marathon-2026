@@ -1,6 +1,6 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { TYPE_LABELS } from '@app/constants'
-import { FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
+import { LAYOUT, SPACINGS } from '@app/tokens'
 import { metaDataFormating } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
@@ -19,6 +19,7 @@ import { AnimatedHero } from '@/components/pages/details/animated-hero/AnimatedH
 import { CastCard } from '@/components/pages/details/cast-card/CastCard'
 import { DetailsActionButtons } from '@/components/pages/details/details-action-buttons/DetailsActionButtons'
 import { DetailsPlatforms } from '@/components/pages/details/details-platforms/DetailsPlatforms'
+import { ReviewsSection } from '@/components/pages/details/reviews-section/ReviewsSection'
 import { ShareButton } from '@/components/pages/details/share/ShareButton'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
@@ -146,6 +147,8 @@ export default function ItemDetailScreen() {
               ))}
             </Carousel>
           )}
+
+          <ReviewsSection titleKey={key} />
         </ViewLayout.Root>
       </Animated.ScrollView>
 
@@ -170,12 +173,6 @@ export default function ItemDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  hero: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0
-  },
   root: {
     position: 'relative',
     gap: SPACINGS[5]
@@ -186,8 +183,5 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     gap: SPACINGS[4],
     justifyContent: 'flex-end'
-  },
-  labelText: {
-    fontWeight: FONT_WEIGHT.bold
   }
 })

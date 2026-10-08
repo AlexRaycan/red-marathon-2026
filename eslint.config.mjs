@@ -109,6 +109,8 @@ export default defineConfig([
 
       '@typescript-eslint/restrict-template-expressions': 'off',
 
+      '@typescript-eslint/no-empty-function': 'warn',
+
       'react-native/no-unused-styles': 'warn'
     }
   },

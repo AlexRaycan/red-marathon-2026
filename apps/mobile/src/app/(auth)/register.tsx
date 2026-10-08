@@ -24,7 +24,7 @@ export default function Register() {
       type='register'
       error={error}
       isPending={isPending}
-      onSubmit={data => mutate({ data })}
+      onSubmit={data => mutate({ date: data })}
     />
   )
 }

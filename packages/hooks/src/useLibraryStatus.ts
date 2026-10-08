@@ -34,7 +34,7 @@ export function useLibraryStatus(key: string) {
   const setStatus = (status: TLibraryStatus) => {
     mutate({
       key,
-      data: {
+      date: {
         status
       }
     })

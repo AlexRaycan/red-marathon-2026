@@ -129,9 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     gap: SPACINGS[6]
-  },
-  fullWidth: {
-    alignSelf: 'stretch'
   }
 })
 

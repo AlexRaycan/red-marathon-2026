@@ -19,7 +19,7 @@ export default function Search() {
           Left side: Logo (naming)
           Right side: Bell (notifications)
 
-        Slider (contuner "watching")
+        Slider (continue "watching")
           Buttons: Read More, Plus (to add to watchlist)
 
         Top Picks for You (Carousel)

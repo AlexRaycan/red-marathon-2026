@@ -46,13 +46,6 @@ export function DetailsActionButtons({
 }
 
 const styles = StyleSheet.create({
-  bodyFade: {
-    position: 'absolute',
-    top: -SPACINGS[10],
-    left: 0,
-    right: 0,
-    height: SPACINGS[10]
-  },
   baseContainer: {
     marginHorizontal: LAYOUT['space-horizontal']
   },

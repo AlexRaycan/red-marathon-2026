@@ -24,7 +24,7 @@ export default function Login() {
       type='login'
       error={error}
       isPending={isPending}
-      onSubmit={data => mutate({ data })}
+      onSubmit={data => mutate({ date: data })}
     />
   )
 }

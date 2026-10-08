@@ -82,6 +82,5 @@ const styles = StyleSheet.create({
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.sm,
     fontWeight: FONT_WEIGHT.bold
-  },
-  suffix: {}
+  }
 })

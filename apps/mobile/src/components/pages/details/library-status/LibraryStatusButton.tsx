@@ -16,6 +16,7 @@ export function LibraryStatusButton({
   titleKey,
   tintColor
 }: LibraryStatusButtonProps) {
+  // TODO: add a rating button
   const { isAuthenticated, status, rating, setStatus } =
     useLibraryStatus(titleKey)
 

@@ -104,13 +104,6 @@ const styles = StyleSheet.create({
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.base
   },
-  inputFallback: {
-    backgroundColor: COLORS.bg.card
-  },
-  inputError: {
-    borderWidth: 1,
-    borderColor: COLORS.status.error
-  },
   error: {
     color: COLORS.status.error,
     fontSize: FONT_SIZE.sm,
