@@ -30,6 +30,7 @@ export function TitlesSlider({
           key={item.key}
           title={item}
           width={cardWidth}
+          withBadge
           onPress={() => router.push(`/title/${item?.type}/${item?.key}`)}
         />
       ))}

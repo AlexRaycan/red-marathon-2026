@@ -16,24 +16,25 @@ export function DetailsPlatforms({ metadata }: DetailsPlatformsProps) {
       Object.hasOwn(metadata, 'platforms') &&
       Array.isArray(metadata.platforms)
     )
-      return Object.values(metadata.platforms).map(normalizePlatform)
+      return [
+        ...new Set(Object.values(metadata.platforms).map(normalizePlatform))
+      ]
   }, [metadata.platforms])
 
-  return (
-    platforms &&
-    !!platforms.length && (
-      <View style={styles.platforms}>
-        {platforms.map(p => (
-          <PlatformIcon
-            key={p}
-            platform={p}
-            color={COLORS.text.primary}
-            size={FONT_SIZE.sm}
-          />
-        ))}
-      </View>
-    )
-  )
+  return platforms
+    ? !!platforms.length && (
+        <View style={styles.platforms}>
+          {platforms.map(p => (
+            <PlatformIcon
+              key={p}
+              platform={p}
+              color={COLORS.text.primary}
+              size={FONT_SIZE.sm}
+            />
+          ))}
+        </View>
+      )
+    : null
 }
 
 const styles = StyleSheet.create({

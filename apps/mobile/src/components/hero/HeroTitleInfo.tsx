@@ -18,7 +18,7 @@ interface HeroTitleInfoProps extends ViewProps {
   nameLines?: number
   genres: string[]
   meta?: string
-  platforms?: ReactNode
+  platforms?: ReactNode | null
   description: string | null
   descriptionLines?: number
   style?: StyleProp<ViewStyle>
@@ -78,7 +78,7 @@ export function HeroTitleInfo({
             >
               {meta}
 
-              {platforms && (
+              {!!platforms && (
                 <>
                   <Text style={[styles.baseText]}>{' • '}</Text>
                   {platforms}

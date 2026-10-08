@@ -115,7 +115,11 @@ export default function ItemDetailScreen() {
               name={title.name}
               genres={title.genres}
               meta={meta}
-              platforms={<DetailsPlatforms metadata={title.metadata} />}
+              platforms={
+                title.metadata.platforms ? (
+                  <DetailsPlatforms metadata={title.metadata} />
+                ) : null
+              }
               description={title.description}
               descriptionLines={4}
             />
