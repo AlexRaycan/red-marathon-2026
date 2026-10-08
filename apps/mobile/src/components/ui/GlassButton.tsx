@@ -43,7 +43,7 @@ export function GlassButton({
   ...props
 }: GlassButtonProps) {
   const scale = useSharedValue(1)
-  const opacity = useSharedValue(disabled ? DISABLED_OPACITY : 1)
+  const opacity = useSharedValue(1)
 
   const animated = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -58,7 +58,7 @@ export function GlassButton({
 
   const handlePressOut = (event: GestureResponderEvent) => {
     scale.set(withSpring(1))
-    opacity.set(withSpring(disabled ? DISABLED_OPACITY : 1))
+    opacity.set(withSpring(1))
     onPressOut?.(event)
   }
 
@@ -78,8 +78,8 @@ export function GlassButton({
           styles.button,
           style,
           containerStyle,
-          disabled && styles.disabled,
-          animated
+          !disabled && animated,
+          disabled && styles.disabled
         ]}
         {...props}
       >

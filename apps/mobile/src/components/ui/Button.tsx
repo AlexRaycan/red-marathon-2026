@@ -74,7 +74,9 @@ export function Button({
 
   const fallbackContentColor = hasGlassEffect
     ? COLORS.text.primary
-    : CONTENT_COLOR[variant]
+    : tintColor
+      ? COLORS.text.primary
+      : CONTENT_COLOR[variant]
   const contentColor = hasGlassEffect
     ? COLORS.text.primary
     : fallbackContentColor

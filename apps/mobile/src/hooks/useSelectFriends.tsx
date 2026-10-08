@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { SHARE_FRIENDS_MOCK_DATA } from '../share-friends.mock.data'
+import { SHARE_FRIENDS_MOCK_DATA } from '../components/pages/details/share/share-friends.mock.data'
 
 export function useSelectFriends() {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
