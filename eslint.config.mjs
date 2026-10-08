@@ -1,6 +1,8 @@
+import { fixupPluginRules } from '@eslint/compat'
 import eslint from '@eslint/js'
 import expo from 'eslint-plugin-expo'
 import reactHooks from 'eslint-plugin-react-hooks'
+import reactNative from 'eslint-plugin-react-native'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
@@ -77,6 +79,9 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname
       }
     },
+    plugins: {
+      'react-native': fixupPluginRules(reactNative)
+    },
     rules: {
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -102,7 +107,9 @@ export default defineConfig([
 
       '@typescript-eslint/no-misused-promises': 'off',
 
-      '@typescript-eslint/restrict-template-expressions': 'off'
+      '@typescript-eslint/restrict-template-expressions': 'off',
+
+      'react-native/no-unused-styles': 'warn'
     }
   },
   {
