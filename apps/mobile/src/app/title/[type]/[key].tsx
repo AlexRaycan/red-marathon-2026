@@ -1,28 +1,24 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
-import { type Platform, TYPE_LABELS } from '@app/constants'
-import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
-import {
-  convertMinsToHrs,
-  firstLetterUpperCase,
-  normalizePlatform
-} from '@app/utils'
+import { TYPE_LABELS } from '@app/constants'
+import { FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
+import { convertMinsToHrs, firstLetterUpperCase, getDate } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
-  interpolate,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Button, PlatformIcon, Screen, ViewLayout } from '@/components/ui'
+import { Button, Screen, ViewLayout } from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
-import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
+import { HeroTitleInfo } from '@/components/hero'
+import { AnimatedHero } from '@/components/pages/details/animated-hero/AnimatedHero'
 import { CastCard } from '@/components/pages/details/cast-card/CastCard'
 import { DetailsActionButtons } from '@/components/pages/details/details-action-buttons/DetailsActionButtons'
+import { DetailsPlatforms } from '@/components/pages/details/details-platforms/DetailsPlatforms'
 import { ShareButton } from '@/components/pages/details/share/ShareButton'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
@@ -43,27 +39,6 @@ export default function ItemDetailScreen() {
   const scrollHandler = useAnimatedScrollHandler(e =>
     scrollY.set(e.contentOffset.y)
   )
-
-  const heroStyle = useAnimatedStyle(() => {
-    const y = scrollY.get()
-
-    return {
-      opacity: interpolate(y, [0, heroHeight], [1, 0.1], 'clamp'),
-      transform: [
-        {
-          translateY: interpolate(
-            y,
-            [-heroHeight, 0, heroHeight],
-            [heroHeight / 2, 0, -heroHeight * 0.3],
-            'clamp'
-          )
-        },
-        {
-          scale: interpolate(y, [-heroHeight, 0], [2, 1], 'clamp')
-        }
-      ]
-    }
-  })
   // Parallax effect BLOCK END
 
   const { data, isPending } = useDiscoverFindByKey(key)
@@ -76,12 +51,7 @@ export default function ItemDetailScreen() {
 
   const accentColor = config ? config.accent : 'transparent'
 
-  const year = title.releaseDate
-    ? new Date(title.releaseDate).getFullYear()
-    : null
-
-  // FIXME: Refactor and add types
-  let normalizedPlatforms: Platform[]
+  const { year } = getDate(title.releaseDate)
 
   const metadata = Object.entries(title.metadata).map(([key, val]) => {
     switch (key) {
@@ -93,23 +63,11 @@ export default function ItemDetailScreen() {
         return `${hours}h ${minutes}m`
       }
       case 'platforms':
-        normalizedPlatforms = [...new Set(val.map(normalizePlatform))]
         break
       default: {
         return `${firstLetterUpperCase(key)}: ${val}`
       }
     }
-  })
-
-  const platforms = normalizedPlatforms?.map(p => {
-    return (
-      <PlatformIcon
-        key={p}
-        platform={p}
-        color={COLORS.text.primary}
-        size={FONT_SIZE.sm}
-      />
-    )
   })
 
   const meta = [year, ...metadata, title.ageRating].filter(Boolean).join(' • ')
@@ -123,15 +81,11 @@ export default function ItemDetailScreen() {
         isAbsolute
         rightSide={<ShareButton title={title} />}
       />
-      <Animated.View
-        style={[styles.hero, heroStyle]}
-        pointerEvents={'none'}
-      >
-        <HeroBackdrop
-          coverUrl={title.coverUrl}
-          height={heroHeight}
-        />
-      </Animated.View>
+      <AnimatedHero
+        heroHeight={heroHeight}
+        coverUrl={title.coverUrl}
+        scrollY={scrollY}
+      />
 
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
@@ -161,7 +115,7 @@ export default function ItemDetailScreen() {
               name={title.name}
               genres={title.genres}
               meta={meta}
-              platforms={platforms}
+              platforms={<DetailsPlatforms metadata={title.metadata} />}
               description={title.description}
               descriptionLines={4}
             />
@@ -179,7 +133,7 @@ export default function ItemDetailScreen() {
             />
           )}
 
-          {/* TODO: add seperate view for developers */}
+          {/* TODO: add separate view for developers */}
           {hasCast && (
             <Carousel
               title={
@@ -227,10 +181,6 @@ export default function ItemDetailScreen() {
           onPress={() => router.push('/')}
         />
       </View>
-      {/*<ShareBottomSheet
-        title={title}
-        ref={shareSheetRef}
-      />*/}
     </Screen>
   )
 }

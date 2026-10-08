@@ -18,7 +18,7 @@ interface HeroTitleInfoProps extends ViewProps {
   nameLines?: number
   genres: string[]
   meta?: string
-  platforms?: ReactNode[]
+  platforms?: ReactNode
   description: string | null
   descriptionLines?: number
   style?: StyleProp<ViewStyle>
@@ -78,10 +78,10 @@ export function HeroTitleInfo({
             >
               {meta}
 
-              {!!platforms?.length && (
+              {platforms && (
                 <>
                   <Text style={[styles.baseText]}>{' • '}</Text>
-                  <View style={styles.platforms}>{platforms}</View>
+                  {platforms}
                 </>
               )}
             </Animated.Text>
@@ -130,12 +130,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   meta: {},
-  platforms: {
-    flexDirection: 'row',
-    gap: SPACINGS[1],
-    alignItems: 'center',
-    transform: [{ translateY: 1.7 }]
-  },
   description: {
     opacity: 0.5,
     lineHeight: FONT_SIZE.sm * 1.5
