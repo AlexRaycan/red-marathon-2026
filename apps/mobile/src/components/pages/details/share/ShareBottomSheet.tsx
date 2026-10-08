@@ -4,7 +4,7 @@ import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useCallback, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { BottomSheetWindow, Input, ScreenTitle } from '@/components/ui'
+import { BottomSheetWindow, Input } from '@/components/ui'
 
 import { FriendCarousel } from '@/components/pages/details/share/FriendCarousel'
 import { useSelectFriends } from '@/components/pages/details/share/hooks/useSelectFriends'
@@ -45,18 +45,12 @@ export function ShareBottomSheet({
   return (
     <BottomSheetWindow
       ref={ref}
+      title='Share with your friends'
       isSubmitButtonDisabled={isSubmitButtonDisabled}
       onSubmit={handleShare}
       onClose={handleClose}
       {...props}
     >
-      <View style={[styles.title]}>
-        <ScreenTitle style={[styles.inset]}>
-          Share with your friends
-        </ScreenTitle>
-        <View style={styles.divider} />
-      </View>
-
       <View style={styles.content}>
         <FriendCarousel
           title={title}
@@ -92,15 +86,6 @@ const styles = StyleSheet.create({
   },
   inset: {
     paddingHorizontal: LAYOUT['space-horizontal']
-  },
-  title: {
-    paddingTop: SPACINGS[2],
-    paddingBottom: StyleSheet.hairlineWidth,
-    gap: SPACINGS[4]
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: COLORS.border
   },
   form: {
     gap: SPACINGS[2]
