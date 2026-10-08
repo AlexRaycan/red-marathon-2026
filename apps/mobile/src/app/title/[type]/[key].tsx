@@ -1,7 +1,7 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { TYPE_LABELS } from '@app/constants'
 import { FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
-import { convertMinsToHrs, firstLetterUpperCase, getDate } from '@app/utils'
+import { metaDataFormating } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
 import { StyleSheet, View, useWindowDimensions } from 'react-native'
@@ -34,12 +34,10 @@ export default function ItemDetailScreen() {
   const { width } = useWindowDimensions()
   const heroHeight = width * 1.35
 
-  // Parallax effect BLOCK BEGIN
   const scrollY = useSharedValue(0)
   const scrollHandler = useAnimatedScrollHandler(e =>
     scrollY.set(e.contentOffset.y)
   )
-  // Parallax effect BLOCK END
 
   const { data, isPending } = useDiscoverFindByKey(key)
 
@@ -51,26 +49,7 @@ export default function ItemDetailScreen() {
 
   const accentColor = config ? config.accent : 'transparent'
 
-  const { year } = getDate(title.releaseDate)
-
-  const metadata = Object.entries(title.metadata).map(([key, val]) => {
-    switch (key) {
-      case 'averagePlaytimeHours':
-        return `${val}h`
-      case 'runtimeMinutes': {
-        const { hours, minutes } = convertMinsToHrs(Number(val))
-
-        return `${hours}h ${minutes}m`
-      }
-      case 'platforms':
-        break
-      default: {
-        return `${firstLetterUpperCase(key)}: ${val}`
-      }
-    }
-  })
-
-  const meta = [year, ...metadata, title.ageRating].filter(Boolean).join(' • ')
+  const meta = metaDataFormating(title)
 
   const hasCast = !!title.cast?.length || !!title.creators?.length
 
@@ -138,6 +117,7 @@ export default function ItemDetailScreen() {
           )}
 
           {/* TODO: add separate view for developers */}
+          {/* TODO: use CREATOR_ROLES_LABELS for carousels' labels */}
           {hasCast && (
             <Carousel
               title={

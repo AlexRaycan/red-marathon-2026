@@ -391,12 +391,18 @@ importers:
 
   packages/utils:
     dependencies:
+      '@app/api':
+        specifier: workspace:^
+        version: link:../api
       '@app/constants':
         specifier: workspace:^
         version: link:../constants
       '@app/tokens':
         specifier: workspace:^
         version: link:../tokens
+      '@app/types':
+        specifier: workspace:^
+        version: link:../types
 
 packages:
 
