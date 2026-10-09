@@ -1,5 +1,6 @@
 import {
-  getDiscoverFindByKeyQueryKey,
+  getApiErrorMessage,
+  getDiscoverFindMyStateQueryKey,
   getReviewFindByDiscoverKeyQueryKey,
   useReviewCreateByDiscoverKey,
   useReviewUpdate
@@ -13,7 +14,7 @@ export function useSaveReview(key: string, reviewId: string | null) {
   const onSuccess = () => {
     void Promise.all([
       queryClient.invalidateQueries({
-        queryKey: getDiscoverFindByKeyQueryKey(key)
+        queryKey: getDiscoverFindMyStateQueryKey(key)
       }),
       queryClient.invalidateQueries({
         queryKey: getReviewFindByDiscoverKeyQueryKey(key)
@@ -34,19 +35,21 @@ export function useSaveReview(key: string, reviewId: string | null) {
 
   const saveReview = (
     { rating, text }: TReviewSchema,
-    onSaved?: () => void
+    onSaved?: () => void,
+    onFailed?: (message: string | null) => void
   ) => {
+    const callbacks = {
+      onSuccess: onSaved,
+      onError: (error: unknown) => onFailed?.(getApiErrorMessage(error))
+    }
+
     if (reviewId) {
       update.mutate(
         {
           id: reviewId,
-          data: { rating, text }
+          data: { rating, text: text || undefined }
         },
-        {
-          onSuccess: () => {
-            onSaved?.()
-          }
-        }
+        callbacks
       )
 
       return
@@ -55,13 +58,9 @@ export function useSaveReview(key: string, reviewId: string | null) {
     create.mutate(
       {
         key,
-        data: { rating, text }
+        data: { rating, text: text || undefined }
       },
-      {
-        onSuccess: () => {
-          onSaved?.()
-        }
-      }
+      callbacks
     )
   }
 

@@ -15,6 +15,9 @@ export const configureApi = (options: {
   onUnauthorized = options.onUnauthorized ?? null
 }
 
+export const getApiErrorMessage = (error: unknown) =>
+  error instanceof ApiError ? error.message : null
+
 export class ApiError extends Error {
   constructor(
     public status: number,

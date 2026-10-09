@@ -1,11 +1,11 @@
 import { type DiscoverDetailsResponse, useDiscoverFindMyState } from '@app/api'
-import { TReviewSchema, reviewSchema } from '@app/schemas'
-import { FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
+import { type TReviewSchema, reviewSchema } from '@app/schemas'
+import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { RefObject } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import { BottomSheetWindow, Input, LoginToButton } from '@/components/ui'
 
@@ -44,7 +44,8 @@ export function ReviewBottomSheet({
   const {
     control,
     handleSubmit,
-    formState: { isValid }
+    formState: { isValid, errors },
+    setError
   } = useForm<TReviewSchema>({
     resolver: zodResolver(reviewSchema),
     mode: 'onChange',
@@ -54,7 +55,13 @@ export function ReviewBottomSheet({
     }
   })
 
-  const onSubmit = handleSubmit(values => saveReview(values))
+  const onSubmit = handleSubmit(values =>
+    saveReview(values, _, errorMessage => {
+      setError('root', {
+        message: errorMessage ?? 'Failed to save review. Please try again.'
+      })
+    })
+  )
 
   return (
     <BottomSheetWindow
@@ -102,6 +109,10 @@ export function ReviewBottomSheet({
               />
             )}
           />
+
+          {!!errors.root && (
+            <Text style={styles.error}>{errors.root.message}</Text>
+          )}
         </View>
       ) : (
         <LoginToButton style={styles.inset} />
@@ -120,5 +131,9 @@ const styles = StyleSheet.create({
   },
   carouselTitle: {
     fontSize: FONT_SIZE.base
+  },
+  error: {
+    color: COLORS.status.error,
+    fontSize: FONT_SIZE.sm
   }
 })
