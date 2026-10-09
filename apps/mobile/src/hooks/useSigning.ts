@@ -19,7 +19,6 @@ export function useSigning(type: keyof typeof AUTH_CONTENT) {
 
         await saveTokens(accessToken, refreshToken)
 
-        // queryClient.clear() // CLear cache
         await queryClient.resetQueries() // Cancel queries
 
         onRedirect()

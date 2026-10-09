@@ -1,4 +1,4 @@
-export * from './useOpenBottomSheet'
+export * from './useBottomSheetControl'
 export * from './useProtectedPush'
 export * from './useRedirect'
 export * from './useSaveReview'

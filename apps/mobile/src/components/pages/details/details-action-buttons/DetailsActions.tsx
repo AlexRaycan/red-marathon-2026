@@ -17,7 +17,7 @@ import { useBottomSheetAction } from '@/hooks/useBottomSheetAction'
 import { ReviewBottomSheet } from '../review-form'
 
 import { BOTTOM_SHEET_ACTIONS } from '@/constants'
-import { useOpenBottomSheet, useProtectedPush } from '@/hooks'
+import { useBottomSheetControl, useProtectedPush } from '@/hooks'
 
 interface DetailsActionButtonsProps {
   title: Pick<
@@ -38,7 +38,7 @@ export function DetailsActions({
   const sheetRef = useRef<BottomSheet>(null)
 
   const pushProtected = useProtectedPush()
-  const { open } = useOpenBottomSheet(sheetRef)
+  const { open } = useBottomSheetControl(sheetRef)
 
   const handleRatePress = useCallback(() => {
     if (isAuthenticated) {
@@ -104,10 +104,12 @@ export function DetailsActions({
         </View>
       </GlassContainer>
 
-      <ReviewBottomSheet
-        ref={sheetRef}
-        title={title}
-      />
+      {isAuthenticated && (
+        <ReviewBottomSheet
+          ref={sheetRef}
+          title={title}
+        />
+      )}
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { useAuthMobileLogout, useUserFindMe } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
-import { Redirect, router } from 'expo-router'
+import { Redirect, useIsFocused, useNavigation } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { LogOut } from 'lucide-react-native'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
@@ -23,15 +23,36 @@ import { clearTokens, getRefreshToken } from '@/lib/token'
 import { ACCOUNT_MENU } from '@/constants/account-menu.data'
 
 export default function Account() {
+  const rootNavigation = useNavigation('/')
+  const isFocused = useIsFocused()
+
   const queryClient = useQueryClient()
   const { data, isPending: isLoading, isError } = useUserFindMe()
 
   const { mutate: logout, isPending } = useAuthMobileLogout({
     mutation: {
       onSettled: async () => {
+        await queryClient.cancelQueries()
+
         await clearTokens()
-        queryClient.clear()
-        router.replace('/login')
+
+        rootNavigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: '(tabbar)',
+              state: {
+                index: 0,
+                routes: [{ name: 'index' }]
+              }
+            }
+          ]
+        })
+
+        await queryClient.resetQueries()
+
+        /* queryClient.clear()
+        router.replace('/login') */
       }
     }
   })
@@ -46,7 +67,9 @@ export default function Account() {
 
   if (isLoading) return <Screen />
 
-  if (isError || !data.data) return <Redirect href='/login' />
+  if (isError || !data.data) {
+    return isFocused ? <Redirect href='/login' /> : <Screen />
+  }
 
   return (
     <Screen withPaddings>

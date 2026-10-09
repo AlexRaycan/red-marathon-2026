@@ -7,7 +7,7 @@ export function useRedirect() {
 
   const onRedirect = (fallback?: Extract<Href, string>) => {
     if (redirect) {
-      router.replace(redirect)
+      router.dismissTo(redirect)
 
       return
     }

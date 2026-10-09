@@ -6,8 +6,10 @@ import { StyleSheet, View } from 'react-native'
 import { Button } from '@/components/ui/Button'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 
+import { useBottomSheetControl } from '@/hooks'
+
 interface BottomSheetActionButtonsProps {
-  ref?: RefObject<BottomSheet | null>
+  ref: RefObject<BottomSheet | null>
   isSubmitButtonDisabled?: boolean
   submitButtonText?: string
   cancelButtonText?: string
@@ -23,21 +25,17 @@ export function BottomSheetFooter({
   onSubmit,
   onCancel
 }: BottomSheetActionButtonsProps) {
-  const closeSheet = useCallback(() => {
-    ref?.current?.dismiss()
-  }, [ref])
+  const { close } = useBottomSheetControl(ref)
 
   const handleSubmit = useCallback(() => {
     onSubmit?.()
-
-    closeSheet()
-  }, [closeSheet, onSubmit])
+  }, [onSubmit])
 
   const handleCancel = useCallback(() => {
     onCancel?.()
 
-    closeSheet()
-  }, [closeSheet, onCancel])
+    close()
+  }, [close, onCancel])
 
   return (
     <GlassContainer>

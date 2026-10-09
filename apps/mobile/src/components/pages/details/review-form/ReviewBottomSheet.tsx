@@ -3,7 +3,7 @@ import { type TReviewSchema, reviewSchema } from '@app/schemas'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { RefObject } from 'react'
+import { type RefObject, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -13,7 +13,7 @@ import { TitleCardPreviewSmall } from '@/components/titles'
 import { PreviewTitleHeader } from '@/components/ui/PreviewTitleHeader'
 
 import { RatingSlider } from './RatingSlider'
-import { useSaveReview } from '@/hooks'
+import { useBottomSheetControl, useSaveReview } from '@/hooks'
 
 interface ReviewBottomSheetProps {
   title: Pick<
@@ -25,10 +25,14 @@ interface ReviewBottomSheetProps {
 
 export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
   const key = title?.key
+  const { close } = useBottomSheetControl(ref)
 
-  const { data: myState } = useDiscoverFindMyState(key)
+  const { data: myState, isSuccess } = useDiscoverFindMyState(key)
 
   const review = myState?.data.review ?? null
+  const savedRating = review?.rating
+  const savedText = review?.text ?? ''
+
   const titleName = title?.name
 
   const { saveReview, isSaving } = useSaveReview(key, review?.id ?? null)
@@ -36,8 +40,9 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
-    setError
+    formState: { isValid, errors, isDirty },
+    setError,
+    reset
   } = useForm<TReviewSchema>({
     resolver: zodResolver(reviewSchema),
     mode: 'onChange',
@@ -47,8 +52,17 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
     }
   })
 
+  useEffect(() => {
+    if (!isSuccess || isDirty) return
+
+    reset({
+      rating: savedRating,
+      text: savedText
+    })
+  }, [isDirty, isSuccess, reset, savedRating, savedText])
+
   const onSubmit = handleSubmit(values =>
-    saveReview(values, _, errorMessage => {
+    saveReview(values, close, errorMessage => {
       setError('root', {
         message: errorMessage ?? 'Failed to save review. Please try again.'
       })
@@ -59,7 +73,7 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
     <BottomSheetWindow
       ref={ref}
       title={'Log in to share'}
-      isSubmitButtonDisabled={!isValid || isSaving}
+      isSubmitButtonDisabled={!isSuccess || !isValid || isSaving}
       submitButtonText={review ? 'Save' : 'Send'}
       onSubmit={onSubmit}
     >

@@ -10,7 +10,7 @@ import { ShareBottomSheet } from '@/components/pages/details'
 import { useBottomSheetAction } from '@/hooks/useBottomSheetAction'
 
 import { BOTTOM_SHEET_ACTIONS } from '@/constants'
-import { useOpenBottomSheet, useProtectedPush } from '@/hooks'
+import { useBottomSheetControl, useProtectedPush } from '@/hooks'
 
 interface ShareButtonProps {
   title: Pick<
@@ -24,7 +24,7 @@ export function ShareButton({ title, isAuthenticated }: ShareButtonProps) {
   const shareSheetRef = useRef<BottomSheet>(null)
 
   const pushProtected = useProtectedPush()
-  const { open } = useOpenBottomSheet(shareSheetRef)
+  const { open } = useBottomSheetControl(shareSheetRef)
 
   const handlePress = useCallback(() => {
     if (isAuthenticated) {
