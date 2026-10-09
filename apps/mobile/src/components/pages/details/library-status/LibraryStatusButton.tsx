@@ -22,10 +22,6 @@ export function LibraryStatusButton({
   const { isAuthenticated, status, rating, setStatus } =
     useLibraryStatus(titleKey)
 
-  if (status === 'COMPLETED') {
-    openSheet?.()
-  }
-
   const action =
     status && status !== 'COMPLETED'
       ? LIBRARY_STATUS_ACTIONS[status]
