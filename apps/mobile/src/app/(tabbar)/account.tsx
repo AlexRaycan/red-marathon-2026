@@ -1,7 +1,7 @@
 import { useAuthMobileLogout, useUserFindMe } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
-import { Redirect, useIsFocused, useNavigation } from 'expo-router'
+import { Redirect, router, useIsFocused } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { LogOut } from 'lucide-react-native'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
@@ -23,7 +23,6 @@ import { clearTokens, getRefreshToken } from '@/lib/token'
 import { ACCOUNT_MENU } from '@/constants/account-menu.data'
 
 export default function Account() {
-  const rootNavigation = useNavigation('/')
   const isFocused = useIsFocused()
 
   const queryClient = useQueryClient()
@@ -36,23 +35,14 @@ export default function Account() {
 
         await clearTokens()
 
-        rootNavigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: '(tabbar)',
-              state: {
-                index: 0,
-                routes: [{ name: 'index' }]
-              }
-            }
-          ]
-        })
+        // Return to Home (For You) and clear router history
+        if (router.canDismiss()) {
+          router.dismissAll()
+        }
+
+        router.replace('/')
 
         await queryClient.resetQueries()
-
-        /* queryClient.clear()
-        router.replace('/login') */
       }
     }
   })
