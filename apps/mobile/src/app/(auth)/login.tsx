@@ -6,14 +6,24 @@ import { AuthForm } from '@/components/pages/auth'
 
 import { saveTokens } from '@/lib/token'
 
+import { useRedirect } from '@/hooks'
+
 export default function Login() {
   const queryClient = useQueryClient()
+  const { redirect } = useRedirect()
 
   const { mutate, isPending, error } = useAuthMobileLogin({
     mutation: {
       onSuccess: async ({ data: { accessToken, refreshToken } }) => {
         await saveTokens(accessToken, refreshToken)
         queryClient.clear()
+
+        if (redirect) {
+          router.replace(redirect)
+
+          return
+        }
+
         router.replace('/')
       }
     }

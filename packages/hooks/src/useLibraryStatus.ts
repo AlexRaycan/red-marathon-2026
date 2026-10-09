@@ -6,12 +6,12 @@ import {
 import type { TLibraryStatus } from '@app/types'
 import { useQueryClient } from '@tanstack/react-query'
 
-import { useCheckAuthenticated } from './useCheckAuthenticated'
+import { useAuth } from './useAuth'
 
 export function useLibraryStatus(key: string) {
   const queryClient = useQueryClient()
 
-  const { isAuthenticated } = useCheckAuthenticated()
+  const { isAuthenticated } = useAuth()
 
   const { data: myState } = useDiscoverFindMyState(key, {
     query: {

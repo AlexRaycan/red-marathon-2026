@@ -1,2 +1,2 @@
-export * from './useCheckAuthenticated'
+export * from './useAuth'
 export * from './useLibraryStatus'

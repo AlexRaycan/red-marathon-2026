@@ -1,6 +1,6 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { TYPE_LABELS } from '@app/constants'
-import { useCheckAuthenticated } from '@app/hooks'
+import { useAuth } from '@app/hooks'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import { metaDataFormating } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -43,7 +43,7 @@ export default function ItemDetailScreen() {
 
   const { data, isPending } = useDiscoverFindByKey(key)
 
-  const { isAuthenticated } = useCheckAuthenticated()
+  const { isAuthenticated } = useAuth()
 
   if (isPending || !data || data?.status !== 200) return <Screen />
 

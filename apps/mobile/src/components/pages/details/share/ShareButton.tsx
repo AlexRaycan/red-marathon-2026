@@ -7,7 +7,7 @@ import { Button } from '@/components/ui'
 
 import { ShareBottomSheet } from '@/components/pages/details'
 
-import { useOpenBottomSheet } from '@/hooks/useOpenBottomSheet'
+import { useOpenBottomSheet } from '@/hooks'
 
 interface ShareButtonProps {
   title: Pick<

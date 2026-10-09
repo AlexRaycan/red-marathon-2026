@@ -12,9 +12,8 @@ import { BottomSheetWindow, Input, LoginToButton } from '@/components/ui'
 import { TitleCardPreviewSmall } from '@/components/titles'
 import { PreviewTitleHeader } from '@/components/ui/PreviewTitleHeader'
 
-import { useSaveReview } from '@/hooks/useSaveReview'
-
 import { RatingSlider } from './RatingSlider'
+import { useSaveReview } from '@/hooks'
 
 interface ReviewBottomSheetProps {
   title: Pick<
