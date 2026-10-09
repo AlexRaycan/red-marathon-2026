@@ -15,10 +15,14 @@ export function useSigning(type: keyof typeof AUTH_CONTENT) {
   const { mutate, isPending, error } = hookAuth({
     mutation: {
       onSuccess: async ({ data: { accessToken, refreshToken } }) => {
-        await saveTokens(accessToken, refreshToken)
-        queryClient.clear()
+        await queryClient.cancelQueries()
 
-        onRedirect('/')
+        await saveTokens(accessToken, refreshToken)
+
+        // queryClient.clear() // CLear cache
+        await queryClient.resetQueries() // Cancel queries
+
+        onRedirect()
       }
     }
   })

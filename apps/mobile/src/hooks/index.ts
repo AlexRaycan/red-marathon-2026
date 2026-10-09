@@ -1,4 +1,5 @@
 export * from './useOpenBottomSheet'
+export * from './useProtectedPush'
 export * from './useRedirect'
 export * from './useSaveReview'
 export * from './useSelectFriends'

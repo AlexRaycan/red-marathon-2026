@@ -5,14 +5,14 @@ export function useRedirect() {
     redirect?: Extract<Href, string>
   }>()
 
-  const onRedirect = (pathname?: Extract<Href, string>) => {
+  const onRedirect = (fallback?: Extract<Href, string>) => {
     if (redirect) {
       router.replace(redirect)
 
       return
     }
 
-    router.replace(pathname ?? '/')
+    router.replace(fallback ?? '/')
   }
 
   return {

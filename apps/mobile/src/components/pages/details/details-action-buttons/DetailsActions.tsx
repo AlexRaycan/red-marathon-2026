@@ -1,15 +1,23 @@
-import type { DiscoverDetailsResponse } from '@app/api'
+import type {
+  DiscoverDetailsResponse,
+  DiscoverDetailsResponseType
+} from '@app/api'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Bookmark, Star } from 'lucide-react-native'
-import { useRef } from 'react'
+import { useCallback, useRef } from 'react'
 import { type ColorValue, StyleSheet, View } from 'react-native'
 
 import { Button, GlassContainer, LoginToButton } from '@/components/ui'
 
 import { LibraryStatusButton } from '@/components/pages/details'
 
+import { useBottomSheetAction } from '@/hooks/useBottomSheetAction'
+
 import { ReviewBottomSheet } from '../review-form'
+
+import { BOTTOM_SHEET_ACTIONS } from '@/constants'
+import { useOpenBottomSheet, useProtectedPush } from '@/hooks'
 
 interface DetailsActionButtonsProps {
   title: Pick<
@@ -29,9 +37,27 @@ export function DetailsActions({
 
   const sheetRef = useRef<BottomSheet>(null)
 
-  const openSheet = () => {
-    sheetRef.current?.snapToIndex(0)
-  }
+  const pushProtected = useProtectedPush()
+  const { open } = useOpenBottomSheet(sheetRef)
+
+  const handleRatePress = useCallback(() => {
+    if (isAuthenticated) {
+      open()
+
+      return
+    }
+
+    pushProtected({
+      pathname: '/title/[type]/[key]',
+      params: {
+        type: title.type,
+        key: title.key,
+        action: BOTTOM_SHEET_ACTIONS.review
+      }
+    })
+  }, [isAuthenticated, open, pushProtected, title])
+
+  useBottomSheetAction(sheetRef, 'review', isAuthenticated)
 
   return (
     <>
@@ -41,38 +67,46 @@ export function DetailsActions({
             <LibraryStatusButton
               titleKey={titleKey}
               tintColor={accentColor}
-              openSheet={openSheet}
+              openSheet={open}
             />
           ) : (
-            <LoginToButton tintColor={accentColor} />
+            <LoginToButton
+              tintColor={accentColor}
+              onPress={() =>
+                pushProtected({
+                  pathname: '/title/[type]/[key]',
+                  params: {
+                    type: title.type,
+                    key: title.key
+                  }
+                })
+              }
+            />
           )}
 
-          {isAuthenticated && (
-            <View style={[styles.actionButtonGroup]}>
-              <Button
-                label='Add to Watchlist'
-                variant='secondary'
-                icon={Bookmark}
-                fullWidth
-                onPress={() => console.log('Pressed Add to Watchlist')}
-              />
+          <View style={[styles.actionButtonGroup]}>
+            <Button
+              label='Add to Watchlist'
+              variant='secondary'
+              icon={Bookmark}
+              fullWidth
+              onPress={() => console.log('Pressed Add to Watchlist')}
+            />
 
-              <Button
-                label='Rate'
-                variant='secondary'
-                icon={Star}
-                fullWidth
-                onPress={openSheet}
-              />
-            </View>
-          )}
+            <Button
+              label='Rate'
+              variant='secondary'
+              icon={Star}
+              fullWidth
+              onPress={handleRatePress}
+            />
+          </View>
         </View>
       </GlassContainer>
 
       <ReviewBottomSheet
         ref={sheetRef}
         title={title}
-        isAuthenticated={isAuthenticated}
       />
     </>
   )
@@ -91,3 +125,9 @@ const styles = StyleSheet.create({
     gap: SPACINGS[3]
   }
 })
+function pushProtected(arg0: {
+  pathname: string
+  params: { type: DiscoverDetailsResponseType; key: string }
+}) {
+  throw new Error('Function not implemented.')
+}

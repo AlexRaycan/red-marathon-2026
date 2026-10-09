@@ -174,7 +174,7 @@ export default function ItemDetailScreen() {
           icon={Home}
           size='lg'
           variant='secondary'
-          onPress={() => router.push('/')}
+          onPress={() => router.dismissTo('/')}
         />
       </View>
     </Screen>

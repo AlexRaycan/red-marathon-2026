@@ -4,7 +4,7 @@ import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useCallback, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { BottomSheetWindow, Input, LoginToButton } from '@/components/ui'
+import { BottomSheetWindow, Input } from '@/components/ui'
 
 import { FriendCarousel } from '@/components/pages/details/share/FriendCarousel'
 
@@ -16,15 +16,9 @@ interface ShareBottomSheetProps {
     'type' | 'coverUrl' | 'name' | 'releaseDate'
   >
   ref: RefObject<BottomSheet | null>
-  isAuthenticated?: boolean
 }
 
-export function ShareBottomSheet({
-  title,
-  ref,
-  isAuthenticated,
-  ...props
-}: ShareBottomSheetProps) {
+export function ShareBottomSheet({ title, ref }: ShareBottomSheetProps) {
   const { selectedIds, setSelectedIds, clearSelectedIds, recipients } =
     useSelectFriends()
 
@@ -48,49 +42,39 @@ export function ShareBottomSheet({
   const isSubmitButtonDisabled =
     inputText.trim().length === 0 || selectedIds.length === 0
 
-  const sheetTitle = isAuthenticated
-    ? 'Share with your friends'
-    : 'Log in to share'
-
   return (
     <BottomSheetWindow
       ref={ref}
-      title={sheetTitle}
+      title='Share with your friends'
       isSubmitButtonDisabled={isSubmitButtonDisabled}
-      isFooterHidden={!isAuthenticated}
       onSubmit={handleShare}
       onClose={handleClose}
-      {...props}
     >
-      {isAuthenticated ? (
-        <View style={styles.content}>
-          <FriendCarousel
-            title={title}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
+      <View style={styles.content}>
+        <FriendCarousel
+          title={title}
+          selectedIds={selectedIds}
+          setSelectedIds={setSelectedIds}
+        />
 
-          <View style={[styles.form]}>
-            <Text
-              style={[styles.inset, styles.recipients]}
-              numberOfLines={1}
-            >
-              To: {recipients}
-            </Text>
+        <View style={[styles.form]}>
+          <Text
+            style={[styles.inset, styles.recipients]}
+            numberOfLines={1}
+          >
+            To: {recipients}
+          </Text>
 
-            <View style={[styles.inset]}>
-              <Input
-                placeholder='Check this out!'
-                multiline
-                tintColor={'rgba(255, 255, 255, 0.08)'}
-                onChangeText={handleInputTextChange}
-              />
-            </View>
+          <View style={[styles.inset]}>
+            <Input
+              placeholder='Check this out!'
+              multiline
+              tintColor={'rgba(255, 255, 255, 0.08)'}
+              onChangeText={handleInputTextChange}
+            />
           </View>
         </View>
-      ) : (
-        <LoginToButton style={styles.inset} />
-      )}
+      </View>
     </BottomSheetWindow>
   )
 }
@@ -108,8 +92,5 @@ const styles = StyleSheet.create({
   recipients: {
     fontSize: FONT_SIZE.sm,
     color: COLORS.text.muted
-  },
-  unauthenticated: {
-    paddingVertical: SPACINGS[4]
   }
 })

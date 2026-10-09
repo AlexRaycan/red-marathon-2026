@@ -1,18 +1,21 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Share } from 'lucide-react-native'
-import { useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
 import { Button } from '@/components/ui'
 
 import { ShareBottomSheet } from '@/components/pages/details'
 
-import { useOpenBottomSheet } from '@/hooks'
+import { useBottomSheetAction } from '@/hooks/useBottomSheetAction'
+
+import { BOTTOM_SHEET_ACTIONS } from '@/constants'
+import { useOpenBottomSheet, useProtectedPush } from '@/hooks'
 
 interface ShareButtonProps {
   title: Pick<
     DiscoverDetailsResponse,
-    'type' | 'coverUrl' | 'name' | 'releaseDate'
+    'type' | 'coverUrl' | 'name' | 'releaseDate' | 'key'
   >
   isAuthenticated?: boolean
 }
@@ -20,9 +23,27 @@ interface ShareButtonProps {
 export function ShareButton({ title, isAuthenticated }: ShareButtonProps) {
   const shareSheetRef = useRef<BottomSheet>(null)
 
+  const pushProtected = useProtectedPush()
   const { open } = useOpenBottomSheet(shareSheetRef)
 
-  // TODO: how to save opening state of share sheet when navigating away from the login page
+  const handlePress = useCallback(() => {
+    if (isAuthenticated) {
+      open()
+
+      return
+    }
+
+    pushProtected({
+      pathname: '/title/[type]/[key]',
+      params: {
+        type: title.type,
+        key: title.key,
+        action: BOTTOM_SHEET_ACTIONS.share
+      }
+    })
+  }, [isAuthenticated, open, pushProtected, title])
+
+  useBottomSheetAction(shareSheetRef, 'share', isAuthenticated)
 
   return (
     <>
@@ -30,13 +51,14 @@ export function ShareButton({ title, isAuthenticated }: ShareButtonProps) {
         icon={Share}
         variant='transparent'
         hapticStyle='success'
-        onPress={open}
+        onPress={handlePress}
       />
-      <ShareBottomSheet
-        title={title}
-        ref={shareSheetRef}
-        isAuthenticated={isAuthenticated}
-      />
+      {isAuthenticated && (
+        <ShareBottomSheet
+          title={title}
+          ref={shareSheetRef}
+        />
+      )}
     </>
   )
 }

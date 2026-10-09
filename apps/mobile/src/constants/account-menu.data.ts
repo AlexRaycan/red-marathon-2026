@@ -13,6 +13,7 @@ export interface AccountMenuItemProps extends Omit<IAccountMenuItem, 'path'> {
   onPress?: () => void
 }
 
+// FIXME: solve problem with string in the `router.push(...)`
 export const ACCOUNT_MENU: AccountMenuItemProps[] = [
   {
     label: 'Subscription',

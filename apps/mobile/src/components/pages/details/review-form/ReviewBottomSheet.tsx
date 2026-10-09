@@ -7,7 +7,7 @@ import type { RefObject } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { BottomSheetWindow, Input, LoginToButton } from '@/components/ui'
+import { BottomSheetWindow, Input } from '@/components/ui'
 
 import { TitleCardPreviewSmall } from '@/components/titles'
 import { PreviewTitleHeader } from '@/components/ui/PreviewTitleHeader'
@@ -21,22 +21,15 @@ interface ReviewBottomSheetProps {
     'type' | 'coverUrl' | 'name' | 'releaseDate' | 'key'
   >
   ref: RefObject<BottomSheet | null>
-  isAuthenticated?: boolean
 }
 
-export function ReviewBottomSheet({
-  title,
-  ref,
-  isAuthenticated
-}: ReviewBottomSheetProps) {
+export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
   const key = title?.key
 
   const { data: myState } = useDiscoverFindMyState(key)
 
   const review = myState?.data.review ?? null
   const titleName = title?.name
-
-  const sheetTitle = isAuthenticated ? 'How was it?' : 'Log in to share'
 
   const { saveReview, isSaving } = useSaveReview(key, review?.id ?? null)
 
@@ -65,57 +58,52 @@ export function ReviewBottomSheet({
   return (
     <BottomSheetWindow
       ref={ref}
-      title={sheetTitle}
-      isFooterHidden={!isAuthenticated}
+      title={'Log in to share'}
       isSubmitButtonDisabled={!isValid || isSaving}
       submitButtonText={review ? 'Save' : 'Send'}
       onSubmit={onSubmit}
     >
-      {isAuthenticated ? (
-        <View style={[styles.inset, styles.content]}>
-          {titleName && (
-            <PreviewTitleHeader
-              text={titleName}
-              style={styles.carouselTitle}
-            >
-              <TitleCardPreviewSmall title={title} />
-            </PreviewTitleHeader>
+      <View style={[styles.inset, styles.content]}>
+        {titleName && (
+          <PreviewTitleHeader
+            text={titleName}
+            style={styles.carouselTitle}
+          >
+            <TitleCardPreviewSmall title={title} />
+          </PreviewTitleHeader>
+        )}
+
+        <Controller
+          control={control}
+          name='rating'
+          render={({ field }) => (
+            <RatingSlider
+              value={field.value ?? null}
+              onChange={field.onChange}
+            />
           )}
+        />
 
-          <Controller
-            control={control}
-            name='rating'
-            render={({ field }) => (
-              <RatingSlider
-                value={field.value ?? null}
-                onChange={field.onChange}
-              />
-            )}
-          />
-
-          <Controller
-            control={control}
-            name='text'
-            render={({ field, fieldState }) => (
-              <Input
-                tintColor={'rgba(255, 255, 255, 0.08)'}
-                multiline
-                placeholder='Share your thoughts (optional)'
-                value={field.value}
-                error={fieldState.error?.message}
-                onChangeText={field.onChange}
-                onBlur={field.onBlur}
-              />
-            )}
-          />
-
-          {!!errors.root && (
-            <Text style={styles.error}>{errors.root.message}</Text>
+        <Controller
+          control={control}
+          name='text'
+          render={({ field, fieldState }) => (
+            <Input
+              tintColor={'rgba(255, 255, 255, 0.08)'}
+              multiline
+              placeholder='Share your thoughts (optional)'
+              value={field.value}
+              error={fieldState.error?.message}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+            />
           )}
-        </View>
-      ) : (
-        <LoginToButton style={styles.inset} />
-      )}
+        />
+
+        {!!errors.root && (
+          <Text style={styles.error}>{errors.root.message}</Text>
+        )}
+      </View>
     </BottomSheetWindow>
   )
 }

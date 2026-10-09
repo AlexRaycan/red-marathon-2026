@@ -1,8 +1,6 @@
-import { COLORS, SPACINGS } from '@app/tokens'
-import { router } from 'expo-router'
+import { COLORS } from '@app/tokens'
 import { LogIn } from 'lucide-react-native'
 import type { ComponentProps } from 'react'
-import { StyleSheet, View } from 'react-native'
 
 import { Button } from './Button'
 
@@ -13,21 +11,12 @@ export function LoginToButton({
   ...props
 }: ComponentProps<typeof Button>) {
   return (
-    <View style={[styles.unauthenticated, style]}>
-      <Button
-        label={label}
-        icon={LogIn}
-        tintColor={tintColor}
-        size='lg'
-        onPress={() => router.push('/login')}
-        {...props}
-      />
-    </View>
+    <Button
+      label={label}
+      icon={LogIn}
+      tintColor={tintColor}
+      size='lg'
+      {...props}
+    />
   )
 }
-
-const styles = StyleSheet.create({
-  unauthenticated: {
-    paddingVertical: SPACINGS[4]
-  }
-})
