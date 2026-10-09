@@ -1,4 +1,4 @@
-import type { DiscoverItemResponse } from '@app/api'
+import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
 import { RADIUS } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
@@ -9,7 +9,10 @@ import { TitleCardBadge } from './TitleCardBadge'
 import { TitleCardBookFX } from './TitleCardBookFX'
 
 interface Props {
-  title: Pick<DiscoverItemResponse, 'type' | 'coverUrl'>
+  title: Pick<
+    DiscoverItemResponse | DiscoverDetailsResponse,
+    'type' | 'coverUrl'
+  >
   width: number
   withBadge?: boolean
   borderRadius?: number

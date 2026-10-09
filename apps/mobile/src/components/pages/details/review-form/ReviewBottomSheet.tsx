@@ -1,0 +1,124 @@
+import { type DiscoverDetailsResponse, useDiscoverFindMyState } from '@app/api'
+import { TReviewSchema, reviewSchema } from '@app/schemas'
+import { FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
+import type BottomSheet from '@expo/ui/community/bottom-sheet'
+import { zodResolver } from '@hookform/resolvers/zod'
+import type { RefObject } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { StyleSheet, View } from 'react-native'
+
+import { BottomSheetWindow, Input, LoginToButton } from '@/components/ui'
+
+import { TitleCardPreviewSmall } from '@/components/titles'
+import { PreviewTitleHeader } from '@/components/ui/PreviewTitleHeader'
+
+import { useSaveReview } from '@/hooks/useSaveReview'
+
+import { RatingSlider } from './RatingSlider'
+
+interface ReviewBottomSheetProps {
+  title: Pick<
+    DiscoverDetailsResponse,
+    'type' | 'coverUrl' | 'name' | 'releaseDate' | 'key'
+  >
+  ref: RefObject<BottomSheet | null>
+  isAuthenticated?: boolean
+}
+
+export function ReviewBottomSheet({
+  title,
+  ref,
+  isAuthenticated
+}: ReviewBottomSheetProps) {
+  const key = title?.key
+
+  const { data: myState } = useDiscoverFindMyState(key)
+
+  const review = myState?.data.review ?? null
+  const titleName = title?.name
+
+  const sheetTitle = isAuthenticated ? 'How was it?' : 'Log in to share'
+
+  const { saveReview, isSaving } = useSaveReview(key, review?.id ?? null)
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid }
+  } = useForm<TReviewSchema>({
+    resolver: zodResolver(reviewSchema),
+    mode: 'onChange',
+    defaultValues: {
+      rating: review?.rating,
+      text: review?.text ?? ''
+    }
+  })
+
+  const onSubmit = handleSubmit(values => saveReview(values))
+
+  return (
+    <BottomSheetWindow
+      ref={ref}
+      title={sheetTitle}
+      isFooterHidden={!isAuthenticated}
+      isSubmitButtonDisabled={!isValid || isSaving}
+      submitButtonText={review ? 'Save' : 'Send'}
+      onSubmit={onSubmit}
+    >
+      {isAuthenticated ? (
+        <View style={[styles.inset, styles.content]}>
+          {titleName && (
+            <PreviewTitleHeader
+              text={titleName}
+              style={styles.carouselTitle}
+            >
+              <TitleCardPreviewSmall title={title} />
+            </PreviewTitleHeader>
+          )}
+
+          <Controller
+            control={control}
+            name='rating'
+            render={({ field }) => (
+              <RatingSlider
+                value={field.value ?? null}
+                onChange={field.onChange}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name='text'
+            render={({ field, fieldState }) => (
+              <Input
+                tintColor={'rgba(255, 255, 255, 0.08)'}
+                multiline
+                placeholder='Share your thoughts (optional)'
+                value={field.value}
+                error={fieldState.error?.message}
+                onChangeText={field.onChange}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
+        </View>
+      ) : (
+        <LoginToButton style={styles.inset} />
+      )}
+    </BottomSheetWindow>
+  )
+}
+
+const styles = StyleSheet.create({
+  content: {
+    gap: SPACINGS[4],
+    paddingTop: SPACINGS[4]
+  },
+  inset: {
+    paddingHorizontal: LAYOUT['space-horizontal']
+  },
+  carouselTitle: {
+    fontSize: FONT_SIZE.base
+  }
+})

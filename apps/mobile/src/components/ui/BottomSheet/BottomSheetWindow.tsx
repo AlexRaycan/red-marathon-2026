@@ -5,13 +5,16 @@ import BottomSheet, {
 import { type RefObject } from 'react'
 import { StyleSheet } from 'react-native'
 
-import { BottomSheetActionButtons } from './BottomSheetActionButtons'
+import { BottomSheetFooter } from './BottomSheetFooter'
 import { ButtonSheetTitle } from './ButtonSheetTitle'
 
-type BottomSheetWindowProps = Omit<BottomSheetProps, 'ref'> & {
+interface BottomSheetWindowProps extends Omit<BottomSheetProps, 'ref'> {
   ref?: RefObject<BottomSheet | null>
   title?: string
   isSubmitButtonDisabled?: boolean
+  isFooterHidden?: boolean
+  submitButtonText?: string
+  cancelButtonText?: string
   onSubmit?: () => void
 }
 
@@ -21,6 +24,9 @@ export function BottomSheetWindow({
   index = -1,
   title,
   isSubmitButtonDisabled,
+  isFooterHidden,
+  submitButtonText,
+  cancelButtonText,
   onSubmit,
   ...props
 }: BottomSheetWindowProps) {
@@ -37,11 +43,15 @@ export function BottomSheetWindow({
 
         {children}
 
-        <BottomSheetActionButtons
-          ref={ref}
-          isSubmitButtonDisabled={isSubmitButtonDisabled}
-          onSubmit={onSubmit}
-        />
+        {!isFooterHidden && (
+          <BottomSheetFooter
+            ref={ref}
+            isSubmitButtonDisabled={isSubmitButtonDisabled}
+            onSubmit={onSubmit}
+            submitButtonText={submitButtonText}
+            cancelButtonText={cancelButtonText}
+          />
+        )}
       </BottomSheetView>
     </BottomSheet>
   )

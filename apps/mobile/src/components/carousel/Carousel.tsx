@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
+import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { ChevronRight } from 'lucide-react-native'
 import type { PropsWithChildren, ReactNode } from 'react'
 import {
@@ -6,10 +6,11 @@ import {
   ScrollView,
   type StyleProp,
   StyleSheet,
-  Text,
   type TextStyle,
   View
 } from 'react-native'
+
+import { PreviewTitleHeader } from '../ui/PreviewTitleHeader'
 
 interface Props extends PropsWithChildren {
   title?: string
@@ -34,10 +35,14 @@ export function Carousel({
           hitSlop={12}
           style={styles.header}
         >
-          <View style={styles.beforeTitle}>
-            {beforeTitle}
-            <Text style={[styles.title, titleStyle]}>{title}</Text>
-          </View>
+          {title && (
+            <PreviewTitleHeader
+              text={title}
+              style={titleStyle}
+            >
+              {beforeTitle}
+            </PreviewTitleHeader>
+          )}
 
           {Boolean(onPress) && (
             <ChevronRight
@@ -60,6 +65,7 @@ export function Carousel({
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     gap: SPACINGS[3]
   },
   header: {
@@ -68,16 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: LAYOUT['space-horizontal'],
     paddingVertical: SPACINGS[2]
-  },
-  beforeTitle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACINGS[2]
-  },
-  title: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE.xl,
-    fontWeight: FONT_WEIGHT.semibold
   },
   scroll: {
     gap: SPACINGS[3],

@@ -1,5 +1,6 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { TYPE_LABELS } from '@app/constants'
+import { useCheckAuthenticated } from '@app/hooks'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import { metaDataFormating } from '@app/utils'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -17,7 +18,7 @@ import { Carousel } from '@/components/carousel'
 import { HeroTitleInfo } from '@/components/hero'
 import { AnimatedHero } from '@/components/pages/details/animated-hero/AnimatedHero'
 import { CastCard } from '@/components/pages/details/cast-card/CastCard'
-import { DetailsActionButtons } from '@/components/pages/details/details-action-buttons/DetailsActionButtons'
+import { DetailsActions } from '@/components/pages/details/details-action-buttons/DetailsActions'
 import { DetailsPlatforms } from '@/components/pages/details/details-platforms/DetailsPlatforms'
 import { ReviewsSection } from '@/components/pages/details/reviews-section/ReviewsSection'
 import { ShareButton } from '@/components/pages/details/share/ShareButton'
@@ -42,6 +43,8 @@ export default function ItemDetailScreen() {
 
   const { data, isPending } = useDiscoverFindByKey(key)
 
+  const { isAuthenticated } = useCheckAuthenticated()
+
   if (isPending || !data || data?.status !== 200) return <Screen />
 
   const title = data.data
@@ -59,7 +62,12 @@ export default function ItemDetailScreen() {
       <Toolbar
         isBackButton
         isAbsolute
-        rightSide={<ShareButton title={title} />}
+        rightSide={
+          <ShareButton
+            isAuthenticated={isAuthenticated}
+            title={title}
+          />
+        }
       />
       <AnimatedHero
         heroHeight={heroHeight}
@@ -105,9 +113,10 @@ export default function ItemDetailScreen() {
             />
           </ViewLayout.Root>
 
-          <DetailsActionButtons
-            titleKey={key}
+          <DetailsActions
+            title={title}
             accentColor={accentColor}
+            isAuthenticated={isAuthenticated}
           />
 
           {!!title?.similar?.length && (
@@ -164,7 +173,7 @@ export default function ItemDetailScreen() {
         <Button
           icon={Home}
           size='lg'
-          variant='transparent'
+          variant='secondary'
           onPress={() => router.push('/')}
         />
       </View>

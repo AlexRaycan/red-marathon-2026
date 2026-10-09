@@ -7,7 +7,9 @@ export const FONT_SIZE = {
   xl: 24,
   '1.5xl': 26,
   '2xl': 30,
-  '3xl': 36
+  '3xl': 36,
+  giant: 48,
+  massive: 64
 } as const
 
 export const FONT_WEIGHT = {

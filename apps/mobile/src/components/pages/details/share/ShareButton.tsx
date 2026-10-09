@@ -10,10 +10,14 @@ import { ShareBottomSheet } from '@/components/pages/details'
 import { useOpenBottomSheet } from '@/hooks/useOpenBottomSheet'
 
 interface ShareButtonProps {
-  title: DiscoverDetailsResponse
+  title: Pick<
+    DiscoverDetailsResponse,
+    'type' | 'coverUrl' | 'name' | 'releaseDate'
+  >
+  isAuthenticated?: boolean
 }
 
-export function ShareButton({ title }: ShareButtonProps) {
+export function ShareButton({ title, isAuthenticated }: ShareButtonProps) {
   const shareSheetRef = useRef<BottomSheet>(null)
 
   const { open } = useOpenBottomSheet(shareSheetRef)
@@ -31,6 +35,7 @@ export function ShareButton({ title }: ShareButtonProps) {
       <ShareBottomSheet
         title={title}
         ref={shareSheetRef}
+        isAuthenticated={isAuthenticated}
       />
     </>
   )

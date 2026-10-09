@@ -1,17 +1,17 @@
 import {
   getDiscoverFindMyStateQueryKey,
   useDiscoverFindMyState,
-  useLibrarySetStatusByDiscoverKey,
-  useUserFindMe
+  useLibrarySetStatusByDiscoverKey
 } from '@app/api'
 import type { TLibraryStatus } from '@app/types'
 import { useQueryClient } from '@tanstack/react-query'
 
+import { useCheckAuthenticated } from './useCheckAuthenticated'
+
 export function useLibraryStatus(key: string) {
   const queryClient = useQueryClient()
 
-  const { data: me } = useUserFindMe()
-  const isAuthenticated = me?.status === 200
+  const { isAuthenticated } = useCheckAuthenticated()
 
   const { data: myState } = useDiscoverFindMyState(key, {
     query: {
@@ -34,7 +34,7 @@ export function useLibraryStatus(key: string) {
   const setStatus = (status: TLibraryStatus) => {
     mutate({
       key,
-      date: {
+      data: {
         status
       }
     })

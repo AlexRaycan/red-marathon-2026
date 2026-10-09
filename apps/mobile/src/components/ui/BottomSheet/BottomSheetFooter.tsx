@@ -9,13 +9,17 @@ import { GlassContainer } from '@/components/ui/GlassContainer'
 interface BottomSheetActionButtonsProps {
   ref?: RefObject<BottomSheet | null>
   isSubmitButtonDisabled?: boolean
+  submitButtonText?: string
+  cancelButtonText?: string
   onSubmit?: () => void
   onCancel?: () => void
 }
 
-export function BottomSheetActionButtons({
+export function BottomSheetFooter({
   ref,
   isSubmitButtonDisabled,
+  submitButtonText = 'Send',
+  cancelButtonText = 'Cancel',
   onSubmit,
   onCancel
 }: BottomSheetActionButtonsProps) {
@@ -39,14 +43,14 @@ export function BottomSheetActionButtons({
     <GlassContainer>
       <View style={[styles.inset, styles.buttonsContainer]}>
         <Button
-          label='Send'
+          label={submitButtonText}
           tintColor={COLORS.status.success}
           size='lg'
           disabled={isSubmitButtonDisabled}
           onPress={handleSubmit}
         />
         <Button
-          label='Cancel'
+          label={cancelButtonText}
           variant='secondary'
           size='lg'
           onPress={handleCancel}

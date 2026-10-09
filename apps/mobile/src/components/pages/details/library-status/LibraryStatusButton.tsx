@@ -1,7 +1,7 @@
 import { ADD_TO_LIBRARY_ACTION, LIBRARY_STATUS_ACTIONS } from '@app/constants'
 import { useLibraryStatus } from '@app/hooks'
 import { router } from 'expo-router'
-import { type ColorValue, StyleSheet } from 'react-native'
+import { type ColorValue } from 'react-native'
 
 import { Button } from '@/components/ui'
 
@@ -10,20 +10,20 @@ import { LIBRARY_ACTION_ICONS } from './library-status.data'
 interface LibraryStatusButtonProps {
   titleKey: string
   tintColor?: ColorValue
+  openSheet?: () => void
 }
 
 export function LibraryStatusButton({
   titleKey,
-  tintColor
+  tintColor,
+  openSheet
 }: LibraryStatusButtonProps) {
   // TODO: add a rating button
   const { isAuthenticated, status, rating, setStatus } =
     useLibraryStatus(titleKey)
 
-  const openReview = () => {}
-
   if (status === 'COMPLETED') {
-    // Imidiately ask to set rating
+    openSheet?.()
   }
 
   const action =
@@ -41,7 +41,7 @@ export function LibraryStatusButton({
     setStatus(action.nextStatus)
 
     if (action.nextStatus === 'COMPLETED') {
-      openReview()
+      openSheet?.()
     }
   }
 
@@ -55,5 +55,3 @@ export function LibraryStatusButton({
     />
   )
 }
-
-const styles = StyleSheet.create({})
