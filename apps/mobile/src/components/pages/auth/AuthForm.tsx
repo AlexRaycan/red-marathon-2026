@@ -18,6 +18,8 @@ import {
 
 import { Toolbar } from '@/components/toolbar'
 
+import { useRedirect } from '@/hooks'
+
 interface AuthFormProps {
   type: keyof typeof AUTH_CONTENT
   isPending: boolean
@@ -31,6 +33,8 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
   const { control, handleSubmit } = useForm<TAuthForm>({
     resolver: zodResolver(authSchema)
   })
+
+  const { redirect } = useRedirect()
 
   return (
     <Screen withPaddings>
@@ -101,7 +105,12 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
             ...{ marginBottom: -SPACINGS[2] },
             opacity: pressed ? 0.7 : 1
           })}
-          onPress={() => router.replace(content.footerHref)}
+          onPress={() =>
+            router.replace({
+              pathname: content.footerHref,
+              params: { redirect }
+            })
+          }
         >
           <Text style={styles.link}>
             {content.footerText}{' '}

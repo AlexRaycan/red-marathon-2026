@@ -1,40 +1,20 @@
-import { useAuthMobileLogin } from '@app/api'
-import { useQueryClient } from '@tanstack/react-query'
-import { router } from 'expo-router'
+import type { AUTH_CONTENT } from '@app/constants'
 
 import { AuthForm } from '@/components/pages/auth'
 
-import { saveTokens } from '@/lib/token'
+import { useSigning } from '@/hooks/useSigning'
 
-import { useRedirect } from '@/hooks'
+const TYPE: keyof typeof AUTH_CONTENT = 'login'
 
 export default function Login() {
-  const queryClient = useQueryClient()
-  const { redirect } = useRedirect()
-
-  const { mutate, isPending, error } = useAuthMobileLogin({
-    mutation: {
-      onSuccess: async ({ data: { accessToken, refreshToken } }) => {
-        await saveTokens(accessToken, refreshToken)
-        queryClient.clear()
-
-        if (redirect) {
-          router.replace(redirect)
-
-          return
-        }
-
-        router.replace('/')
-      }
-    }
-  })
+  const { mutate, isPending, error } = useSigning(TYPE)
 
   return (
     <AuthForm
-      type='login'
+      type={TYPE}
       error={error}
       isPending={isPending}
-      onSubmit={data => mutate({ date: data })}
+      onSubmit={data => mutate({ data })}
     />
   )
 }

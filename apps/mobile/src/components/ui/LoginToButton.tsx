@@ -6,8 +6,6 @@ import { StyleSheet, View } from 'react-native'
 
 import { Button } from './Button'
 
-interface LoginToButtonProps extends ComponentProps<typeof Button> {}
-
 export function LoginToButton({
   label = 'Go to Login',
   tintColor = COLORS.status.success,

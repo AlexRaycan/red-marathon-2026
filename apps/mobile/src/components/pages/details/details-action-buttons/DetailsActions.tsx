@@ -1,6 +1,6 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { LAYOUT, SPACINGS } from '@app/tokens'
-import BottomSheet from '@expo/ui/community/bottom-sheet'
+import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Bookmark, Star } from 'lucide-react-native'
 import { useRef } from 'react'
 import { type ColorValue, StyleSheet, View } from 'react-native'
