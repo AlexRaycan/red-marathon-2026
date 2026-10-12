@@ -2,7 +2,7 @@ import type { DiscoverDetailsResponse } from '@app/api'
 import { FONT_SIZE } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
-import { Carousel } from '@/components/carousel'
+import { Carousel } from '@/components/elements/carousel'
 import { TitleCardPreviewSmall } from '@/components/titles'
 
 import { FriendCard } from './FriendCard'

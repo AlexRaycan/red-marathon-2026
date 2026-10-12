@@ -14,7 +14,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Button, Screen, ViewLayout } from '@/components/ui'
 
-import { Carousel } from '@/components/carousel'
+import { Carousel } from '@/components/elements/carousel'
+import { Toolbar } from '@/components/elements/toolbar'
 import { HeroTitleInfo } from '@/components/hero'
 import {
   AnimatedHero,
@@ -25,7 +26,6 @@ import {
   ShareButton
 } from '@/components/pages/details'
 import { TITLE_CARD_CONFIG, TitlesCarousel } from '@/components/titles'
-import { Toolbar } from '@/components/toolbar'
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{

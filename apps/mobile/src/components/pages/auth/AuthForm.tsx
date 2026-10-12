@@ -16,7 +16,7 @@ import {
   ViewLayout
 } from '@/components/ui'
 
-import { Toolbar } from '@/components/toolbar'
+import { Toolbar } from '@/components/elements/toolbar'
 
 import { useRedirect } from '@/hooks'
 

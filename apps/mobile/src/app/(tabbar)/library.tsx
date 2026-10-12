@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 
 import { Screen } from '@/components/ui'
 
-import { Toolbar } from '@/components/toolbar'
+import { Toolbar } from '@/components/elements/toolbar'
 
 export default function LibraryScreen() {
   return (
