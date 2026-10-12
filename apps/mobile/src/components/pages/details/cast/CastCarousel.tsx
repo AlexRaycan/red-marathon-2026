@@ -6,19 +6,19 @@ import { Carousel } from '@/components/ui'
 import { CastCard } from './CastCard'
 
 interface CastCarouselProps {
-  title: Pick<DiscoverDetailsResponse, 'type' | 'creators' | 'cast'>
+  type: string
+  creators?: DiscoverDetailsResponse['creators']
+  cast?: DiscoverDetailsResponse['cast']
 }
 
-export function CastCarousel({ title }: CastCarouselProps) {
+export function CastCarousel({ type, creators, cast }: CastCarouselProps) {
   return (
     <Carousel
-      title={
-        title.type === TYPE_LABELS.GAME.toUpperCase() ? 'Developers' : 'Cast'
-      }
+      title={type === TYPE_LABELS.GAME.toUpperCase() ? 'Developers' : 'Cast'}
     >
       {/* TODO: add separate view for developers */}
       {/* TODO: use CREATOR_ROLES_LABELS for carousels' labels */}
-      {title.creators.map(creator => (
+      {creators?.map(creator => (
         <CastCard
           key={creator.name}
           type='creator'
@@ -28,7 +28,7 @@ export function CastCarousel({ title }: CastCarouselProps) {
         />
       ))}
 
-      {title.cast.slice(0, 10).map(actor => (
+      {cast?.slice(0, 10).map(actor => (
         <CastCard
           key={actor.name}
           type='actor'

@@ -68,7 +68,13 @@ export function DetailsInfo({
           />
         )}
 
-        {hasCast && <CastCarousel title={title} />}
+        {hasCast && (
+          <CastCarousel
+            type={title.type}
+            creators={title.creators}
+            cast={title.cast}
+          />
+        )}
 
         <ReviewsSection titleKey={title.key} />
       </ViewLayout.Root>

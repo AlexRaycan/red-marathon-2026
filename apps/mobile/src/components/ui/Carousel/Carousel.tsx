@@ -52,6 +52,7 @@ export function Carousel({
           )}
         </Pressable>
       )}
+      {/* TODO: add FlatList depend of count of elements (ex. >25) */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

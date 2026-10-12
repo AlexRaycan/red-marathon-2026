@@ -1,7 +1,4 @@
-import type {
-  DiscoverDetailsResponse,
-  DiscoverDetailsResponseType
-} from '@app/api'
+import type { DiscoverDetailsResponse } from '@app/api'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Bookmark, Star } from 'lucide-react-native'
@@ -129,9 +126,3 @@ const styles = StyleSheet.create({
     gap: SPACINGS[3]
   }
 })
-function pushProtected(arg0: {
-  pathname: string
-  params: { type: DiscoverDetailsResponseType; key: string }
-}) {
-  throw new Error('Function not implemented.')
-}
