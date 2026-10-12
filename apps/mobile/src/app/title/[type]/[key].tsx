@@ -1,9 +1,8 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { useAuth } from '@app/hooks'
-import { SPACINGS } from '@app/tokens'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
-import { StyleSheet, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import {
   useAnimatedScrollHandler,
   useSharedValue
@@ -11,22 +10,18 @@ import {
 
 import { FloatingButton, Screen } from '@/components/ui'
 
-import { TITLE_CARD_CONFIG, Toolbar } from '@/components/elements'
+import { Toolbar } from '@/components/elements'
 import {
   AnimatedHero,
   DetailsInfo,
   ShareButton
 } from '@/components/pages/details'
 
-import { useBottomSpace } from '@/hooks'
-
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
     key: string
     type: TitleListItemResponseType
   }>()
-
-  const { bottomSpace } = useBottomSpace()
 
   const { width } = useWindowDimensions()
   const heroHeight = width * 1.35
@@ -43,11 +38,6 @@ export default function ItemDetailScreen() {
   if (isPending || !data || data?.status !== 200) return <Screen />
 
   const title = data.data
-
-  const config = TITLE_CARD_CONFIG[title.type]
-  const accentColor = config.accent
-
-  const hasCast = !!title.cast?.length || !!title.creators?.length
 
   return (
     <Screen isInfitinyMode>
@@ -74,46 +64,6 @@ export default function ItemDetailScreen() {
         onScroll={scrollHandler}
       />
 
-      {/* <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: bottomSpace
-        }}
-        scrollEventThrottle={16}
-        onScroll={scrollHandler}
-      >
-        <ViewLayout.Root
-          style={[
-            styles.root,
-            {
-              paddingBottom: bottomSpace
-            }
-          ]}
-        >
-          <DetailsTitle
-            title={title}
-            heroHeight={heroHeight}
-          />
-
-          <DetailsActions
-            title={title}
-            accentColor={accentColor}
-            isAuthenticated={isAuthenticated}
-          />
-
-          {!!title?.similar?.length && (
-            <TitlesCarousel
-              title='You may also like'
-              items={title.similar}
-            />
-          )}
-
-          {hasCast && <CastCarousel title={title} />}
-
-          <ReviewsSection titleKey={key} />
-        </ViewLayout.Root>
-      </Animated.ScrollView> */}
-
       {/* FIXME: temporary Home button - make a Tabbar */}
       <FloatingButton
         icon={Home}
@@ -122,10 +72,3 @@ export default function ItemDetailScreen() {
     </Screen>
   )
 }
-
-const styles = StyleSheet.create({
-  root: {
-    position: 'relative',
-    gap: SPACINGS[5]
-  }
-})
