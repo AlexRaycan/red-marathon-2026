@@ -2,8 +2,7 @@ import type { DiscoverDetailsResponse } from '@app/api'
 import { FONT_SIZE } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
-import { Carousel } from '@/components/elements/carousel'
-import { TitleCardPreviewSmall } from '@/components/titles'
+import { Carousel, TitleCardPreviewSmall } from '@/components/elements'
 
 import { FriendCard } from './FriendCard'
 import { SHARE_FRIENDS_MOCK_DATA } from './share-friends.mock.data'

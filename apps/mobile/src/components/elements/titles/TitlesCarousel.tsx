@@ -3,7 +3,7 @@ import { getCardWidth } from '@app/utils'
 import { router } from 'expo-router'
 import { useWindowDimensions } from 'react-native'
 
-import { Carousel } from '@/components/elements/carousel'
+import { Carousel } from '@/components/elements'
 
 import { TitleCard } from './title-card'
 

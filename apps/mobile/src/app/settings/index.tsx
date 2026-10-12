@@ -1,6 +1,6 @@
 import { MenuItem, Screen, ViewLayout } from '@/components/ui'
 
-import { Toolbar } from '@/components/elements/toolbar'
+import { Toolbar } from '@/components/elements'
 
 export default function Settings() {
   return (

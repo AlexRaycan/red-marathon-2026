@@ -14,8 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Button, Screen, ViewLayout } from '@/components/ui'
 
-import { Carousel } from '@/components/elements/carousel'
-import { Toolbar } from '@/components/elements/toolbar'
+import { Carousel, Toolbar } from '@/components/elements'
 import { HeroTitleInfo } from '@/components/hero'
 import {
   AnimatedHero,

@@ -4,7 +4,7 @@ import { type SharedValue } from 'react-native-reanimated'
 
 import { Button } from '@/components/ui'
 
-import { Toolbar } from '@/components/elements/toolbar'
+import { Toolbar } from '@/components/elements'
 
 interface IHomeHeaderProps {
   scrollY: SharedValue<number>

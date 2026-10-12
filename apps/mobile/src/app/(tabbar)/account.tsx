@@ -15,7 +15,7 @@ import {
   ViewLayout
 } from '@/components/ui'
 
-import { Toolbar } from '@/components/elements/toolbar'
+import { Toolbar } from '@/components/elements'
 import { AccountUserInfo } from '@/components/pages/account'
 
 import { clearTokens, getRefreshToken } from '@/lib'
