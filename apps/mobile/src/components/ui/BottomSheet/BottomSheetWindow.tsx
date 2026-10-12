@@ -9,7 +9,7 @@ import { BottomSheetFooter } from './BottomSheetFooter'
 import { BottomSheetTitle } from './BottomSheetTitle'
 
 interface BottomSheetWindowProps extends Omit<BottomSheetProps, 'ref'> {
-  ref?: RefObject<BottomSheet | null>
+  ref: RefObject<BottomSheet | null>
   title?: string
   isSubmitButtonDisabled?: boolean
   isFooterHidden?: boolean

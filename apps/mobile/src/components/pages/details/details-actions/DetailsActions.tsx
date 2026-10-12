@@ -10,8 +10,6 @@ import { type ColorValue, StyleSheet, View } from 'react-native'
 
 import { Button, GlassContainer, LoginToButton } from '@/components/ui'
 
-import { LibraryStatusButton } from '@/components/pages/details'
-
 import {
   useBottomSheetAction,
   useBottomSheetControl,
@@ -20,6 +18,7 @@ import {
 
 import { BOTTOM_SHEET_ACTIONS } from '@/constants'
 
+import { LibraryStatusButton } from '../library-status'
 import { ReviewBottomSheet } from '../review-form'
 
 interface DetailsActionButtonsProps {

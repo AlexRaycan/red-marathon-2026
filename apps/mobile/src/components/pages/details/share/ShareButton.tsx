@@ -5,14 +5,15 @@ import { useCallback, useRef } from 'react'
 
 import { Button } from '@/components/ui'
 
-import { ShareBottomSheet } from '@/components/pages/details'
-
-import { BOTTOM_SHEET_ACTIONS } from '@/constants'
 import {
   useBottomSheetAction,
   useBottomSheetControl,
   useProtectedPush
 } from '@/hooks'
+
+import { BOTTOM_SHEET_ACTIONS } from '@/constants'
+
+import { ShareBottomSheet } from './ShareBottomSheet'
 
 interface ShareButtonProps {
   title: Pick<
