@@ -1,30 +1,24 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
-import { TYPE_LABELS } from '@app/constants'
 import { useAuth } from '@app/hooks'
-import { LAYOUT, SPACINGS } from '@app/tokens'
-import { metaDataFormating } from '@app/utils'
+import { SPACINGS } from '@app/tokens'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
-import { StyleSheet, View, useWindowDimensions } from 'react-native'
-import Animated, {
+import { StyleSheet, useWindowDimensions } from 'react-native'
+import {
   useAnimatedScrollHandler,
   useSharedValue
 } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Button, Screen, ViewLayout } from '@/components/ui'
+import { FloatingButton, Screen } from '@/components/ui'
 
-import { Carousel, Toolbar } from '@/components/elements'
-import { HeroTitleInfo } from '@/components/hero'
+import { TITLE_CARD_CONFIG, Toolbar } from '@/components/elements'
 import {
   AnimatedHero,
-  CastCard,
-  DetailsActions,
-  DetailsPlatforms,
-  ReviewsSection,
+  DetailsInfo,
   ShareButton
 } from '@/components/pages/details'
-import { TITLE_CARD_CONFIG, TitlesCarousel } from '@/components/titles'
+
+import { useBottomSpace } from '@/hooks'
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
@@ -32,7 +26,7 @@ export default function ItemDetailScreen() {
     type: TitleListItemResponseType
   }>()
 
-  const inset = useSafeAreaInsets()
+  const { bottomSpace } = useBottomSpace()
 
   const { width } = useWindowDimensions()
   const heroHeight = width * 1.35
@@ -51,10 +45,7 @@ export default function ItemDetailScreen() {
   const title = data.data
 
   const config = TITLE_CARD_CONFIG[title.type]
-
-  const accentColor = config ? config.accent : 'transparent'
-
-  const meta = metaDataFormating(title)
+  const accentColor = config.accent
 
   const hasCast = !!title.cast?.length || !!title.creators?.length
 
@@ -76,10 +67,17 @@ export default function ItemDetailScreen() {
         scrollY={scrollY}
       />
 
-      <Animated.ScrollView
+      <DetailsInfo
+        title={title}
+        heroHeight={heroHeight}
+        isAuthenticated={isAuthenticated}
+        onScroll={scrollHandler}
+      />
+
+      {/* <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: inset.bottom + LAYOUT['space-vertical']
+          paddingBottom: bottomSpace
         }}
         scrollEventThrottle={16}
         onScroll={scrollHandler}
@@ -88,31 +86,14 @@ export default function ItemDetailScreen() {
           style={[
             styles.root,
             {
-              paddingBottom: inset.bottom + LAYOUT['space-vertical']
+              paddingBottom: bottomSpace
             }
           ]}
         >
-          <ViewLayout.Root
-            style={[
-              styles.baseContainer,
-              styles.descriptionContainer,
-              { height: heroHeight }
-            ]}
-          >
-            <HeroTitleInfo
-              keyItem={key}
-              name={title.name}
-              genres={title.genres}
-              meta={meta}
-              platforms={
-                title.metadata.platforms ? (
-                  <DetailsPlatforms metadata={title.metadata} />
-                ) : null
-              }
-              description={title.description}
-              descriptionLines={4}
-            />
-          </ViewLayout.Root>
+          <DetailsTitle
+            title={title}
+            heroHeight={heroHeight}
+          />
 
           <DetailsActions
             title={title}
@@ -127,57 +108,17 @@ export default function ItemDetailScreen() {
             />
           )}
 
-          {/* TODO: add separate view for developers */}
-          {/* TODO: use CREATOR_ROLES_LABELS for carousels' labels */}
-          {hasCast && (
-            <Carousel
-              title={
-                title.type === TYPE_LABELS.GAME.toUpperCase()
-                  ? 'Developers'
-                  : 'Cast'
-              }
-            >
-              {title.creators.map(creator => (
-                <CastCard
-                  key={creator.name}
-                  type='creator'
-                  name={creator.name}
-                  role={creator.role}
-                  photoUrl={creator.photoUrl}
-                />
-              ))}
-
-              {title.cast.slice(0, 10).map(actor => (
-                <CastCard
-                  key={actor.name}
-                  type='actor'
-                  name={actor.name}
-                  photoUrl={actor.photoUrl}
-                />
-              ))}
-            </Carousel>
-          )}
+          {hasCast && <CastCarousel title={title} />}
 
           <ReviewsSection titleKey={key} />
         </ViewLayout.Root>
-      </Animated.ScrollView>
+      </Animated.ScrollView> */}
 
       {/* FIXME: temporary Home button - make a Tabbar */}
-      <View
-        pointerEvents='box-none'
-        style={{
-          position: 'absolute',
-          left: LAYOUT['space-horizontal'],
-          bottom: inset.bottom
-        }}
-      >
-        <Button
-          icon={Home}
-          size='lg'
-          variant='secondary'
-          onPress={() => router.dismissTo('/')}
-        />
-      </View>
+      <FloatingButton
+        icon={Home}
+        onPress={() => router.dismissTo('/')}
+      />
     </Screen>
   )
 }
@@ -186,12 +127,5 @@ const styles = StyleSheet.create({
   root: {
     position: 'relative',
     gap: SPACINGS[5]
-  },
-  baseContainer: {
-    marginHorizontal: LAYOUT['space-horizontal']
-  },
-  descriptionContainer: {
-    gap: SPACINGS[4],
-    justifyContent: 'flex-end'
   }
 })

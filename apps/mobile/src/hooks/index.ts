@@ -1,5 +1,6 @@
 export * from './useBottomSheetAction'
 export * from './useBottomSheetControl'
+export * from './useBottomSpace'
 export * from './useProtectedPush'
 export * from './useRedirect'
 export * from './useSaveReview'

@@ -4,7 +4,9 @@ import { convertMinsToHrs } from './convert-mins-to-hrs'
 import { firstLetterUpperCase } from './first-letter-upper-case'
 import { getDate } from './get-date'
 
-export function metaDataFormating(title: DiscoverDetailsResponse) {
+export function metaDataFormating(
+  title: Pick<DiscoverDetailsResponse, 'releaseDate' | 'metadata' | 'ageRating'>
+) {
   const { year } = getDate(title.releaseDate)
 
   const metadata = Object.entries(title.metadata).map(([key, val]) => {

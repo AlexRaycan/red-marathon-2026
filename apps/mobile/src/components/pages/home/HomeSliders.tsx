@@ -2,7 +2,7 @@ import type { DiscoverItemResponse } from '@app/api/src/generated/model'
 import { SPACINGS } from '@app/tokens'
 import { StyleSheet, View } from 'react-native'
 
-import { TitlesCarousel } from '@/components/titles'
+import { TitlesCarousel } from '@/components/elements'
 
 interface HomeSlidersProps {
   items: DiscoverItemResponse[]

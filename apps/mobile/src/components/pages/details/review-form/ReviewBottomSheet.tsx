@@ -9,7 +9,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { BottomSheetWindow, Input, PreviewTitleHeader } from '@/components/ui'
 
-import { TitleCardPreviewSmall } from '@/components/titles'
+import { TitleCardPreviewSmall } from '@/components/elements'
 
 import { useBottomSheetControl, useSaveReview } from '@/hooks'
 
