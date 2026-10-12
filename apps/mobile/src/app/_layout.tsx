@@ -25,19 +25,7 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false
             }}
-          >
-            {/*<Stack.Screen
-              name='share/[key]'
-              options={{
-                presentation: 'formSheet',
-                sheetAllowedDetents: 'fitToContents',
-                sheetGrabberVisible: true,
-                contentStyle: {
-                  backgroundColor: COLORS.bg.base
-                }
-              }}
-            />*/}
-          </Stack>
+          />
         </ThemeProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
