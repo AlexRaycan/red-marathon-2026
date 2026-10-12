@@ -16,7 +16,7 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 
-import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils'
 
 import { GlassView } from './GlassView'
 

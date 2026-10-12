@@ -12,9 +12,9 @@ import {
   type ViewStyle
 } from 'react-native'
 
-import { HAPTIC_TRIGGERS, type HapticTrigger } from '@/lib/haptics'
+import { HAPTIC_TRIGGERS, type HapticTrigger } from '@/lib'
 
-import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils'
 
 import { GlassButton } from './GlassButton'
 

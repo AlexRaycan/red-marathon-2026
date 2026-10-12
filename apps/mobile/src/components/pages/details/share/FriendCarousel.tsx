@@ -3,9 +3,10 @@ import { FONT_SIZE } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
 import { Carousel } from '@/components/carousel'
-import { FriendCard } from '@/components/pages/details/share/FriendCard'
-import { SHARE_FRIENDS_MOCK_DATA } from '@/components/pages/details/share/share-friends.mock.data'
 import { TitleCardPreviewSmall } from '@/components/titles'
+
+import { FriendCard } from './FriendCard'
+import { SHARE_FRIENDS_MOCK_DATA } from './share-friends.mock.data'
 
 interface FriendCarouselProps {
   title: Pick<

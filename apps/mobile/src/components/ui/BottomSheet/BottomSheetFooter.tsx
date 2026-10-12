@@ -3,10 +3,10 @@ import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Button } from '@/components/ui/Button'
-import { GlassContainer } from '@/components/ui/GlassContainer'
-
 import { useBottomSheetControl } from '@/hooks'
+
+import { Button } from '../Button'
+import { GlassContainer } from '../GlassContainer'
 
 interface BottomSheetActionButtonsProps {
   ref: RefObject<BottomSheet | null>

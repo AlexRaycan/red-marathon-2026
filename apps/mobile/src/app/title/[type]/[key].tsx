@@ -16,12 +16,14 @@ import { Button, Screen, ViewLayout } from '@/components/ui'
 
 import { Carousel } from '@/components/carousel'
 import { HeroTitleInfo } from '@/components/hero'
-import { AnimatedHero } from '@/components/pages/details/animated-hero/AnimatedHero'
-import { CastCard } from '@/components/pages/details/cast-card/CastCard'
-import { DetailsActions } from '@/components/pages/details/details-action-buttons/DetailsActions'
-import { DetailsPlatforms } from '@/components/pages/details/details-platforms/DetailsPlatforms'
-import { ReviewsSection } from '@/components/pages/details/reviews-section/ReviewsSection'
-import { ShareButton } from '@/components/pages/details/share/ShareButton'
+import {
+  AnimatedHero,
+  CastCard,
+  DetailsActions,
+  DetailsPlatforms,
+  ReviewsSection,
+  ShareButton
+} from '@/components/pages/details'
 import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
 

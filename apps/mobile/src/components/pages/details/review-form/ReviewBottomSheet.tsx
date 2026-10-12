@@ -7,13 +7,13 @@ import { type RefObject, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { BottomSheetWindow, Input } from '@/components/ui'
+import { BottomSheetWindow, Input, PreviewTitleHeader } from '@/components/ui'
 
 import { TitleCardPreviewSmall } from '@/components/titles'
-import { PreviewTitleHeader } from '@/components/ui/PreviewTitleHeader'
+
+import { useBottomSheetControl, useSaveReview } from '@/hooks'
 
 import { RatingSlider } from './RatingSlider'
-import { useBottomSheetControl, useSaveReview } from '@/hooks'
 
 interface ReviewBottomSheetProps {
   title: Pick<

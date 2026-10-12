@@ -7,10 +7,12 @@ import { Button } from '@/components/ui'
 
 import { ShareBottomSheet } from '@/components/pages/details'
 
-import { useBottomSheetAction } from '@/hooks/useBottomSheetAction'
-
 import { BOTTOM_SHEET_ACTIONS } from '@/constants'
-import { useBottomSheetControl, useProtectedPush } from '@/hooks'
+import {
+  useBottomSheetAction,
+  useBottomSheetControl,
+  useProtectedPush
+} from '@/hooks'
 
 interface ShareButtonProps {
   title: Pick<

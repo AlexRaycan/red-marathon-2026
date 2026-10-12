@@ -2,7 +2,7 @@ import { useAuthMobileLogin, useAuthMobileRegister } from '@app/api'
 import type { AUTH_CONTENT } from '@app/constants'
 import { useQueryClient } from '@tanstack/react-query'
 
-import { saveTokens } from '@/lib/token'
+import { saveTokens } from '@/lib'
 
 import { useRedirect } from './useRedirect'
 

@@ -5,9 +5,9 @@ import {
   type StyleProp,
   StyleSheet,
   View,
+  type ViewStyle,
   useWindowDimensions
 } from 'react-native'
-import type { ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
 
 const HERO_GRADIENT = {
   colors: [

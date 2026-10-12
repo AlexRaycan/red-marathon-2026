@@ -4,7 +4,7 @@ import {
 } from 'expo-glass-effect'
 import { View } from 'react-native'
 
-import { isGlassEffectAvailable } from '@/utils/is-glass-effect-available'
+import { isGlassEffectAvailable } from '@/utils'
 
 export function GlassView({ children, ...props }: GlassViewProps) {
   if (!isGlassEffectAvailable()) return <View {...props}>{children}</View>

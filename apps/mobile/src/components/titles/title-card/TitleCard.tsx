@@ -2,7 +2,7 @@ import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
 import { RADIUS } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
-import { Card } from '@/components/ui/Card/Card'
+import { Card } from '@/components/ui'
 
 import { TITLE_CARD_CONFIG } from './TitleCard.config'
 import { TitleCardBadge } from './TitleCardBadge'
