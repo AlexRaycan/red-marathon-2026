@@ -1,7 +1,7 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { TYPE_LABELS } from '@app/constants'
 
-import { Carousel } from '@/components/elements'
+import { Carousel } from '@/components/ui'
 
 import { CastCard } from './CastCard'
 
