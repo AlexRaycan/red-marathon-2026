@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native'
 
-import { PreviewTitleHeader } from '../ui/PreviewTitleHeader'
+import { PreviewTitleHeader } from '@/components/ui'
 
 interface Props extends PropsWithChildren {
   title?: string

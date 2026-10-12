@@ -14,7 +14,7 @@ interface Props {
   onPress?: () => void
 }
 
-export function TitlesSlider({
+export function TitlesCarousel({
   items,
   cardWidth: customCardWidth,
   ...rest

@@ -3,11 +3,11 @@ import { StyleSheet, View } from 'react-native'
 
 import { ScreenTitle } from '../ScreenTitle'
 
-interface ButtonSheetTitleProps {
+interface BottomSheetTitleProps {
   title?: string
 }
 
-export function ButtonSheetTitle({ title }: ButtonSheetTitleProps) {
+export function BottomSheetTitle({ title }: BottomSheetTitleProps) {
   return (
     <View style={[styles.title]}>
       <ScreenTitle style={[styles.inset]}>{title}</ScreenTitle>

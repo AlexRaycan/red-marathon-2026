@@ -24,7 +24,7 @@ import {
   ReviewsSection,
   ShareButton
 } from '@/components/pages/details'
-import { TITLE_CARD_CONFIG, TitlesSlider } from '@/components/titles'
+import { TITLE_CARD_CONFIG, TitlesCarousel } from '@/components/titles'
 import { Toolbar } from '@/components/toolbar'
 
 export default function ItemDetailScreen() {
@@ -122,7 +122,7 @@ export default function ItemDetailScreen() {
           />
 
           {!!title?.similar?.length && (
-            <TitlesSlider
+            <TitlesCarousel
               title='You may also like'
               items={title.similar}
             />

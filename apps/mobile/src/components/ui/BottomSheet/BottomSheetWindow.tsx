@@ -6,7 +6,7 @@ import { type RefObject } from 'react'
 import { StyleSheet } from 'react-native'
 
 import { BottomSheetFooter } from './BottomSheetFooter'
-import { ButtonSheetTitle } from './ButtonSheetTitle'
+import { BottomSheetTitle } from './BottomSheetTitle'
 
 interface BottomSheetWindowProps extends Omit<BottomSheetProps, 'ref'> {
   ref?: RefObject<BottomSheet | null>
@@ -39,7 +39,7 @@ export function BottomSheetWindow({
       {...props}
     >
       <BottomSheetView style={styles.view}>
-        {title && <ButtonSheetTitle title={title} />}
+        {title && <BottomSheetTitle title={title} />}
 
         {children}
 

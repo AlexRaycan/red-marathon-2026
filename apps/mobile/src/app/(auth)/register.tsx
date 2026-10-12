@@ -1,6 +1,6 @@
 import { AuthForm } from '@/components/pages/auth'
 
-import { useSigning } from '@/hooks/useSigning'
+import { useSigning } from '@/hooks'
 
 const TYPE = 'register'
 

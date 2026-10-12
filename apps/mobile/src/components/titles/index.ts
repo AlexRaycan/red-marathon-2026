@@ -1,2 +1,2 @@
 export * from './title-card'
-export * from './TitlesSlider'
+export * from './TitlesCarousel'
