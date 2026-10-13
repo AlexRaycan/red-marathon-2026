@@ -70,7 +70,6 @@ export function DetailsActions({
             />
           ) : (
             <LoginToButton
-              tintColor={accentColor}
               onPress={() =>
                 pushProtected({
                   pathname: '/title/[type]/[key]',
