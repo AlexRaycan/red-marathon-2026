@@ -1,6 +1,6 @@
+import type { MyLibraryStatusResponseStatus } from '@app/api'
 import { ADD_TO_LIBRARY_ACTION, LIBRARY_STATUS_ACTIONS } from '@app/constants'
-import { useLibraryStatus } from '@app/hooks'
-import { router } from 'expo-router'
+import { COLORS } from '@app/tokens'
 import { type ColorValue } from 'react-native'
 
 import { Button } from '@/components/ui'
@@ -8,32 +8,24 @@ import { Button } from '@/components/ui'
 import { LIBRARY_ACTION_ICONS } from './library-status.data'
 
 interface LibraryStatusButtonProps {
-  titleKey: string
+  status: MyLibraryStatusResponseStatus | null
   tintColor?: ColorValue
+  setStatus: (status: MyLibraryStatusResponseStatus) => void
   openSheet?: () => void
 }
 
 export function LibraryStatusButton({
-  titleKey,
+  status,
+  setStatus,
   tintColor,
   openSheet
 }: LibraryStatusButtonProps) {
-  // TODO: add a rating button
-  const { isAuthenticated, status, rating, setStatus } =
-    useLibraryStatus(titleKey)
-
   const action =
     status && status !== 'COMPLETED'
       ? LIBRARY_STATUS_ACTIONS[status]
       : ADD_TO_LIBRARY_ACTION
 
   const onPress = () => {
-    if (!isAuthenticated) {
-      router.push('/login')
-
-      return
-    }
-
     setStatus(action.nextStatus)
 
     if (action.nextStatus === 'COMPLETED') {
@@ -46,7 +38,9 @@ export function LibraryStatusButton({
       label={action.label}
       icon={LIBRARY_ACTION_ICONS[action.nextStatus]}
       size='lg'
-      tintColor={tintColor}
+      tintColor={
+        action.nextStatus === 'COMPLETED' ? COLORS.status.success : tintColor
+      }
       onPress={onPress}
     />
   )

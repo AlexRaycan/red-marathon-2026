@@ -1,4 +1,5 @@
 import type { DiscoverDetailsResponse } from '@app/api'
+import { useAuth } from '@app/hooks'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Share } from 'lucide-react-native'
 import { useCallback, useRef } from 'react'
@@ -20,12 +21,12 @@ interface ShareButtonProps {
     DiscoverDetailsResponse,
     'type' | 'coverUrl' | 'name' | 'releaseDate' | 'key'
   >
-  isAuthenticated?: boolean
 }
 
-export function ShareButton({ title, isAuthenticated }: ShareButtonProps) {
+export function ShareButton({ title }: ShareButtonProps) {
   const shareSheetRef = useRef<BottomSheet>(null)
 
+  const { isAuthenticated } = useAuth()
   const pushProtected = useProtectedPush()
   const { open } = useBottomSheetControl(shareSheetRef)
 

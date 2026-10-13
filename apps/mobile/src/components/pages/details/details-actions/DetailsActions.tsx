@@ -1,7 +1,9 @@
 import type { DiscoverDetailsResponse } from '@app/api'
+import { REVIEWS_RATING } from '@app/constants'
+import { useLibraryStatus } from '@app/hooks'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
-import { Bookmark, Star } from 'lucide-react-native'
+import { Bookmark, Pen, Star } from 'lucide-react-native'
 import { useCallback, useRef } from 'react'
 import { type ColorValue, StyleSheet, View } from 'react-native'
 
@@ -24,15 +26,15 @@ interface DetailsActionButtonsProps {
     'type' | 'coverUrl' | 'name' | 'releaseDate' | 'key'
   >
   accentColor?: ColorValue
-  isAuthenticated?: boolean
 }
 
 export function DetailsActions({
   title,
-  accentColor,
-  isAuthenticated
+  accentColor
 }: DetailsActionButtonsProps) {
-  const titleKey = title?.key
+  const { isAuthenticated, status, rating, setStatus } = useLibraryStatus(
+    title.key
+  )
 
   const sheetRef = useRef<BottomSheet>(null)
 
@@ -63,11 +65,23 @@ export function DetailsActions({
       <GlassContainer>
         <View style={[styles.baseContainer, styles.actionButtonContainer]}>
           {isAuthenticated ? (
-            <LibraryStatusButton
-              titleKey={titleKey}
-              tintColor={accentColor}
-              openSheet={open}
-            />
+            status === 'COMPLETED' ? (
+              <LibraryStatusButton
+                tintColor={accentColor}
+                openSheet={open}
+                status={status}
+                setStatus={setStatus}
+              />
+            ) : (
+              <Button
+                label='Write a Review'
+                tintColor={accentColor}
+                icon={Pen}
+                size='lg'
+                fullWidth
+                onPress={handleRatePress}
+              />
+            )
           ) : (
             <LoginToButton
               onPress={() =>
@@ -92,9 +106,10 @@ export function DetailsActions({
             />
 
             <Button
-              label='Rate'
+              label={rating ? `${rating}/${REVIEWS_RATING.max}` : 'Rate'}
               variant='secondary'
               icon={Star}
+              filledIcon={!!rating}
               fullWidth
               onPress={handleRatePress}
             />

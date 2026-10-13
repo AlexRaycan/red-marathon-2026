@@ -16,14 +16,9 @@ import { ReviewsSection } from './reviews-section'
 interface DetailsInfoProps {
   title: DiscoverDetailsResponse
   heroHeight: number
-  isAuthenticated: boolean
 }
 
-export function DetailsInfo({
-  title,
-  heroHeight,
-  isAuthenticated
-}: DetailsInfoProps) {
+export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
   const { bottomSpace } = useBottomSpace()
 
   const hasCast = !!title.cast?.length || !!title.creators?.length
@@ -48,7 +43,6 @@ export function DetailsInfo({
       <DetailsActions
         title={title}
         accentColor={accentColor}
-        isAuthenticated={isAuthenticated}
       />
 
       {!!title?.similar?.length && (

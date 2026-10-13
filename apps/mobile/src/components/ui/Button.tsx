@@ -29,6 +29,7 @@ interface Props
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
+  filledIcon?: boolean
   disabled?: boolean
   fullWidth?: boolean
   hapticStyle?: HapticTrigger
@@ -58,6 +59,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   icon: Icon,
+  filledIcon = false,
   tintColor,
   disabled,
   fullWidth = false,
@@ -129,6 +131,7 @@ export function Button({
             <Icon
               size={!isIconOnly ? ICON_SIZE[size] : ICON_SIZE[size] + 4}
               color={contentColor}
+              {...(filledIcon && { fill: contentColor })}
             />
           )}
           {label && (

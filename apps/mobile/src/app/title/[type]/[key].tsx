@@ -1,5 +1,4 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
-import { useAuth } from '@app/hooks'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
 import { StyleSheet } from 'react-native'
@@ -19,7 +18,6 @@ export default function ItemDetailScreen() {
     type: TitleListItemResponseType
   }>()
   const { data, isPending } = useDiscoverFindByKey(key)
-  const { isAuthenticated } = useAuth()
 
   const { heroHeight, heroStyle, scrollHandler } = useHeroParallax()
   const { bottomSpace } = useBottomSpace()
@@ -33,12 +31,7 @@ export default function ItemDetailScreen() {
       <Toolbar
         isBackButton
         isAbsolute
-        rightSide={
-          <ShareButton
-            isAuthenticated={isAuthenticated}
-            title={title}
-          />
-        }
+        rightSide={<ShareButton title={title} />}
       />
 
       <Animated.View
@@ -62,7 +55,6 @@ export default function ItemDetailScreen() {
         <DetailsInfo
           title={title}
           heroHeight={heroHeight}
-          isAuthenticated={isAuthenticated}
         />
       </Animated.ScrollView>
 
