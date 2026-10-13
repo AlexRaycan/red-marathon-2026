@@ -77,9 +77,10 @@ export function DetailsActions({
               />
             ) : (
               <Button
-                label={`${userRating ? 'Edit' : 'Write'} a Review`}
+                label={`${userRating?.text ? 'Edit' : 'Write'} a Review`}
                 tintColor={accentColor}
                 icon={Pen}
+                filledIcon={!!userRating?.text}
                 size='lg'
                 fullWidth
                 onPress={handleRatePress}
@@ -112,7 +113,7 @@ export function DetailsActions({
               label={rating ? `${rating}/${REVIEWS_RATING.max}` : 'Rate'}
               variant='secondary'
               icon={Star}
-              filledIcon={!!rating}
+              filledIcon={!!userRating}
               fullWidth
               onPress={handleRatePress}
             />
