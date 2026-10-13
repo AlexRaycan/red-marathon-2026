@@ -7,6 +7,7 @@
     "@app/constants": "workspace:^",
     "@app/hooks": "workspace:^",
     "@app/schemas": "workspace:^",
+    "@app/store": "workspace:^",
     "@app/tokens": "workspace:^",
     "@app/types": "workspace:^",
     "@app/utils": "workspace:^",

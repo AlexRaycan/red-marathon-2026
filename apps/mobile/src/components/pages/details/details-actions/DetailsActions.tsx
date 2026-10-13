@@ -1,6 +1,7 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { REVIEWS_RATING } from '@app/constants'
 import { useLibraryStatus } from '@app/hooks'
+import { useRatingStore } from '@app/store'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Bookmark, Pen, Star } from 'lucide-react-native'
@@ -35,6 +36,8 @@ export function DetailsActions({
   const { isAuthenticated, status, rating, setStatus } = useLibraryStatus(
     title.key
   )
+
+  const userRating = useRatingStore(state => state.userReviews?.[title.key])
 
   const sheetRef = useRef<BottomSheet>(null)
 
@@ -74,7 +77,7 @@ export function DetailsActions({
               />
             ) : (
               <Button
-                label='Write a Review'
+                label={`${userRating ? 'Edit' : 'Write'} a Review`}
                 tintColor={accentColor}
                 icon={Pen}
                 size='lg'

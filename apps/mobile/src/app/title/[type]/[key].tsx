@@ -1,6 +1,8 @@
 import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
+import { useRatingStore } from '@app/store'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
+import { useCallback } from 'react'
 import { StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
 
@@ -17,10 +19,17 @@ export default function ItemDetailScreen() {
     key: string
     type: TitleListItemResponseType
   }>()
+  const clearReviewInStore = useRatingStore(state => state.removeReviews)
+
   const { data, isPending } = useDiscoverFindByKey(key)
 
   const { heroHeight, heroStyle, scrollHandler } = useHeroParallax()
   const { bottomSpace } = useBottomSpace()
+
+  const handleGoHomeButton = useCallback(() => {
+    clearReviewInStore()
+    router.dismissTo('/')
+  }, [clearReviewInStore])
 
   if (isPending || !data || data?.status !== 200) return <Screen />
 
@@ -61,7 +70,7 @@ export default function ItemDetailScreen() {
       {/* FIXME: temporary Home button - make a Tabbar */}
       <FloatingButton
         icon={Home}
-        onPress={() => router.dismissTo('/')}
+        onPress={handleGoHomeButton}
       />
     </Screen>
   )

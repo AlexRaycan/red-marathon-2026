@@ -1,9 +1,10 @@
 import { type DiscoverDetailsResponse, useDiscoverFindMyState } from '@app/api'
 import { type TReviewSchema, reviewSchema } from '@app/schemas'
+import { type IUserReviewStore, useRatingStore } from '@app/store'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { type RefObject, useEffect } from 'react'
+import { type RefObject, useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -37,6 +38,8 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
 
   const { saveReview, isSaving } = useSaveReview(key, review?.id ?? null)
 
+  const addReviewInStore = useRatingStore(state => state.addReview)
+
   const {
     control,
     handleSubmit,
@@ -52,6 +55,12 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
     }
   })
 
+  const handleAddReviewStore = useCallback(
+    (value: IUserReviewStore) =>
+      addReviewInStore({ templateKey: key, review: value }),
+    [addReviewInStore, key]
+  )
+
   useEffect(() => {
     if (!isSuccess || isDirty) return
 
@@ -59,14 +68,33 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
       rating: savedRating,
       text: savedText
     })
-  }, [isDirty, isSuccess, reset, savedRating, savedText])
+
+    if (!savedRating) return
+
+    handleAddReviewStore({
+      rating: savedRating,
+      text: savedText.trim().length > 0 ? savedText : undefined
+    })
+  }, [handleAddReviewStore, isDirty, isSuccess, reset, savedRating, savedText])
+
+  const handleSaveReview = useCallback(
+    (values: TReviewSchema) => {
+      handleAddReviewStore(values)
+      close()
+    },
+    [close, handleAddReviewStore]
+  )
 
   const onSubmit = handleSubmit(values =>
-    saveReview(values, close, errorMessage => {
-      setError('root', {
-        message: errorMessage ?? 'Failed to save review. Please try again.'
-      })
-    })
+    saveReview(
+      values,
+      () => handleSaveReview(values),
+      errorMessage => {
+        setError('root', {
+          message: errorMessage ?? 'Failed to save review. Please try again.'
+        })
+      }
+    )
   )
 
   return (

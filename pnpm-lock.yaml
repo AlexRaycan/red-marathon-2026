@@ -224,6 +224,9 @@ importers:
       '@app/schemas':
         specifier: workspace:^
         version: link:../../packages/schemas
+      '@app/store':
+        specifier: workspace:^
+        version: link:../../packages/store
       '@app/tokens':
         specifier: workspace:^
         version: link:../../packages/tokens
@@ -387,6 +390,15 @@ importers:
       zod:
         specifier: ^4.6.5
         version: 4.6.5
+
+  packages/store:
+    dependencies:
+      '@app/api':
+        specifier: workspace:^
+        version: link:../api
+      '@app/schemas':
+        specifier: workspace:^
+        version: link:../schemas
 
   packages/tokens: {}
 
