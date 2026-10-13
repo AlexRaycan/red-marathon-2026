@@ -2,38 +2,27 @@ import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
 import { useAuth } from '@app/hooks'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
-import { useWindowDimensions } from 'react-native'
-import {
-  useAnimatedScrollHandler,
-  useSharedValue
-} from 'react-native-reanimated'
+import { StyleSheet } from 'react-native'
+import Animated from 'react-native-reanimated'
 
 import { FloatingButton, Screen } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import {
-  AnimatedHero,
-  DetailsInfo,
-  ShareButton
-} from '@/components/pages/details'
+import { HeroBackdrop } from '@/components/hero'
+import { DetailsInfo, ShareButton } from '@/components/pages/details'
+
+import { useBottomSpace, useHeroParallax } from '@/hooks'
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
     key: string
     type: TitleListItemResponseType
   }>()
-
-  const { width } = useWindowDimensions()
-  const heroHeight = width * 1.35
-
-  const scrollY = useSharedValue(0)
-  const scrollHandler = useAnimatedScrollHandler(e =>
-    scrollY.set(e.contentOffset.y)
-  )
-
   const { data, isPending } = useDiscoverFindByKey(key)
-
   const { isAuthenticated } = useAuth()
+
+  const { heroHeight, heroStyle, scrollHandler } = useHeroParallax()
+  const { bottomSpace } = useBottomSpace()
 
   if (isPending || !data || data?.status !== 200) return <Screen />
 
@@ -51,18 +40,31 @@ export default function ItemDetailScreen() {
           />
         }
       />
-      <AnimatedHero
-        heroHeight={heroHeight}
-        coverUrl={title.coverUrl}
-        scrollY={scrollY}
-      />
 
-      <DetailsInfo
-        title={title}
-        heroHeight={heroHeight}
-        isAuthenticated={isAuthenticated}
+      <Animated.View
+        style={[styles.hero, heroStyle]}
+        pointerEvents={'none'}
+      >
+        <HeroBackdrop
+          coverUrl={title.coverUrl}
+          height={heroHeight}
+        />
+      </Animated.View>
+
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: bottomSpace
+        }}
+        scrollEventThrottle={16}
         onScroll={scrollHandler}
-      />
+      >
+        <DetailsInfo
+          title={title}
+          heroHeight={heroHeight}
+          isAuthenticated={isAuthenticated}
+        />
+      </Animated.ScrollView>
 
       {/* FIXME: temporary Home button - make a Tabbar */}
       <FloatingButton
@@ -72,3 +74,12 @@ export default function ItemDetailScreen() {
     </Screen>
   )
 }
+
+const styles = StyleSheet.create({
+  hero: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0
+  }
+})

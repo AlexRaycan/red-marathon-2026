@@ -1,7 +1,6 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { SPACINGS } from '@app/tokens'
 import { StyleSheet } from 'react-native'
-import Animated, { type AnimatedScrollViewProps } from 'react-native-reanimated'
 
 import { ViewLayout } from '@/components/ui'
 
@@ -11,10 +10,10 @@ import { useBottomSpace } from '@/hooks'
 
 import { CastCarousel } from './cast'
 import { DetailsActions } from './details-actions'
-import { DetailsTitle } from './hero'
+import { HeroDetailsTitle } from './hero'
 import { ReviewsSection } from './reviews-section'
 
-interface DetailsInfoProps extends AnimatedScrollViewProps {
+interface DetailsInfoProps {
   title: DiscoverDetailsResponse
   heroHeight: number
   isAuthenticated: boolean
@@ -23,8 +22,7 @@ interface DetailsInfoProps extends AnimatedScrollViewProps {
 export function DetailsInfo({
   title,
   heroHeight,
-  isAuthenticated,
-  ...props
+  isAuthenticated
 }: DetailsInfoProps) {
   const { bottomSpace } = useBottomSpace()
 
@@ -34,51 +32,42 @@ export function DetailsInfo({
   const accentColor = config.accent
 
   return (
-    <Animated.ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: bottomSpace
-      }}
-      scrollEventThrottle={16}
-      {...props}
+    <ViewLayout.Root
+      style={[
+        styles.root,
+        {
+          paddingBottom: bottomSpace
+        }
+      ]}
     >
-      <ViewLayout.Root
-        style={[
-          styles.root,
-          {
-            paddingBottom: bottomSpace
-          }
-        ]}
-      >
-        <DetailsTitle
-          title={title}
-          heroHeight={heroHeight}
+      <HeroDetailsTitle
+        title={title}
+        heroHeight={heroHeight}
+      />
+
+      <DetailsActions
+        title={title}
+        accentColor={accentColor}
+        isAuthenticated={isAuthenticated}
+      />
+
+      {!!title?.similar?.length && (
+        <TitlesCarousel
+          title='You may also like'
+          items={title.similar}
         />
+      )}
 
-        <DetailsActions
-          title={title}
-          accentColor={accentColor}
-          isAuthenticated={isAuthenticated}
+      {hasCast && (
+        <CastCarousel
+          type={title.type}
+          creators={title.creators}
+          cast={title.cast}
         />
+      )}
 
-        {!!title?.similar?.length && (
-          <TitlesCarousel
-            title='You may also like'
-            items={title.similar}
-          />
-        )}
-
-        {hasCast && (
-          <CastCarousel
-            type={title.type}
-            creators={title.creators}
-            cast={title.cast}
-          />
-        )}
-
-        <ReviewsSection titleKey={title.key} />
-      </ViewLayout.Root>
-    </Animated.ScrollView>
+      <ReviewsSection titleKey={title.key} />
+    </ViewLayout.Root>
   )
 }
 

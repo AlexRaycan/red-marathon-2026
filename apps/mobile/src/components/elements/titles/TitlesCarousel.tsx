@@ -28,7 +28,8 @@ export function TitlesCarousel({
       {items.map(item => (
         <TitleCard
           key={item.key}
-          title={item}
+          type={item.type}
+          coverUrl={item.coverUrl}
           width={cardWidth}
           withBadge
           onPress={() => router.push(`/title/${item?.type}/${item?.key}`)}

@@ -9,12 +9,12 @@ import { HeroTitleInfo } from '@/components/hero'
 
 import { DetailsPlatforms } from '../details-platforms'
 
-interface DetailsTitleProps {
+interface HeroDetailsTitleProps {
   title: DiscoverDetailsResponse
   heroHeight: number
 }
 
-export function DetailsTitle({ title, heroHeight }: DetailsTitleProps) {
+export function HeroDetailsTitle({ title, heroHeight }: HeroDetailsTitleProps) {
   const meta = metaDataFormating(title)
 
   return (

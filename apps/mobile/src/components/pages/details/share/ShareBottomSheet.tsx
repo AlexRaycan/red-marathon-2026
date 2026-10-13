@@ -1,13 +1,17 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
+import { getTitleHeading } from '@app/utils'
 import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject, useCallback, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { BottomSheetWindow, Input } from '@/components/ui'
 
-import { FriendCarousel } from './FriendCarousel'
+import { TitleCardPreviewSmall } from '@/components/elements'
+
 import { useSelectFriends } from '@/hooks'
+
+import { FriendCarousel } from './FriendCarousel'
 
 interface ShareBottomSheetProps {
   title: Pick<
@@ -51,7 +55,13 @@ export function ShareBottomSheet({ title, ref }: ShareBottomSheetProps) {
     >
       <View style={styles.content}>
         <FriendCarousel
-          title={title}
+          heading={getTitleHeading(title)}
+          titlePreview={
+            <TitleCardPreviewSmall
+              type={title.type}
+              coverUrl={title.coverUrl}
+            />
+          }
           selectedIds={selectedIds}
           setSelectedIds={setSelectedIds}
         />

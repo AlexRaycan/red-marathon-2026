@@ -1,4 +1,4 @@
-import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
+import type { DiscoverItemResponseType } from '@app/api'
 import { RADIUS } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 
@@ -9,10 +9,8 @@ import { TitleCardBadge } from './TitleCardBadge'
 import { TitleCardBookFX } from './TitleCardBookFX'
 
 interface Props {
-  title: Pick<
-    DiscoverItemResponse | DiscoverDetailsResponse,
-    'type' | 'coverUrl'
-  >
+  type: DiscoverItemResponseType
+  coverUrl: string | null
   width: number
   withBadge?: boolean
   borderRadius?: number
@@ -20,17 +18,18 @@ interface Props {
 }
 
 export function TitleCard({
-  title,
+  type,
+  coverUrl,
   width,
   withBadge,
   borderRadius,
   onPress
 }: Props) {
-  const config = TITLE_CARD_CONFIG[title.type]
+  const config = TITLE_CARD_CONFIG[type]
 
   return (
     <Card
-      sourceImage={title.coverUrl}
+      sourceImage={coverUrl}
       cardWidth={width}
       isStacked={config.stacked}
       cardStyle={[

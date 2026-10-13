@@ -1,21 +1,19 @@
-import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
+import type { DiscoverItemResponseType } from '@app/api'
 import { RADIUS } from '@app/tokens'
 
 import { TitleCard } from './TitleCard'
 
 interface TitleCardPreviewSmallProps {
-  title: Pick<
-    DiscoverItemResponse | DiscoverDetailsResponse,
-    'type' | 'coverUrl'
-  >
+  type: DiscoverItemResponseType
+  coverUrl: string | null
 }
 
-export function TitleCardPreviewSmall({ title }: TitleCardPreviewSmallProps) {
+export function TitleCardPreviewSmall(props: TitleCardPreviewSmallProps) {
   return (
     <TitleCard
-      title={title}
       width={30}
       borderRadius={RADIUS.sm}
+      {...props}
     />
   )
 }

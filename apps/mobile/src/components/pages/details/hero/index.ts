@@ -1,2 +1,1 @@
-export * from './AnimatedHero'
-export * from './DetailsTitle'
+export * from './HeroDetailsTitle'
