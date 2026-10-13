@@ -37,7 +37,10 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
   const { redirect } = useRedirect()
 
   return (
-    <Screen isInfitinyMode>
+    <Screen
+      isInfitinyMode
+      withPaddings
+    >
       <Toolbar
         isBackButton
         isAbsolute
