@@ -23,11 +23,11 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.10.1",
+      "version": "12.11.2",
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@12.10.1",
+  "packageManager": "pnpm@12.11.2",
   "type": "module",
   "devDependencies": {
     "@eslint/compat": "^2.1.1",
