@@ -22,7 +22,7 @@ export interface IAccountMenuItem {
   content?: string
 }
 
-export const ACCOUNT_MENU_ITEMS: Record<AccountMenu, IAccountMenuItem> = {
+export const ACCOUNT_MENU_ITEMS = {
   subscription: {
     label: ACCOUNT_MENU_LABELS.subscription,
     content: 'Premium',
@@ -40,4 +40,4 @@ export const ACCOUNT_MENU_ITEMS: Record<AccountMenu, IAccountMenuItem> = {
     label: ACCOUNT_MENU_LABELS.notifications,
     path: '/notifications'
   }
-}
+} as const satisfies Record<AccountMenu, IAccountMenuItem>
