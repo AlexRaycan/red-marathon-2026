@@ -1,5 +1,9 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/constants'
-import * as SecureStore from 'expo-secure-store'
+import { STORAGE_KEYS } from '@app/constants'
+
+import { SecureStore } from '@/utils'
+
+const ACCESS_TOKEN = STORAGE_KEYS.TOKENS.ACCESS
+const REFRESH_TOKEN = STORAGE_KEYS.TOKENS.REFRESH
 
 export const saveTokens = async (accessToken: string, refreshToken: string) => {
   await SecureStore.setItemAsync(ACCESS_TOKEN, accessToken)
