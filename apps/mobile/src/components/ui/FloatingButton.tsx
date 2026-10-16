@@ -13,7 +13,7 @@ import { Button } from './Button'
 
 interface FloatingButtonProps {
   icon: LucideIcon
-  align?: 'left' | 'right'
+  placement?: 'left' | 'right'
   tintColor?: ColorValue
   style?: StyleProp<ViewStyle>
   onPress?: () => void
@@ -21,7 +21,7 @@ interface FloatingButtonProps {
 
 export function FloatingButton({
   icon: Icon,
-  align = 'left',
+  placement = 'left',
   style,
   ...props
 }: FloatingButtonProps) {
@@ -35,7 +35,7 @@ export function FloatingButton({
           position: 'absolute',
           bottom: inset.bottom
         },
-        styles[align],
+        styles[placement],
         style
       ]}
     >

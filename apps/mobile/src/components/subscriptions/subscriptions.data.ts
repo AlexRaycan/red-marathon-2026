@@ -1,6 +1,6 @@
-import type { IPlan, IPlanFeature } from '@app/types'
+import type { ISubscription, ISubscriptionFeature } from '@app/types'
 
-export const PLANS: IPlan[] = [
+export const SUBSCRIPTIONS: ISubscription[] = [
   {
     id: 'monthly',
     price: '$3.99',
@@ -16,7 +16,7 @@ export const PLANS: IPlan[] = [
   }
 ]
 
-export const PLAN_FEATURES: IPlanFeature[] = [
+export const SUBSCRIPTION_FEATURES: ISubscriptionFeature[] = [
   {
     label: 'Movies, series, anime, books, and games',
     isPremium: false

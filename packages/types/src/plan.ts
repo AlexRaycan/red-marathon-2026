@@ -1,4 +1,4 @@
-export interface IPlan {
+export interface ISubscription {
   id: string
   price: string
   name: string
@@ -6,7 +6,7 @@ export interface IPlan {
   badge?: string
 }
 
-export interface IPlanFeature {
+export interface ISubscriptionFeature {
   label: string
   isPremium: boolean
 }

@@ -26,7 +26,7 @@ export const ACCOUNT_MENU_ITEMS = {
   subscription: {
     label: ACCOUNT_MENU_LABELS.subscription,
     content: 'Premium',
-    path: '/subscription'
+    path: '/subscriptions'
   },
   watchlist: {
     label: ACCOUNT_MENU_LABELS.watchlist,

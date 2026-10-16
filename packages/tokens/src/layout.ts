@@ -8,7 +8,10 @@ export const SPACINGS = {
   7: 28,
   8: 32,
   9: 36,
-  10: 40
+  10: 40,
+  16: 64,
+  20: 80,
+  24: 96
 } as const
 
 export const LAYOUT = {

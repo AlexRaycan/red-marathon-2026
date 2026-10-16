@@ -1,5 +1,6 @@
 import { router } from 'expo-router'
 import { ChevronLeft, type LucideIcon, X } from 'lucide-react-native'
+import { useCallback } from 'react'
 import { type PressableProps } from 'react-native'
 
 import { Button } from '@/components/ui'
@@ -23,6 +24,14 @@ export const ToolbarActionButton = ({
     }
   }
 
+  const handleClose = useCallback(() => {
+    if (onPress) {
+      onPress()
+    } else {
+      handleBack()
+    }
+  }, [onPress])
+
   const Icon: LucideIcon | null =
     isBackButton && !isCloseButton
       ? ChevronLeft
@@ -36,7 +45,7 @@ export const ToolbarActionButton = ({
     <Button
       icon={Icon}
       variant='secondary'
-      {...(isBackButton ? { onPress: handleBack } : { onPress: onPress })}
+      {...(isBackButton ? { onPress: handleBack } : { onPress: handleClose })}
     />
   )
 }

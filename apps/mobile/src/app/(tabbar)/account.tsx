@@ -16,11 +16,9 @@ import {
 } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { AccountUserInfo } from '@/components/pages/account'
+import { ACCOUNT_MENU, AccountUserInfo } from '@/components/pages/account'
 
 import { clearTokens, getRefreshToken } from '@/lib'
-
-import { ACCOUNT_MENU } from '@/constants'
 
 export default function Account() {
   const isFocused = useIsFocused()
