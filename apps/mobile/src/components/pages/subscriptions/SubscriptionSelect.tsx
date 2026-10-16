@@ -3,7 +3,7 @@ import type { ISubscription } from '@app/types'
 import hexToRgba from 'hex-to-rgba'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button, RadioButton } from '../ui'
+import { Button, RadioButton } from '../../ui'
 
 interface SubscriptionSelectProps {
   subscription: ISubscription

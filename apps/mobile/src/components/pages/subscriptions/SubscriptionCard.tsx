@@ -2,7 +2,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import type { ISubscription } from '@app/types'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button } from '../ui'
+import { Button } from '../../ui'
 
 import { SubscriptionFeature } from './SubscriptionFeature'
 

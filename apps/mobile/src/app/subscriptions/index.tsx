@@ -12,7 +12,7 @@ import {
   SubscriptionFeature,
   SubscriptionHeader,
   SubscriptionSelect
-} from '@/components/subscriptions'
+} from '@/components/pages/subscriptions'
 
 import { useBottomSpace } from '@/hooks'
 
