@@ -1,3 +1,3 @@
 export * from './library'
-export * from './plan'
+export * from './subscription'
 export * from './ui'

@@ -5,13 +5,15 @@ export const SUBSCRIPTIONS: ISubscription[] = [
     id: 'monthly',
     price: '$3.99',
     name: 'Monthly',
-    period: 'Billed monthly'
+    trialPeriod: '7-Days free trial',
+    period: 'Month'
   },
   {
     id: 'annualy',
     price: '$29.99',
     name: 'Annualy',
-    period: 'Billed annualy',
+    trialPeriod: '14-Days free trial',
+    period: 'Annual',
     badge: 'Saving 37%'
   }
 ]

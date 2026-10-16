@@ -1,11 +1,10 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import type { ISubscription } from '@app/types'
-import { Check } from 'lucide-react-native'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { Button } from '../ui'
 
-import { SUBSCRIPTION_FEATURES } from './subscriptions.data'
+import { SubscriptionFeature } from './SubscriptionFeature'
 
 interface SubscriptionCardProps {
   subsription: ISubscription
@@ -18,7 +17,7 @@ export function SubscriptionCard({
   width,
   onPress
 }: SubscriptionCardProps) {
-  const { price, name, period, badge } = subsription
+  const { price, name, trialPeriod: period, badge } = subsription
 
   return (
     <View style={styles.root}>
@@ -36,23 +35,7 @@ export function SubscriptionCard({
 
       <View style={styles.divider} />
 
-      <View style={styles.features}>
-        {SUBSCRIPTION_FEATURES.map(({ label, isPremium }) => (
-          <View
-            key={label}
-            style={styles.feature}
-          >
-            <View style={[styles.check, isPremium && styles.checkPremium]}>
-              <Check
-                size={12}
-                color={COLORS.text.primary}
-                strokeWidth={3}
-              />
-            </View>
-            <Text style={styles.featureText}>{label}</Text>
-          </View>
-        ))}
-      </View>
+      <SubscriptionFeature />
 
       <Button
         label='Get Started'
@@ -108,29 +91,5 @@ const styles = StyleSheet.create({
   divider: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: COLORS.secondary
-  },
-  features: {
-    gap: SPACINGS[3]
-  },
-  feature: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACINGS[3]
-  },
-  check: {
-    width: 20,
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: RADIUS.full,
-    backgroundColor: COLORS.secondary
-  },
-  checkPremium: {
-    backgroundColor: COLORS.status.success
-  },
-  featureText: {
-    flexShrink: 1,
-    color: COLORS.text['little-muted'],
-    fontSize: FONT_SIZE.sm
   }
 })
