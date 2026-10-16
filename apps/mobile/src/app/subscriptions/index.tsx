@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import {
   ScrollView,
   StyleSheet,
@@ -11,11 +11,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Screen, ViewLayout } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { SUBSCRIPTIONS, SubscriptionCard } from '@/components/subscriptions'
+import {
+  SUBSCRIPTIONS,
+  SubscriptionBackground,
+  SubscriptionCard
+} from '@/components/subscriptions'
 
 const CARD_PEEK = SPACINGS[4]
 
-export default function Plans() {
+export default function Subscriptions() {
   const { width } = useWindowDimensions()
   const { top } = useSafeAreaInsets()
 
@@ -23,13 +27,14 @@ export default function Plans() {
 
   return (
     <Screen isInfitinyMode>
-      <Toolbar
-        isAbsolute
-        isCloseButton
-      />
+      <SubscriptionBackground />
 
       <ViewLayout.Root>
         <View style={[styles.content, { paddingTop: top + SPACINGS[16] }]}>
+          <View style={styles.inset}>
+            <Toolbar isCloseButton />
+          </View>
+
           <Text style={styles.title}>Choose your own plan</Text>
 
           <ScrollView
@@ -60,9 +65,8 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: SPACINGS[8]
   },
-  carousel: {
-    flexGrow: 0
-  },
+  inset: { paddingHorizontal: LAYOUT['space-horizontal'] },
+  carousel: { flexGrow: 0 },
   title: {
     color: COLORS.text.primary,
     fontSize: FONT_SIZE['2xl'],

@@ -24,7 +24,7 @@ export function RootRouter() {
       <Stack.Protected guard={isCompleted}>
         <Stack.Screen name='(tabbar)' />
         <Stack.Screen
-          name='plans'
+          name='subscriptions'
           options={{ presentation: 'fullScreenModal' }}
         />
       </Stack.Protected>
