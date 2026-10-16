@@ -16,4 +16,6 @@ export interface DiscoverMyStateResponse {
      * @nullable
      */
   review: ReviewResponse | null;
+  /** Только коллекции текущего пользователя, включая приватные */
+  collectionIds: string[];
 }

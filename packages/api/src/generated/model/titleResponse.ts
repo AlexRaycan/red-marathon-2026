@@ -15,6 +15,11 @@ import type { TitleResponseType } from './titleResponseType';
 
 export interface TitleResponse {
   id: string;
+  /**
+     * Ключ витрины; null только у тайтла без внешнего источника
+     * @nullable
+     */
+  key: string | null;
   type: TitleResponseType;
   name: string;
   slug: string;

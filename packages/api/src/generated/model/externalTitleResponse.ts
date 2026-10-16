@@ -9,6 +9,7 @@ import type { ExternalTitleResponseExternalSource } from './externalTitleRespons
 import type { ExternalTitleResponseType } from './externalTitleResponseType';
 
 export interface ExternalTitleResponse {
+  key: string;
   externalId: string;
   externalSource: ExternalTitleResponseExternalSource;
   type: ExternalTitleResponseType;

@@ -10,7 +10,6 @@ import {
 } from '@tanstack/react-query';
 import type {
   MutationFunction,
-  QueryClient,
   UseMutationOptions,
   UseMutationResult
 } from '@tanstack/react-query';
@@ -118,13 +117,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthRegister = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authRegister>>, TError,AuthRegisterMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof authRegister>>,
         TError,
         AuthRegisterMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthRegisterMutationOptions(options), queryClient);
+      return useMutation(getAuthRegisterMutationOptions(options));
     }
     export type authLoginResponse200 = {
   data: AuthResponse
@@ -211,13 +210,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthLogin = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,AuthLoginMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof authLogin>>,
         TError,
         AuthLoginMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthLoginMutationOptions(options), queryClient);
+      return useMutation(getAuthLoginMutationOptions(options));
     }
     export type authRefreshResponse200 = {
   data: AuthResponse
@@ -290,13 +289,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthRefresh = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authRefresh>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof authRefresh>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getAuthRefreshMutationOptions(options), queryClient);
+      return useMutation(getAuthRefreshMutationOptions(options));
     }
     export type authLogoutResponse200 = {
   data: boolean
@@ -369,13 +368,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthLogout = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogout>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof authLogout>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getAuthLogoutMutationOptions(options), queryClient);
+      return useMutation(getAuthLogoutMutationOptions(options));
     }
     export type authApproveDeviceResponse200 = {
   data: boolean
@@ -468,11 +467,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useAuthApproveDevice = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authApproveDevice>>, TError,AuthApproveDeviceMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof authApproveDevice>>,
         TError,
         AuthApproveDeviceMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthApproveDeviceMutationOptions(options), queryClient);
+      return useMutation(getAuthApproveDeviceMutationOptions(options));
     }

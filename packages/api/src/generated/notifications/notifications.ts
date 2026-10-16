@@ -10,14 +10,9 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
-  DataTag,
-  DefinedInitialDataOptions,
-  DefinedUseQueryResult,
   MutationFunction,
-  QueryClient,
   QueryFunction,
   QueryKey,
-  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -148,13 +143,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useNotificationRegisterPushToken = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationRegisterPushToken>>, TError,NotificationRegisterPushTokenMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof notificationRegisterPushToken>>,
         TError,
         NotificationRegisterPushTokenMutationVariables,
         TContext
       > => {
-      return useMutation(getNotificationRegisterPushTokenMutationOptions(options), queryClient);
+      return useMutation(getNotificationRegisterPushTokenMutationOptions(options));
     }
     export type notificationRemovePushTokenResponse200 = {
   data: boolean
@@ -233,13 +228,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useNotificationRemovePushToken = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationRemovePushToken>>, TError,NotificationRemovePushTokenMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof notificationRemovePushToken>>,
         TError,
         NotificationRemovePushTokenMutationVariables,
         TContext
       > => {
-      return useMutation(getNotificationRemovePushTokenMutationOptions(options), queryClient);
+      return useMutation(getNotificationRemovePushTokenMutationOptions(options));
     }
     export type notificationFindAllResponse200 = {
   data: NotificationListResponse
@@ -290,7 +285,7 @@ export const getNotificationFindAllQueryKey = (params?: NotificationFindAllParam
     }
 
 
-export const getNotificationFindAllQueryOptions = <TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getNotificationFindAllQueryOptions = <TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(params?: NotificationFindAllParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -305,46 +300,22 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type NotificationFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof notificationFindAll>>>
 export type NotificationFindAllQueryError = unknown
 
 
-export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
- params: undefined |  NotificationFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof notificationFindAll>>,
-          TError,
-          Awaited<ReturnType<typeof notificationFindAll>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
- params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof notificationFindAll>>,
-          TError,
-          Awaited<ReturnType<typeof notificationFindAll>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
- params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useNotificationFindAll<TData = Awaited<ReturnType<typeof notificationFindAll>>, TError = unknown>(
- params?: NotificationFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+ params?: NotificationFindAllParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof notificationFindAll>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getNotificationFindAllQueryOptions(params,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -425,13 +396,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useNotificationMarkAsRead = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAsRead>>, TError,NotificationMarkAsReadMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof notificationMarkAsRead>>,
         TError,
         NotificationMarkAsReadMutationVariables,
         TContext
       > => {
-      return useMutation(getNotificationMarkAsReadMutationOptions(options), queryClient);
+      return useMutation(getNotificationMarkAsReadMutationOptions(options));
     }
     export type notificationMarkAllAsReadResponse200 = {
   data: boolean
@@ -504,13 +475,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useNotificationMarkAllAsRead = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationMarkAllAsRead>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof notificationMarkAllAsRead>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getNotificationMarkAllAsReadMutationOptions(options), queryClient);
+      return useMutation(getNotificationMarkAllAsReadMutationOptions(options));
     }
     export type notificationDeleteResponse204 = {
   data: boolean
@@ -583,11 +554,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useNotificationDelete = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof notificationDelete>>, TError,NotificationDeleteMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof notificationDelete>>,
         TError,
         NotificationDeleteMutationVariables,
         TContext
       > => {
-      return useMutation(getNotificationDeleteMutationOptions(options), queryClient);
+      return useMutation(getNotificationDeleteMutationOptions(options));
     }

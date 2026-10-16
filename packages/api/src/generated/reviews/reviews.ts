@@ -10,14 +10,9 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
-  DataTag,
-  DefinedInitialDataOptions,
-  DefinedUseQueryResult,
   MutationFunction,
-  QueryClient,
   QueryFunction,
   QueryKey,
-  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -118,7 +113,7 @@ export const getReviewFindByTitleQueryKey = (slug: string,
 
 
 export const getReviewFindByTitleQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
+    params?: ReviewFindByTitleParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -133,53 +128,26 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type ReviewFindByTitleQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindByTitle>>>
 export type ReviewFindByTitleQueryError = unknown
 
 
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params: undefined |  ReviewFindByTitleParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByTitle>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindByTitle>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByTitle>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindByTitle>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Отзывы на тайтле — открыты без авторизации
  */
 
 export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
  slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    params?: ReviewFindByTitleParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getReviewFindByTitleQueryOptions(slug,params,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -245,7 +213,7 @@ export const getReviewFindByDiscoverKeyQueryKey = (key: string,
 
 
 export const getReviewFindByDiscoverKeyQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+    params?: ReviewFindByDiscoverKeyParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -260,53 +228,26 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type ReviewFindByDiscoverKeyQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>>
 export type ReviewFindByDiscoverKeyQueryError = unknown
 
 
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
- key: string,
-    params: undefined |  ReviewFindByDiscoverKeyParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
- key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
- key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Отзывы по ключу витрины: `tmdb-movie-603`. Тайтла у нас нет — пустой список
  */
 
 export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
  key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+    params?: ReviewFindByDiscoverKeyParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getReviewFindByDiscoverKeyQueryOptions(key,params,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -408,13 +349,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useReviewCreateByDiscoverKey = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>,
         TError,
         ReviewCreateByDiscoverKeyMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewCreateByDiscoverKeyMutationOptions(options), queryClient);
+      return useMutation(getReviewCreateByDiscoverKeyMutationOptions(options));
     }
     export type reviewFindMyResponse200 = {
   data: MyReviewListResponse
@@ -465,7 +406,7 @@ export const getReviewFindMyQueryKey = (params?: ReviewFindMyParams,) => {
     }
 
 
-export const getReviewFindMyQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getReviewFindMyQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(params?: ReviewFindMyParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -480,46 +421,22 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type ReviewFindMyQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindMy>>>
 export type ReviewFindMyQueryError = unknown
 
 
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params: undefined |  ReviewFindMyParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindMy>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindMy>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindMy>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindMy>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+ params?: ReviewFindMyParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getReviewFindMyQueryOptions(params,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -614,13 +531,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useReviewCreate = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreate>>, TError,ReviewCreateMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof reviewCreate>>,
         TError,
         ReviewCreateMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewCreateMutationOptions(options), queryClient);
+      return useMutation(getReviewCreateMutationOptions(options));
     }
     export type reviewUpdateResponse200 = {
   data: ReviewResponse
@@ -708,13 +625,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useReviewUpdate = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewUpdate>>, TError,ReviewUpdateMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof reviewUpdate>>,
         TError,
         ReviewUpdateMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewUpdateMutationOptions(options), queryClient);
+      return useMutation(getReviewUpdateMutationOptions(options));
     }
     export type reviewDeleteResponse204 = {
   data: boolean
@@ -787,11 +704,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useReviewDelete = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewDelete>>, TError,ReviewDeleteMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof reviewDelete>>,
         TError,
         ReviewDeleteMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewDeleteMutationOptions(options), queryClient);
+      return useMutation(getReviewDeleteMutationOptions(options));
     }

@@ -10,14 +10,9 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
-  DataTag,
-  DefinedInitialDataOptions,
-  DefinedUseQueryResult,
   MutationFunction,
-  QueryClient,
   QueryFunction,
   QueryKey,
-  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -101,7 +96,7 @@ export const getAiGetRecommendationsQueryKey = () => {
     }
 
 
-export const getAiGetRecommendationsQueryOptions = <TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getAiGetRecommendationsQueryOptions = <TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -116,49 +111,25 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type AiGetRecommendationsQueryResult = NonNullable<Awaited<ReturnType<typeof aiGetRecommendations>>>
 export type AiGetRecommendationsQueryError = unknown
 
 
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetRecommendations>>,
-          TError,
-          Awaited<ReturnType<typeof aiGetRecommendations>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetRecommendations>>,
-          TError,
-          Awaited<ReturnType<typeof aiGetRecommendations>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Рекомендации по вкусовому профилю
  */
 
 export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getAiGetRecommendationsQueryOptions(options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -259,13 +230,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useAiPick = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPick>>, TError,AiPickMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof aiPick>>,
         TError,
         AiPickMutationVariables,
         TContext
       > => {
-      return useMutation(getAiPickMutationOptions(options), queryClient);
+      return useMutation(getAiPickMutationOptions(options));
     }
     export type aiGetSummaryResponse200 = {
   data: AiSummaryResponse
@@ -312,7 +283,7 @@ export const getAiGetSummaryQueryKey = (slug: string,) => {
     }
 
 
-export const getAiGetSummaryQueryOptions = <TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getAiGetSummaryQueryOptions = <TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -327,49 +298,25 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type AiGetSummaryQueryResult = NonNullable<Awaited<ReturnType<typeof aiGetSummary>>>
 export type AiGetSummaryQueryError = unknown
 
 
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetSummary>>,
-          TError,
-          Awaited<ReturnType<typeof aiGetSummary>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetSummary>>,
-          TError,
-          Awaited<ReturnType<typeof aiGetSummary>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Описание без спойлеров для детальной страницы
  */
 
 export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+ slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getAiGetSummaryQueryOptions(slug,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }

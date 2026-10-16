@@ -9,6 +9,11 @@ import type { TitleListItemResponseType } from './titleListItemResponseType';
 
 export interface TitleListItemResponse {
   id: string;
+  /**
+     * Ключ витрины; null только у тайтла без внешнего источника
+     * @nullable
+     */
+  key: string | null;
   type: TitleListItemResponseType;
   name: string;
   slug: string;

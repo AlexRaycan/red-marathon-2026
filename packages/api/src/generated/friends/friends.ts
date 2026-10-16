@@ -10,14 +10,9 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
-  DataTag,
-  DefinedInitialDataOptions,
-  DefinedUseQueryResult,
   MutationFunction,
-  QueryClient,
   QueryFunction,
   QueryKey,
-  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -98,7 +93,7 @@ export const getFriendshipFindAllQueryKey = () => {
     }
 
 
-export const getFriendshipFindAllQueryOptions = <TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getFriendshipFindAllQueryOptions = <TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -113,46 +108,22 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type FriendshipFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof friendshipFindAll>>>
 export type FriendshipFindAllQueryError = unknown
 
 
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindAll>>,
-          TError,
-          Awaited<ReturnType<typeof friendshipFindAll>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindAll>>,
-          TError,
-          Awaited<ReturnType<typeof friendshipFindAll>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getFriendshipFindAllQueryOptions(options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -207,7 +178,7 @@ export const getFriendshipFindRequestsQueryKey = () => {
     }
 
 
-export const getFriendshipFindRequestsQueryOptions = <TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getFriendshipFindRequestsQueryOptions = <TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -222,49 +193,25 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type FriendshipFindRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof friendshipFindRequests>>>
 export type FriendshipFindRequestsQueryError = unknown
 
 
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindRequests>>,
-          TError,
-          Awaited<ReturnType<typeof friendshipFindRequests>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindRequests>>,
-          TError,
-          Awaited<ReturnType<typeof friendshipFindRequests>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Входящие заявки
  */
 
 export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getFriendshipFindRequestsQueryOptions(options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -359,13 +306,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useFriendshipRequest = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipRequest>>, TError,FriendshipRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof friendshipRequest>>,
         TError,
         FriendshipRequestMutationVariables,
         TContext
       > => {
-      return useMutation(getFriendshipRequestMutationOptions(options), queryClient);
+      return useMutation(getFriendshipRequestMutationOptions(options));
     }
     export type friendshipAcceptResponse200 = {
   data: boolean
@@ -438,13 +385,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useFriendshipAccept = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipAccept>>, TError,FriendshipAcceptMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof friendshipAccept>>,
         TError,
         FriendshipAcceptMutationVariables,
         TContext
       > => {
-      return useMutation(getFriendshipAcceptMutationOptions(options), queryClient);
+      return useMutation(getFriendshipAcceptMutationOptions(options));
     }
     export type friendshipRemoveResponse200 = {
   data: boolean
@@ -523,11 +470,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useFriendshipRemove = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipRemove>>, TError,FriendshipRemoveMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
+ ): UseMutationResult<
         Awaited<ReturnType<typeof friendshipRemove>>,
         TError,
         FriendshipRemoveMutationVariables,
         TContext
       > => {
-      return useMutation(getFriendshipRemoveMutationOptions(options), queryClient);
+      return useMutation(getFriendshipRemoveMutationOptions(options));
     }

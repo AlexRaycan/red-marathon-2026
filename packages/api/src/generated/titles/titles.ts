@@ -9,13 +9,8 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
-  DataTag,
-  DefinedInitialDataOptions,
-  DefinedUseQueryResult,
-  QueryClient,
   QueryFunction,
   QueryKey,
-  UndefinedInitialDataOptions,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
@@ -109,7 +104,7 @@ export const getTitleFindAllQueryKey = (params?: TitleFindAllParams,) => {
     }
 
 
-export const getTitleFindAllQueryOptions = <TData = Awaited<ReturnType<typeof titleFindAll>>, TError = unknown>(params?: TitleFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getTitleFindAllQueryOptions = <TData = Awaited<ReturnType<typeof titleFindAll>>, TError = unknown>(params?: TitleFindAllParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -124,46 +119,22 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type TitleFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof titleFindAll>>>
 export type TitleFindAllQueryError = unknown
 
 
-export function useTitleFindAll<TData = Awaited<ReturnType<typeof titleFindAll>>, TError = unknown>(
- params: undefined |  TitleFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof titleFindAll>>,
-          TError,
-          Awaited<ReturnType<typeof titleFindAll>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useTitleFindAll<TData = Awaited<ReturnType<typeof titleFindAll>>, TError = unknown>(
- params?: TitleFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof titleFindAll>>,
-          TError,
-          Awaited<ReturnType<typeof titleFindAll>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useTitleFindAll<TData = Awaited<ReturnType<typeof titleFindAll>>, TError = unknown>(
- params?: TitleFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useTitleFindAll<TData = Awaited<ReturnType<typeof titleFindAll>>, TError = unknown>(
- params?: TitleFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+ params?: TitleFindAllParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof titleFindAll>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getTitleFindAllQueryOptions(params,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -215,7 +186,7 @@ export const getTitleFindBySlugQueryKey = (slug: string,) => {
     }
 
 
-export const getTitleFindBySlugQueryOptions = <TData = Awaited<ReturnType<typeof titleFindBySlug>>, TError = unknown>(slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getTitleFindBySlugQueryOptions = <TData = Awaited<ReturnType<typeof titleFindBySlug>>, TError = unknown>(slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -230,46 +201,22 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData> & { queryKey: QueryKey }
 }
 
 export type TitleFindBySlugQueryResult = NonNullable<Awaited<ReturnType<typeof titleFindBySlug>>>
 export type TitleFindBySlugQueryError = unknown
 
 
-export function useTitleFindBySlug<TData = Awaited<ReturnType<typeof titleFindBySlug>>, TError = unknown>(
- slug: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof titleFindBySlug>>,
-          TError,
-          Awaited<ReturnType<typeof titleFindBySlug>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useTitleFindBySlug<TData = Awaited<ReturnType<typeof titleFindBySlug>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof titleFindBySlug>>,
-          TError,
-          Awaited<ReturnType<typeof titleFindBySlug>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useTitleFindBySlug<TData = Awaited<ReturnType<typeof titleFindBySlug>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useTitleFindBySlug<TData = Awaited<ReturnType<typeof titleFindBySlug>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+ slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof titleFindBySlug>>, TError, TData>, request?: SecondParameter<typeof http>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getTitleFindBySlugQueryOptions(slug,options)
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
   return withQueryKey(query, queryOptions.queryKey);
 }

@@ -9,5 +9,7 @@ import type { LibraryEntryResponse } from './libraryEntryResponse';
 
 export interface LibraryListResponse {
   items: LibraryEntryResponse[];
+  /** Число записей по текущим фильтрам, без учёта пагинации */
+  total: number;
   isHasMore: boolean;
 }
