@@ -1,10 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Stack } from 'expo-router'
 import { DarkTheme, ThemeProvider } from 'expo-router/build/react-navigation'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import '@/lib/api'
+
+import { RootRouter } from '@/routes'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,11 +22,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <ThemeProvider value={DarkTheme}>
           <StatusBar style='light' />
-          <Stack
-            screenOptions={{
-              headerShown: false
-            }}
-          />
+          <RootRouter />
         </ThemeProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
