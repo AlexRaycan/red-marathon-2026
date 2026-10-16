@@ -4,5 +4,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export function useBottomSpace() {
   const inset = useSafeAreaInsets()
 
-  return { bottomSpace: inset.bottom + LAYOUT['space-vertical'] }
+  return {
+    inset,
+    bottomSpace: inset.bottom + LAYOUT['space-vertical']
+  }
 }

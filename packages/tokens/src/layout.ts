@@ -1,4 +1,5 @@
 export const SPACINGS = {
+  ['0.5']: 2,
   1: 4,
   2: 8,
   3: 12,

@@ -42,6 +42,7 @@ export function Toolbar({
   children,
   onPress
 }: Props) {
+  // TODO: refactor
   const insets = useSafeAreaInsets()
 
   const blurStyle = useAnimatedStyle(() => ({
