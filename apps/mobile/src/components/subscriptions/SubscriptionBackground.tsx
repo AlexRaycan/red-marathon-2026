@@ -3,6 +3,8 @@ import { useId } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg'
 
+import { SubscriptionDecorations } from './SubscriptionDecorations'
+
 const LAVENDER = '#B692FF'
 const DEEP_VIOLET = '#4B1F8F'
 
@@ -85,6 +87,8 @@ export function SubscriptionBackground() {
           fill={`url(#${lavenderId})`}
         />
       </Svg>
+
+      <SubscriptionDecorations />
     </View>
   )
 }
