@@ -2,6 +2,7 @@ export const MAIN_MENU = {
   index: 'For You',
   library: 'My Library',
   account: 'Account',
+  login: 'Log In',
   search: 'Search'
 } as const
 
