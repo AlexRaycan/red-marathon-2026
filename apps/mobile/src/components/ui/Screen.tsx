@@ -11,12 +11,14 @@ const currentPlatform = Platform.OS
 interface Props extends SafeAreaViewProps {
   isInfitinyMode?: boolean
   withPaddings?: boolean
+  hasBGColor?: boolean
 }
 
 export function Screen({
   edges = ['top'],
   isInfitinyMode,
   withPaddings,
+  hasBGColor = true,
   style,
   children,
   ...props
@@ -36,6 +38,9 @@ export function Screen({
           paddingHorizontal: LAYOUT['space-horizontal'],
           paddingBottom: inset.bottom + LAYOUT['space-vertical']
         },
+        hasBGColor && {
+          backgroundColor: COLORS.bg.base
+        },
         style
       ]}
     >
@@ -46,7 +51,6 @@ export function Screen({
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    backgroundColor: COLORS.bg.base
+    flex: 1
   }
 })

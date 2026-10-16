@@ -9,6 +9,8 @@ export function RootRouter() {
 
   const isCompleted = useOnboardingStore(state => state.isCompleted)
 
+  if (isCompleted === null) return null
+
   return (
     <Stack
       screenOptions={{
@@ -19,8 +21,8 @@ export function RootRouter() {
         <Stack.Screen name='onboarding' />
       </Stack.Protected>
 
-      <Stack.Protected guard={!!isCompleted}>
-        <Stack.Screen name='(tabs)' />
+      <Stack.Protected guard={isCompleted}>
+        <Stack.Screen name='(tabbar)' />
       </Stack.Protected>
     </Stack>
   )

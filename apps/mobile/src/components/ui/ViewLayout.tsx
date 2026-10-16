@@ -1,9 +1,11 @@
+import { COLORS } from '@app/tokens'
 import { StyleSheet, View, type ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface ViewLayoutRootProps extends ViewProps {
   isInfinity?: boolean
   withToolbar?: boolean
+  hasBGColor?: boolean
 }
 
 function ViewLayoutRoot({
@@ -11,6 +13,7 @@ function ViewLayoutRoot({
   children,
   isInfinity,
   withToolbar,
+  hasBGColor = false,
   ...props
 }: ViewLayoutRootProps) {
   const insets = useSafeAreaInsets()
@@ -18,7 +21,12 @@ function ViewLayoutRoot({
 
   return (
     <View
-      style={[styles.root, style, isInfinity && { marginTop }]}
+      style={[
+        styles.root,
+        hasBGColor && styles.bgColor,
+        style,
+        isInfinity && { marginTop }
+      ]}
       {...props}
     >
       {children}
@@ -49,5 +57,6 @@ const styles = StyleSheet.create({
   centered: {
     flex: 1,
     justifyContent: 'center'
-  }
+  },
+  bgColor: { backgroundColor: COLORS.bg.base }
 })
