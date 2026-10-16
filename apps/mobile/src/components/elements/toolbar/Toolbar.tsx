@@ -42,7 +42,7 @@ export function Toolbar({
   children,
   onPress
 }: Props) {
-  // TODO: refactor
+  // TODO: refactor todo smth with padding top
   const insets = useSafeAreaInsets()
 
   const blurStyle = useAnimatedStyle(() => ({

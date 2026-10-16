@@ -3,7 +3,7 @@ import type { TSubscriptionType } from '@app/types'
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button, GlassContainer, Screen, ViewLayout } from '@/components/ui'
+import { Button, GlassContainer, ViewLayout } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
 import {
@@ -26,19 +26,20 @@ export default function Subscriptions() {
     useState<TSubscriptionType>('annualy')
 
   return (
-    <Screen
-      isInfitinyMode
-      withExtraMarginTop={false}
-    >
+    <ViewLayout.Root>
       <SubscriptionBackground />
+
+      <Toolbar
+        isCloseButton
+        style={{
+          paddingHorizontal: LAYOUT['space-horizontal'],
+          position: 'absolute',
+          paddingVertical: top
+        }}
+      />
 
       <ViewLayout.Root>
         <View style={[styles.content, { paddingTop: top + SPACINGS[16] }]}>
-          <Toolbar
-            isCloseButton
-            style={{ padding: LAYOUT['space-horizontal'] }}
-          />
-
           <SubscriptionHeader />
 
           <View
@@ -78,7 +79,7 @@ export default function Subscriptions() {
           </View>
         </View>
       </ViewLayout.Root>
-    </Screen>
+    </ViewLayout.Root>
   )
 }
 

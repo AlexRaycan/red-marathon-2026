@@ -26,7 +26,7 @@ export function Screen({
   const inset = useSafeAreaInsets()
   const extraTop = withExtraMarginTop ? SPACINGS[4] : 0
 
-  // TODO: refactor
+  // TODO: refactor, todo smth with marginTop
   return (
     <SafeAreaView
       {...props}
