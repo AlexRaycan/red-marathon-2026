@@ -69,13 +69,6 @@ export function DetailsActions({
         <View style={[styles.baseContainer, styles.actionButtonContainer]}>
           {isAuthenticated ? (
             status === 'COMPLETED' ? (
-              <LibraryStatusButton
-                tintColor={accentColor}
-                openSheet={open}
-                status={status}
-                setStatus={setStatus}
-              />
-            ) : (
               <Button
                 label={`${userRating?.text ? 'Edit' : 'Write'} a Review`}
                 tintColor={accentColor}
@@ -84,6 +77,13 @@ export function DetailsActions({
                 size='lg'
                 fullWidth
                 onPress={handleRatePress}
+              />
+            ) : (
+              <LibraryStatusButton
+                tintColor={accentColor}
+                openSheet={open}
+                status={status}
+                setStatus={setStatus}
               />
             )
           ) : (
