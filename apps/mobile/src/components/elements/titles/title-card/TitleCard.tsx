@@ -1,6 +1,6 @@
 import type { DiscoverItemResponseType } from '@app/api'
 import { RADIUS } from '@app/tokens'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { Card } from '@/components/ui'
 
@@ -9,15 +9,17 @@ import { TitleCardBadge } from './TitleCardBadge'
 import { TitleCardBookFX } from './TitleCardBookFX'
 
 interface Props {
+  label?: string
   type: DiscoverItemResponseType
   coverUrl: string | null
-  width: number
+  width?: number
   withBadge?: boolean
   borderRadius?: number
   onPress?: () => void
 }
 
 export function TitleCard({
+  label,
   type,
   coverUrl,
   width,
@@ -29,13 +31,11 @@ export function TitleCard({
 
   return (
     <Card
+      label={label}
       sourceImage={coverUrl}
       cardWidth={width}
       isStacked={config.stacked}
       cardStyle={[
-        config.glow && {
-          boxShadow: `inset 0 0 8px 4px ${config.glow}`
-        },
         config.spine && {
           borderRadius: RADIUS.sm,
           overflow: 'hidden'
@@ -52,6 +52,16 @@ export function TitleCard({
       ]}
       onPress={onPress}
     >
+      {config.glow && (
+        <View
+          style={{
+            borderRadius: borderRadius ?? RADIUS.md,
+            flex: 1,
+            boxShadow: `inset 0 0 8px 4px ${config.glow}`
+          }}
+        />
+      )}
+
       {config.spine && <TitleCardBookFX />}
 
       {withBadge && (

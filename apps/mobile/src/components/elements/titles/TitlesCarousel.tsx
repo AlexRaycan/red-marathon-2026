@@ -1,7 +1,5 @@
 import type { DiscoverDetailsResponse, DiscoverItemResponse } from '@app/api'
-import { getCardWidth } from '@app/utils'
 import { router } from 'expo-router'
-import { useWindowDimensions } from 'react-native'
 
 import { Carousel } from '@/components/ui'
 
@@ -19,10 +17,6 @@ export function TitlesCarousel({
   cardWidth: customCardWidth,
   ...rest
 }: Props) {
-  const { width: windowWidth } = useWindowDimensions()
-
-  const cardWidth = customCardWidth ?? getCardWidth(windowWidth)
-
   return (
     <Carousel {...rest}>
       {items.map(item => (
@@ -30,7 +24,6 @@ export function TitlesCarousel({
           key={item.key}
           type={item.type}
           coverUrl={item.coverUrl}
-          width={cardWidth}
           withBadge
           onPress={() => router.push(`/title/${item?.type}/${item?.key}`)}
         />

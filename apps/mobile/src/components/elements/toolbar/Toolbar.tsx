@@ -4,7 +4,6 @@ import type { ReactNode } from 'react'
 import {
   type StyleProp,
   StyleSheet,
-  Text,
   View,
   type ViewProps,
   type ViewStyle
@@ -16,28 +15,34 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { ScreenTitle } from '@/components/ui'
+
 import { ToolbarActionButton } from './ToolbarActionButton'
 
 interface Props extends ViewProps {
   scrollY?: SharedValue<number>
+  titleSize?: number
   leftSide?: ReactNode | string
   rightSide?: ReactNode
   isBackButton?: boolean
   isCloseButton?: boolean
   withBlur?: boolean
   isAbsolute?: boolean
+  withHorPaddings?: boolean
   style?: StyleProp<ViewStyle>
   onPress?: () => void
 }
 
 export function Toolbar({
   scrollY,
+  titleSize = FONT_SIZE['1.5xl'],
   leftSide,
   rightSide,
   isBackButton,
   isCloseButton,
   withBlur,
   isAbsolute,
+  withHorPaddings,
   style,
   children,
   onPress
@@ -53,16 +58,17 @@ export function Toolbar({
     <View
       style={[
         styles.root,
-        isAbsolute && [
-          {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            paddingTop: insets.top * 2,
-            paddingHorizontal: LAYOUT['space-horizontal']
-          }
-        ],
+        isAbsolute && {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          paddingTop: insets.top * 2,
+          paddingHorizontal: LAYOUT['space-horizontal']
+        },
+        withHorPaddings && {
+          paddingHorizontal: LAYOUT['space-horizontal']
+        },
         style
       ]}
       pointerEvents='box-none'
@@ -89,7 +95,7 @@ export function Toolbar({
             onPress={onPress}
           />
           {typeof leftSide === 'string' ? (
-            <Text style={styles.text}>{leftSide}</Text>
+            <ScreenTitle fontSize={titleSize}>{leftSide}</ScreenTitle>
           ) : (
             leftSide
           )}
@@ -134,7 +140,6 @@ const styles = StyleSheet.create({
   text: {
     color: COLORS.text.primary,
     textAlign: 'center',
-    fontSize: FONT_SIZE['1.5xl'],
     fontWeight: FONT_WEIGHT.bold
   }
 })

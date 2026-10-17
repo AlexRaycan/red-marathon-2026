@@ -1,12 +1,15 @@
-import { COLORS, RADIUS } from '@app/tokens'
+import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
+import { getCardWidth } from '@app/utils'
 import { Image, type ImageStyle } from 'expo-image'
 import {
   Pressable,
   type StyleProp,
   StyleSheet,
+  Text,
   View,
   type ViewProps,
-  type ViewStyle
+  type ViewStyle,
+  useWindowDimensions
 } from 'react-native'
 import Animated, {
   useAnimatedStyle,
@@ -17,8 +20,9 @@ import Animated, {
 import { CardStack } from './CardStack'
 
 interface CardProps extends ViewProps {
+  label?: string
   sourceImage: string | null
-  cardWidth: number
+  cardWidth?: number
   isStacked?: boolean
   cardStyle?: StyleProp<ViewStyle>
   coverStyle?: StyleProp<ImageStyle>
@@ -29,6 +33,7 @@ interface CardProps extends ViewProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function Card({
+  label,
   sourceImage,
   cardWidth,
   isStacked,
@@ -38,31 +43,33 @@ export function Card({
   style,
   onPress
 }: CardProps) {
+  const { width: windowWidth } = useWindowDimensions()
+
   const scale = useSharedValue(1)
 
   const animated = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
   }))
 
+  const width = cardWidth ?? getCardWidth(windowWidth)
+
   const handlePressIn = () => scale.set(withSpring(0.95))
   const handlePressOut = () => scale.set(withSpring(1))
 
   return (
-    <View
-      style={[
-        style,
-        {
-          position: 'relative',
-          width: cardWidth,
-          height: cardWidth * 1.5
-        }
-      ]}
+    <AnimatedPressable
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      style={[styles.root, { width }, style, animated]}
     >
-      <AnimatedPressable
-        onPress={onPress}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        style={[styles.card, animated, cardStyle]}
+      <View
+        style={[
+          styles.card,
+          {
+            height: width * 1.5
+          }
+        ]}
       >
         {isStacked && (
           <CardStack
@@ -71,28 +78,52 @@ export function Card({
             style={styles.cover}
           />
         )}
-        <Image
-          source={sourceImage}
-          transition={200}
-          contentFit='cover'
-          style={[StyleSheet.absoluteFill, styles.cover, coverStyle]}
-        />
-
+        <View
+          style={[StyleSheet.absoluteFill, styles.coverContainer, cardStyle]}
+        >
+          <Image
+            source={sourceImage}
+            transition={200}
+            contentFit='cover'
+            style={[StyleSheet.absoluteFill, styles.cover, coverStyle]}
+          />
+        </View>
         {children}
-      </AnimatedPressable>
-    </View>
+      </View>
+
+      {label && label.trim().length > 0 && (
+        <Text
+          numberOfLines={2}
+          style={styles.label}
+        >
+          {label}
+        </Text>
+      )}
+    </AnimatedPressable>
   )
 }
 
 const styles = StyleSheet.create({
+  root: {
+    position: 'relative',
+    gap: SPACINGS[1]
+  },
   card: {
     position: 'relative',
     flex: 1,
     backgroundColor: COLORS.bg.card,
     borderRadius: RADIUS.md
   },
+  coverContainer: {
+    borderRadius: RADIUS.md
+  },
   cover: {
     borderRadius: RADIUS.md,
     overflow: 'hidden'
+  },
+  label: {
+    color: COLORS.text['little-muted'],
+    fontSize: FONT_SIZE.sm,
+    textAlign: 'center'
   }
 })

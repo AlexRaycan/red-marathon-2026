@@ -1,5 +1,6 @@
 import {
   getDiscoverFindMyStateQueryKey,
+  getLibraryFindAllQueryKey,
   useDiscoverFindMyState,
   useLibrarySetStatusByDiscoverKey
 } from '@app/api'
@@ -22,9 +23,14 @@ export function useLibraryStatus(key: string) {
   const { mutate, variables, isPending } = useLibrarySetStatusByDiscoverKey({
     mutation: {
       onSettled: () =>
-        queryClient.invalidateQueries({
-          queryKey: getDiscoverFindMyStateQueryKey(key)
-        })
+        Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: getDiscoverFindMyStateQueryKey(key)
+          }),
+          queryClient.invalidateQueries({
+            queryKey: getLibraryFindAllQueryKey()
+          })
+        ])
     }
   })
 
