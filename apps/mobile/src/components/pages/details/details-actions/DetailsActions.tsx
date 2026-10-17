@@ -1,8 +1,12 @@
 import type { DiscoverDetailsResponse } from '@app/api'
-import { REVIEWS_RATING } from '@app/constants'
+import {
+  ADD_TO_LIBRARY_ACTION,
+  LIBRARY_STATUS_ACTIONS,
+  REVIEWS_RATING
+} from '@app/constants'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
-import { LAYOUT, SPACINGS } from '@app/tokens'
+import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { Bookmark, Pen, Star } from 'lucide-react-native'
 import { useCallback, useRef } from 'react'
@@ -18,8 +22,9 @@ import {
 
 import { BOTTOM_SHEET_ACTIONS } from '@/constants'
 
-import { LibraryStatusButton } from '../library-status'
 import { ReviewBottomSheet } from '../review-form'
+
+import { LIBRARY_ACTION_ICONS } from './detials-actions.data'
 
 interface DetailsActionButtonsProps {
   title: Pick<
@@ -37,16 +42,31 @@ export function DetailsActions({
     title.key
   )
 
+  const action =
+    status && status !== 'COMPLETED'
+      ? LIBRARY_STATUS_ACTIONS[status]
+      : ADD_TO_LIBRARY_ACTION
   const userRating = useRatingStore(state => state.userReviews?.[title.key])
+
+  const isStatusCompleted = status === 'COMPLETED'
+
+  const reviewButtonLabel = `${userRating?.text ? 'Edit' : 'Write'} a Review`
+  const libraryStatusButtonLabel = isStatusCompleted
+    ? reviewButtonLabel
+    : action.label
 
   const sheetRef = useRef<BottomSheet>(null)
 
   const pushProtected = useProtectedPush()
   const { open } = useBottomSheetControl(sheetRef)
 
-  const handleRatePress = useCallback(() => {
+  const handleStatusPress = useCallback(() => {
     if (isAuthenticated) {
-      open()
+      if (!isStatusCompleted) setStatus(action.nextStatus)
+
+      if (isStatusCompleted || action.nextStatus === 'COMPLETED') {
+        open()
+      }
 
       return
     }
@@ -59,7 +79,16 @@ export function DetailsActions({
         action: BOTTOM_SHEET_ACTIONS.review
       }
     })
-  }, [isAuthenticated, open, pushProtected, title])
+  }, [
+    action,
+    isAuthenticated,
+    isStatusCompleted,
+    open,
+    pushProtected,
+    setStatus,
+    title.key,
+    title.type
+  ])
 
   useBottomSheetAction(sheetRef, 'review', isAuthenticated)
 
@@ -68,24 +97,21 @@ export function DetailsActions({
       <GlassContainer>
         <View style={[styles.baseContainer, styles.actionButtonContainer]}>
           {isAuthenticated ? (
-            status === 'COMPLETED' ? (
-              <Button
-                label={`${userRating?.text ? 'Edit' : 'Write'} a Review`}
-                tintColor={accentColor}
-                icon={Pen}
-                filledIcon={!!userRating?.text}
-                size='lg'
-                fullWidth
-                onPress={handleRatePress}
-              />
-            ) : (
-              <LibraryStatusButton
-                tintColor={accentColor}
-                openSheet={open}
-                status={status}
-                setStatus={setStatus}
-              />
-            )
+            <Button
+              label={libraryStatusButtonLabel}
+              tintColor={
+                isStatusCompleted ? COLORS.status.success : accentColor
+              }
+              icon={
+                isStatusCompleted
+                  ? Pen
+                  : LIBRARY_ACTION_ICONS[action.nextStatus]
+              }
+              {...(isStatusCompleted && { filledIcon: !!userRating?.text })}
+              size='lg'
+              fullWidth
+              onPress={handleStatusPress}
+            />
           ) : (
             <LoginToButton
               onPress={() =>
@@ -115,7 +141,7 @@ export function DetailsActions({
               icon={Star}
               filledIcon={!!userRating}
               fullWidth
-              onPress={handleRatePress}
+              onPress={handleStatusPress}
             />
           </View>
         </View>
