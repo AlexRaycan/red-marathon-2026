@@ -1,9 +1,22 @@
 import { SPACINGS } from '@app/tokens'
 
-export function getCardWidth(windowWidth: number, divider?: number): number {
-  const cardCountPerScreen = Math.trunc(windowWidth / 110)
-  const cardCountMultiplier = cardCountPerScreen * (1.05 / (divider ?? 1))
-  const totalGap = SPACINGS[3] * (cardCountPerScreen + 1)
+interface CardWidthOptions {
+  gap?: number
+  paddingLeft?: number
+  paddingRight?: number
+}
 
-  return (windowWidth - totalGap) / cardCountMultiplier
+export function getCardWidth(
+  containerWidth: number,
+  visibleCount: number,
+  {
+    gap = SPACINGS[3],
+    paddingLeft = 0,
+    paddingRight = 0
+  }: CardWidthOptions = {}
+): number {
+  const gapCount = Math.ceil(visibleCount) - 1
+  const availableWidth = containerWidth - paddingLeft - paddingRight
+
+  return (availableWidth - gap * gapCount) / visibleCount
 }

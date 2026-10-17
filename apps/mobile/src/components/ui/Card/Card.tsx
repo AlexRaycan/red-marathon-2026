@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
 import { getCardWidth } from '@app/utils'
 import { Image, type ImageStyle } from 'expo-image'
 import {
@@ -51,7 +51,12 @@ export function Card({
     transform: [{ scale: scale.value }]
   }))
 
-  const width = cardWidth ?? getCardWidth(windowWidth)
+  const width =
+    cardWidth ??
+    getCardWidth(windowWidth, 3.15, {
+      gap: SPACINGS[3],
+      paddingLeft: LAYOUT['space-horizontal']
+    })
 
   const handlePressIn = () => scale.set(withSpring(0.95))
   const handlePressOut = () => scale.set(withSpring(1))
@@ -93,7 +98,7 @@ export function Card({
 
       {label && label.trim().length > 0 && (
         <Text
-          numberOfLines={2}
+          numberOfLines={1}
           style={styles.label}
         >
           {label}
