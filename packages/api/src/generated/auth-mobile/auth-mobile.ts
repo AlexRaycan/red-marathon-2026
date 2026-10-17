@@ -10,6 +10,7 @@ import {
 } from '@tanstack/react-query';
 import type {
   MutationFunction,
+  QueryClient,
   UseMutationOptions,
   UseMutationResult
 } from '@tanstack/react-query';
@@ -120,13 +121,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthMobileRegister = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authMobileRegister>>, TError,AuthMobileRegisterMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authMobileRegister>>,
         TError,
         AuthMobileRegisterMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthMobileRegisterMutationOptions(options));
+      return useMutation(getAuthMobileRegisterMutationOptions(options), queryClient);
     }
     export type authMobileLoginResponse200 = {
   data: MobileAuthResponse
@@ -213,13 +214,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthMobileLogin = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authMobileLogin>>, TError,AuthMobileLoginMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authMobileLogin>>,
         TError,
         AuthMobileLoginMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthMobileLoginMutationOptions(options));
+      return useMutation(getAuthMobileLoginMutationOptions(options), queryClient);
     }
     export type authMobileRefreshResponse200 = {
   data: MobileAuthResponse
@@ -306,13 +307,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthMobileRefresh = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authMobileRefresh>>, TError,AuthMobileRefreshMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authMobileRefresh>>,
         TError,
         AuthMobileRefreshMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthMobileRefreshMutationOptions(options));
+      return useMutation(getAuthMobileRefreshMutationOptions(options), queryClient);
     }
     export type authMobileLogoutResponse200 = {
   data: boolean
@@ -399,13 +400,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export const useAuthMobileLogout = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authMobileLogout>>, TError,AuthMobileLogoutMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authMobileLogout>>,
         TError,
         AuthMobileLogoutMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthMobileLogoutMutationOptions(options));
+      return useMutation(getAuthMobileLogoutMutationOptions(options), queryClient);
     }
     export type authMobileCreateDeviceCodeResponse200 = {
   data: DeviceCodeResponse
@@ -484,13 +485,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useAuthMobileCreateDeviceCode = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authMobileCreateDeviceCode>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authMobileCreateDeviceCode>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getAuthMobileCreateDeviceCodeMutationOptions(options));
+      return useMutation(getAuthMobileCreateDeviceCodeMutationOptions(options), queryClient);
     }
     export type authMobilePollDeviceCodeResponse200 = {
   data: DevicePollResponse
@@ -583,11 +584,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useAuthMobilePollDeviceCode = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authMobilePollDeviceCode>>, TError,AuthMobilePollDeviceCodeMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authMobilePollDeviceCode>>,
         TError,
         AuthMobilePollDeviceCodeMutationVariables,
         TContext
       > => {
-      return useMutation(getAuthMobilePollDeviceCodeMutationOptions(options));
+      return useMutation(getAuthMobilePollDeviceCodeMutationOptions(options), queryClient);
     }

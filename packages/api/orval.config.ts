@@ -16,6 +16,9 @@ export default defineConfig({
       client: 'react-query',
       clean: true,
       override: {
+        query: {
+          version: 5
+        },
         mutator: {
           path: './src/http.ts',
           name: 'http'

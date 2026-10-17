@@ -10,9 +10,14 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
+  QueryClient,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -120,7 +125,7 @@ export const getIntegrationSearchQueryKey = (params?: IntegrationSearchParams,) 
     }
 
 
-export const getIntegrationSearchQueryOptions = <TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(params: IntegrationSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>, request?: SecondParameter<typeof http>}
+export const getIntegrationSearchQueryOptions = <TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -135,25 +140,49 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type IntegrationSearchQueryResult = NonNullable<Awaited<ReturnType<typeof integrationSearch>>>
 export type IntegrationSearchQueryError = ErrorResponse
 
 
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
+ params: IntegrationSearchParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof integrationSearch>>,
+          TError,
+          Awaited<ReturnType<typeof integrationSearch>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
+ params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof integrationSearch>>,
+          TError,
+          Awaited<ReturnType<typeof integrationSearch>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
+ params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Публичный поиск во внешних API с лимитом запросов на IP
  */
 
 export function useIntegrationSearch<TData = Awaited<ReturnType<typeof integrationSearch>>, TError = ErrorResponse>(
- params: IntegrationSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>, request?: SecondParameter<typeof http>}
-
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+ params: IntegrationSearchParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof integrationSearch>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getIntegrationSearchQueryOptions(params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
@@ -254,11 +283,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  */
 export const useIntegrationImport = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof integrationImport>>, TError,IntegrationImportMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- ): UseMutationResult<
+ , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof integrationImport>>,
         TError,
         IntegrationImportMutationVariables,
         TContext
       > => {
-      return useMutation(getIntegrationImportMutationOptions(options));
+      return useMutation(getIntegrationImportMutationOptions(options), queryClient);
     }
