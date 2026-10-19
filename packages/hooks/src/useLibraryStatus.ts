@@ -1,8 +1,8 @@
 import {
-  getDiscoverFindMyStateQueryKey,
-  getLibraryFindAllQueryKey,
-  useDiscoverFindMyState,
-  useLibrarySetStatusByDiscoverKey
+  getUserTitleQueryKey,
+  getLibraryTitlesQueryKey,
+  useUserTitle,
+  useSetTitleStatus
 } from '@app/api'
 import type { TLibraryStatus } from '@app/types'
 import { useQueryClient } from '@tanstack/react-query'
@@ -14,21 +14,21 @@ export function useLibraryStatus(key: string) {
 
   const { isAuthenticated } = useAuth()
 
-  const { data: myState } = useDiscoverFindMyState(key, {
+  const { data: myState } = useUserTitle(key, {
     query: {
       enabled: isAuthenticated
     }
   })
 
-  const { mutate, variables, isPending } = useLibrarySetStatusByDiscoverKey({
+  const { mutate, variables, isPending } = useSetTitleStatus({
     mutation: {
       onSettled: () =>
         Promise.all([
           queryClient.invalidateQueries({
-            queryKey: getDiscoverFindMyStateQueryKey(key)
+            queryKey: getUserTitleQueryKey(key)
           }),
           queryClient.invalidateQueries({
-            queryKey: getLibraryFindAllQueryKey()
+            queryKey: getLibraryTitlesQueryKey()
           })
         ])
     }

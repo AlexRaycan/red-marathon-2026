@@ -1,4 +1,4 @@
-import { useDiscoverGetTrending } from '@app/api'
+import { useTrendingTitles } from '@app/api'
 import { LAYOUT } from '@app/tokens'
 import { View } from 'react-native'
 import Animated, {
@@ -15,7 +15,7 @@ import {
 } from '@/components/pages/home'
 
 export default function Index() {
-  const { data, isPending } = useDiscoverGetTrending({ take: 20 })
+  const { data, isPending } = useTrendingTitles({ take: 20 })
 
   const scrollY = useSharedValue(0)
 

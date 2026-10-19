@@ -1,4 +1,4 @@
-import { type DiscoverDetailsResponse, useDiscoverFindMyState } from '@app/api'
+import { type DiscoverDetailsResponse, useUserTitle } from '@app/api'
 import { type TReviewSchema, reviewSchema } from '@app/schemas'
 import { type IUserReviewStore, useRatingStore } from '@app/store'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
@@ -28,7 +28,7 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
   const key = title?.key
   const { close } = useBottomSheetControl(ref)
 
-  const { data: myState, isSuccess } = useDiscoverFindMyState(key)
+  const { data: myState, isSuccess } = useUserTitle(key)
 
   const review = myState?.data.review ?? null
   const savedRating = review?.rating

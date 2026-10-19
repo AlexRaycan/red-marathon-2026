@@ -1,4 +1,4 @@
-import { useAuthMobileLogin, useAuthMobileRegister } from '@app/api'
+import { useMobileLogin, useMobileRegister } from '@app/api'
 import type { AUTH_CONTENT } from '@app/constants'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -10,7 +10,7 @@ export function useSigning(type: keyof typeof AUTH_CONTENT) {
   const queryClient = useQueryClient()
   const { onRedirect } = useRedirect()
 
-  const hookAuth = type === 'login' ? useAuthMobileLogin : useAuthMobileRegister
+  const hookAuth = type === 'login' ? useMobileLogin : useMobileRegister
 
   const { mutate, isPending, error } = hookAuth({
     mutation: {

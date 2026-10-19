@@ -1,4 +1,4 @@
-import { useAuthMobileLogout, useUserFindMe } from '@app/api'
+import { useMobileLogout, useCurrentUser } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
 import { Redirect, router, useIsFocused } from 'expo-router'
@@ -24,9 +24,9 @@ export default function Account() {
   const isFocused = useIsFocused()
 
   const queryClient = useQueryClient()
-  const { data, isPending: isLoading, isError } = useUserFindMe()
+  const { data, isPending: isLoading, isError } = useCurrentUser()
 
-  const { mutate: logout, isPending } = useAuthMobileLogout({
+  const { mutate: logout, isPending } = useMobileLogout({
     mutation: {
       onSettled: async () => {
         await queryClient.cancelQueries()

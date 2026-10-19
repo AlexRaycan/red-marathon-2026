@@ -1,7 +1,7 @@
-import { useUserFindMe } from '@app/api'
+import { useCurrentUser } from '@app/api'
 
 export function useAuth() {
-  const { data: me, isLoading, isError } = useUserFindMe()
+  const { data: me, isLoading, isError } = useCurrentUser()
   const isAuthenticated = me?.status === 200
 
   return {

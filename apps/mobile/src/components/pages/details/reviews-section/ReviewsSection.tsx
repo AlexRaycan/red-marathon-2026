@@ -1,4 +1,4 @@
-import { useReviewFindByDiscoverKey } from '@app/api'
+import { useTitleReviews } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -9,7 +9,7 @@ interface ReviewsSectionProps {
 }
 
 export function ReviewsSection({ titleKey }: ReviewsSectionProps) {
-  const { data } = useReviewFindByDiscoverKey(titleKey, { take: 3 })
+  const { data } = useTitleReviews(titleKey, { take: 3 })
 
   const reviews = data?.status === 200 ? data.data : null
 

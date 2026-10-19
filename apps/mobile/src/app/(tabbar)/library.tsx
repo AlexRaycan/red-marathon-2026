@@ -1,4 +1,4 @@
-import { useLibraryFindAll } from '@app/api'
+import { useLibraryTitles } from '@app/api'
 import { useAuth } from '@app/hooks'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
@@ -27,7 +27,7 @@ export default function Library() {
     paddingRight: PADDINGS
   })
 
-  const { data, isPending } = useLibraryFindAll(
+  const { data, isPending } = useLibraryTitles(
     {
       status: status ? [status] : undefined,
       take: 27

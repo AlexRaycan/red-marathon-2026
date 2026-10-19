@@ -1,4 +1,4 @@
-import { type TitleListItemResponseType, useDiscoverFindByKey } from '@app/api'
+import { type TitleListItemResponseType, useTitle } from '@app/api'
 import { useRatingStore } from '@app/store'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
@@ -21,7 +21,7 @@ export default function ItemDetailScreen() {
   }>()
   const clearReviewInStore = useRatingStore(state => state.removeReviews)
 
-  const { data, isPending } = useDiscoverFindByKey(key)
+  const { data, isPending } = useTitle(key)
 
   const { heroHeight, heroStyle, scrollHandler } = useHeroParallax()
   const { bottomSpace } = useBottomSpace()

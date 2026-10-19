@@ -1,9 +1,9 @@
 import {
   getApiErrorMessage,
-  getDiscoverFindMyStateQueryKey,
-  getReviewFindByDiscoverKeyQueryKey,
-  useReviewCreateByDiscoverKey,
-  useReviewUpdate
+  getUserTitleQueryKey,
+  getTitleReviewsQueryKey,
+  useCreateReview,
+  useUpdateReview
 } from '@app/api'
 import type { TReviewSchema } from '@app/schemas'
 import { useQueryClient } from '@tanstack/react-query'
@@ -14,20 +14,20 @@ export function useSaveReview(key: string, reviewId: string | null) {
   const onSuccess = () => {
     void Promise.all([
       queryClient.invalidateQueries({
-        queryKey: getDiscoverFindMyStateQueryKey(key)
+        queryKey: getUserTitleQueryKey(key)
       }),
       queryClient.invalidateQueries({
-        queryKey: getReviewFindByDiscoverKeyQueryKey(key)
+        queryKey: getTitleReviewsQueryKey(key)
       })
     ])
   }
 
-  const create = useReviewCreateByDiscoverKey({
+  const create = useCreateReview({
     mutation: {
       onSuccess
     }
   })
-  const update = useReviewUpdate({
+  const update = useUpdateReview({
     mutation: {
       onSuccess
     }

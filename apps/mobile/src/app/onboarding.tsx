@@ -1,4 +1,4 @@
-import { useDiscoverGetTrending } from '@app/api'
+import { useTrendingTitles } from '@app/api'
 import {
   COLORS,
   FONT_SIZE,
@@ -18,7 +18,7 @@ import { PosterWall } from '@/components/pages/onboarding'
 import { useOnboardingStore } from '@/store'
 
 export default function Onboarding() {
-  const { data } = useDiscoverGetTrending({ take: 24 })
+  const { data } = useTrendingTitles({ take: 24 })
   const completeOnboarding = useOnboardingStore(
     state => state.completeOnboarding
   )
