@@ -8,6 +8,8 @@
 import type { TitleListItemResponseType } from './titleListItemResponseType';
 
 export interface TitleListItemResponse {
+  /** @nullable */
+  coverUrl: string | null;
   id: string;
   /**
      * Ключ витрины; null только у тайтла без внешнего источника
@@ -17,8 +19,6 @@ export interface TitleListItemResponse {
   type: TitleListItemResponseType;
   name: string;
   slug: string;
-  /** @nullable */
-  coverUrl: string | null;
   /** @nullable */
   releaseDate: string | null;
   rating: number;

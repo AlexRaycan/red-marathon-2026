@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type LibraryFindAllStatusItem = typeof LibraryFindAllStatusItem[keyof typeof LibraryFindAllStatusItem];
+export type LibraryTitlesStatusItem = typeof LibraryTitlesStatusItem[keyof typeof LibraryTitlesStatusItem];
 
 
-export const LibraryFindAllStatusItem = {
+export const LibraryTitlesStatusItem = {
   PLANNED: 'PLANNED',
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED',

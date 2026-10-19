@@ -5,7 +5,6 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ProfileResponseRatingScale } from './profileResponseRatingScale';
 
 export interface ProfileResponse {
   /** @nullable */
@@ -19,9 +18,4 @@ export interface ProfileResponse {
   /** @nullable */
   birthDate: string | null;
   isPublic: boolean;
-  /**
-     * Как показывать оценки. Хранятся всегда по 10-балльной шкале.
-     * AUTO — шкала выбирается по типу тайтла, см. /users/me/rating-scales
-     */
-  ratingScale: ProfileResponseRatingScale;
 }

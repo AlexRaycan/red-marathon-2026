@@ -6,10 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ReviewFindMySort = typeof ReviewFindMySort[keyof typeof ReviewFindMySort];
+export type TitleReviewsSort = typeof TitleReviewsSort[keyof typeof TitleReviewsSort];
 
 
-export const ReviewFindMySort = {
+export const TitleReviewsSort = {
   rating: 'rating',
   newest: 'newest',
   ratingAsc: 'ratingAsc',

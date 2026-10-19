@@ -25,14 +25,12 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  CreateReviewDto,
   MyReviewListResponse,
+  MyReviewsParams,
   ReviewFieldsDto,
-  ReviewFindByDiscoverKeyParams,
-  ReviewFindByTitleParams,
-  ReviewFindMyParams,
   ReviewListResponse,
   ReviewResponse,
+  TitleReviewsParams,
   UpdateReviewDto
 } from '../model';
 
@@ -62,147 +60,20 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type reviewFindByTitleResponse200 = {
+export type titleReviewsResponse200 = {
   data: ReviewListResponse
   status: 200
 }
 
-export type reviewFindByTitleResponseSuccess = (reviewFindByTitleResponse200) & {
+export type titleReviewsResponseSuccess = (titleReviewsResponse200) & {
   headers: Headers;
 };
 ;
 
-export type reviewFindByTitleResponse = (reviewFindByTitleResponseSuccess)
+export type titleReviewsResponse = (titleReviewsResponseSuccess)
 
-export const getReviewFindByTitleUrl = (slug: string,
-    params?: ReviewFindByTitleParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : String(value))
-    }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `/reviews/title/${slug}?${stringifiedParams}` : `/reviews/title/${slug}`
-}
-
-/**
- * @summary Отзывы на тайтле — открыты без авторизации
- */
-export const reviewFindByTitle = async (slug: string,
-    params?: ReviewFindByTitleParams, options?: Parameters<typeof http>[1]): Promise<reviewFindByTitleResponse> => {
-
-  return http<reviewFindByTitleResponse>(getReviewFindByTitleUrl(slug,params),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getReviewFindByTitleQueryKey = (slug: string,
-    params?: ReviewFindByTitleParams,) => {
-    return [
-    `/reviews/title/${slug}`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getReviewFindByTitleQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getReviewFindByTitleQueryKey(slug,params);
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof reviewFindByTitle>>> = ({ signal }) => reviewFindByTitle(slug,params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ReviewFindByTitleQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindByTitle>>>
-export type ReviewFindByTitleQueryError = unknown
-
-
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params: undefined |  ReviewFindByTitleParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByTitle>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindByTitle>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByTitle>>,
-          TError,
-          Awaited<ReturnType<typeof reviewFindByTitle>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Отзывы на тайтле — открыты без авторизации
- */
-
-export function useReviewFindByTitle<TData = Awaited<ReturnType<typeof reviewFindByTitle>>, TError = unknown>(
- slug: string,
-    params?: ReviewFindByTitleParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getReviewFindByTitleQueryOptions(slug,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
-export type reviewFindByDiscoverKeyResponse200 = {
-  data: ReviewListResponse
-  status: 200
-}
-
-export type reviewFindByDiscoverKeyResponseSuccess = (reviewFindByDiscoverKeyResponse200) & {
-  headers: Headers;
-};
-;
-
-export type reviewFindByDiscoverKeyResponse = (reviewFindByDiscoverKeyResponseSuccess)
-
-export const getReviewFindByDiscoverKeyUrl = (key: string,
-    params?: ReviewFindByDiscoverKeyParams,) => {
+export const getTitleReviewsUrl = (key: string,
+    params?: TitleReviewsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -220,10 +91,10 @@ export const getReviewFindByDiscoverKeyUrl = (key: string,
 /**
  * @summary Отзывы по ключу витрины: `tmdb-movie-603`. Тайтла у нас нет — пустой список
  */
-export const reviewFindByDiscoverKey = async (key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: Parameters<typeof http>[1]): Promise<reviewFindByDiscoverKeyResponse> => {
+export const titleReviews = async (key: string,
+    params?: TitleReviewsParams, options?: Parameters<typeof http>[1]): Promise<titleReviewsResponse> => {
 
-  return http<reviewFindByDiscoverKeyResponse>(getReviewFindByDiscoverKeyUrl(key,params),
+  return http<titleReviewsResponse>(getTitleReviewsUrl(key,params),
   {
     ...options,
     method: 'GET'
@@ -236,75 +107,75 @@ export const reviewFindByDiscoverKey = async (key: string,
 
 
 
-export const getReviewFindByDiscoverKeyQueryKey = (key: string,
-    params?: ReviewFindByDiscoverKeyParams,) => {
+export const getTitleReviewsQueryKey = (key: string,
+    params?: TitleReviewsParams,) => {
     return [
     `/reviews/discover/${key}`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getReviewFindByDiscoverKeyQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getTitleReviewsQueryOptions = <TData = Awaited<ReturnType<typeof titleReviews>>, TError = unknown>(key: string,
+    params?: TitleReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleReviews>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getReviewFindByDiscoverKeyQueryKey(key,params);
+  const queryKey =  queryOptions?.queryKey ?? getTitleReviewsQueryKey(key,params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>> = ({ signal }) => reviewFindByDiscoverKey(key,params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof titleReviews>>> = ({ signal }) => titleReviews(key,params, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof titleReviews>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type ReviewFindByDiscoverKeyQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>>
-export type ReviewFindByDiscoverKeyQueryError = unknown
+export type TitleReviewsQueryResult = NonNullable<Awaited<ReturnType<typeof titleReviews>>>
+export type TitleReviewsQueryError = unknown
 
 
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+export function useTitleReviews<TData = Awaited<ReturnType<typeof titleReviews>>, TError = unknown>(
  key: string,
-    params: undefined |  ReviewFindByDiscoverKeyParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>> & Pick<
+    params: undefined |  TitleReviewsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleReviews>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>,
+          Awaited<ReturnType<typeof titleReviews>>,
           TError,
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>
+          Awaited<ReturnType<typeof titleReviews>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+export function useTitleReviews<TData = Awaited<ReturnType<typeof titleReviews>>, TError = unknown>(
  key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>> & Pick<
+    params?: TitleReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleReviews>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>,
+          Awaited<ReturnType<typeof titleReviews>>,
           TError,
-          Awaited<ReturnType<typeof reviewFindByDiscoverKey>>
+          Awaited<ReturnType<typeof titleReviews>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+export function useTitleReviews<TData = Awaited<ReturnType<typeof titleReviews>>, TError = unknown>(
  key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+    params?: TitleReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleReviews>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Отзывы по ключу витрины: `tmdb-movie-603`. Тайтла у нас нет — пустой список
  */
 
-export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError = unknown>(
+export function useTitleReviews<TData = Awaited<ReturnType<typeof titleReviews>>, TError = unknown>(
  key: string,
-    params?: ReviewFindByDiscoverKeyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindByDiscoverKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+    params?: TitleReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof titleReviews>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getReviewFindByDiscoverKeyQueryOptions(key,params,options)
+  const queryOptions = getTitleReviewsQueryOptions(key,params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -316,19 +187,19 @@ export function useReviewFindByDiscoverKey<TData = Awaited<ReturnType<typeof rev
 
 
 
-export type reviewCreateByDiscoverKeyResponse201 = {
+export type createReviewResponse201 = {
   data: ReviewResponse
   status: 201
 }
 
-export type reviewCreateByDiscoverKeyResponseSuccess = (reviewCreateByDiscoverKeyResponse201) & {
+export type createReviewResponseSuccess = (createReviewResponse201) & {
   headers: Headers;
 };
 ;
 
-export type reviewCreateByDiscoverKeyResponse = (reviewCreateByDiscoverKeyResponseSuccess)
+export type createReviewResponse = (createReviewResponseSuccess)
 
-export const getReviewCreateByDiscoverKeyUrl = (key: string,) => {
+export const getCreateReviewUrl = (key: string,) => {
 
 
 
@@ -339,8 +210,8 @@ export const getReviewCreateByDiscoverKeyUrl = (key: string,) => {
 /**
  * @summary Отзыв по ключу витрины — тайтл сохранится у нас вместе с отзывом
  */
-export const reviewCreateByDiscoverKey = async (key: string,
-    reviewFieldsDto: ReviewFieldsDto, options?: Parameters<typeof http>[1]): Promise<reviewCreateByDiscoverKeyResponse> => {
+export const createReview = async (key: string,
+    reviewFieldsDto: ReviewFieldsDto, options?: Parameters<typeof http>[1]): Promise<createReviewResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -356,7 +227,7 @@ export const reviewCreateByDiscoverKey = async (key: string,
     }
     return headers;
   };
-return http<reviewCreateByDiscoverKeyResponse>(getReviewCreateByDiscoverKeyUrl(key),
+return http<createReviewResponse>(getCreateReviewUrl(key),
   {
     ...options,
     method: 'POST',
@@ -369,13 +240,13 @@ return http<reviewCreateByDiscoverKeyResponse>(getReviewCreateByDiscoverKeyUrl(k
 
 
 
-export const getReviewCreateByDiscoverKeyMutationKey = () => ['reviewCreateByDiscoverKey'] as const;
+export const getCreateReviewMutationKey = () => ['createReview'] as const;
 
-export const getReviewCreateByDiscoverKeyMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext> => {
+export const getCreateReviewMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createReview>>, TError,CreateReviewMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof createReview>>, TError,CreateReviewMutationVariables, TContext> => {
 
-const mutationKey = getReviewCreateByDiscoverKeyMutationKey();
+const mutationKey = getCreateReviewMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -385,10 +256,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, ReviewCreateByDiscoverKeyMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createReview>>, CreateReviewMutationVariables> = (props) => {
           const {key,data} = props ?? {};
 
-          return  reviewCreateByDiscoverKey(key,data,requestOptions)
+          return  createReview(key,data,requestOptions)
         }
 
 
@@ -398,37 +269,37 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ReviewCreateByDiscoverKeyMutationResult = NonNullable<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>>
-    export type ReviewCreateByDiscoverKeyMutationBody = ReviewFieldsDto
-    export type ReviewCreateByDiscoverKeyMutationError = unknown
-    export type ReviewCreateByDiscoverKeyMutationVariables = {key: string;data: ReviewFieldsDto}
+    export type CreateReviewMutationResult = NonNullable<Awaited<ReturnType<typeof createReview>>>
+    export type CreateReviewMutationBody = ReviewFieldsDto
+    export type CreateReviewMutationError = unknown
+    export type CreateReviewMutationVariables = {key: string;data: ReviewFieldsDto}
 
     /**
  * @summary Отзыв по ключу витрины — тайтл сохранится у нас вместе с отзывом
  */
-export const useReviewCreateByDiscoverKey = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>, TError,ReviewCreateByDiscoverKeyMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+export const useCreateReview = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createReview>>, TError,CreateReviewMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof reviewCreateByDiscoverKey>>,
+        Awaited<ReturnType<typeof createReview>>,
         TError,
-        ReviewCreateByDiscoverKeyMutationVariables,
+        CreateReviewMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewCreateByDiscoverKeyMutationOptions(options), queryClient);
+      return useMutation(getCreateReviewMutationOptions(options), queryClient);
     }
-    export type reviewFindMyResponse200 = {
+    export type myReviewsResponse200 = {
   data: MyReviewListResponse
   status: 200
 }
 
-export type reviewFindMyResponseSuccess = (reviewFindMyResponse200) & {
+export type myReviewsResponseSuccess = (myReviewsResponse200) & {
   headers: Headers;
 };
 ;
 
-export type reviewFindMyResponse = (reviewFindMyResponseSuccess)
+export type myReviewsResponse = (myReviewsResponseSuccess)
 
-export const getReviewFindMyUrl = (params?: ReviewFindMyParams,) => {
+export const getMyReviewsUrl = (params?: MyReviewsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -443,9 +314,9 @@ export const getReviewFindMyUrl = (params?: ReviewFindMyParams,) => {
   return stringifiedParams.length > 0 ? `/reviews/my?${stringifiedParams}` : `/reviews/my`
 }
 
-export const reviewFindMy = async (params?: ReviewFindMyParams, options?: Parameters<typeof http>[1]): Promise<reviewFindMyResponse> => {
+export const myReviews = async (params?: MyReviewsParams, options?: Parameters<typeof http>[1]): Promise<myReviewsResponse> => {
 
-  return http<reviewFindMyResponse>(getReviewFindMyUrl(params),
+  return http<myReviewsResponse>(getMyReviewsUrl(params),
   {
     ...options,
     method: 'GET'
@@ -458,66 +329,66 @@ export const reviewFindMy = async (params?: ReviewFindMyParams, options?: Parame
 
 
 
-export const getReviewFindMyQueryKey = (params?: ReviewFindMyParams,) => {
+export const getMyReviewsQueryKey = (params?: MyReviewsParams,) => {
     return [
     `/reviews/my`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getReviewFindMyQueryOptions = <TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getMyReviewsQueryOptions = <TData = Awaited<ReturnType<typeof myReviews>>, TError = unknown>(params?: MyReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myReviews>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getReviewFindMyQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getMyReviewsQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof reviewFindMy>>> = ({ signal }) => reviewFindMy(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof myReviews>>> = ({ signal }) => myReviews(params, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof myReviews>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type ReviewFindMyQueryResult = NonNullable<Awaited<ReturnType<typeof reviewFindMy>>>
-export type ReviewFindMyQueryError = unknown
+export type MyReviewsQueryResult = NonNullable<Awaited<ReturnType<typeof myReviews>>>
+export type MyReviewsQueryError = unknown
 
 
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params: undefined |  ReviewFindMyParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>> & Pick<
+export function useMyReviews<TData = Awaited<ReturnType<typeof myReviews>>, TError = unknown>(
+ params: undefined |  MyReviewsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof myReviews>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindMy>>,
+          Awaited<ReturnType<typeof myReviews>>,
           TError,
-          Awaited<ReturnType<typeof reviewFindMy>>
+          Awaited<ReturnType<typeof myReviews>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>> & Pick<
+export function useMyReviews<TData = Awaited<ReturnType<typeof myReviews>>, TError = unknown>(
+ params?: MyReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myReviews>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof reviewFindMy>>,
+          Awaited<ReturnType<typeof myReviews>>,
           TError,
-          Awaited<ReturnType<typeof reviewFindMy>>
+          Awaited<ReturnType<typeof myReviews>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyReviews<TData = Awaited<ReturnType<typeof myReviews>>, TError = unknown>(
+ params?: MyReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myReviews>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>, TError = unknown>(
- params?: ReviewFindMyParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reviewFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyReviews<TData = Awaited<ReturnType<typeof myReviews>>, TError = unknown>(
+ params?: MyReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myReviews>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getReviewFindMyQueryOptions(params,options)
+  const queryOptions = getMyReviewsQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -529,112 +400,19 @@ export function useReviewFindMy<TData = Awaited<ReturnType<typeof reviewFindMy>>
 
 
 
-export type reviewCreateResponse201 = {
-  data: ReviewResponse
-  status: 201
-}
-
-export type reviewCreateResponseSuccess = (reviewCreateResponse201) & {
-  headers: Headers;
-};
-;
-
-export type reviewCreateResponse = (reviewCreateResponseSuccess)
-
-export const getReviewCreateUrl = () => {
-
-
-
-
-  return `/reviews`
-}
-
-export const reviewCreate = async (createReviewDto: CreateReviewDto, options?: Parameters<typeof http>[1]): Promise<reviewCreateResponse> => {
-
-    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
-    if (!h) return {};
-    if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Symbol.iterator in h) {
-      return Object.fromEntries(
-        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
-      );
-    }
-    const headers: Record<string, string | readonly string[]> = {};
-    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
-      if (value !== undefined) headers[name] = value;
-    }
-    return headers;
-  };
-return http<reviewCreateResponse>(getReviewCreateUrl(),
-  {
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
-    body: JSON.stringify(createReviewDto)
-  }
-);}
-
-
-
-
-
-export const getReviewCreateMutationKey = () => ['reviewCreate'] as const;
-
-export const getReviewCreateMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreate>>, TError,ReviewCreateMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof reviewCreate>>, TError,ReviewCreateMutationVariables, TContext> => {
-
-const mutationKey = getReviewCreateMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reviewCreate>>, ReviewCreateMutationVariables> = (props) => {
-          const {data} = props ?? {};
-
-          return  reviewCreate(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type ReviewCreateMutationResult = NonNullable<Awaited<ReturnType<typeof reviewCreate>>>
-    export type ReviewCreateMutationBody = CreateReviewDto
-    export type ReviewCreateMutationError = unknown
-    export type ReviewCreateMutationVariables = {data: CreateReviewDto}
-
-    export const useReviewCreate = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewCreate>>, TError,ReviewCreateMutationVariables, TContext>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof reviewCreate>>,
-        TError,
-        ReviewCreateMutationVariables,
-        TContext
-      > => {
-      return useMutation(getReviewCreateMutationOptions(options), queryClient);
-    }
-    export type reviewUpdateResponse200 = {
+export type updateReviewResponse200 = {
   data: ReviewResponse
   status: 200
 }
 
-export type reviewUpdateResponseSuccess = (reviewUpdateResponse200) & {
+export type updateReviewResponseSuccess = (updateReviewResponse200) & {
   headers: Headers;
 };
 ;
 
-export type reviewUpdateResponse = (reviewUpdateResponseSuccess)
+export type updateReviewResponse = (updateReviewResponseSuccess)
 
-export const getReviewUpdateUrl = (id: string,) => {
+export const getUpdateReviewUrl = (id: string,) => {
 
 
 
@@ -642,8 +420,8 @@ export const getReviewUpdateUrl = (id: string,) => {
   return `/reviews/${id}`
 }
 
-export const reviewUpdate = async (id: string,
-    updateReviewDto: UpdateReviewDto, options?: Parameters<typeof http>[1]): Promise<reviewUpdateResponse> => {
+export const updateReview = async (id: string,
+    updateReviewDto: UpdateReviewDto, options?: Parameters<typeof http>[1]): Promise<updateReviewResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -659,7 +437,7 @@ export const reviewUpdate = async (id: string,
     }
     return headers;
   };
-return http<reviewUpdateResponse>(getReviewUpdateUrl(id),
+return http<updateReviewResponse>(getUpdateReviewUrl(id),
   {
     ...options,
     method: 'PATCH',
@@ -672,13 +450,13 @@ return http<reviewUpdateResponse>(getReviewUpdateUrl(id),
 
 
 
-export const getReviewUpdateMutationKey = () => ['reviewUpdate'] as const;
+export const getUpdateReviewMutationKey = () => ['updateReview'] as const;
 
-export const getReviewUpdateMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewUpdate>>, TError,ReviewUpdateMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof reviewUpdate>>, TError,ReviewUpdateMutationVariables, TContext> => {
+export const getUpdateReviewMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateReview>>, TError,UpdateReviewMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateReview>>, TError,UpdateReviewMutationVariables, TContext> => {
 
-const mutationKey = getReviewUpdateMutationKey();
+const mutationKey = getUpdateReviewMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -688,10 +466,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reviewUpdate>>, ReviewUpdateMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateReview>>, UpdateReviewMutationVariables> = (props) => {
           const {id,data} = props ?? {};
 
-          return  reviewUpdate(id,data,requestOptions)
+          return  updateReview(id,data,requestOptions)
         }
 
 
@@ -701,34 +479,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ReviewUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof reviewUpdate>>>
-    export type ReviewUpdateMutationBody = UpdateReviewDto
-    export type ReviewUpdateMutationError = unknown
-    export type ReviewUpdateMutationVariables = {id: string;data: UpdateReviewDto}
+    export type UpdateReviewMutationResult = NonNullable<Awaited<ReturnType<typeof updateReview>>>
+    export type UpdateReviewMutationBody = UpdateReviewDto
+    export type UpdateReviewMutationError = unknown
+    export type UpdateReviewMutationVariables = {id: string;data: UpdateReviewDto}
 
-    export const useReviewUpdate = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewUpdate>>, TError,ReviewUpdateMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+    export const useUpdateReview = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateReview>>, TError,UpdateReviewMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof reviewUpdate>>,
+        Awaited<ReturnType<typeof updateReview>>,
         TError,
-        ReviewUpdateMutationVariables,
+        UpdateReviewMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewUpdateMutationOptions(options), queryClient);
+      return useMutation(getUpdateReviewMutationOptions(options), queryClient);
     }
-    export type reviewDeleteResponse204 = {
+    export type deleteReviewResponse204 = {
   data: boolean
   status: 204
 }
 
-export type reviewDeleteResponseSuccess = (reviewDeleteResponse204) & {
+export type deleteReviewResponseSuccess = (deleteReviewResponse204) & {
   headers: Headers;
 };
 ;
 
-export type reviewDeleteResponse = (reviewDeleteResponseSuccess)
+export type deleteReviewResponse = (deleteReviewResponseSuccess)
 
-export const getReviewDeleteUrl = (id: string,) => {
+export const getDeleteReviewUrl = (id: string,) => {
 
 
 
@@ -736,9 +514,9 @@ export const getReviewDeleteUrl = (id: string,) => {
   return `/reviews/${id}`
 }
 
-export const reviewDelete = async (id: string, options?: Parameters<typeof http>[1]): Promise<reviewDeleteResponse> => {
+export const deleteReview = async (id: string, options?: Parameters<typeof http>[1]): Promise<deleteReviewResponse> => {
 
-  return http<reviewDeleteResponse>(getReviewDeleteUrl(id),
+  return http<deleteReviewResponse>(getDeleteReviewUrl(id),
   {
     ...options,
     method: 'DELETE'
@@ -751,13 +529,13 @@ export const reviewDelete = async (id: string, options?: Parameters<typeof http>
 
 
 
-export const getReviewDeleteMutationKey = () => ['reviewDelete'] as const;
+export const getDeleteReviewMutationKey = () => ['deleteReview'] as const;
 
-export const getReviewDeleteMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewDelete>>, TError,ReviewDeleteMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof reviewDelete>>, TError,ReviewDeleteMutationVariables, TContext> => {
+export const getDeleteReviewMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteReview>>, TError,DeleteReviewMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteReview>>, TError,DeleteReviewMutationVariables, TContext> => {
 
-const mutationKey = getReviewDeleteMutationKey();
+const mutationKey = getDeleteReviewMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -767,10 +545,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reviewDelete>>, ReviewDeleteMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteReview>>, DeleteReviewMutationVariables> = (props) => {
           const {id} = props ?? {};
 
-          return  reviewDelete(id,requestOptions)
+          return  deleteReview(id,requestOptions)
         }
 
 
@@ -780,18 +558,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ReviewDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof reviewDelete>>>
+    export type DeleteReviewMutationResult = NonNullable<Awaited<ReturnType<typeof deleteReview>>>
 
-    export type ReviewDeleteMutationError = unknown
-    export type ReviewDeleteMutationVariables = {id: string}
+    export type DeleteReviewMutationError = unknown
+    export type DeleteReviewMutationVariables = {id: string}
 
-    export const useReviewDelete = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reviewDelete>>, TError,ReviewDeleteMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+    export const useDeleteReview = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteReview>>, TError,DeleteReviewMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof reviewDelete>>,
+        Awaited<ReturnType<typeof deleteReview>>,
         TError,
-        ReviewDeleteMutationVariables,
+        DeleteReviewMutationVariables,
         TContext
       > => {
-      return useMutation(getReviewDeleteMutationOptions(options), queryClient);
+      return useMutation(getDeleteReviewMutationOptions(options), queryClient);
     }

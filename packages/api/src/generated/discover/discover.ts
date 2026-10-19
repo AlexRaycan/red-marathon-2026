@@ -22,10 +22,10 @@ import type {
 
 import type {
   DiscoverDetailsResponse,
-  DiscoverGetTrendingParams,
   DiscoverItemResponse,
   DiscoverMyStateResponse,
-  ErrorResponse
+  ErrorResponse,
+  TrendingTitlesParams
 } from '../model';
 
 import { http } from '../../http';
@@ -54,19 +54,19 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type discoverGetTrendingResponse200 = {
+export type trendingTitlesResponse200 = {
   data: DiscoverItemResponse[]
   status: 200
 }
 
-export type discoverGetTrendingResponseSuccess = (discoverGetTrendingResponse200) & {
+export type trendingTitlesResponseSuccess = (trendingTitlesResponse200) & {
   headers: Headers;
 };
 ;
 
-export type discoverGetTrendingResponse = (discoverGetTrendingResponseSuccess)
+export type trendingTitlesResponse = (trendingTitlesResponseSuccess)
 
-export const getDiscoverGetTrendingUrl = (params?: DiscoverGetTrendingParams,) => {
+export const getTrendingTitlesUrl = (params?: TrendingTitlesParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -84,9 +84,9 @@ export const getDiscoverGetTrendingUrl = (params?: DiscoverGetTrendingParams,) =
 /**
  * @summary Верхний блок главной: фильмы, сериалы, игры, аниме и книги вперемешку
  */
-export const discoverGetTrending = async (params?: DiscoverGetTrendingParams, options?: Parameters<typeof http>[1]): Promise<discoverGetTrendingResponse> => {
+export const trendingTitles = async (params?: TrendingTitlesParams, options?: Parameters<typeof http>[1]): Promise<trendingTitlesResponse> => {
 
-  return http<discoverGetTrendingResponse>(getDiscoverGetTrendingUrl(params),
+  return http<trendingTitlesResponse>(getTrendingTitlesUrl(params),
   {
     ...options,
     method: 'GET'
@@ -99,69 +99,69 @@ export const discoverGetTrending = async (params?: DiscoverGetTrendingParams, op
 
 
 
-export const getDiscoverGetTrendingQueryKey = (params?: DiscoverGetTrendingParams,) => {
+export const getTrendingTitlesQueryKey = (params?: TrendingTitlesParams,) => {
     return [
     `/discover/trending`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getDiscoverGetTrendingQueryOptions = <TData = Awaited<ReturnType<typeof discoverGetTrending>>, TError = unknown>(params?: DiscoverGetTrendingParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverGetTrending>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getTrendingTitlesQueryOptions = <TData = Awaited<ReturnType<typeof trendingTitles>>, TError = unknown>(params?: TrendingTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof trendingTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getDiscoverGetTrendingQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getTrendingTitlesQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof discoverGetTrending>>> = ({ signal }) => discoverGetTrending(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof trendingTitles>>> = ({ signal }) => trendingTitles(params, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof discoverGetTrending>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof trendingTitles>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type DiscoverGetTrendingQueryResult = NonNullable<Awaited<ReturnType<typeof discoverGetTrending>>>
-export type DiscoverGetTrendingQueryError = unknown
+export type TrendingTitlesQueryResult = NonNullable<Awaited<ReturnType<typeof trendingTitles>>>
+export type TrendingTitlesQueryError = unknown
 
 
-export function useDiscoverGetTrending<TData = Awaited<ReturnType<typeof discoverGetTrending>>, TError = unknown>(
- params: undefined |  DiscoverGetTrendingParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverGetTrending>>, TError, TData>> & Pick<
+export function useTrendingTitles<TData = Awaited<ReturnType<typeof trendingTitles>>, TError = unknown>(
+ params: undefined |  TrendingTitlesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof trendingTitles>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof discoverGetTrending>>,
+          Awaited<ReturnType<typeof trendingTitles>>,
           TError,
-          Awaited<ReturnType<typeof discoverGetTrending>>
+          Awaited<ReturnType<typeof trendingTitles>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useDiscoverGetTrending<TData = Awaited<ReturnType<typeof discoverGetTrending>>, TError = unknown>(
- params?: DiscoverGetTrendingParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverGetTrending>>, TError, TData>> & Pick<
+export function useTrendingTitles<TData = Awaited<ReturnType<typeof trendingTitles>>, TError = unknown>(
+ params?: TrendingTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof trendingTitles>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof discoverGetTrending>>,
+          Awaited<ReturnType<typeof trendingTitles>>,
           TError,
-          Awaited<ReturnType<typeof discoverGetTrending>>
+          Awaited<ReturnType<typeof trendingTitles>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useDiscoverGetTrending<TData = Awaited<ReturnType<typeof discoverGetTrending>>, TError = unknown>(
- params?: DiscoverGetTrendingParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverGetTrending>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useTrendingTitles<TData = Awaited<ReturnType<typeof trendingTitles>>, TError = unknown>(
+ params?: TrendingTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof trendingTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Верхний блок главной: фильмы, сериалы, игры, аниме и книги вперемешку
  */
 
-export function useDiscoverGetTrending<TData = Awaited<ReturnType<typeof discoverGetTrending>>, TError = unknown>(
- params?: DiscoverGetTrendingParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverGetTrending>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useTrendingTitles<TData = Awaited<ReturnType<typeof trendingTitles>>, TError = unknown>(
+ params?: TrendingTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof trendingTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getDiscoverGetTrendingQueryOptions(params,options)
+  const queryOptions = getTrendingTitlesQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -173,26 +173,26 @@ export function useDiscoverGetTrending<TData = Awaited<ReturnType<typeof discove
 
 
 
-export type discoverFindByKeyResponse200 = {
+export type titleResponse200 = {
   data: DiscoverDetailsResponse
   status: 200
 }
 
-export type discoverFindByKeyResponse404 = {
+export type titleResponse404 = {
   data: ErrorResponse
   status: 404
 }
 
-export type discoverFindByKeyResponseSuccess = (discoverFindByKeyResponse200) & {
+export type titleResponseSuccess = (titleResponse200) & {
   headers: Headers;
 };
-export type discoverFindByKeyResponseError = (discoverFindByKeyResponse404) & {
+export type titleResponseError = (titleResponse404) & {
   headers: Headers;
 };
 
-export type discoverFindByKeyResponse = (discoverFindByKeyResponseSuccess | discoverFindByKeyResponseError)
+export type titleResponse = (titleResponseSuccess | titleResponseError)
 
-export const getDiscoverFindByKeyUrl = (key: string,) => {
+export const getTitleUrl = (key: string,) => {
 
 
 
@@ -203,9 +203,9 @@ export const getDiscoverFindByKeyUrl = (key: string,) => {
 /**
  * @summary Детальная страница по ключу из карточки: `tmdb-movie-603`
  */
-export const discoverFindByKey = async (key: string, options?: Parameters<typeof http>[1]): Promise<discoverFindByKeyResponse> => {
+export const title = async (key: string, options?: Parameters<typeof http>[1]): Promise<titleResponse> => {
 
-  return http<discoverFindByKeyResponse>(getDiscoverFindByKeyUrl(key),
+  return http<titleResponse>(getTitleUrl(key),
   {
     ...options,
     method: 'GET'
@@ -218,69 +218,69 @@ export const discoverFindByKey = async (key: string, options?: Parameters<typeof
 
 
 
-export const getDiscoverFindByKeyQueryKey = (key: string,) => {
+export const getTitleQueryKey = (key: string,) => {
     return [
     `/discover/${key}`
     ] as const;
     }
 
 
-export const getDiscoverFindByKeyQueryOptions = <TData = Awaited<ReturnType<typeof discoverFindByKey>>, TError = ErrorResponse>(key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindByKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getTitleQueryOptions = <TData = Awaited<ReturnType<typeof title>>, TError = ErrorResponse>(key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof title>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getDiscoverFindByKeyQueryKey(key);
+  const queryKey =  queryOptions?.queryKey ?? getTitleQueryKey(key);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof discoverFindByKey>>> = ({ signal }) => discoverFindByKey(key, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof title>>> = ({ signal }) => title(key, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof discoverFindByKey>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof title>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type DiscoverFindByKeyQueryResult = NonNullable<Awaited<ReturnType<typeof discoverFindByKey>>>
-export type DiscoverFindByKeyQueryError = ErrorResponse
+export type TitleQueryResult = NonNullable<Awaited<ReturnType<typeof title>>>
+export type TitleQueryError = ErrorResponse
 
 
-export function useDiscoverFindByKey<TData = Awaited<ReturnType<typeof discoverFindByKey>>, TError = ErrorResponse>(
- key: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindByKey>>, TError, TData>> & Pick<
+export function useTitle<TData = Awaited<ReturnType<typeof title>>, TError = ErrorResponse>(
+ key: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof title>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof discoverFindByKey>>,
+          Awaited<ReturnType<typeof title>>,
           TError,
-          Awaited<ReturnType<typeof discoverFindByKey>>
+          Awaited<ReturnType<typeof title>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useDiscoverFindByKey<TData = Awaited<ReturnType<typeof discoverFindByKey>>, TError = ErrorResponse>(
- key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindByKey>>, TError, TData>> & Pick<
+export function useTitle<TData = Awaited<ReturnType<typeof title>>, TError = ErrorResponse>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof title>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof discoverFindByKey>>,
+          Awaited<ReturnType<typeof title>>,
           TError,
-          Awaited<ReturnType<typeof discoverFindByKey>>
+          Awaited<ReturnType<typeof title>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useDiscoverFindByKey<TData = Awaited<ReturnType<typeof discoverFindByKey>>, TError = ErrorResponse>(
- key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindByKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useTitle<TData = Awaited<ReturnType<typeof title>>, TError = ErrorResponse>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof title>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Детальная страница по ключу из карточки: `tmdb-movie-603`
  */
 
-export function useDiscoverFindByKey<TData = Awaited<ReturnType<typeof discoverFindByKey>>, TError = ErrorResponse>(
- key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindByKey>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useTitle<TData = Awaited<ReturnType<typeof title>>, TError = ErrorResponse>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof title>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getDiscoverFindByKeyQueryOptions(key,options)
+  const queryOptions = getTitleQueryOptions(key,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -292,19 +292,19 @@ export function useDiscoverFindByKey<TData = Awaited<ReturnType<typeof discoverF
 
 
 
-export type discoverFindMyStateResponse200 = {
+export type userTitleResponse200 = {
   data: DiscoverMyStateResponse
   status: 200
 }
 
-export type discoverFindMyStateResponseSuccess = (discoverFindMyStateResponse200) & {
+export type userTitleResponseSuccess = (userTitleResponse200) & {
   headers: Headers;
 };
 ;
 
-export type discoverFindMyStateResponse = (discoverFindMyStateResponseSuccess)
+export type userTitleResponse = (userTitleResponseSuccess)
 
-export const getDiscoverFindMyStateUrl = (key: string,) => {
+export const getUserTitleUrl = (key: string,) => {
 
 
 
@@ -315,9 +315,9 @@ export const getDiscoverFindMyStateUrl = (key: string,) => {
 /**
  * @summary Статус в библиотеке, свой отзыв и коллекции для детальной страницы
  */
-export const discoverFindMyState = async (key: string, options?: Parameters<typeof http>[1]): Promise<discoverFindMyStateResponse> => {
+export const userTitle = async (key: string, options?: Parameters<typeof http>[1]): Promise<userTitleResponse> => {
 
-  return http<discoverFindMyStateResponse>(getDiscoverFindMyStateUrl(key),
+  return http<userTitleResponse>(getUserTitleUrl(key),
   {
     ...options,
     method: 'GET'
@@ -330,69 +330,69 @@ export const discoverFindMyState = async (key: string, options?: Parameters<type
 
 
 
-export const getDiscoverFindMyStateQueryKey = (key: string,) => {
+export const getUserTitleQueryKey = (key: string,) => {
     return [
     `/discover/${key}/me`
     ] as const;
     }
 
 
-export const getDiscoverFindMyStateQueryOptions = <TData = Awaited<ReturnType<typeof discoverFindMyState>>, TError = unknown>(key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindMyState>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getUserTitleQueryOptions = <TData = Awaited<ReturnType<typeof userTitle>>, TError = unknown>(key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getDiscoverFindMyStateQueryKey(key);
+  const queryKey =  queryOptions?.queryKey ?? getUserTitleQueryKey(key);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof discoverFindMyState>>> = ({ signal }) => discoverFindMyState(key, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof userTitle>>> = ({ signal }) => userTitle(key, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof discoverFindMyState>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof userTitle>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type DiscoverFindMyStateQueryResult = NonNullable<Awaited<ReturnType<typeof discoverFindMyState>>>
-export type DiscoverFindMyStateQueryError = unknown
+export type UserTitleQueryResult = NonNullable<Awaited<ReturnType<typeof userTitle>>>
+export type UserTitleQueryError = unknown
 
 
-export function useDiscoverFindMyState<TData = Awaited<ReturnType<typeof discoverFindMyState>>, TError = unknown>(
- key: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindMyState>>, TError, TData>> & Pick<
+export function useUserTitle<TData = Awaited<ReturnType<typeof userTitle>>, TError = unknown>(
+ key: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userTitle>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof discoverFindMyState>>,
+          Awaited<ReturnType<typeof userTitle>>,
           TError,
-          Awaited<ReturnType<typeof discoverFindMyState>>
+          Awaited<ReturnType<typeof userTitle>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useDiscoverFindMyState<TData = Awaited<ReturnType<typeof discoverFindMyState>>, TError = unknown>(
- key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindMyState>>, TError, TData>> & Pick<
+export function useUserTitle<TData = Awaited<ReturnType<typeof userTitle>>, TError = unknown>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userTitle>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof discoverFindMyState>>,
+          Awaited<ReturnType<typeof userTitle>>,
           TError,
-          Awaited<ReturnType<typeof discoverFindMyState>>
+          Awaited<ReturnType<typeof userTitle>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useDiscoverFindMyState<TData = Awaited<ReturnType<typeof discoverFindMyState>>, TError = unknown>(
- key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindMyState>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useUserTitle<TData = Awaited<ReturnType<typeof userTitle>>, TError = unknown>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Статус в библиотеке, свой отзыв и коллекции для детальной страницы
  */
 
-export function useDiscoverFindMyState<TData = Awaited<ReturnType<typeof discoverFindMyState>>, TError = unknown>(
- key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discoverFindMyState>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useUserTitle<TData = Awaited<ReturnType<typeof userTitle>>, TError = unknown>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userTitle>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getDiscoverFindMyStateQueryOptions(key,options)
+  const queryOptions = getUserTitleQueryOptions(key,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

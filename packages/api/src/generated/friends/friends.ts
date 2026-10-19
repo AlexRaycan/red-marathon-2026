@@ -56,19 +56,19 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type friendshipFindAllResponse200 = {
+export type myFriendsResponse200 = {
   data: FriendListResponse
   status: 200
 }
 
-export type friendshipFindAllResponseSuccess = (friendshipFindAllResponse200) & {
+export type myFriendsResponseSuccess = (myFriendsResponse200) & {
   headers: Headers;
 };
 ;
 
-export type friendshipFindAllResponse = (friendshipFindAllResponseSuccess)
+export type myFriendsResponse = (myFriendsResponseSuccess)
 
-export const getFriendshipFindAllUrl = () => {
+export const getMyFriendsUrl = () => {
 
 
 
@@ -76,9 +76,9 @@ export const getFriendshipFindAllUrl = () => {
   return `/friends`
 }
 
-export const friendshipFindAll = async ( options?: Parameters<typeof http>[1]): Promise<friendshipFindAllResponse> => {
+export const myFriends = async ( options?: Parameters<typeof http>[1]): Promise<myFriendsResponse> => {
 
-  return http<friendshipFindAllResponse>(getFriendshipFindAllUrl(),
+  return http<myFriendsResponse>(getMyFriendsUrl(),
   {
     ...options,
     method: 'GET'
@@ -91,66 +91,66 @@ export const friendshipFindAll = async ( options?: Parameters<typeof http>[1]): 
 
 
 
-export const getFriendshipFindAllQueryKey = () => {
+export const getMyFriendsQueryKey = () => {
     return [
     `/friends`
     ] as const;
     }
 
 
-export const getFriendshipFindAllQueryOptions = <TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getMyFriendsQueryOptions = <TData = Awaited<ReturnType<typeof myFriends>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriends>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getFriendshipFindAllQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getMyFriendsQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof friendshipFindAll>>> = ({ signal }) => friendshipFindAll({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof myFriends>>> = ({ signal }) => myFriends({ signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof myFriends>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type FriendshipFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof friendshipFindAll>>>
-export type FriendshipFindAllQueryError = unknown
+export type MyFriendsQueryResult = NonNullable<Awaited<ReturnType<typeof myFriends>>>
+export type MyFriendsQueryError = unknown
 
 
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>> & Pick<
+export function useMyFriends<TData = Awaited<ReturnType<typeof myFriends>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriends>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindAll>>,
+          Awaited<ReturnType<typeof myFriends>>,
           TError,
-          Awaited<ReturnType<typeof friendshipFindAll>>
+          Awaited<ReturnType<typeof myFriends>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>> & Pick<
+export function useMyFriends<TData = Awaited<ReturnType<typeof myFriends>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriends>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindAll>>,
+          Awaited<ReturnType<typeof myFriends>>,
           TError,
-          Awaited<ReturnType<typeof friendshipFindAll>>
+          Awaited<ReturnType<typeof myFriends>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyFriends<TData = Awaited<ReturnType<typeof myFriends>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriends>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshipFindAll>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindAll>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyFriends<TData = Awaited<ReturnType<typeof myFriends>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriends>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getFriendshipFindAllQueryOptions(options)
+  const queryOptions = getMyFriendsQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -162,19 +162,19 @@ export function useFriendshipFindAll<TData = Awaited<ReturnType<typeof friendshi
 
 
 
-export type friendshipFindRequestsResponse200 = {
+export type myFriendRequestsResponse200 = {
   data: FriendRequestListResponse
   status: 200
 }
 
-export type friendshipFindRequestsResponseSuccess = (friendshipFindRequestsResponse200) & {
+export type myFriendRequestsResponseSuccess = (myFriendRequestsResponse200) & {
   headers: Headers;
 };
 ;
 
-export type friendshipFindRequestsResponse = (friendshipFindRequestsResponseSuccess)
+export type myFriendRequestsResponse = (myFriendRequestsResponseSuccess)
 
-export const getFriendshipFindRequestsUrl = () => {
+export const getMyFriendRequestsUrl = () => {
 
 
 
@@ -185,9 +185,9 @@ export const getFriendshipFindRequestsUrl = () => {
 /**
  * @summary Входящие заявки
  */
-export const friendshipFindRequests = async ( options?: Parameters<typeof http>[1]): Promise<friendshipFindRequestsResponse> => {
+export const myFriendRequests = async ( options?: Parameters<typeof http>[1]): Promise<myFriendRequestsResponse> => {
 
-  return http<friendshipFindRequestsResponse>(getFriendshipFindRequestsUrl(),
+  return http<myFriendRequestsResponse>(getMyFriendRequestsUrl(),
   {
     ...options,
     method: 'GET'
@@ -200,69 +200,69 @@ export const friendshipFindRequests = async ( options?: Parameters<typeof http>[
 
 
 
-export const getFriendshipFindRequestsQueryKey = () => {
+export const getMyFriendRequestsQueryKey = () => {
     return [
     `/friends/requests`
     ] as const;
     }
 
 
-export const getFriendshipFindRequestsQueryOptions = <TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getMyFriendRequestsQueryOptions = <TData = Awaited<ReturnType<typeof myFriendRequests>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriendRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getFriendshipFindRequestsQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getMyFriendRequestsQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof friendshipFindRequests>>> = ({ signal }) => friendshipFindRequests({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof myFriendRequests>>> = ({ signal }) => myFriendRequests({ signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof myFriendRequests>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type FriendshipFindRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof friendshipFindRequests>>>
-export type FriendshipFindRequestsQueryError = unknown
+export type MyFriendRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof myFriendRequests>>>
+export type MyFriendRequestsQueryError = unknown
 
 
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>> & Pick<
+export function useMyFriendRequests<TData = Awaited<ReturnType<typeof myFriendRequests>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriendRequests>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindRequests>>,
+          Awaited<ReturnType<typeof myFriendRequests>>,
           TError,
-          Awaited<ReturnType<typeof friendshipFindRequests>>
+          Awaited<ReturnType<typeof myFriendRequests>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>> & Pick<
+export function useMyFriendRequests<TData = Awaited<ReturnType<typeof myFriendRequests>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriendRequests>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof friendshipFindRequests>>,
+          Awaited<ReturnType<typeof myFriendRequests>>,
           TError,
-          Awaited<ReturnType<typeof friendshipFindRequests>>
+          Awaited<ReturnType<typeof myFriendRequests>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyFriendRequests<TData = Awaited<ReturnType<typeof myFriendRequests>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriendRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Входящие заявки
  */
 
-export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof friendshipFindRequests>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof friendshipFindRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyFriendRequests<TData = Awaited<ReturnType<typeof myFriendRequests>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myFriendRequests>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getFriendshipFindRequestsQueryOptions(options)
+  const queryOptions = getMyFriendRequestsQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -274,19 +274,19 @@ export function useFriendshipFindRequests<TData = Awaited<ReturnType<typeof frie
 
 
 
-export type friendshipRequestResponse200 = {
+export type sendFriendRequestResponse200 = {
   data: boolean
   status: 200
 }
 
-export type friendshipRequestResponseSuccess = (friendshipRequestResponse200) & {
+export type sendFriendRequestResponseSuccess = (sendFriendRequestResponse200) & {
   headers: Headers;
 };
 ;
 
-export type friendshipRequestResponse = (friendshipRequestResponseSuccess)
+export type sendFriendRequestResponse = (sendFriendRequestResponseSuccess)
 
-export const getFriendshipRequestUrl = () => {
+export const getSendFriendRequestUrl = () => {
 
 
 
@@ -294,7 +294,7 @@ export const getFriendshipRequestUrl = () => {
   return `/friends/requests`
 }
 
-export const friendshipRequest = async (friendRequestDto: FriendRequestDto, options?: Parameters<typeof http>[1]): Promise<friendshipRequestResponse> => {
+export const sendFriendRequest = async (friendRequestDto: FriendRequestDto, options?: Parameters<typeof http>[1]): Promise<sendFriendRequestResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -310,7 +310,7 @@ export const friendshipRequest = async (friendRequestDto: FriendRequestDto, opti
     }
     return headers;
   };
-return http<friendshipRequestResponse>(getFriendshipRequestUrl(),
+return http<sendFriendRequestResponse>(getSendFriendRequestUrl(),
   {
     ...options,
     method: 'POST',
@@ -323,13 +323,13 @@ return http<friendshipRequestResponse>(getFriendshipRequestUrl(),
 
 
 
-export const getFriendshipRequestMutationKey = () => ['friendshipRequest'] as const;
+export const getSendFriendRequestMutationKey = () => ['sendFriendRequest'] as const;
 
-export const getFriendshipRequestMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipRequest>>, TError,FriendshipRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof friendshipRequest>>, TError,FriendshipRequestMutationVariables, TContext> => {
+export const getSendFriendRequestMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sendFriendRequest>>, TError,SendFriendRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof sendFriendRequest>>, TError,SendFriendRequestMutationVariables, TContext> => {
 
-const mutationKey = getFriendshipRequestMutationKey();
+const mutationKey = getSendFriendRequestMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -339,10 +339,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof friendshipRequest>>, FriendshipRequestMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof sendFriendRequest>>, SendFriendRequestMutationVariables> = (props) => {
           const {data} = props ?? {};
 
-          return  friendshipRequest(data,requestOptions)
+          return  sendFriendRequest(data,requestOptions)
         }
 
 
@@ -352,34 +352,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type FriendshipRequestMutationResult = NonNullable<Awaited<ReturnType<typeof friendshipRequest>>>
-    export type FriendshipRequestMutationBody = FriendRequestDto
-    export type FriendshipRequestMutationError = unknown
-    export type FriendshipRequestMutationVariables = {data: FriendRequestDto}
+    export type SendFriendRequestMutationResult = NonNullable<Awaited<ReturnType<typeof sendFriendRequest>>>
+    export type SendFriendRequestMutationBody = FriendRequestDto
+    export type SendFriendRequestMutationError = unknown
+    export type SendFriendRequestMutationVariables = {data: FriendRequestDto}
 
-    export const useFriendshipRequest = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipRequest>>, TError,FriendshipRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+    export const useSendFriendRequest = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sendFriendRequest>>, TError,SendFriendRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof friendshipRequest>>,
+        Awaited<ReturnType<typeof sendFriendRequest>>,
         TError,
-        FriendshipRequestMutationVariables,
+        SendFriendRequestMutationVariables,
         TContext
       > => {
-      return useMutation(getFriendshipRequestMutationOptions(options), queryClient);
+      return useMutation(getSendFriendRequestMutationOptions(options), queryClient);
     }
-    export type friendshipAcceptResponse200 = {
+    export type acceptFriendRequestResponse200 = {
   data: boolean
   status: 200
 }
 
-export type friendshipAcceptResponseSuccess = (friendshipAcceptResponse200) & {
+export type acceptFriendRequestResponseSuccess = (acceptFriendRequestResponse200) & {
   headers: Headers;
 };
 ;
 
-export type friendshipAcceptResponse = (friendshipAcceptResponseSuccess)
+export type acceptFriendRequestResponse = (acceptFriendRequestResponseSuccess)
 
-export const getFriendshipAcceptUrl = (id: string,) => {
+export const getAcceptFriendRequestUrl = (id: string,) => {
 
 
 
@@ -387,9 +387,9 @@ export const getFriendshipAcceptUrl = (id: string,) => {
   return `/friends/requests/${id}/accept`
 }
 
-export const friendshipAccept = async (id: string, options?: Parameters<typeof http>[1]): Promise<friendshipAcceptResponse> => {
+export const acceptFriendRequest = async (id: string, options?: Parameters<typeof http>[1]): Promise<acceptFriendRequestResponse> => {
 
-  return http<friendshipAcceptResponse>(getFriendshipAcceptUrl(id),
+  return http<acceptFriendRequestResponse>(getAcceptFriendRequestUrl(id),
   {
     ...options,
     method: 'POST'
@@ -402,13 +402,13 @@ export const friendshipAccept = async (id: string, options?: Parameters<typeof h
 
 
 
-export const getFriendshipAcceptMutationKey = () => ['friendshipAccept'] as const;
+export const getAcceptFriendRequestMutationKey = () => ['acceptFriendRequest'] as const;
 
-export const getFriendshipAcceptMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipAccept>>, TError,FriendshipAcceptMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof friendshipAccept>>, TError,FriendshipAcceptMutationVariables, TContext> => {
+export const getAcceptFriendRequestMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptFriendRequest>>, TError,AcceptFriendRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof acceptFriendRequest>>, TError,AcceptFriendRequestMutationVariables, TContext> => {
 
-const mutationKey = getFriendshipAcceptMutationKey();
+const mutationKey = getAcceptFriendRequestMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -418,10 +418,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof friendshipAccept>>, FriendshipAcceptMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof acceptFriendRequest>>, AcceptFriendRequestMutationVariables> = (props) => {
           const {id} = props ?? {};
 
-          return  friendshipAccept(id,requestOptions)
+          return  acceptFriendRequest(id,requestOptions)
         }
 
 
@@ -431,34 +431,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type FriendshipAcceptMutationResult = NonNullable<Awaited<ReturnType<typeof friendshipAccept>>>
+    export type AcceptFriendRequestMutationResult = NonNullable<Awaited<ReturnType<typeof acceptFriendRequest>>>
 
-    export type FriendshipAcceptMutationError = unknown
-    export type FriendshipAcceptMutationVariables = {id: string}
+    export type AcceptFriendRequestMutationError = unknown
+    export type AcceptFriendRequestMutationVariables = {id: string}
 
-    export const useFriendshipAccept = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipAccept>>, TError,FriendshipAcceptMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+    export const useAcceptFriendRequest = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof acceptFriendRequest>>, TError,AcceptFriendRequestMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof friendshipAccept>>,
+        Awaited<ReturnType<typeof acceptFriendRequest>>,
         TError,
-        FriendshipAcceptMutationVariables,
+        AcceptFriendRequestMutationVariables,
         TContext
       > => {
-      return useMutation(getFriendshipAcceptMutationOptions(options), queryClient);
+      return useMutation(getAcceptFriendRequestMutationOptions(options), queryClient);
     }
-    export type friendshipRemoveResponse200 = {
+    export type removeFriendResponse200 = {
   data: boolean
   status: 200
 }
 
-export type friendshipRemoveResponseSuccess = (friendshipRemoveResponse200) & {
+export type removeFriendResponseSuccess = (removeFriendResponse200) & {
   headers: Headers;
 };
 ;
 
-export type friendshipRemoveResponse = (friendshipRemoveResponseSuccess)
+export type removeFriendResponse = (removeFriendResponseSuccess)
 
-export const getFriendshipRemoveUrl = (id: string,) => {
+export const getRemoveFriendUrl = (id: string,) => {
 
 
 
@@ -469,9 +469,9 @@ export const getFriendshipRemoveUrl = (id: string,) => {
 /**
  * @summary Отклонить заявку или удалить из друзей
  */
-export const friendshipRemove = async (id: string, options?: Parameters<typeof http>[1]): Promise<friendshipRemoveResponse> => {
+export const removeFriend = async (id: string, options?: Parameters<typeof http>[1]): Promise<removeFriendResponse> => {
 
-  return http<friendshipRemoveResponse>(getFriendshipRemoveUrl(id),
+  return http<removeFriendResponse>(getRemoveFriendUrl(id),
   {
     ...options,
     method: 'DELETE'
@@ -484,13 +484,13 @@ export const friendshipRemove = async (id: string, options?: Parameters<typeof h
 
 
 
-export const getFriendshipRemoveMutationKey = () => ['friendshipRemove'] as const;
+export const getRemoveFriendMutationKey = () => ['removeFriend'] as const;
 
-export const getFriendshipRemoveMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipRemove>>, TError,FriendshipRemoveMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof friendshipRemove>>, TError,FriendshipRemoveMutationVariables, TContext> => {
+export const getRemoveFriendMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof removeFriend>>, TError,RemoveFriendMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof removeFriend>>, TError,RemoveFriendMutationVariables, TContext> => {
 
-const mutationKey = getFriendshipRemoveMutationKey();
+const mutationKey = getRemoveFriendMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -500,10 +500,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof friendshipRemove>>, FriendshipRemoveMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof removeFriend>>, RemoveFriendMutationVariables> = (props) => {
           const {id} = props ?? {};
 
-          return  friendshipRemove(id,requestOptions)
+          return  removeFriend(id,requestOptions)
         }
 
 
@@ -513,21 +513,21 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type FriendshipRemoveMutationResult = NonNullable<Awaited<ReturnType<typeof friendshipRemove>>>
+    export type RemoveFriendMutationResult = NonNullable<Awaited<ReturnType<typeof removeFriend>>>
 
-    export type FriendshipRemoveMutationError = unknown
-    export type FriendshipRemoveMutationVariables = {id: string}
+    export type RemoveFriendMutationError = unknown
+    export type RemoveFriendMutationVariables = {id: string}
 
     /**
  * @summary Отклонить заявку или удалить из друзей
  */
-export const useFriendshipRemove = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof friendshipRemove>>, TError,FriendshipRemoveMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+export const useRemoveFriend = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof removeFriend>>, TError,RemoveFriendMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof friendshipRemove>>,
+        Awaited<ReturnType<typeof removeFriend>>,
         TError,
-        FriendshipRemoveMutationVariables,
+        RemoveFriendMutationVariables,
         TContext
       > => {
-      return useMutation(getFriendshipRemoveMutationOptions(options), queryClient);
+      return useMutation(getRemoveFriendMutationOptions(options), queryClient);
     }

@@ -6,8 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface GenreResponse {
-  id: string;
-  name: string;
-  slug: string;
-}
+export type TrendingTitlesParams = {
+/**
+ * @minimum 1
+ * @maximum 50
+ */
+take?: number;
+};

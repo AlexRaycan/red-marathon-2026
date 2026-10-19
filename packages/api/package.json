@@ -7,6 +7,6 @@
     "gen": "orval"
   },
   "devDependencies": {
-    "orval": "^8.30.0"
+    "orval": "^8.43.0"
   }
 }

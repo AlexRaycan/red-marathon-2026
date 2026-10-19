@@ -5,9 +5,16 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { TitleListItemResponse } from './titleListItemResponse';
 
-export interface TitleListResponse {
-  items: TitleListItemResponse[];
-  isHasMore: boolean;
-}
+export type MyCollectionsParams = {
+/**
+ * @minimum 0
+ */
+skip?: number;
+/**
+ * @minimum 1
+ * @maximum 100
+ */
+take?: number;
+searchTerm?: string;
+};

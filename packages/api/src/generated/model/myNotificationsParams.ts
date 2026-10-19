@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CollectionFindAllParams = {
+export type MyNotificationsParams = {
 /**
  * @minimum 0
  */
@@ -17,4 +17,8 @@ skip?: number;
  */
 take?: number;
 searchTerm?: string;
+/**
+ * Только непрочитанные — для колокольчика
+ */
+isUnread?: string;
 };

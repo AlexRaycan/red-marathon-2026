@@ -6,13 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-/**
- * Часть ключа тайтла: у TMDB фильм и сериал с одним id — разные тайтлы
- */
-export type ImportTitleDtoType = typeof ImportTitleDtoType[keyof typeof ImportTitleDtoType];
+export type LibraryTitlesTypeItem = typeof LibraryTitlesTypeItem[keyof typeof LibraryTitlesTypeItem];
 
 
-export const ImportTitleDtoType = {
+export const LibraryTitlesTypeItem = {
   GAME: 'GAME',
   MOVIE: 'MOVIE',
   TV_SHOW: 'TV_SHOW',

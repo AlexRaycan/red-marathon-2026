@@ -13,14 +13,14 @@ import type { DiscoverItemResponse } from './discoverItemResponse';
 import type { PersonResponse } from './personResponse';
 
 export interface DiscoverDetailsResponse {
+  /** @nullable */
+  coverUrl: string | null;
   /** Ключ для детальной страницы: `tmdb-movie-603`, `rawg-game-3328` */
   key: string;
   externalId: string;
   externalSource: DiscoverDetailsResponseExternalSource;
   type: DiscoverDetailsResponseType;
   name: string;
-  /** @nullable */
-  coverUrl: string | null;
   /** @nullable */
   releaseDate: string | null;
   /** @nullable */

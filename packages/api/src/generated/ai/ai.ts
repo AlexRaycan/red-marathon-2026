@@ -56,19 +56,19 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type aiGetRecommendationsResponse200 = {
+export type aiRecommendationsResponse200 = {
   data: AiSuggestionsResponse
   status: 200
 }
 
-export type aiGetRecommendationsResponseSuccess = (aiGetRecommendationsResponse200) & {
+export type aiRecommendationsResponseSuccess = (aiRecommendationsResponse200) & {
   headers: Headers;
 };
 ;
 
-export type aiGetRecommendationsResponse = (aiGetRecommendationsResponseSuccess)
+export type aiRecommendationsResponse = (aiRecommendationsResponseSuccess)
 
-export const getAiGetRecommendationsUrl = () => {
+export const getAiRecommendationsUrl = () => {
 
 
 
@@ -79,9 +79,9 @@ export const getAiGetRecommendationsUrl = () => {
 /**
  * @summary Рекомендации по вкусовому профилю
  */
-export const aiGetRecommendations = async ( options?: Parameters<typeof http>[1]): Promise<aiGetRecommendationsResponse> => {
+export const aiRecommendations = async ( options?: Parameters<typeof http>[1]): Promise<aiRecommendationsResponse> => {
 
-  return http<aiGetRecommendationsResponse>(getAiGetRecommendationsUrl(),
+  return http<aiRecommendationsResponse>(getAiRecommendationsUrl(),
   {
     ...options,
     method: 'GET'
@@ -94,69 +94,69 @@ export const aiGetRecommendations = async ( options?: Parameters<typeof http>[1]
 
 
 
-export const getAiGetRecommendationsQueryKey = () => {
+export const getAiRecommendationsQueryKey = () => {
     return [
     `/ai/recommendations`
     ] as const;
     }
 
 
-export const getAiGetRecommendationsQueryOptions = <TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getAiRecommendationsQueryOptions = <TData = Awaited<ReturnType<typeof aiRecommendations>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getAiGetRecommendationsQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getAiRecommendationsQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof aiGetRecommendations>>> = ({ signal }) => aiGetRecommendations({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof aiRecommendations>>> = ({ signal }) => aiRecommendations({ signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiRecommendations>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type AiGetRecommendationsQueryResult = NonNullable<Awaited<ReturnType<typeof aiGetRecommendations>>>
-export type AiGetRecommendationsQueryError = unknown
+export type AiRecommendationsQueryResult = NonNullable<Awaited<ReturnType<typeof aiRecommendations>>>
+export type AiRecommendationsQueryError = unknown
 
 
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>> & Pick<
+export function useAiRecommendations<TData = Awaited<ReturnType<typeof aiRecommendations>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiRecommendations>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetRecommendations>>,
+          Awaited<ReturnType<typeof aiRecommendations>>,
           TError,
-          Awaited<ReturnType<typeof aiGetRecommendations>>
+          Awaited<ReturnType<typeof aiRecommendations>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>> & Pick<
+export function useAiRecommendations<TData = Awaited<ReturnType<typeof aiRecommendations>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiRecommendations>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetRecommendations>>,
+          Awaited<ReturnType<typeof aiRecommendations>>,
           TError,
-          Awaited<ReturnType<typeof aiGetRecommendations>>
+          Awaited<ReturnType<typeof aiRecommendations>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useAiRecommendations<TData = Awaited<ReturnType<typeof aiRecommendations>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Рекомендации по вкусовому профилю
  */
 
-export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetRecommendations>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useAiRecommendations<TData = Awaited<ReturnType<typeof aiRecommendations>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiRecommendations>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getAiGetRecommendationsQueryOptions(options)
+  const queryOptions = getAiRecommendationsQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -168,19 +168,19 @@ export function useAiGetRecommendations<TData = Awaited<ReturnType<typeof aiGetR
 
 
 
-export type aiPickResponse200 = {
+export type aiPickTitleResponse200 = {
   data: AiSuggestionsResponse
   status: 200
 }
 
-export type aiPickResponseSuccess = (aiPickResponse200) & {
+export type aiPickTitleResponseSuccess = (aiPickTitleResponse200) & {
   headers: Headers;
 };
 ;
 
-export type aiPickResponse = (aiPickResponseSuccess)
+export type aiPickTitleResponse = (aiPickTitleResponseSuccess)
 
-export const getAiPickUrl = () => {
+export const getAiPickTitleUrl = () => {
 
 
 
@@ -191,7 +191,7 @@ export const getAiPickUrl = () => {
 /**
  * @summary AI Picker — подбор под настроение
  */
-export const aiPick = async (pickerDto: PickerDto, options?: Parameters<typeof http>[1]): Promise<aiPickResponse> => {
+export const aiPickTitle = async (pickerDto: PickerDto, options?: Parameters<typeof http>[1]): Promise<aiPickTitleResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -207,7 +207,7 @@ export const aiPick = async (pickerDto: PickerDto, options?: Parameters<typeof h
     }
     return headers;
   };
-return http<aiPickResponse>(getAiPickUrl(),
+return http<aiPickTitleResponse>(getAiPickTitleUrl(),
   {
     ...options,
     method: 'POST',
@@ -220,13 +220,13 @@ return http<aiPickResponse>(getAiPickUrl(),
 
 
 
-export const getAiPickMutationKey = () => ['aiPick'] as const;
+export const getAiPickTitleMutationKey = () => ['aiPickTitle'] as const;
 
-export const getAiPickMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPick>>, TError,AiPickMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof aiPick>>, TError,AiPickMutationVariables, TContext> => {
+export const getAiPickTitleMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPickTitle>>, TError,AiPickTitleMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof aiPickTitle>>, TError,AiPickTitleMutationVariables, TContext> => {
 
-const mutationKey = getAiPickMutationKey();
+const mutationKey = getAiPickTitleMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -236,10 +236,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof aiPick>>, AiPickMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof aiPickTitle>>, AiPickTitleMutationVariables> = (props) => {
           const {data} = props ?? {};
 
-          return  aiPick(data,requestOptions)
+          return  aiPickTitle(data,requestOptions)
         }
 
 
@@ -249,50 +249,50 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type AiPickMutationResult = NonNullable<Awaited<ReturnType<typeof aiPick>>>
-    export type AiPickMutationBody = PickerDto
-    export type AiPickMutationError = unknown
-    export type AiPickMutationVariables = {data: PickerDto}
+    export type AiPickTitleMutationResult = NonNullable<Awaited<ReturnType<typeof aiPickTitle>>>
+    export type AiPickTitleMutationBody = PickerDto
+    export type AiPickTitleMutationError = unknown
+    export type AiPickTitleMutationVariables = {data: PickerDto}
 
     /**
  * @summary AI Picker — подбор под настроение
  */
-export const useAiPick = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPick>>, TError,AiPickMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+export const useAiPickTitle = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPickTitle>>, TError,AiPickTitleMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof aiPick>>,
+        Awaited<ReturnType<typeof aiPickTitle>>,
         TError,
-        AiPickMutationVariables,
+        AiPickTitleMutationVariables,
         TContext
       > => {
-      return useMutation(getAiPickMutationOptions(options), queryClient);
+      return useMutation(getAiPickTitleMutationOptions(options), queryClient);
     }
-    export type aiGetSummaryResponse200 = {
+    export type aiTitleSummaryResponse200 = {
   data: AiSummaryResponse
   status: 200
 }
 
-export type aiGetSummaryResponseSuccess = (aiGetSummaryResponse200) & {
+export type aiTitleSummaryResponseSuccess = (aiTitleSummaryResponse200) & {
   headers: Headers;
 };
 ;
 
-export type aiGetSummaryResponse = (aiGetSummaryResponseSuccess)
+export type aiTitleSummaryResponse = (aiTitleSummaryResponseSuccess)
 
-export const getAiGetSummaryUrl = (slug: string,) => {
-
-
+export const getAiTitleSummaryUrl = (key: string,) => {
 
 
-  return `/ai/summary/${slug}`
+
+
+  return `/ai/summary/${key}`
 }
 
 /**
- * @summary Описание без спойлеров для детальной страницы
+ * @summary Описание без спойлеров для детальной страницы по ключу: `tmdb-movie-603`
  */
-export const aiGetSummary = async (slug: string, options?: Parameters<typeof http>[1]): Promise<aiGetSummaryResponse> => {
+export const aiTitleSummary = async (key: string, options?: Parameters<typeof http>[1]): Promise<aiTitleSummaryResponse> => {
 
-  return http<aiGetSummaryResponse>(getAiGetSummaryUrl(slug),
+  return http<aiTitleSummaryResponse>(getAiTitleSummaryUrl(key),
   {
     ...options,
     method: 'GET'
@@ -305,69 +305,69 @@ export const aiGetSummary = async (slug: string, options?: Parameters<typeof htt
 
 
 
-export const getAiGetSummaryQueryKey = (slug: string,) => {
+export const getAiTitleSummaryQueryKey = (key: string,) => {
     return [
-    `/ai/summary/${slug}`
+    `/ai/summary/${key}`
     ] as const;
     }
 
 
-export const getAiGetSummaryQueryOptions = <TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getAiTitleSummaryQueryOptions = <TData = Awaited<ReturnType<typeof aiTitleSummary>>, TError = unknown>(key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiTitleSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getAiGetSummaryQueryKey(slug);
+  const queryKey =  queryOptions?.queryKey ?? getAiTitleSummaryQueryKey(key);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof aiGetSummary>>> = ({ signal }) => aiGetSummary(slug, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof aiTitleSummary>>> = ({ signal }) => aiTitleSummary(key, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: slug !== null && slug !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: key !== null && key !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof aiTitleSummary>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type AiGetSummaryQueryResult = NonNullable<Awaited<ReturnType<typeof aiGetSummary>>>
-export type AiGetSummaryQueryError = unknown
+export type AiTitleSummaryQueryResult = NonNullable<Awaited<ReturnType<typeof aiTitleSummary>>>
+export type AiTitleSummaryQueryError = unknown
 
 
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>> & Pick<
+export function useAiTitleSummary<TData = Awaited<ReturnType<typeof aiTitleSummary>>, TError = unknown>(
+ key: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiTitleSummary>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetSummary>>,
+          Awaited<ReturnType<typeof aiTitleSummary>>,
           TError,
-          Awaited<ReturnType<typeof aiGetSummary>>
+          Awaited<ReturnType<typeof aiTitleSummary>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>> & Pick<
+export function useAiTitleSummary<TData = Awaited<ReturnType<typeof aiTitleSummary>>, TError = unknown>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiTitleSummary>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof aiGetSummary>>,
+          Awaited<ReturnType<typeof aiTitleSummary>>,
           TError,
-          Awaited<ReturnType<typeof aiGetSummary>>
+          Awaited<ReturnType<typeof aiTitleSummary>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useAiTitleSummary<TData = Awaited<ReturnType<typeof aiTitleSummary>>, TError = unknown>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiTitleSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary Описание без спойлеров для детальной страницы
+ * @summary Описание без спойлеров для детальной страницы по ключу: `tmdb-movie-603`
  */
 
-export function useAiGetSummary<TData = Awaited<ReturnType<typeof aiGetSummary>>, TError = unknown>(
- slug: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiGetSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useAiTitleSummary<TData = Awaited<ReturnType<typeof aiTitleSummary>>, TError = unknown>(
+ key: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof aiTitleSummary>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getAiGetSummaryQueryOptions(slug,options)
+  const queryOptions = getAiTitleSummaryQueryOptions(key,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

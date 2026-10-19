@@ -55,19 +55,19 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type subscriptionFindMyResponse200 = {
+export type mySubscriptionResponse200 = {
   data: SubscriptionResponse
   status: 200
 }
 
-export type subscriptionFindMyResponseSuccess = (subscriptionFindMyResponse200) & {
+export type mySubscriptionResponseSuccess = (mySubscriptionResponse200) & {
   headers: Headers;
 };
 ;
 
-export type subscriptionFindMyResponse = (subscriptionFindMyResponseSuccess)
+export type mySubscriptionResponse = (mySubscriptionResponseSuccess)
 
-export const getSubscriptionFindMyUrl = () => {
+export const getMySubscriptionUrl = () => {
 
 
 
@@ -78,9 +78,9 @@ export const getSubscriptionFindMyUrl = () => {
 /**
  * @summary Тариф, лимиты и текущее потребление
  */
-export const subscriptionFindMy = async ( options?: Parameters<typeof http>[1]): Promise<subscriptionFindMyResponse> => {
+export const mySubscription = async ( options?: Parameters<typeof http>[1]): Promise<mySubscriptionResponse> => {
 
-  return http<subscriptionFindMyResponse>(getSubscriptionFindMyUrl(),
+  return http<mySubscriptionResponse>(getMySubscriptionUrl(),
   {
     ...options,
     method: 'GET'
@@ -93,69 +93,69 @@ export const subscriptionFindMy = async ( options?: Parameters<typeof http>[1]):
 
 
 
-export const getSubscriptionFindMyQueryKey = () => {
+export const getMySubscriptionQueryKey = () => {
     return [
     `/subscription`
     ] as const;
     }
 
 
-export const getSubscriptionFindMyQueryOptions = <TData = Awaited<ReturnType<typeof subscriptionFindMy>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof subscriptionFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getMySubscriptionQueryOptions = <TData = Awaited<ReturnType<typeof mySubscription>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof mySubscription>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSubscriptionFindMyQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getMySubscriptionQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof subscriptionFindMy>>> = ({ signal }) => subscriptionFindMy({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof mySubscription>>> = ({ signal }) => mySubscription({ signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof subscriptionFindMy>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof mySubscription>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type SubscriptionFindMyQueryResult = NonNullable<Awaited<ReturnType<typeof subscriptionFindMy>>>
-export type SubscriptionFindMyQueryError = unknown
+export type MySubscriptionQueryResult = NonNullable<Awaited<ReturnType<typeof mySubscription>>>
+export type MySubscriptionQueryError = unknown
 
 
-export function useSubscriptionFindMy<TData = Awaited<ReturnType<typeof subscriptionFindMy>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof subscriptionFindMy>>, TError, TData>> & Pick<
+export function useMySubscription<TData = Awaited<ReturnType<typeof mySubscription>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof mySubscription>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof subscriptionFindMy>>,
+          Awaited<ReturnType<typeof mySubscription>>,
           TError,
-          Awaited<ReturnType<typeof subscriptionFindMy>>
+          Awaited<ReturnType<typeof mySubscription>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSubscriptionFindMy<TData = Awaited<ReturnType<typeof subscriptionFindMy>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof subscriptionFindMy>>, TError, TData>> & Pick<
+export function useMySubscription<TData = Awaited<ReturnType<typeof mySubscription>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof mySubscription>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof subscriptionFindMy>>,
+          Awaited<ReturnType<typeof mySubscription>>,
           TError,
-          Awaited<ReturnType<typeof subscriptionFindMy>>
+          Awaited<ReturnType<typeof mySubscription>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSubscriptionFindMy<TData = Awaited<ReturnType<typeof subscriptionFindMy>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof subscriptionFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMySubscription<TData = Awaited<ReturnType<typeof mySubscription>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof mySubscription>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Тариф, лимиты и текущее потребление
  */
 
-export function useSubscriptionFindMy<TData = Awaited<ReturnType<typeof subscriptionFindMy>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof subscriptionFindMy>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMySubscription<TData = Awaited<ReturnType<typeof mySubscription>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof mySubscription>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSubscriptionFindMyQueryOptions(options)
+  const queryOptions = getMySubscriptionQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -167,19 +167,19 @@ export function useSubscriptionFindMy<TData = Awaited<ReturnType<typeof subscrip
 
 
 
-export type subscriptionVerifyPurchaseResponse200 = {
+export type verifyPurchaseResponse200 = {
   data: SubscriptionResponse
   status: 200
 }
 
-export type subscriptionVerifyPurchaseResponseSuccess = (subscriptionVerifyPurchaseResponse200) & {
+export type verifyPurchaseResponseSuccess = (verifyPurchaseResponse200) & {
   headers: Headers;
 };
 ;
 
-export type subscriptionVerifyPurchaseResponse = (subscriptionVerifyPurchaseResponseSuccess)
+export type verifyPurchaseResponse = (verifyPurchaseResponseSuccess)
 
-export const getSubscriptionVerifyPurchaseUrl = () => {
+export const getVerifyPurchaseUrl = () => {
 
 
 
@@ -191,7 +191,7 @@ export const getSubscriptionVerifyPurchaseUrl = () => {
  * @summary Подтверждение покупки из мобильного приложения.
 Веб и расширение сюда не ходят: оплата только в сторах
  */
-export const subscriptionVerifyPurchase = async (verifyPurchaseDto: VerifyPurchaseDto, options?: Parameters<typeof http>[1]): Promise<subscriptionVerifyPurchaseResponse> => {
+export const verifyPurchase = async (verifyPurchaseDto: VerifyPurchaseDto, options?: Parameters<typeof http>[1]): Promise<verifyPurchaseResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -207,7 +207,7 @@ export const subscriptionVerifyPurchase = async (verifyPurchaseDto: VerifyPurcha
     }
     return headers;
   };
-return http<subscriptionVerifyPurchaseResponse>(getSubscriptionVerifyPurchaseUrl(),
+return http<verifyPurchaseResponse>(getVerifyPurchaseUrl(),
   {
     ...options,
     method: 'POST',
@@ -220,13 +220,13 @@ return http<subscriptionVerifyPurchaseResponse>(getSubscriptionVerifyPurchaseUrl
 
 
 
-export const getSubscriptionVerifyPurchaseMutationKey = () => ['subscriptionVerifyPurchase'] as const;
+export const getVerifyPurchaseMutationKey = () => ['verifyPurchase'] as const;
 
-export const getSubscriptionVerifyPurchaseMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subscriptionVerifyPurchase>>, TError,SubscriptionVerifyPurchaseMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof subscriptionVerifyPurchase>>, TError,SubscriptionVerifyPurchaseMutationVariables, TContext> => {
+export const getVerifyPurchaseMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyPurchase>>, TError,VerifyPurchaseMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof verifyPurchase>>, TError,VerifyPurchaseMutationVariables, TContext> => {
 
-const mutationKey = getSubscriptionVerifyPurchaseMutationKey();
+const mutationKey = getVerifyPurchaseMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -236,10 +236,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof subscriptionVerifyPurchase>>, SubscriptionVerifyPurchaseMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof verifyPurchase>>, VerifyPurchaseMutationVariables> = (props) => {
           const {data} = props ?? {};
 
-          return  subscriptionVerifyPurchase(data,requestOptions)
+          return  verifyPurchase(data,requestOptions)
         }
 
 
@@ -249,38 +249,38 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type SubscriptionVerifyPurchaseMutationResult = NonNullable<Awaited<ReturnType<typeof subscriptionVerifyPurchase>>>
-    export type SubscriptionVerifyPurchaseMutationBody = VerifyPurchaseDto
-    export type SubscriptionVerifyPurchaseMutationError = unknown
-    export type SubscriptionVerifyPurchaseMutationVariables = {data: VerifyPurchaseDto}
+    export type VerifyPurchaseMutationResult = NonNullable<Awaited<ReturnType<typeof verifyPurchase>>>
+    export type VerifyPurchaseMutationBody = VerifyPurchaseDto
+    export type VerifyPurchaseMutationError = unknown
+    export type VerifyPurchaseMutationVariables = {data: VerifyPurchaseDto}
 
     /**
  * @summary Подтверждение покупки из мобильного приложения.
 Веб и расширение сюда не ходят: оплата только в сторах
  */
-export const useSubscriptionVerifyPurchase = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subscriptionVerifyPurchase>>, TError,SubscriptionVerifyPurchaseMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+export const useVerifyPurchase = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyPurchase>>, TError,VerifyPurchaseMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof subscriptionVerifyPurchase>>,
+        Awaited<ReturnType<typeof verifyPurchase>>,
         TError,
-        SubscriptionVerifyPurchaseMutationVariables,
+        VerifyPurchaseMutationVariables,
         TContext
       > => {
-      return useMutation(getSubscriptionVerifyPurchaseMutationOptions(options), queryClient);
+      return useMutation(getVerifyPurchaseMutationOptions(options), queryClient);
     }
-    export type subscriptionStartTrialResponse200 = {
+    export type startTrialResponse200 = {
   data: SubscriptionResponse
   status: 200
 }
 
-export type subscriptionStartTrialResponseSuccess = (subscriptionStartTrialResponse200) & {
+export type startTrialResponseSuccess = (startTrialResponse200) & {
   headers: Headers;
 };
 ;
 
-export type subscriptionStartTrialResponse = (subscriptionStartTrialResponseSuccess)
+export type startTrialResponse = (startTrialResponseSuccess)
 
-export const getSubscriptionStartTrialUrl = () => {
+export const getStartTrialUrl = () => {
 
 
 
@@ -288,9 +288,9 @@ export const getSubscriptionStartTrialUrl = () => {
   return `/subscription/trial`
 }
 
-export const subscriptionStartTrial = async ( options?: Parameters<typeof http>[1]): Promise<subscriptionStartTrialResponse> => {
+export const startTrial = async ( options?: Parameters<typeof http>[1]): Promise<startTrialResponse> => {
 
-  return http<subscriptionStartTrialResponse>(getSubscriptionStartTrialUrl(),
+  return http<startTrialResponse>(getStartTrialUrl(),
   {
     ...options,
     method: 'POST'
@@ -303,13 +303,13 @@ export const subscriptionStartTrial = async ( options?: Parameters<typeof http>[
 
 
 
-export const getSubscriptionStartTrialMutationKey = () => ['subscriptionStartTrial'] as const;
+export const getStartTrialMutationKey = () => ['startTrial'] as const;
 
-export const getSubscriptionStartTrialMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subscriptionStartTrial>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof subscriptionStartTrial>>, TError,void, TContext> => {
+export const getStartTrialMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof startTrial>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof startTrial>>, TError,void, TContext> => {
 
-const mutationKey = getSubscriptionStartTrialMutationKey();
+const mutationKey = getStartTrialMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -319,10 +319,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof subscriptionStartTrial>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof startTrial>>, void> = () => {
 
 
-          return  subscriptionStartTrial(requestOptions)
+          return  startTrial(requestOptions)
         }
 
 
@@ -332,34 +332,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type SubscriptionStartTrialMutationResult = NonNullable<Awaited<ReturnType<typeof subscriptionStartTrial>>>
+    export type StartTrialMutationResult = NonNullable<Awaited<ReturnType<typeof startTrial>>>
 
-    export type SubscriptionStartTrialMutationError = unknown
+    export type StartTrialMutationError = unknown
 
 
-    export const useSubscriptionStartTrial = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subscriptionStartTrial>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+    export const useStartTrial = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof startTrial>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof subscriptionStartTrial>>,
+        Awaited<ReturnType<typeof startTrial>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getSubscriptionStartTrialMutationOptions(options), queryClient);
+      return useMutation(getStartTrialMutationOptions(options), queryClient);
     }
-    export type subscriptionCancelResponse200 = {
+    export type cancelSubscriptionResponse200 = {
   data: SubscriptionResponse
   status: 200
 }
 
-export type subscriptionCancelResponseSuccess = (subscriptionCancelResponse200) & {
+export type cancelSubscriptionResponseSuccess = (cancelSubscriptionResponse200) & {
   headers: Headers;
 };
 ;
 
-export type subscriptionCancelResponse = (subscriptionCancelResponseSuccess)
+export type cancelSubscriptionResponse = (cancelSubscriptionResponseSuccess)
 
-export const getSubscriptionCancelUrl = () => {
+export const getCancelSubscriptionUrl = () => {
 
 
 
@@ -367,9 +367,9 @@ export const getSubscriptionCancelUrl = () => {
   return `/subscription/cancel`
 }
 
-export const subscriptionCancel = async ( options?: Parameters<typeof http>[1]): Promise<subscriptionCancelResponse> => {
+export const cancelSubscription = async ( options?: Parameters<typeof http>[1]): Promise<cancelSubscriptionResponse> => {
 
-  return http<subscriptionCancelResponse>(getSubscriptionCancelUrl(),
+  return http<cancelSubscriptionResponse>(getCancelSubscriptionUrl(),
   {
     ...options,
     method: 'POST'
@@ -382,13 +382,13 @@ export const subscriptionCancel = async ( options?: Parameters<typeof http>[1]):
 
 
 
-export const getSubscriptionCancelMutationKey = () => ['subscriptionCancel'] as const;
+export const getCancelSubscriptionMutationKey = () => ['cancelSubscription'] as const;
 
-export const getSubscriptionCancelMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subscriptionCancel>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof subscriptionCancel>>, TError,void, TContext> => {
+export const getCancelSubscriptionMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cancelSubscription>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof cancelSubscription>>, TError,void, TContext> => {
 
-const mutationKey = getSubscriptionCancelMutationKey();
+const mutationKey = getCancelSubscriptionMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -398,10 +398,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof subscriptionCancel>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof cancelSubscription>>, void> = () => {
 
 
-          return  subscriptionCancel(requestOptions)
+          return  cancelSubscription(requestOptions)
         }
 
 
@@ -411,18 +411,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type SubscriptionCancelMutationResult = NonNullable<Awaited<ReturnType<typeof subscriptionCancel>>>
+    export type CancelSubscriptionMutationResult = NonNullable<Awaited<ReturnType<typeof cancelSubscription>>>
 
-    export type SubscriptionCancelMutationError = unknown
+    export type CancelSubscriptionMutationError = unknown
 
 
-    export const useSubscriptionCancel = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subscriptionCancel>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+    export const useCancelSubscription = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cancelSubscription>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof subscriptionCancel>>,
+        Awaited<ReturnType<typeof cancelSubscription>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getSubscriptionCancelMutationOptions(options), queryClient);
+      return useMutation(getCancelSubscriptionMutationOptions(options), queryClient);
     }

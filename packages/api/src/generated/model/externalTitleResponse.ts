@@ -9,16 +9,22 @@ import type { ExternalTitleResponseExternalSource } from './externalTitleRespons
 import type { ExternalTitleResponseType } from './externalTitleResponseType';
 
 export interface ExternalTitleResponse {
+  /** @nullable */
+  coverUrl: string | null;
   key: string;
   externalId: string;
   externalSource: ExternalTitleResponseExternalSource;
   type: ExternalTitleResponseType;
   name: string;
-  originalName?: string;
-  description?: string;
-  coverUrl?: string;
-  releaseDate?: string;
-  rating?: number;
-  ratingCount?: number;
+  /** @nullable */
+  originalName: string | null;
+  /** @nullable */
+  description: string | null;
+  /** @nullable */
+  releaseDate: string | null;
+  /** @nullable */
+  rating: number | null;
+  /** @nullable */
+  ratingCount: number | null;
   genres: string[];
 }

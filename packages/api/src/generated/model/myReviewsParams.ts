@@ -5,10 +5,10 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { ReviewFindByDiscoverKeySort } from './reviewFindByDiscoverKeySort';
+import type { MyReviewsSort } from './myReviewsSort';
 
-export type ReviewFindByDiscoverKeyParams = {
-sort?: ReviewFindByDiscoverKeySort;
+export type MyReviewsParams = {
+sort?: MyReviewsSort;
 /**
  * @minimum 0
  */

@@ -27,7 +27,6 @@ import type {
 import type {
   ChangePasswordDto,
   PublicProfileResponse,
-  RatingScaleRuleResponse,
   TasteStatsResponse,
   UpdateProfileDto,
   UserResponse
@@ -59,19 +58,19 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type userFindMeResponse200 = {
+export type currentUserResponse200 = {
   data: UserResponse
   status: 200
 }
 
-export type userFindMeResponseSuccess = (userFindMeResponse200) & {
+export type currentUserResponseSuccess = (currentUserResponse200) & {
   headers: Headers;
 };
 ;
 
-export type userFindMeResponse = (userFindMeResponseSuccess)
+export type currentUserResponse = (currentUserResponseSuccess)
 
-export const getUserFindMeUrl = () => {
+export const getCurrentUserUrl = () => {
 
 
 
@@ -79,9 +78,9 @@ export const getUserFindMeUrl = () => {
   return `/users/me`
 }
 
-export const userFindMe = async ( options?: Parameters<typeof http>[1]): Promise<userFindMeResponse> => {
+export const currentUser = async ( options?: Parameters<typeof http>[1]): Promise<currentUserResponse> => {
 
-  return http<userFindMeResponse>(getUserFindMeUrl(),
+  return http<currentUserResponse>(getCurrentUserUrl(),
   {
     ...options,
     method: 'GET'
@@ -94,66 +93,66 @@ export const userFindMe = async ( options?: Parameters<typeof http>[1]): Promise
 
 
 
-export const getUserFindMeQueryKey = () => {
+export const getCurrentUserQueryKey = () => {
     return [
     `/users/me`
     ] as const;
     }
 
 
-export const getUserFindMeQueryOptions = <TData = Awaited<ReturnType<typeof userFindMe>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindMe>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getCurrentUserQueryOptions = <TData = Awaited<ReturnType<typeof currentUser>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof currentUser>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUserFindMeQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getCurrentUserQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof userFindMe>>> = ({ signal }) => userFindMe({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof currentUser>>> = ({ signal }) => currentUser({ signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof userFindMe>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof currentUser>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type UserFindMeQueryResult = NonNullable<Awaited<ReturnType<typeof userFindMe>>>
-export type UserFindMeQueryError = unknown
+export type CurrentUserQueryResult = NonNullable<Awaited<ReturnType<typeof currentUser>>>
+export type CurrentUserQueryError = unknown
 
 
-export function useUserFindMe<TData = Awaited<ReturnType<typeof userFindMe>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindMe>>, TError, TData>> & Pick<
+export function useCurrentUser<TData = Awaited<ReturnType<typeof currentUser>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof currentUser>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userFindMe>>,
+          Awaited<ReturnType<typeof currentUser>>,
           TError,
-          Awaited<ReturnType<typeof userFindMe>>
+          Awaited<ReturnType<typeof currentUser>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserFindMe<TData = Awaited<ReturnType<typeof userFindMe>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindMe>>, TError, TData>> & Pick<
+export function useCurrentUser<TData = Awaited<ReturnType<typeof currentUser>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof currentUser>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userFindMe>>,
+          Awaited<ReturnType<typeof currentUser>>,
           TError,
-          Awaited<ReturnType<typeof userFindMe>>
+          Awaited<ReturnType<typeof currentUser>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserFindMe<TData = Awaited<ReturnType<typeof userFindMe>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindMe>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useCurrentUser<TData = Awaited<ReturnType<typeof currentUser>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof currentUser>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUserFindMe<TData = Awaited<ReturnType<typeof userFindMe>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindMe>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useCurrentUser<TData = Awaited<ReturnType<typeof currentUser>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof currentUser>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUserFindMeQueryOptions(options)
+  const queryOptions = getCurrentUserQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -165,19 +164,19 @@ export function useUserFindMe<TData = Awaited<ReturnType<typeof userFindMe>>, TE
 
 
 
-export type userUpdateProfileResponse200 = {
+export type updateProfileResponse200 = {
   data: UserResponse
   status: 200
 }
 
-export type userUpdateProfileResponseSuccess = (userUpdateProfileResponse200) & {
+export type updateProfileResponseSuccess = (updateProfileResponse200) & {
   headers: Headers;
 };
 ;
 
-export type userUpdateProfileResponse = (userUpdateProfileResponseSuccess)
+export type updateProfileResponse = (updateProfileResponseSuccess)
 
-export const getUserUpdateProfileUrl = () => {
+export const getUpdateProfileUrl = () => {
 
 
 
@@ -185,7 +184,7 @@ export const getUserUpdateProfileUrl = () => {
   return `/users/me`
 }
 
-export const userUpdateProfile = async (updateProfileDto: UpdateProfileDto, options?: Parameters<typeof http>[1]): Promise<userUpdateProfileResponse> => {
+export const updateProfile = async (updateProfileDto: UpdateProfileDto, options?: Parameters<typeof http>[1]): Promise<updateProfileResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -201,7 +200,7 @@ export const userUpdateProfile = async (updateProfileDto: UpdateProfileDto, opti
     }
     return headers;
   };
-return http<userUpdateProfileResponse>(getUserUpdateProfileUrl(),
+return http<updateProfileResponse>(getUpdateProfileUrl(),
   {
     ...options,
     method: 'PATCH',
@@ -214,13 +213,13 @@ return http<userUpdateProfileResponse>(getUserUpdateProfileUrl(),
 
 
 
-export const getUserUpdateProfileMutationKey = () => ['userUpdateProfile'] as const;
+export const getUpdateProfileMutationKey = () => ['updateProfile'] as const;
 
-export const getUserUpdateProfileMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userUpdateProfile>>, TError,UserUpdateProfileMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof userUpdateProfile>>, TError,UserUpdateProfileMutationVariables, TContext> => {
+export const getUpdateProfileMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateProfile>>, TError,UpdateProfileMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateProfile>>, TError,UpdateProfileMutationVariables, TContext> => {
 
-const mutationKey = getUserUpdateProfileMutationKey();
+const mutationKey = getUpdateProfileMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -230,10 +229,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof userUpdateProfile>>, UserUpdateProfileMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateProfile>>, UpdateProfileMutationVariables> = (props) => {
           const {data} = props ?? {};
 
-          return  userUpdateProfile(data,requestOptions)
+          return  updateProfile(data,requestOptions)
         }
 
 
@@ -243,34 +242,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UserUpdateProfileMutationResult = NonNullable<Awaited<ReturnType<typeof userUpdateProfile>>>
-    export type UserUpdateProfileMutationBody = UpdateProfileDto
-    export type UserUpdateProfileMutationError = unknown
-    export type UserUpdateProfileMutationVariables = {data: UpdateProfileDto}
+    export type UpdateProfileMutationResult = NonNullable<Awaited<ReturnType<typeof updateProfile>>>
+    export type UpdateProfileMutationBody = UpdateProfileDto
+    export type UpdateProfileMutationError = unknown
+    export type UpdateProfileMutationVariables = {data: UpdateProfileDto}
 
-    export const useUserUpdateProfile = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userUpdateProfile>>, TError,UserUpdateProfileMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+    export const useUpdateProfile = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateProfile>>, TError,UpdateProfileMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof userUpdateProfile>>,
+        Awaited<ReturnType<typeof updateProfile>>,
         TError,
-        UserUpdateProfileMutationVariables,
+        UpdateProfileMutationVariables,
         TContext
       > => {
-      return useMutation(getUserUpdateProfileMutationOptions(options), queryClient);
+      return useMutation(getUpdateProfileMutationOptions(options), queryClient);
     }
-    export type userDeleteMeResponse204 = {
+    export type deleteAccountResponse204 = {
   data: boolean
   status: 204
 }
 
-export type userDeleteMeResponseSuccess = (userDeleteMeResponse204) & {
+export type deleteAccountResponseSuccess = (deleteAccountResponse204) & {
   headers: Headers;
 };
 ;
 
-export type userDeleteMeResponse = (userDeleteMeResponseSuccess)
+export type deleteAccountResponse = (deleteAccountResponseSuccess)
 
-export const getUserDeleteMeUrl = () => {
+export const getDeleteAccountUrl = () => {
 
 
 
@@ -278,9 +277,9 @@ export const getUserDeleteMeUrl = () => {
   return `/users/me`
 }
 
-export const userDeleteMe = async ( options?: Parameters<typeof http>[1]): Promise<userDeleteMeResponse> => {
+export const deleteAccount = async ( options?: Parameters<typeof http>[1]): Promise<deleteAccountResponse> => {
 
-  return http<userDeleteMeResponse>(getUserDeleteMeUrl(),
+  return http<deleteAccountResponse>(getDeleteAccountUrl(),
   {
     ...options,
     method: 'DELETE'
@@ -293,13 +292,13 @@ export const userDeleteMe = async ( options?: Parameters<typeof http>[1]): Promi
 
 
 
-export const getUserDeleteMeMutationKey = () => ['userDeleteMe'] as const;
+export const getDeleteAccountMutationKey = () => ['deleteAccount'] as const;
 
-export const getUserDeleteMeMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userDeleteMe>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof userDeleteMe>>, TError,void, TContext> => {
+export const getDeleteAccountMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAccount>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteAccount>>, TError,void, TContext> => {
 
-const mutationKey = getUserDeleteMeMutationKey();
+const mutationKey = getDeleteAccountMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -309,10 +308,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof userDeleteMe>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAccount>>, void> = () => {
 
 
-          return  userDeleteMe(requestOptions)
+          return  deleteAccount(requestOptions)
         }
 
 
@@ -322,34 +321,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UserDeleteMeMutationResult = NonNullable<Awaited<ReturnType<typeof userDeleteMe>>>
+    export type DeleteAccountMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAccount>>>
 
-    export type UserDeleteMeMutationError = unknown
+    export type DeleteAccountMutationError = unknown
 
 
-    export const useUserDeleteMe = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userDeleteMe>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
+    export const useDeleteAccount = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAccount>>, TError,void, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof userDeleteMe>>,
+        Awaited<ReturnType<typeof deleteAccount>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getUserDeleteMeMutationOptions(options), queryClient);
+      return useMutation(getDeleteAccountMutationOptions(options), queryClient);
     }
-    export type userGetMyTasteResponse200 = {
+    export type myTasteStatsResponse200 = {
   data: TasteStatsResponse
   status: 200
 }
 
-export type userGetMyTasteResponseSuccess = (userGetMyTasteResponse200) & {
+export type myTasteStatsResponseSuccess = (myTasteStatsResponse200) & {
   headers: Headers;
 };
 ;
 
-export type userGetMyTasteResponse = (userGetMyTasteResponseSuccess)
+export type myTasteStatsResponse = (myTasteStatsResponseSuccess)
 
-export const getUserGetMyTasteUrl = () => {
+export const getMyTasteStatsUrl = () => {
 
 
 
@@ -357,9 +356,9 @@ export const getUserGetMyTasteUrl = () => {
   return `/users/me/taste`
 }
 
-export const userGetMyTaste = async ( options?: Parameters<typeof http>[1]): Promise<userGetMyTasteResponse> => {
+export const myTasteStats = async ( options?: Parameters<typeof http>[1]): Promise<myTasteStatsResponse> => {
 
-  return http<userGetMyTasteResponse>(getUserGetMyTasteUrl(),
+  return http<myTasteStatsResponse>(getMyTasteStatsUrl(),
   {
     ...options,
     method: 'GET'
@@ -372,66 +371,66 @@ export const userGetMyTaste = async ( options?: Parameters<typeof http>[1]): Pro
 
 
 
-export const getUserGetMyTasteQueryKey = () => {
+export const getMyTasteStatsQueryKey = () => {
     return [
     `/users/me/taste`
     ] as const;
     }
 
 
-export const getUserGetMyTasteQueryOptions = <TData = Awaited<ReturnType<typeof userGetMyTaste>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetMyTaste>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getMyTasteStatsQueryOptions = <TData = Awaited<ReturnType<typeof myTasteStats>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteStats>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUserGetMyTasteQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getMyTasteStatsQueryKey();
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof userGetMyTaste>>> = ({ signal }) => userGetMyTaste({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof myTasteStats>>> = ({ signal }) => myTasteStats({ signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof userGetMyTaste>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof myTasteStats>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type UserGetMyTasteQueryResult = NonNullable<Awaited<ReturnType<typeof userGetMyTaste>>>
-export type UserGetMyTasteQueryError = unknown
+export type MyTasteStatsQueryResult = NonNullable<Awaited<ReturnType<typeof myTasteStats>>>
+export type MyTasteStatsQueryError = unknown
 
 
-export function useUserGetMyTaste<TData = Awaited<ReturnType<typeof userGetMyTaste>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetMyTaste>>, TError, TData>> & Pick<
+export function useMyTasteStats<TData = Awaited<ReturnType<typeof myTasteStats>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteStats>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userGetMyTaste>>,
+          Awaited<ReturnType<typeof myTasteStats>>,
           TError,
-          Awaited<ReturnType<typeof userGetMyTaste>>
+          Awaited<ReturnType<typeof myTasteStats>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserGetMyTaste<TData = Awaited<ReturnType<typeof userGetMyTaste>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetMyTaste>>, TError, TData>> & Pick<
+export function useMyTasteStats<TData = Awaited<ReturnType<typeof myTasteStats>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteStats>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userGetMyTaste>>,
+          Awaited<ReturnType<typeof myTasteStats>>,
           TError,
-          Awaited<ReturnType<typeof userGetMyTaste>>
+          Awaited<ReturnType<typeof myTasteStats>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserGetMyTaste<TData = Awaited<ReturnType<typeof userGetMyTaste>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetMyTaste>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyTasteStats<TData = Awaited<ReturnType<typeof myTasteStats>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteStats>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUserGetMyTaste<TData = Awaited<ReturnType<typeof userGetMyTaste>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetMyTaste>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function useMyTasteStats<TData = Awaited<ReturnType<typeof myTasteStats>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteStats>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUserGetMyTasteQueryOptions(options)
+  const queryOptions = getMyTasteStatsQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -443,131 +442,19 @@ export function useUserGetMyTaste<TData = Awaited<ReturnType<typeof userGetMyTas
 
 
 
-export type userGetRatingScaleResponse200 = {
-  data: RatingScaleRuleResponse
-  status: 200
-}
-
-export type userGetRatingScaleResponseSuccess = (userGetRatingScaleResponse200) & {
-  headers: Headers;
-};
-;
-
-export type userGetRatingScaleResponse = (userGetRatingScaleResponseSuccess)
-
-export const getUserGetRatingScaleUrl = () => {
-
-
-
-
-  return `/users/me/rating-scale`
-}
-
-/**
- * @summary Какую шкалу оценок показывать для каждого типа тайтла
- */
-export const userGetRatingScale = async ( options?: Parameters<typeof http>[1]): Promise<userGetRatingScaleResponse> => {
-
-  return http<userGetRatingScaleResponse>(getUserGetRatingScaleUrl(),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getUserGetRatingScaleQueryKey = () => {
-    return [
-    `/users/me/rating-scale`
-    ] as const;
-    }
-
-
-export const getUserGetRatingScaleQueryOptions = <TData = Awaited<ReturnType<typeof userGetRatingScale>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetRatingScale>>, TError, TData>>, request?: SecondParameter<typeof http>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getUserGetRatingScaleQueryKey();
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof userGetRatingScale>>> = ({ signal }) => userGetRatingScale({ signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof userGetRatingScale>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type UserGetRatingScaleQueryResult = NonNullable<Awaited<ReturnType<typeof userGetRatingScale>>>
-export type UserGetRatingScaleQueryError = unknown
-
-
-export function useUserGetRatingScale<TData = Awaited<ReturnType<typeof userGetRatingScale>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetRatingScale>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userGetRatingScale>>,
-          TError,
-          Awaited<ReturnType<typeof userGetRatingScale>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserGetRatingScale<TData = Awaited<ReturnType<typeof userGetRatingScale>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetRatingScale>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userGetRatingScale>>,
-          TError,
-          Awaited<ReturnType<typeof userGetRatingScale>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserGetRatingScale<TData = Awaited<ReturnType<typeof userGetRatingScale>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetRatingScale>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Какую шкалу оценок показывать для каждого типа тайтла
- */
-
-export function useUserGetRatingScale<TData = Awaited<ReturnType<typeof userGetRatingScale>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userGetRatingScale>>, TError, TData>>, request?: SecondParameter<typeof http>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getUserGetRatingScaleQueryOptions(options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
-export type userChangePasswordResponse200 = {
+export type changePasswordResponse200 = {
   data: boolean
   status: 200
 }
 
-export type userChangePasswordResponseSuccess = (userChangePasswordResponse200) & {
+export type changePasswordResponseSuccess = (changePasswordResponse200) & {
   headers: Headers;
 };
 ;
 
-export type userChangePasswordResponse = (userChangePasswordResponseSuccess)
+export type changePasswordResponse = (changePasswordResponseSuccess)
 
-export const getUserChangePasswordUrl = () => {
+export const getChangePasswordUrl = () => {
 
 
 
@@ -575,7 +462,7 @@ export const getUserChangePasswordUrl = () => {
   return `/users/me/password`
 }
 
-export const userChangePassword = async (changePasswordDto: ChangePasswordDto, options?: Parameters<typeof http>[1]): Promise<userChangePasswordResponse> => {
+export const changePassword = async (changePasswordDto: ChangePasswordDto, options?: Parameters<typeof http>[1]): Promise<changePasswordResponse> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
     if (!h) return {};
@@ -591,7 +478,7 @@ export const userChangePassword = async (changePasswordDto: ChangePasswordDto, o
     }
     return headers;
   };
-return http<userChangePasswordResponse>(getUserChangePasswordUrl(),
+return http<changePasswordResponse>(getChangePasswordUrl(),
   {
     ...options,
     method: 'PATCH',
@@ -604,13 +491,13 @@ return http<userChangePasswordResponse>(getUserChangePasswordUrl(),
 
 
 
-export const getUserChangePasswordMutationKey = () => ['userChangePassword'] as const;
+export const getChangePasswordMutationKey = () => ['changePassword'] as const;
 
-export const getUserChangePasswordMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userChangePassword>>, TError,UserChangePasswordMutationVariables, TContext>, request?: SecondParameter<typeof http>}
-): UseMutationOptions<Awaited<ReturnType<typeof userChangePassword>>, TError,UserChangePasswordMutationVariables, TContext> => {
+export const getChangePasswordMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof changePassword>>, TError,ChangePasswordMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+): UseMutationOptions<Awaited<ReturnType<typeof changePassword>>, TError,ChangePasswordMutationVariables, TContext> => {
 
-const mutationKey = getUserChangePasswordMutationKey();
+const mutationKey = getChangePasswordMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -620,10 +507,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof userChangePassword>>, UserChangePasswordMutationVariables> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof changePassword>>, ChangePasswordMutationVariables> = (props) => {
           const {data} = props ?? {};
 
-          return  userChangePassword(data,requestOptions)
+          return  changePassword(data,requestOptions)
         }
 
 
@@ -633,34 +520,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UserChangePasswordMutationResult = NonNullable<Awaited<ReturnType<typeof userChangePassword>>>
-    export type UserChangePasswordMutationBody = ChangePasswordDto
-    export type UserChangePasswordMutationError = unknown
-    export type UserChangePasswordMutationVariables = {data: ChangePasswordDto}
+    export type ChangePasswordMutationResult = NonNullable<Awaited<ReturnType<typeof changePassword>>>
+    export type ChangePasswordMutationBody = ChangePasswordDto
+    export type ChangePasswordMutationError = unknown
+    export type ChangePasswordMutationVariables = {data: ChangePasswordDto}
 
-    export const useUserChangePassword = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof userChangePassword>>, TError,UserChangePasswordMutationVariables, TContext>, request?: SecondParameter<typeof http>}
+    export const useChangePassword = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof changePassword>>, TError,ChangePasswordMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof userChangePassword>>,
+        Awaited<ReturnType<typeof changePassword>>,
         TError,
-        UserChangePasswordMutationVariables,
+        ChangePasswordMutationVariables,
         TContext
       > => {
-      return useMutation(getUserChangePasswordMutationOptions(options), queryClient);
+      return useMutation(getChangePasswordMutationOptions(options), queryClient);
     }
-    export type userFindPublicResponse200 = {
+    export type publicProfileByUsernameResponse200 = {
   data: PublicProfileResponse
   status: 200
 }
 
-export type userFindPublicResponseSuccess = (userFindPublicResponse200) & {
+export type publicProfileByUsernameResponseSuccess = (publicProfileByUsernameResponse200) & {
   headers: Headers;
 };
 ;
 
-export type userFindPublicResponse = (userFindPublicResponseSuccess)
+export type publicProfileByUsernameResponse = (publicProfileByUsernameResponseSuccess)
 
-export const getUserFindPublicUrl = (username: string,) => {
+export const getPublicProfileByUsernameUrl = (username: string,) => {
 
 
 
@@ -671,9 +558,9 @@ export const getUserFindPublicUrl = (username: string,) => {
 /**
  * @summary Публичный Taste DNA по ссылке — открывается без авторизации
  */
-export const userFindPublic = async (username: string, options?: Parameters<typeof http>[1]): Promise<userFindPublicResponse> => {
+export const publicProfileByUsername = async (username: string, options?: Parameters<typeof http>[1]): Promise<publicProfileByUsernameResponse> => {
 
-  return http<userFindPublicResponse>(getUserFindPublicUrl(username),
+  return http<publicProfileByUsernameResponse>(getPublicProfileByUsernameUrl(username),
   {
     ...options,
     method: 'GET'
@@ -686,69 +573,69 @@ export const userFindPublic = async (username: string, options?: Parameters<type
 
 
 
-export const getUserFindPublicQueryKey = (username: string,) => {
+export const getPublicProfileByUsernameQueryKey = (username: string,) => {
     return [
     `/users/public/${username}`
     ] as const;
     }
 
 
-export const getUserFindPublicQueryOptions = <TData = Awaited<ReturnType<typeof userFindPublic>>, TError = unknown>(username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindPublic>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export const getPublicProfileByUsernameQueryOptions = <TData = Awaited<ReturnType<typeof publicProfileByUsername>>, TError = unknown>(username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicProfileByUsername>>, TError, TData>>, request?: SecondParameter<typeof http>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUserFindPublicQueryKey(username);
+  const queryKey =  queryOptions?.queryKey ?? getPublicProfileByUsernameQueryKey(username);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof userFindPublic>>> = ({ signal }) => userFindPublic(username, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof publicProfileByUsername>>> = ({ signal }) => publicProfileByUsername(username, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: username !== null && username !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof userFindPublic>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: username !== null && username !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof publicProfileByUsername>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type UserFindPublicQueryResult = NonNullable<Awaited<ReturnType<typeof userFindPublic>>>
-export type UserFindPublicQueryError = unknown
+export type PublicProfileByUsernameQueryResult = NonNullable<Awaited<ReturnType<typeof publicProfileByUsername>>>
+export type PublicProfileByUsernameQueryError = unknown
 
 
-export function useUserFindPublic<TData = Awaited<ReturnType<typeof userFindPublic>>, TError = unknown>(
- username: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindPublic>>, TError, TData>> & Pick<
+export function usePublicProfileByUsername<TData = Awaited<ReturnType<typeof publicProfileByUsername>>, TError = unknown>(
+ username: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicProfileByUsername>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userFindPublic>>,
+          Awaited<ReturnType<typeof publicProfileByUsername>>,
           TError,
-          Awaited<ReturnType<typeof userFindPublic>>
+          Awaited<ReturnType<typeof publicProfileByUsername>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserFindPublic<TData = Awaited<ReturnType<typeof userFindPublic>>, TError = unknown>(
- username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindPublic>>, TError, TData>> & Pick<
+export function usePublicProfileByUsername<TData = Awaited<ReturnType<typeof publicProfileByUsername>>, TError = unknown>(
+ username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicProfileByUsername>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof userFindPublic>>,
+          Awaited<ReturnType<typeof publicProfileByUsername>>,
           TError,
-          Awaited<ReturnType<typeof userFindPublic>>
+          Awaited<ReturnType<typeof publicProfileByUsername>>
         > , 'initialData'
       >, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUserFindPublic<TData = Awaited<ReturnType<typeof userFindPublic>>, TError = unknown>(
- username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindPublic>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function usePublicProfileByUsername<TData = Awaited<ReturnType<typeof publicProfileByUsername>>, TError = unknown>(
+ username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicProfileByUsername>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Публичный Taste DNA по ссылке — открывается без авторизации
  */
 
-export function useUserFindPublic<TData = Awaited<ReturnType<typeof userFindPublic>>, TError = unknown>(
- username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userFindPublic>>, TError, TData>>, request?: SecondParameter<typeof http>}
+export function usePublicProfileByUsername<TData = Awaited<ReturnType<typeof publicProfileByUsername>>, TError = unknown>(
+ username: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof publicProfileByUsername>>, TError, TData>>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUserFindPublicQueryOptions(username,options)
+  const queryOptions = getPublicProfileByUsernameQueryOptions(username,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

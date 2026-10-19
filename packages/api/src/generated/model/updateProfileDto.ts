@@ -5,7 +5,6 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
-import type { UpdateProfileDtoRatingScale } from './updateProfileDtoRatingScale';
 
 export interface UpdateProfileDto {
   /**
@@ -26,9 +25,4 @@ export interface UpdateProfileDto {
   birthDate?: string;
   /** Открыт ли Taste DNA по публичной ссылке */
   isPublic?: boolean;
-  /**
-     * Предпочтительная шкала отображения. На бэкенде оценки всегда
-     * десятибалльные — фронт делит на 2, когда выбрана пятибалльная
-     */
-  ratingScale?: UpdateProfileDtoRatingScale;
 }
