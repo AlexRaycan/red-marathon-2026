@@ -2,7 +2,6 @@ import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
 import { getCardWidth } from '@app/utils'
 import { Image, type ImageStyle } from 'expo-image'
 import {
-  Pressable,
   type StyleProp,
   StyleSheet,
   Text,
@@ -11,11 +10,8 @@ import {
   type ViewStyle,
   useWindowDimensions
 } from 'react-native'
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring
-} from 'react-native-reanimated'
+
+import { AnimatedPressable } from '../AnimatedPressable'
 
 import { CardStack } from './CardStack'
 
@@ -30,8 +26,6 @@ interface CardProps extends ViewProps {
   onPress?: () => void
 }
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
-
 export function Card({
   label,
   sourceImage,
@@ -44,13 +38,6 @@ export function Card({
   onPress
 }: CardProps) {
   const { width: windowWidth } = useWindowDimensions()
-
-  const scale = useSharedValue(1)
-
-  const animated = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }]
-  }))
-
   const width =
     cardWidth ??
     getCardWidth(windowWidth, 3.15, {
@@ -58,15 +45,10 @@ export function Card({
       paddingLeft: LAYOUT['space-horizontal']
     })
 
-  const handlePressIn = () => scale.set(withSpring(0.95))
-  const handlePressOut = () => scale.set(withSpring(1))
-
   return (
     <AnimatedPressable
       onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      style={[styles.root, { width }, style, animated]}
+      style={[{ width }, style]}
     >
       <View
         style={[
@@ -109,10 +91,6 @@ export function Card({
 }
 
 const styles = StyleSheet.create({
-  root: {
-    position: 'relative',
-    gap: SPACINGS[1]
-  },
   card: {
     position: 'relative',
     flex: 1,
