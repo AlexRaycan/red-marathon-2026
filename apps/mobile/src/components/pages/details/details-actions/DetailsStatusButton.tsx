@@ -1,8 +1,12 @@
-import type { DiscoverDetailsResponse } from '@app/api'
+import type {
+  DiscoverDetailsResponse,
+  TitleListItemResponseType
+} from '@app/api'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { COLORS } from '@app/tokens'
-import { LogIn, Pen } from 'lucide-react-native'
+import { useLocalSearchParams } from 'expo-router'
+import { LogIn, type LucideIcon, Pen } from 'lucide-react-native'
 import { type ColorValue } from 'react-native'
 
 import { Button } from '@/components/ui'
@@ -16,14 +20,22 @@ import { LIBRARY_ACTION_ICONS } from './detials-actions.data'
 interface DetailsStatusButtonProps {
   title: Pick<DiscoverDetailsResponse, 'key' | 'type'>
   accentColor?: ColorValue
+  icon?: LucideIcon
+  isIconOnly?: boolean
   openSheet?: () => void
 }
 
 export function DetailsStatusButton({
   title,
   accentColor,
+  icon: Icon,
+  isIconOnly,
   openSheet
 }: DetailsStatusButtonProps) {
+  const { type } = useLocalSearchParams<{
+    type: TitleListItemResponseType
+  }>()
+
   const { isAuthenticated, action, isCompletedStatus, setStatus } =
     useLibraryStatus(title.key)
   const pushProtected = useProtectedPush()
@@ -35,22 +47,26 @@ export function DetailsStatusButton({
     ? reviewButtonLabel
     : action.label
 
+  const baseIcon = Icon ?? LogIn
   const statusIcon = isCompletedStatus
     ? Pen
     : LIBRARY_ACTION_ICONS[action.nextStatus]
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
   const handleStatusPress = () => {
-    if (isAuthenticated) {
-      if (!isCompletedStatus) setStatus(action.nextStatus)
+    if (type) {
+      if (isAuthenticated) {
+        if (!isCompletedStatus) setStatus(action.nextStatus)
 
-      if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
-        openSheet?.()
+        if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
+          openSheet?.()
+        }
+
+        return
       }
-
-      return
     }
 
+    // TODO: solve problem when user not login and action is undefined because it
     pushProtected({
       pathname: '/title/[type]/[key]',
       params: {
@@ -66,12 +82,16 @@ export function DetailsStatusButton({
 
   return (
     <Button
-      label={isAuthenticated ? libraryStatusButtonLabel : 'Go to Login'}
-      tintColor={isAuthenticated ? statusColor : COLORS.status.success}
-      icon={isAuthenticated ? statusIcon : LogIn}
+      icon={isAuthenticated ? statusIcon : baseIcon}
       {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
-      size='lg'
-      fullWidth
+      {...(!isIconOnly
+        ? {
+            label: isAuthenticated ? libraryStatusButtonLabel : 'Go to Login',
+            tintColor: isAuthenticated ? statusColor : COLORS.status.success,
+            fullWidth: true,
+            size: 'lg'
+          }
+        : { variant: 'secondary' })}
       onPress={handleStatusPress}
     />
   )

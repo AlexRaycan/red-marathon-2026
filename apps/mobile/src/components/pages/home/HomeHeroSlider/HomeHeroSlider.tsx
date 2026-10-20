@@ -20,6 +20,8 @@ import { Button, GlassContainer, PaginationDot } from '@/components/ui'
 import { TITLE_CARD_CONFIG } from '@/components/elements'
 import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 
+import { DetailsStatusButton } from '../../details'
+
 interface Props {
   items: DiscoverItemResponse[]
 }
@@ -103,10 +105,10 @@ export function HomeHeroSlider({ items: allItems }: Props) {
                 router.push(`/title/${currentItem?.type}/${currentItem?.key}`)
               }
             />
-            <Button
+            <DetailsStatusButton
+              title={currentItem}
               icon={Plus}
-              variant='secondary'
-              onPress={() => console.log('Pressed "Add to Watchlist"')}
+              isIconOnly
             />
           </GlassContainer>
         </View>

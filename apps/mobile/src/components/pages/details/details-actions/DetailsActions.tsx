@@ -66,6 +66,7 @@ export function DetailsActions({
     })
   }
 
+  // TODO: add prop shoulOpen base on status and action
   useBottomSheetAction(sheetRef, 'review', isAuthenticated)
 
   return (

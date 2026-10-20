@@ -1,4 +1,4 @@
-import { type TitleListItemResponseType, useTitle } from '@app/api'
+import { useTitle } from '@app/api'
 import { useRatingStore } from '@app/store'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Home } from 'lucide-react-native'
@@ -17,7 +17,6 @@ import { useBottomSpace, useHeroParallax } from '@/hooks'
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
     key: string
-    type: TitleListItemResponseType
   }>()
   const clearReviewInStore = useRatingStore(state => state.removeReviews)
 
