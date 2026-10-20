@@ -1,4 +1,5 @@
 export const PLATFORMS_LIST = [
+  'macOS',
   'Linux',
   'PC',
   'Xbox Series S/X',

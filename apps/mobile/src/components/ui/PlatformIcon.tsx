@@ -1,6 +1,7 @@
 import { type Platform } from '@app/constants'
 import { COLORS } from '@app/tokens'
 import {
+  faApple,
   faLinux,
   faPlaystation,
   faWindows,
@@ -9,6 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { NintendoSwitchIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react-native'
+import { Gamepad2 } from 'lucide-react-native'
 import type { ComponentType } from 'react'
 
 interface PlatformIconProps {
@@ -21,6 +23,13 @@ const ICONS: Record<
   Platform,
   ComponentType<{ color?: string; size?: number }>
 > = {
+  macOS: ({ color, size }) => (
+    <FontAwesomeIcon
+      icon={faApple}
+      style={{ color }}
+      size={size}
+    />
+  ),
   Linux: ({ color, size }) => (
     <FontAwesomeIcon
       icon={faLinux}
@@ -73,7 +82,7 @@ const ICONS: Record<
 }
 
 export function PlatformIcon({ platform, color, size }: PlatformIconProps) {
-  const Icon = ICONS[platform]
+  const Icon = ICONS?.[platform] ?? <Gamepad2 />
 
   return (
     <Icon
