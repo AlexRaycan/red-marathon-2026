@@ -22,6 +22,14 @@ export default defineConfig({
         mutator: {
           path: './src/http.ts',
           name: 'http'
+        },
+        operations: {
+          libraryTitles: {
+            query: {
+              useInfinite: true,
+              useInfiniteQueryParam: 'skip'
+            }
+          }
         }
       }
     }

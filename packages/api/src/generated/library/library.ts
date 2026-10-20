@@ -6,18 +6,23 @@
  * OpenAPI spec version: 1.0
  */
 import {
+  useInfiniteQuery,
   useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
+  DefinedUseInfiniteQueryResult,
   DefinedUseQueryResult,
+  InfiniteData,
   MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryResult,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -108,11 +113,81 @@ export const libraryTitles = async (params?: LibraryTitlesParams, options?: Para
 
 
 
+export const getLibraryTitlesInfiniteQueryKey = (params?: LibraryTitlesParams,) => {
+    return [
+    'infinite', `/library`, ...(params ? [params] : [])
+    ] as const;
+    }
+
 export const getLibraryTitlesQueryKey = (params?: LibraryTitlesParams,) => {
     return [
     `/library`, ...(params ? [params] : [])
     ] as const;
     }
+
+
+export const getLibraryTitlesInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof libraryTitles>>, LibraryTitlesParams['skip']>, TError = unknown>(params?: LibraryTitlesParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData, QueryKey, LibraryTitlesParams['skip']>>, request?: SecondParameter<typeof http>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getLibraryTitlesInfiniteQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof libraryTitles>>, QueryKey, LibraryTitlesParams['skip']> = ({ signal, pageParam }) => libraryTitles({...params, 'skip': pageParam ?? params?.['skip']}, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData, QueryKey, LibraryTitlesParams['skip']> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type LibraryTitlesInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof libraryTitles>>>
+export type LibraryTitlesInfiniteQueryError = unknown
+
+
+export function useLibraryTitlesInfinite<TData = InfiniteData<Awaited<ReturnType<typeof libraryTitles>>, LibraryTitlesParams['skip']>, TError = unknown>(
+ params: undefined |  LibraryTitlesParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData, QueryKey, LibraryTitlesParams['skip']>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof libraryTitles>>,
+          TError,
+          Awaited<ReturnType<typeof libraryTitles>>, QueryKey
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useLibraryTitlesInfinite<TData = InfiniteData<Awaited<ReturnType<typeof libraryTitles>>, LibraryTitlesParams['skip']>, TError = unknown>(
+ params?: LibraryTitlesParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData, QueryKey, LibraryTitlesParams['skip']>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof libraryTitles>>,
+          TError,
+          Awaited<ReturnType<typeof libraryTitles>>, QueryKey
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useLibraryTitlesInfinite<TData = InfiniteData<Awaited<ReturnType<typeof libraryTitles>>, LibraryTitlesParams['skip']>, TError = unknown>(
+ params?: LibraryTitlesParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData, QueryKey, LibraryTitlesParams['skip']>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useLibraryTitlesInfinite<TData = InfiniteData<Awaited<ReturnType<typeof libraryTitles>>, LibraryTitlesParams['skip']>, TError = unknown>(
+ params?: LibraryTitlesParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData, QueryKey, LibraryTitlesParams['skip']>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getLibraryTitlesInfiniteQueryOptions(params,options)
+
+  const query = useInfiniteQuery(queryOptions, queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
 
 
 export const getLibraryTitlesQueryOptions = <TData = Awaited<ReturnType<typeof libraryTitles>>, TError = unknown>(params?: LibraryTitlesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof libraryTitles>>, TError, TData>>, request?: SecondParameter<typeof http>}
