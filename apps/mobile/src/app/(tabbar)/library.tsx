@@ -3,7 +3,7 @@ import { useAuth } from '@app/hooks'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
 import { getCardWidth } from '@app/utils'
-import { Redirect } from 'expo-router'
+import { Redirect, router } from 'expo-router'
 import { useState } from 'react'
 import { StyleSheet, Text, useWindowDimensions } from 'react-native'
 import Animated from 'react-native-reanimated'
@@ -66,6 +66,10 @@ export default function Library() {
             coverUrl={item.title.coverUrl}
             width={cardWidth}
             withBadge
+            onPress={() => {
+              if (!item?.title?.key) return
+              router.push(`/title/${item.title.type}/${item.title.key}`)
+            }}
           />
         )}
         numColumns={3}
