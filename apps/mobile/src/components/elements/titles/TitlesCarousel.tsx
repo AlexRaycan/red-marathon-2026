@@ -7,25 +7,25 @@ import { TitleCard } from './title-card'
 
 interface Props {
   title?: string
-  items: DiscoverItemResponse[] | DiscoverDetailsResponse[]
+  titles: DiscoverItemResponse[] | DiscoverDetailsResponse[]
   cardWidth?: number
   onPress?: () => void
 }
 
 export function TitlesCarousel({
-  items,
+  titles,
   cardWidth: customCardWidth,
   ...rest
 }: Props) {
   return (
     <Carousel {...rest}>
-      {items.map(item => (
+      {titles.map(title => (
         <TitleCard
-          key={item.key}
-          type={item.type}
-          coverUrl={item.coverUrl}
+          key={title.key}
+          type={title.type}
+          coverUrl={title.coverUrl}
           withBadge
-          onPress={() => router.push(`/title/${item?.type}/${item?.key}`)}
+          onPress={() => router.push(`/title/${title?.type}/${title?.key}`)}
         />
       ))}
     </Carousel>

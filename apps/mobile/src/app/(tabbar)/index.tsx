@@ -52,7 +52,7 @@ export default function Index() {
           scrollEventThrottle={16}
           onScroll={scrollHandler}
         >
-          <HomeHeroSlider items={items} />
+          <HomeHeroSlider titles={items} />
 
           <HomeSliders items={items} />
         </Animated.ScrollView>

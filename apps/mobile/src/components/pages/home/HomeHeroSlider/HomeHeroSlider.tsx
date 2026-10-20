@@ -23,11 +23,11 @@ import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
 import { DetailsStatusButton } from '../../details'
 
 interface Props {
-  items: DiscoverItemResponse[]
+  titles: DiscoverItemResponse[]
 }
 
-export function HomeHeroSlider({ items: allItems }: Props) {
-  const items = allItems.slice(0, 5)
+export function HomeHeroSlider({ titles: allTitles }: Props) {
+  const titles = allTitles.slice(0, 5)
   const { width } = useWindowDimensions()
 
   const [index, setIndex] = useState(0)
@@ -47,28 +47,30 @@ export function HomeHeroSlider({ items: allItems }: Props) {
   }
 
   const height = width * 1.35
-  const currentItem = items[index]
+  const currentTitle = titles[index]
 
-  const config = currentItem?.type ? TITLE_CARD_CONFIG[currentItem.type] : null
+  const config = currentTitle?.type
+    ? TITLE_CARD_CONFIG[currentTitle.type]
+    : null
 
   const accentColor = config ? config.accent : 'transparent'
 
-  if (!items.length) return null
+  if (!titles.length) return null
 
-  const icon = currentItem?.type ? config?.icon : Play
+  const icon = currentTitle?.type ? config?.icon : Play
   const buttonAction = config ? config.buttonAction : 'Play'
 
   return (
     <View style={[styles.root, { height }]}>
       <Animated.FlatList
-        data={items}
-        renderItem={({ item }) => (
+        data={titles}
+        renderItem={({ item: title }) => (
           <HeroBackdrop
-            coverUrl={item.coverUrl}
+            coverUrl={title.coverUrl}
             height={height}
           />
         )}
-        keyExtractor={item => item.key}
+        keyExtractor={title => title.key}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -77,16 +79,16 @@ export function HomeHeroSlider({ items: allItems }: Props) {
         onScroll={handleScroll}
       />
 
-      {!!currentItem && (
+      {!!currentTitle && (
         <View
           style={styles.bottom}
           pointerEvents='box-none'
         >
           <HeroTitleInfo
-            keyItem={currentItem?.key}
-            name={currentItem?.name}
+            keyItem={currentTitle?.key}
+            name={currentTitle?.name}
             nameLines={1}
-            genres={currentItem?.genres}
+            genres={currentTitle?.genres}
             description={
               "Follow Ted Kaczynski's transformation from Harvard prodigy into the infamous Unabomber. Subjected to controversial psychological experiments by Professor Henry Murray, Kaczynski's troubled past resurfaces decades later when his manhunt, led by FBI agent Joanne Miller, brings to light the chilling consequences of ambition and isolation."
             }
@@ -102,11 +104,11 @@ export function HomeHeroSlider({ items: allItems }: Props) {
               icon={icon}
               tintColor={accentColor}
               onPress={() =>
-                router.push(`/title/${currentItem?.type}/${currentItem?.key}`)
+                router.push(`/title/${currentTitle?.type}/${currentTitle?.key}`)
               }
             />
             <DetailsStatusButton
-              title={currentItem}
+              title={currentTitle}
               icon={Plus}
               isIconOnly
             />
@@ -115,10 +117,10 @@ export function HomeHeroSlider({ items: allItems }: Props) {
       )}
 
       <View style={styles.dots}>
-        {items.map((item, index) => {
+        {titles.map((title, index) => {
           return (
             <PaginationDot
-              key={`heroSliderDot_${item.key}`}
+              key={`heroSliderDot_${title.key}`}
               itemWidth={width}
               index={index}
               scrollX={scrollX}

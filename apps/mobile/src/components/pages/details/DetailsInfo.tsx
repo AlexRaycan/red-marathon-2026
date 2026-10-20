@@ -48,7 +48,7 @@ export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
       {!!title?.similar?.length && (
         <TitlesCarousel
           title='You may also like'
-          items={title.similar}
+          titles={title.similar}
         />
       )}
 

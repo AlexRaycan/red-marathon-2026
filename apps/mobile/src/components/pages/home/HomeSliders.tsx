@@ -23,7 +23,7 @@ export function HomeSliders({ items: allItems }: HomeSlidersProps) {
       {!!topPicksItems.length && (
         <TitlesCarousel
           title={'Top picks for you'}
-          items={topPicksItems}
+          titles={topPicksItems}
           onPress={() => console.debug('Top picks for you!')}
         />
       )}
@@ -31,7 +31,7 @@ export function HomeSliders({ items: allItems }: HomeSlidersProps) {
       {!!popularNowItems.length && (
         <TitlesCarousel
           title={'Popular now'}
-          items={popularNowItems}
+          titles={popularNowItems}
           onPress={() => console.debug('Popular now!')}
         />
       )}
