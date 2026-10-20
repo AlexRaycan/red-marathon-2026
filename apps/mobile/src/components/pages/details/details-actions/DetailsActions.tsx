@@ -1,9 +1,5 @@
 import type { DiscoverDetailsResponse } from '@app/api'
-import {
-  ADD_TO_LIBRARY_ACTION,
-  LIBRARY_STATUS_ACTIONS,
-  REVIEWS_RATING
-} from '@app/constants'
+import { REVIEWS_RATING } from '@app/constants'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
@@ -38,22 +34,15 @@ export function DetailsActions({
   title,
   accentColor
 }: DetailsActionButtonsProps) {
-  const { isAuthenticated, status, rating, setStatus } = useLibraryStatus(
-    title.key
-  )
+  const { isAuthenticated, action, isCompletedStatus, rating, setStatus } =
+    useLibraryStatus(title.key)
 
   // TODO: refactor
 
-  const action =
-    status && status !== 'COMPLETED'
-      ? LIBRARY_STATUS_ACTIONS[status]
-      : ADD_TO_LIBRARY_ACTION
   const userRating = useRatingStore(state => state.userReviews?.[title.key])
 
-  const isStatusCompleted = status === 'COMPLETED'
-
   const reviewButtonLabel = `${userRating?.text ? 'Edit' : 'Write'} a Review`
-  const libraryStatusButtonLabel = isStatusCompleted
+  const libraryStatusButtonLabel = isCompletedStatus
     ? reviewButtonLabel
     : action.label
 
@@ -64,9 +53,9 @@ export function DetailsActions({
 
   const handleStatusPress = () => {
     if (isAuthenticated) {
-      if (!isStatusCompleted) setStatus(action.nextStatus)
+      if (!isCompletedStatus) setStatus(action.nextStatus)
 
-      if (isStatusCompleted || action.nextStatus === 'COMPLETED') {
+      if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
         open()
       }
 
@@ -79,7 +68,7 @@ export function DetailsActions({
         type: title.type,
         key: title.key,
         action:
-          isStatusCompleted || action.nextStatus === 'COMPLETED'
+          isCompletedStatus || action.nextStatus === 'COMPLETED'
             ? BOTTOM_SHEET_ACTIONS.review
             : undefined
       }
@@ -88,10 +77,10 @@ export function DetailsActions({
 
   useBottomSheetAction(sheetRef, 'review', isAuthenticated)
 
-  const statusIcon = isStatusCompleted
+  const statusIcon = isCompletedStatus
     ? Pen
     : LIBRARY_ACTION_ICONS[action.nextStatus]
-  const statusColor = isStatusCompleted ? COLORS.status.success : accentColor
+  const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
   return (
     <>
@@ -101,7 +90,7 @@ export function DetailsActions({
             label={isAuthenticated ? libraryStatusButtonLabel : 'Go to Login'}
             tintColor={isAuthenticated ? statusColor : COLORS.status.success}
             icon={isAuthenticated ? statusIcon : LogIn}
-            {...(isStatusCompleted && { withFillIcon: !!userRating?.text })}
+            {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
             size='lg'
             fullWidth
             onPress={handleStatusPress}
