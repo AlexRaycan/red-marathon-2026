@@ -6,6 +6,7 @@
   "dependencies": {
     "@app/api": "workspace:^",
     "@app/constants": "workspace:^",
+    "@app/schemas": "workspace:^",
     "@app/types": "workspace:^"
   }
 }

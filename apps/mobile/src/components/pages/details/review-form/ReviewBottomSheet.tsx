@@ -1,4 +1,5 @@
 import { type DiscoverDetailsResponse, useUserTitle } from '@app/api'
+import { useSaveReview } from '@app/hooks'
 import { type TReviewSchema, reviewSchema } from '@app/schemas'
 import { type IUserReviewStore, useRatingStore } from '@app/store'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
@@ -12,7 +13,7 @@ import { BottomSheetWindow, Input, PreviewTitleHeader } from '@/components/ui'
 
 import { TitleCardPreviewSmall } from '@/components/elements'
 
-import { useBottomSheetControl, useSaveReview } from '@/hooks'
+import { useBottomSheetControl } from '@/hooks'
 
 import { RatingSlider } from './RatingSlider'
 

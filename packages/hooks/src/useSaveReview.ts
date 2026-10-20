@@ -1,7 +1,6 @@
 import {
   getApiErrorMessage,
-  getUserTitleQueryKey,
-  getTitleReviewsQueryKey,
+  invalidateTitleState,
   useCreateReview,
   useUpdateReview
 } from '@app/api'
@@ -11,16 +10,7 @@ import { useQueryClient } from '@tanstack/react-query'
 export function useSaveReview(key: string, reviewId: string | null) {
   const queryClient = useQueryClient()
 
-  const onSuccess = () => {
-    void Promise.all([
-      queryClient.invalidateQueries({
-        queryKey: getUserTitleQueryKey(key)
-      }),
-      queryClient.invalidateQueries({
-        queryKey: getTitleReviewsQueryKey(key)
-      })
-    ])
-  }
+  const onSuccess = () => invalidateTitleState(queryClient, key)
 
   const create = useCreateReview({
     mutation: {
