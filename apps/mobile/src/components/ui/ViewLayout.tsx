@@ -2,6 +2,8 @@ import { COLORS } from '@app/tokens'
 import { StyleSheet, View, type ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { useBottomSpace } from '@/hooks'
+
 interface ViewLayoutRootProps extends ViewProps {
   isInfinity?: boolean
   withToolbar?: boolean
@@ -45,9 +47,23 @@ function ViewLayoutCenter({ style, children, ...props }: ViewProps) {
   )
 }
 
+function ViewLayoutFooter({ style, children, ...props }: ViewProps) {
+  const { bottomSpace } = useBottomSpace()
+
+  return (
+    <View
+      style={[{ paddingBottom: bottomSpace }, styles.footer, style]}
+      {...props}
+    >
+      {children}
+    </View>
+  )
+}
+
 export const ViewLayout = {
   Root: ViewLayoutRoot,
-  Center: ViewLayoutCenter
+  Center: ViewLayoutCenter,
+  Footer: ViewLayoutFooter
 }
 
 const styles = StyleSheet.create({
@@ -56,6 +72,9 @@ const styles = StyleSheet.create({
   },
   centered: {
     flex: 1,
+    justifyContent: 'center'
+  },
+  footer: {
     justifyContent: 'center'
   },
   bgColor: { backgroundColor: COLORS.bg.base }
