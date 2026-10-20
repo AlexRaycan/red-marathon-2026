@@ -57,6 +57,7 @@ export function TitlesGrid({
       numColumns={numColums}
       columnWrapperStyle={{ gap: spacings.rowGap }}
       contentContainerStyle={{
+        flex: 1,
         gap: spacings.colGap,
         padding: spacings.padding
       }}
