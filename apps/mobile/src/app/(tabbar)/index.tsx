@@ -26,7 +26,10 @@ export default function Index() {
   const items = data?.data ?? []
 
   return (
-    <Screen isInfitinyMode>
+    <Screen
+      isInfitinyMode
+      withExtraMarginTop={false}
+    >
       <HomeHeader scrollY={scrollY} />
 
       <View>
