@@ -13,8 +13,6 @@ import { Button } from '@/components/ui'
 
 import { useProtectedPush } from '@/hooks'
 
-import { BOTTOM_SHEET_ACTIONS } from '@/constants'
-
 import { LIBRARY_ACTION_ICONS } from './detials-actions.data'
 
 interface DetailsStatusButtonProps {
@@ -38,6 +36,7 @@ export function DetailsStatusButton({
 
   const { isAuthenticated, action, isCompletedStatus, setStatus } =
     useLibraryStatus(title.key)
+
   const pushProtected = useProtectedPush()
 
   const userRating = useRatingStore(state => state.userReviews?.[title.key])
@@ -54,16 +53,11 @@ export function DetailsStatusButton({
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
   const redirect = () => {
-    // TODO: solve problem when user not login and action is undefined because it
     pushProtected({
       pathname: '/title/[type]/[key]',
       params: {
         type: title.type,
-        key: title.key,
-        action:
-          isCompletedStatus || action.nextStatus === 'COMPLETED'
-            ? BOTTOM_SHEET_ACTIONS.review
-            : undefined
+        key: title.key
       }
     })
   }

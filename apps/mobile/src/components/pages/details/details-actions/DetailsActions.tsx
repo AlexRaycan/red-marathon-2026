@@ -37,8 +37,6 @@ export function DetailsActions({
   const { isAuthenticated, action, isCompletedStatus, rating } =
     useLibraryStatus(title.key)
 
-  // TODO: refactor
-
   const userRating = useRatingStore(state => state.userReviews?.[title.key])
 
   const sheetRef = useRef<BottomSheet>(null)
@@ -58,16 +56,13 @@ export function DetailsActions({
       params: {
         type: title.type,
         key: title.key,
-        action:
-          isCompletedStatus || action.nextStatus === 'COMPLETED'
-            ? BOTTOM_SHEET_ACTIONS.review
-            : undefined
+        action: BOTTOM_SHEET_ACTIONS.review
       }
     })
   }
 
-  // TODO: add prop shoulOpen base on status and action
-  useBottomSheetAction(sheetRef, 'review', isAuthenticated)
+  const shouldOpenSheet = isCompletedStatus || action.nextStatus === 'COMPLETED'
+  useBottomSheetAction(sheetRef, 'review', isAuthenticated && shouldOpenSheet)
 
   return (
     <>
