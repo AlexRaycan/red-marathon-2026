@@ -1,31 +1,19 @@
 import { useLibraryTitles } from '@app/api'
 import { useAuth } from '@app/hooks'
-import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
+import { FONT_SIZE } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
-import { getCardWidth } from '@app/utils'
-import { Redirect, router } from 'expo-router'
+import { Redirect } from 'expo-router'
 import { useState } from 'react'
-import { StyleSheet, Text, useWindowDimensions } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { StyleSheet } from 'react-native'
 
 import { Screen } from '@/components/ui'
 
-import { TitleCard, Toolbar } from '@/components/elements'
+import { TitlesGrid, Toolbar } from '@/components/elements'
 import { StatusFilter } from '@/components/pages/library'
-
-const ROW_GAP = SPACINGS[3]
-const COLUMN_GAP = SPACINGS[4]
-const PADDINGS = LAYOUT['space-horizontal']
 
 export default function Library() {
   const { user, isLoading, isError } = useAuth()
   const [status, setStatus] = useState<TLibraryStatus | null>(null)
-  const { width } = useWindowDimensions()
-  const cardWidth = getCardWidth(width, 3, {
-    gap: ROW_GAP,
-    paddingLeft: PADDINGS,
-    paddingRight: PADDINGS
-  })
 
   const { data, isPending } = useLibraryTitles(
     {
@@ -56,44 +44,12 @@ export default function Library() {
         onChange={setStatus}
       />
 
-      <Animated.FlatList
-        data={entries}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <TitleCard
-            label={item.title.name}
-            type={item.title.type}
-            coverUrl={item.title.coverUrl}
-            width={cardWidth}
-            withBadge
-            onPress={() => {
-              if (!item?.title?.key) return
-              router.push(`/title/${item.title.type}/${item.title.key}`)
-            }}
-          />
-        )}
-        numColumns={3}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.list}
-        ListEmptyComponent={
-          isPending ? null : (
-            <Text style={styles.emptyList}>Nothing here yet</Text>
-          )
-        }
+      <TitlesGrid
+        titles={entries}
+        isPending={isPending}
       />
     </Screen>
   )
 }
 
-const styles = StyleSheet.create({
-  list: {
-    gap: COLUMN_GAP,
-    padding: LAYOUT['space-horizontal']
-  },
-  row: { gap: ROW_GAP },
-  emptyList: {
-    color: COLORS.text.muted,
-    fontSize: FONT_SIZE.sm,
-    textAlign: 'center'
-  }
-})
+const styles = StyleSheet.create({})
