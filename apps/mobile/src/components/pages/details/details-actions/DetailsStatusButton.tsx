@@ -53,19 +53,7 @@ export function DetailsStatusButton({
     : LIBRARY_ACTION_ICONS[action.nextStatus]
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
-  const handleStatusPress = () => {
-    if (type) {
-      if (isAuthenticated) {
-        if (!isCompletedStatus) setStatus(action.nextStatus)
-
-        if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
-          openSheet?.()
-        }
-
-        return
-      }
-    }
-
+  const redirect = () => {
     // TODO: solve problem when user not login and action is undefined because it
     pushProtected({
       pathname: '/title/[type]/[key]',
@@ -78,6 +66,23 @@ export function DetailsStatusButton({
             : undefined
       }
     })
+  }
+  const handleStatusPress = () => {
+    if (isAuthenticated) {
+      if (!isCompletedStatus) setStatus(action.nextStatus)
+
+      if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
+        if (type) {
+          openSheet?.()
+        } else {
+          redirect()
+        }
+      }
+
+      return
+    }
+
+    redirect()
   }
 
   return (
