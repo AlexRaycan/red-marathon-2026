@@ -15,6 +15,7 @@ interface MenuItemProps extends PressableProps {
   icon?: LucideIcon
   withChevron?: boolean
   isLastItem?: boolean
+  isDestructive?: boolean
   children?: ReactNode
 }
 
@@ -23,6 +24,7 @@ export function MenuItem({
   icon: Icon,
   withChevron,
   isLastItem,
+  isDestructive: isDistraction,
   children,
   ...props
 }: MenuItemProps) {
@@ -39,10 +41,12 @@ export function MenuItem({
         {Icon && (
           <Icon
             size={22}
-            color={COLORS.text.primary}
+            color={isDistraction ? COLORS.status.error : COLORS.text.primary}
           />
         )}
-        <Text style={styles.label}>{label}</Text>
+        <Text style={[styles.label, isDistraction && styles.errorLabel]}>
+          {label}
+        </Text>
       </View>
       <View style={styles.content}>
         {children}
@@ -82,5 +86,8 @@ const styles = StyleSheet.create({
     color: COLORS.text.primary,
     fontSize: FONT_SIZE.sm,
     fontWeight: FONT_WEIGHT.bold
+  },
+  errorLabel: {
+    color: COLORS.status.error
   }
 })
