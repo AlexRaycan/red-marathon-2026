@@ -15,7 +15,8 @@
     "lint:fix": "eslint . --fix",
     "ts-check": "pnpm -r exec tsc --noEmit",
     "format": "prettier --write .",
-    "backend:dev": "node scripts/backend-db.mjs"
+    "backend:dev": "node scripts/backend-db.mjs",
+    "backend:commands": "node scripts/backend-commands.mjs"
   },
   "keywords": [],
   "author": "",
