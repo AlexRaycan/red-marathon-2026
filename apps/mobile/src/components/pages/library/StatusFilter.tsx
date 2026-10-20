@@ -1,21 +1,32 @@
 import { STATUS_LABELS } from '@app/constants'
-import {
-  COLORS,
-  FONT_SIZE,
-  FONT_WEIGHT,
-  LAYOUT,
-  RADIUS,
-  SPACINGS
-} from '@app/tokens'
+import { COLORS, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
 import type { TLibraryStatus } from '@app/types'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import hexToRgba from 'hex-to-rgba'
+import {
+  Bookmark,
+  Check,
+  LayoutGrid,
+  type LucideIcon,
+  Pause,
+  Play,
+  X
+} from 'lucide-react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 
-import { Pressable } from '@/components/ui'
+import { Button, GlassContainer } from '@/components/ui'
 
 const STATUSES = [
   null,
   ...Object.keys(STATUS_LABELS)
 ] as (TLibraryStatus | null)[]
+
+const STATUS_ICONS: Record<TLibraryStatus, LucideIcon> = {
+  PLANNED: Bookmark,
+  IN_PROGRESS: Play,
+  COMPLETED: Check,
+  ON_HOLD: Pause,
+  DROPPED: X
+}
 
 interface StatusFilterProps {
   value: TLibraryStatus | null
@@ -30,43 +41,50 @@ export function StatusFilter({ value, onChange }: StatusFilterProps) {
       style={styles.root}
       contentContainerStyle={styles.content}
     >
-      {STATUSES.map(status => {
-        const isActive = status === value
+      <GlassContainer style={styles.content}>
+        {STATUSES.map(status => {
+          const isActive = status === value
+          const Icon = status ? STATUS_ICONS[status] : LayoutGrid
+          const isFilledIcon = status !== 'DROPPED' && status !== 'COMPLETED'
+          const activeStroke = !isFilledIcon ? 3 : undefined
 
-        return (
-          <Pressable
-            key={status ?? 'ALL'}
-            onPress={() => onChange(status)}
-            style={[styles.chip, isActive && styles.chipActive]}
-          >
-            <Text style={[styles.label, isActive && styles.labelActive]}>
-              {status ? STATUS_LABELS[status] : 'All'}
-            </Text>
-          </Pressable>
-        )
-      })}
+          return (
+            <Button
+              key={status ?? 'ALL'}
+              label={status ? STATUS_LABELS[status] : 'All'}
+              icon={Icon}
+              variant='secondary'
+              tintColor={hexToRgba(
+                isActive ? COLORS.status.success : COLORS.bg.card,
+                1
+              )}
+              contentColor={COLORS.text.primary}
+              withFillIcon={isActive && isFilledIcon}
+              {...(isActive && activeStroke && { strokeWidth: activeStroke })}
+              onPress={() => onChange(status)}
+              style={[styles.chip]}
+            ></Button>
+          )
+        })}
+      </GlassContainer>
     </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  root: { flexGrow: 0 },
+  root: { flexGrow: 0, overflow: 'visible' },
   content: {
+    flexDirection: 'row',
     gap: SPACINGS[2],
     paddingHorizontal: LAYOUT['space-horizontal']
   },
   chip: {
     height: 36,
-    justifyContent: 'center',
-    paddingHorizontal: SPACINGS[4],
-    borderRadius: RADIUS.full,
-    backgroundColor: COLORS.bg.card
-  },
-  chipActive: { backgroundColor: COLORS.primary },
-  label: {
-    color: COLORS.text.primary,
-    fontSize: FONT_SIZE.sm,
-    fontWeight: FONT_WEIGHT.medium
-  },
-  labelActive: { color: COLORS.text.secondary }
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACINGS[1],
+    paddingRight: SPACINGS[4],
+    paddingLeft: SPACINGS[4] - 2,
+    borderRadius: RADIUS.full
+  }
 })

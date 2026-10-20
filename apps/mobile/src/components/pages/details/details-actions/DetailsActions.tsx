@@ -107,7 +107,7 @@ export function DetailsActions({
                   ? Pen
                   : LIBRARY_ACTION_ICONS[action.nextStatus]
               }
-              {...(isStatusCompleted && { filledIcon: !!userRating?.text })}
+              {...(isStatusCompleted && { withFillIcon: !!userRating?.text })}
               size='lg'
               fullWidth
               onPress={handleStatusPress}
@@ -139,7 +139,7 @@ export function DetailsActions({
               label={rating ? `${rating}/${REVIEWS_RATING.max}` : 'Rate'}
               variant='secondary'
               icon={Star}
-              filledIcon={!!userRating}
+              withFillIcon={!!userRating}
               fullWidth
               onPress={handleStatusPress}
             />

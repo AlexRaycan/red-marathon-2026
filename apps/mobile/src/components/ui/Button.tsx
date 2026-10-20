@@ -33,10 +33,12 @@ interface Props
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
-  filledIcon?: boolean
+  withFillIcon?: boolean
+  strokeWidth?: number
   disabled?: boolean
   fullWidth?: boolean
   hapticStyle?: HapticTrigger
+  contentColor?: ColorValue
   style?: StyleProp<ViewStyle>
   contentStyle?: TContentStyle
   onPress?: () => void
@@ -58,8 +60,10 @@ export function Button({
   variant = 'primary',
   size = 'md',
   icon: Icon,
-  filledIcon = false,
+  withFillIcon = false,
+  strokeWidth,
   tintColor,
+  contentColor: customContentColor,
   disabled,
   fullWidth = false,
   hapticStyle,
@@ -129,13 +133,22 @@ export function Button({
           {Icon && (
             <Icon
               size={!isIconOnly ? ICON_SIZE[size] : ICON_SIZE[size] + 4}
-              color={contentColor}
-              {...(filledIcon && { fill: contentColor })}
+              color={customContentColor ?? contentColor}
+              {...(withFillIcon && {
+                fill: customContentColor ?? contentColor
+              })}
+              {...(strokeWidth && {
+                strokeWidth: strokeWidth
+              })}
             />
           )}
           {label && (
             <Text
-              style={[styles.label, labelSizes[size], { color: contentColor }]}
+              style={[
+                styles.label,
+                labelSizes[size],
+                { color: customContentColor ?? contentColor }
+              ]}
             >
               {label}
             </Text>
