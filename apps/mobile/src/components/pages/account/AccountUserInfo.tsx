@@ -12,10 +12,10 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { useMemo } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { GlassView } from '@/components/ui'
+import { AnimatedPressable, GlassView } from '@/components/ui'
 
 interface AccountHeaderProps {
   data: UserResponse
@@ -58,9 +58,9 @@ export function AccountUserInfo({ data }: AccountHeaderProps) {
             style={StyleSheet.absoluteFill}
           />
         </GlassView>
-        <Pressable onPress={() => router.push('/settings')}>
+        <AnimatedPressable onPress={() => router.push('/settings')}>
           <Text style={avatarStyles.avatarEditButton}>Edit</Text>
-        </Pressable>
+        </AnimatedPressable>
       </View>
 
       <View style={styles.nameContainer}>

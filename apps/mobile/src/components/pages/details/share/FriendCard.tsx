@@ -1,8 +1,8 @@
 import { COLORS, RADIUS, SPACINGS } from '@app/tokens'
 import { Check } from 'lucide-react-native'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
-import { AvatarCard } from '@/components/ui'
+import { AvatarCard, Pressable } from '@/components/ui'
 
 interface FriendCardProps {
   name: string

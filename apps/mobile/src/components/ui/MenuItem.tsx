@@ -2,13 +2,9 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import hexToRgba from 'hex-to-rgba'
 import { ChevronRightIcon, type LucideIcon } from 'lucide-react-native'
 import type { ReactNode } from 'react'
-import {
-  Pressable,
-  type PressableProps,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { type PressableProps, StyleSheet, Text, View } from 'react-native'
+
+import { Pressable } from './Pressable'
 
 interface MenuItemProps extends PressableProps {
   label: string

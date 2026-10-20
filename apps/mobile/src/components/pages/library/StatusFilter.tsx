@@ -8,7 +8,9 @@ import {
   SPACINGS
 } from '@app/tokens'
 import type { TLibraryStatus } from '@app/types'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text } from 'react-native'
+
+import { Pressable } from '@/components/ui'
 
 const STATUSES = [
   null,

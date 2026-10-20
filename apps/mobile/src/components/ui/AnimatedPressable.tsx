@@ -8,15 +8,17 @@ import Animated, {
 
 import type { HapticTrigger } from '@/lib'
 
-import { PressableHaptic } from './PressableHaptic'
+import { Pressable } from './Pressable'
 
-const AnimatedPressableCore = Animated.createAnimatedComponent(PressableHaptic)
+const AnimatedPressableCore = Animated.createAnimatedComponent(Pressable)
 
 interface AnimatedPressableProps extends PressableProps {
   hapticStyle?: HapticTrigger
+  withScale?: boolean
 }
 
 export function AnimatedPressable({
+  withScale: withScaleble = true,
   onPress,
   style,
   children,
@@ -27,7 +29,7 @@ export function AnimatedPressable({
 
   const animated = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    transform: [{ scale: scale.value }]
+    ...(withScaleble && { transform: [{ scale: scale.value }] })
   }))
 
   const handlePressIn = () => {

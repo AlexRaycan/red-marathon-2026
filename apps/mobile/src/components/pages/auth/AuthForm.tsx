@@ -6,12 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { router } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { Controller, useForm } from 'react-hook-form'
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 
 import {
   Button,
   GlassContainer,
   Input,
+  Pressable,
   Screen,
   ViewLayout
 } from '@/components/ui'

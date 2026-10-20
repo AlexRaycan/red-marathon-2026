@@ -4,7 +4,6 @@ import { Eye, EyeOff } from 'lucide-react-native'
 import { useState } from 'react'
 import {
   type ColorValue,
-  Pressable,
   type StyleProp,
   StyleSheet,
   Text,
@@ -15,6 +14,7 @@ import {
 } from 'react-native'
 
 import { GlassView } from './GlassView'
+import { Pressable } from './Pressable'
 
 interface InputProps extends TextInputProps {
   tintColor?: ColorValue

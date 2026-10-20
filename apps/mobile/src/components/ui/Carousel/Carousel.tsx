@@ -2,7 +2,6 @@ import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import { ChevronRight } from 'lucide-react-native'
 import type { PropsWithChildren, ReactNode } from 'react'
 import {
-  Pressable,
   ScrollView,
   type StyleProp,
   StyleSheet,
@@ -10,6 +9,7 @@ import {
   View
 } from 'react-native'
 
+import { AnimatedPressable } from '../AnimatedPressable'
 import { PreviewTitleHeader } from '../PreviewTitleHeader'
 
 interface Props extends PropsWithChildren {
@@ -29,11 +29,12 @@ export function Carousel({
   return (
     <View style={styles.root}>
       {(title ?? Boolean(onPress)) && (
-        <Pressable
-          onPress={onPress}
+        <AnimatedPressable
+          withScale={false}
           disabled={!onPress}
           hitSlop={12}
           style={styles.header}
+          onPress={onPress}
         >
           {title && (
             <PreviewTitleHeader
@@ -50,7 +51,7 @@ export function Carousel({
               color={COLORS.text.primary}
             />
           )}
-        </Pressable>
+        </AnimatedPressable>
       )}
       {/* TODO: add FlatList depend of count of elements (ex. >25) */}
       <ScrollView
