@@ -2,9 +2,9 @@ import type { DiscoverDetailsResponse } from '@app/api'
 import { REVIEWS_RATING } from '@app/constants'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
-import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
+import { LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
-import { Bookmark, LogIn, Pen, Star } from 'lucide-react-native'
+import { Bookmark, Star } from 'lucide-react-native'
 import { useRef } from 'react'
 import { type ColorValue, StyleSheet, View } from 'react-native'
 
@@ -20,7 +20,7 @@ import { BOTTOM_SHEET_ACTIONS } from '@/constants'
 
 import { ReviewBottomSheet } from '../review-form'
 
-import { LIBRARY_ACTION_ICONS } from './detials-actions.data'
+import { DetailsStatusButton } from './DetailsStatusButton'
 
 interface DetailsActionButtonsProps {
   title: Pick<
@@ -34,30 +34,21 @@ export function DetailsActions({
   title,
   accentColor
 }: DetailsActionButtonsProps) {
-  const { isAuthenticated, action, isCompletedStatus, rating, setStatus } =
+  const { isAuthenticated, action, isCompletedStatus, rating } =
     useLibraryStatus(title.key)
 
   // TODO: refactor
 
   const userRating = useRatingStore(state => state.userReviews?.[title.key])
 
-  const reviewButtonLabel = `${userRating?.text ? 'Edit' : 'Write'} a Review`
-  const libraryStatusButtonLabel = isCompletedStatus
-    ? reviewButtonLabel
-    : action.label
-
   const sheetRef = useRef<BottomSheet>(null)
 
   const pushProtected = useProtectedPush()
   const { open } = useBottomSheetControl(sheetRef)
 
-  const handleStatusPress = () => {
+  const handleReviewButton = () => {
     if (isAuthenticated) {
-      if (!isCompletedStatus) setStatus(action.nextStatus)
-
-      if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
-        open()
-      }
+      open()
 
       return
     }
@@ -77,23 +68,14 @@ export function DetailsActions({
 
   useBottomSheetAction(sheetRef, 'review', isAuthenticated)
 
-  const statusIcon = isCompletedStatus
-    ? Pen
-    : LIBRARY_ACTION_ICONS[action.nextStatus]
-  const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
-
   return (
     <>
       <GlassContainer>
         <View style={[styles.baseContainer, styles.actionButtonContainer]}>
-          <Button
-            label={isAuthenticated ? libraryStatusButtonLabel : 'Go to Login'}
-            tintColor={isAuthenticated ? statusColor : COLORS.status.success}
-            icon={isAuthenticated ? statusIcon : LogIn}
-            {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
-            size='lg'
-            fullWidth
-            onPress={handleStatusPress}
+          <DetailsStatusButton
+            title={title}
+            accentColor={accentColor}
+            openSheet={open}
           />
 
           <View style={[styles.actionButtonGroup]}>
@@ -111,7 +93,7 @@ export function DetailsActions({
               icon={Star}
               withFillIcon={!!userRating}
               fullWidth
-              onPress={handleStatusPress}
+              onPress={handleReviewButton}
             />
           </View>
         </View>
