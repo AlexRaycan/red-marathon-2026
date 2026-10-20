@@ -36,6 +36,7 @@ export function AnimatedPressable({
 
   return (
     <AnimatedPressableCore
+      hitSlop={12}
       style={[styles.root, style, animated]}
       onPress={e => {
         void HAPTIC_TRIGGERS.impact('Soft')
