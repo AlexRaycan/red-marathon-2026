@@ -7,6 +7,7 @@ interface OnboardingState {
   isCompleted: boolean | null
   initialOnboardingStatus: () => Promise<void>
   completeOnboarding: () => Promise<void>
+  resetOnboarding: () => Promise<void>
 }
 
 const STORAGE_KEY = STORAGE_KEYS.ONBOARDING
@@ -23,6 +24,12 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
     await SecureStore.setItemAsync(STORAGE_KEY, 'true')
     set(() => ({
       isCompleted: true
+    }))
+  },
+  resetOnboarding: async () => {
+    await SecureStore.setItemAsync(STORAGE_KEY, 'false')
+    set(() => ({
+      isCompleted: false
     }))
   }
 }))

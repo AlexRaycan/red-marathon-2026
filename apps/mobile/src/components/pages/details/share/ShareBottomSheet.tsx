@@ -25,6 +25,8 @@ export function ShareBottomSheet({ title, ref }: ShareBottomSheetProps) {
   const { selectedIds, setSelectedIds, clearSelectedIds, recipients } =
     useSelectFriends()
 
+  // FIXME: somthing wrong with it
+
   const [inputText, setInputText] = useState('')
 
   const handleInputTextChange = (text: string) => {
