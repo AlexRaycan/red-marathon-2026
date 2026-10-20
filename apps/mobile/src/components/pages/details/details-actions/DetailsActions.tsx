@@ -8,11 +8,11 @@ import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
-import { Bookmark, Pen, Star } from 'lucide-react-native'
-import { useCallback, useRef } from 'react'
+import { Bookmark, LogIn, Pen, Star } from 'lucide-react-native'
+import { useRef } from 'react'
 import { type ColorValue, StyleSheet, View } from 'react-native'
 
-import { Button, GlassContainer, LoginToButton } from '@/components/ui'
+import { Button, GlassContainer } from '@/components/ui'
 
 import {
   useBottomSheetAction,
@@ -42,6 +42,8 @@ export function DetailsActions({
     title.key
   )
 
+  // TODO: refactor
+
   const action =
     status && status !== 'COMPLETED'
       ? LIBRARY_STATUS_ACTIONS[status]
@@ -60,7 +62,7 @@ export function DetailsActions({
   const pushProtected = useProtectedPush()
   const { open } = useBottomSheetControl(sheetRef)
 
-  const handleStatusPress = useCallback(() => {
+  const handleStatusPress = () => {
     if (isAuthenticated) {
       if (!isStatusCompleted) setStatus(action.nextStatus)
 
@@ -76,55 +78,34 @@ export function DetailsActions({
       params: {
         type: title.type,
         key: title.key,
-        action: BOTTOM_SHEET_ACTIONS.review
+        action:
+          isStatusCompleted || action.nextStatus === 'COMPLETED'
+            ? BOTTOM_SHEET_ACTIONS.review
+            : undefined
       }
     })
-  }, [
-    action,
-    isAuthenticated,
-    isStatusCompleted,
-    open,
-    pushProtected,
-    setStatus,
-    title.key,
-    title.type
-  ])
+  }
 
   useBottomSheetAction(sheetRef, 'review', isAuthenticated)
+
+  const statusIcon = isStatusCompleted
+    ? Pen
+    : LIBRARY_ACTION_ICONS[action.nextStatus]
+  const statusColor = isStatusCompleted ? COLORS.status.success : accentColor
 
   return (
     <>
       <GlassContainer>
         <View style={[styles.baseContainer, styles.actionButtonContainer]}>
-          {isAuthenticated ? (
-            <Button
-              label={libraryStatusButtonLabel}
-              tintColor={
-                isStatusCompleted ? COLORS.status.success : accentColor
-              }
-              icon={
-                isStatusCompleted
-                  ? Pen
-                  : LIBRARY_ACTION_ICONS[action.nextStatus]
-              }
-              {...(isStatusCompleted && { withFillIcon: !!userRating?.text })}
-              size='lg'
-              fullWidth
-              onPress={handleStatusPress}
-            />
-          ) : (
-            <LoginToButton
-              onPress={() =>
-                pushProtected({
-                  pathname: '/title/[type]/[key]',
-                  params: {
-                    type: title.type,
-                    key: title.key
-                  }
-                })
-              }
-            />
-          )}
+          <Button
+            label={isAuthenticated ? libraryStatusButtonLabel : 'Go to Login'}
+            tintColor={isAuthenticated ? statusColor : COLORS.status.success}
+            icon={isAuthenticated ? statusIcon : LogIn}
+            {...(isStatusCompleted && { withFillIcon: !!userRating?.text })}
+            size='lg'
+            fullWidth
+            onPress={handleStatusPress}
+          />
 
           <View style={[styles.actionButtonGroup]}>
             <Button

@@ -1,21 +1,20 @@
 import { useTrendingTitles } from '@app/api'
+import { PROJECT_NAME } from '@app/constants'
 import { LAYOUT } from '@app/tokens'
+import { Bell } from 'lucide-react-native'
 import { View } from 'react-native'
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue
 } from 'react-native-reanimated'
 
-import { Screen } from '@/components/ui'
+import { Button, Screen } from '@/components/ui'
 
-import {
-  HomeHeader,
-  HomeHeroSlider,
-  HomeSliders
-} from '@/components/pages/home'
+import { Toolbar } from '@/components/elements'
+import { HomeHeroSlider, HomeSliders } from '@/components/pages/home'
 
 export default function Index() {
-  const { data, isPending } = useTrendingTitles({ take: 20 })
+  const { data } = useTrendingTitles({ take: 20 })
 
   const scrollY = useSharedValue(0)
 
@@ -30,7 +29,19 @@ export default function Index() {
       isInfitinyMode
       withExtraMarginTop={false}
     >
-      <HomeHeader scrollY={scrollY} />
+      <Toolbar
+        isAbsolute
+        withBlur
+        scrollY={scrollY}
+        leftSide={PROJECT_NAME}
+        rightSide={
+          <Button
+            variant='transparent'
+            icon={Bell}
+            size='lg'
+          />
+        }
+      />
 
       <View>
         <Animated.ScrollView
