@@ -1,21 +1,27 @@
 import { SPACINGS } from '@app/tokens'
-import { Pressable, type PressableProps, StyleSheet } from 'react-native'
+import { type PressableProps, StyleSheet } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from 'react-native-reanimated'
 
-import { HAPTIC_TRIGGERS } from '@/lib'
+import type { HapticTrigger } from '@/lib'
 
-const AnimatedPressableCore = Animated.createAnimatedComponent(Pressable)
+import { PressableHaptic } from './PressableHaptic'
+
+const AnimatedPressableCore = Animated.createAnimatedComponent(PressableHaptic)
+
+interface AnimatedPressableProps extends PressableProps {
+  hapticStyle?: HapticTrigger
+}
 
 export function AnimatedPressable({
   onPress,
   style,
   children,
   ...props
-}: PressableProps) {
+}: AnimatedPressableProps) {
   const scale = useSharedValue(1)
   const opacity = useSharedValue(1)
 
@@ -27,7 +33,6 @@ export function AnimatedPressable({
   const handlePressIn = () => {
     scale.set(withSpring(0.95))
     opacity.set(withSpring(0.7))
-    void HAPTIC_TRIGGERS.selection()
   }
   const handlePressOut = () => {
     scale.set(withSpring(1))
@@ -38,10 +43,7 @@ export function AnimatedPressable({
     <AnimatedPressableCore
       hitSlop={12}
       style={[styles.root, style, animated]}
-      onPress={e => {
-        void HAPTIC_TRIGGERS.impact('Soft')
-        onPress?.(e)
-      }}
+      onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       {...props}
