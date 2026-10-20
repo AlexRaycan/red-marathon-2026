@@ -23,6 +23,10 @@ const _CONTENT_TYPES = {
   MAIN_CONTENT: 'mainContent'
 } as const
 
+type TContentTypes = (typeof _CONTENT_TYPES)[keyof typeof _CONTENT_TYPES]
+
+type TContentStyle = Partial<Record<TContentTypes, StyleProp<ViewStyle>>>
+
 interface Props
   extends GlassViewProps, Omit<PressableProps, 'children' | 'style'> {
   label?: string
@@ -34,12 +38,7 @@ interface Props
   fullWidth?: boolean
   hapticStyle?: HapticTrigger
   style?: StyleProp<ViewStyle>
-  contentStyle?: Partial<
-    Record<
-      (typeof _CONTENT_TYPES)[keyof typeof _CONTENT_TYPES],
-      StyleProp<ViewStyle>
-    >
-  >
+  contentStyle?: TContentStyle
   onPress?: () => void
 }
 
