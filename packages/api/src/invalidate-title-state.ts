@@ -2,6 +2,7 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import {
   getLibraryTitlesInfiniteQueryKey,
+  getLibraryTitlesQueryKey,
   getMyTasteStatsQueryKey,
   getTitleReviewsQueryKey,
   getUserTitleQueryKey
@@ -12,6 +13,7 @@ export function invalidateTitleState(queryClient: QueryClient, key: string) {
     [
       getUserTitleQueryKey(key),
       getTitleReviewsQueryKey(key),
+      getLibraryTitlesQueryKey(),
       getLibraryTitlesInfiniteQueryKey(),
       getMyTasteStatsQueryKey()
     ].map(queryKey => queryClient.invalidateQueries({ queryKey }))
