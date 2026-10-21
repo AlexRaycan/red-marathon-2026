@@ -17,6 +17,7 @@ export default function TabBarLayout() {
       labelStyle={{
         color: COLORS.text.primary
       }}
+      blurEffect='systemChromeMaterial'
     >
       <NativeTabs.Trigger name='index'>
         <NativeTabs.Trigger.Icon

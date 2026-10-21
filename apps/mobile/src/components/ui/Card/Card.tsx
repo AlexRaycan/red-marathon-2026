@@ -1,4 +1,11 @@
-import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
+import {
+  COLORS,
+  FONT_SIZE,
+  FONT_WEIGHT,
+  LAYOUT,
+  RADIUS,
+  SPACINGS
+} from '@app/tokens'
 import { getCardWidth } from '@app/utils'
 import { Image, type ImageStyle } from 'expo-image'
 import {
@@ -48,11 +55,11 @@ export function Card({
   return (
     <AnimatedPressable
       onPress={onPress}
-      style={[{ width }, style]}
+      style={[{ width }, styles.card, style]}
     >
       <View
         style={[
-          styles.card,
+          styles.coverWrapper,
           {
             height: width * 1.5
           }
@@ -92,6 +99,9 @@ export function Card({
 
 const styles = StyleSheet.create({
   card: {
+    gap: SPACINGS[2]
+  },
+  coverWrapper: {
     position: 'relative',
     flex: 1,
     backgroundColor: COLORS.bg.card,
@@ -105,8 +115,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   label: {
-    color: COLORS.text['little-muted'],
+    color: COLORS.text.primary,
     fontSize: FONT_SIZE.sm,
-    textAlign: 'center'
+    fontWeight: FONT_WEIGHT.medium
   }
 })

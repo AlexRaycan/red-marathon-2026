@@ -1,55 +1,90 @@
-import { useLibraryTitles } from '@app/api'
+import { useLibraryTitlesInfinite, useMyTasteStats } from '@app/api'
 import { useAuth } from '@app/hooks'
-import { FONT_SIZE } from '@app/tokens'
+import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
 import { Redirect } from 'expo-router'
 import { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Screen } from '@/components/ui'
 
 import { TitlesGrid, Toolbar } from '@/components/elements'
 import { StatusFilter } from '@/components/pages/library'
 
-export default function Library() {
-  const { user, isLoading, isError } = useAuth()
-  const [status, setStatus] = useState<TLibraryStatus | null>(null)
+const PAGE_SIZE = 9
 
-  const { data, isPending } = useLibraryTitles(
-    {
-      status: status ? [status] : undefined,
-      take: 27
-    },
-    {
-      query: { enabled: !!user }
-    }
-  )
+export default function Library() {
+  const [status, setStatus] = useState<TLibraryStatus | null>(null)
+  const inset = useSafeAreaInsets()
+
+  const { user, isLoading, isError } = useAuth()
+
+  const { data: tasteStats } = useMyTasteStats({
+    query: { enabled: !!user }
+  })
+  const { data, isPending, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useLibraryTitlesInfinite(
+      {
+        status: status ? [status] : undefined,
+        take: PAGE_SIZE
+      },
+      {
+        query: {
+          enabled: !!user,
+          initialPageParam: 0,
+          getNextPageParam: (lastPage, allPages) =>
+            lastPage.data.isHasMore ? allPages.length * PAGE_SIZE : undefined
+        }
+      }
+    )
 
   if (isLoading) return <Screen />
 
   if (isError || !user) return <Redirect href={'/login'} />
 
-  const entries = data?.status === 200 ? data.data.items : []
+  const entries = data?.pages.flatMap(page => page.data.items) ?? []
+
+  const onEndReached = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      void fetchNextPage()
+    }
+  }
 
   return (
-    <Screen>
-      <Toolbar
-        leftSide='Library'
-        withHorPaddings
-        titleSize={FONT_SIZE['3xl']}
-      />
-
-      <StatusFilter
-        value={status}
-        onChange={setStatus}
-      />
-
+    <Screen
+      isInfitinyMode
+      withExtraMarginTop={false}
+    >
       <TitlesGrid
         titles={entries}
         isPending={isPending}
+        style={{ paddingTop: inset.top * 2 + SPACINGS[4] + SPACINGS[16] }}
+        onEndReached={onEndReached}
       />
+
+      <View
+        style={[styles.header, { paddingTop: inset.top * 2 + SPACINGS[4] }]}
+      >
+        <Toolbar
+          leftSide='Library'
+          withHorPaddings
+          titleSize={FONT_SIZE['3xl']}
+        />
+
+        <StatusFilter
+          value={status}
+          onChange={setStatus}
+          counts={tasteStats?.data.byStatus ?? {}}
+          total={tasteStats?.data.totalEntries ?? 0}
+        />
+      </View>
     </Screen>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  header: {
+    position: 'absolute'
+  }
+})

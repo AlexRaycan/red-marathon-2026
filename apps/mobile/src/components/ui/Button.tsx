@@ -2,6 +2,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
 import type { TButtonSize, TButtonVariant } from '@app/types'
 import type { GlassViewProps } from 'expo-glass-effect'
 import type { LucideIcon } from 'lucide-react-native'
+import type { ReactNode } from 'react'
 import {
   type ColorValue,
   type PressableProps,
@@ -30,6 +31,7 @@ type TContentStyle = Partial<Record<TContentTypes, StyleProp<ViewStyle>>>
 interface Props
   extends GlassViewProps, Omit<PressableProps, 'children' | 'style'> {
   label?: string
+  suffics?: ReactNode
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
@@ -57,6 +59,7 @@ const ICON_SIZE: Record<TButtonSize, number> = {
 
 export function Button({
   label,
+  suffics,
   variant = 'primary',
   size = 'md',
   icon: Icon,
@@ -153,6 +156,7 @@ export function Button({
               {label}
             </Text>
           )}
+          {suffics}
         </View>
         {children}
       </View>

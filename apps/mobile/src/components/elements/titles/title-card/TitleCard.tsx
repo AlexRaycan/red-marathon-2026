@@ -1,11 +1,11 @@
 import type { DiscoverItemResponseType } from '@app/api'
-import { RADIUS } from '@app/tokens'
-import { StyleSheet, View } from 'react-native'
+import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
+import { Star } from 'lucide-react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-import { Card } from '@/components/ui'
+import { Card, GlassBadge, GlassView } from '@/components/ui'
 
 import { TITLE_CARD_CONFIG } from './TitleCard.config'
-import { TitleCardBadge } from './TitleCardBadge'
 import { TitleCardBookFX } from './TitleCardBookFX'
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
   coverUrl: string | null
   width?: number
   withBadge?: boolean
+  rating?: number
   borderRadius?: number
   onPress?: () => void
 }
@@ -23,7 +24,8 @@ export function TitleCard({
   type,
   coverUrl,
   width,
-  withBadge,
+  withBadge: withBadge,
+  rating,
   borderRadius,
   onPress
 }: Props) {
@@ -65,16 +67,57 @@ export function TitleCard({
       {config.spine && <TitleCardBookFX />}
 
       {withBadge && (
-        <TitleCardBadge
-          accentColor={config.accent}
-          icon={config.icon}
-        />
+        <View style={[styles.badge, styles.left]}>
+          <GlassBadge accentColor={config.accent}>
+            <config.icon
+              size={13}
+              color={COLORS.text.primary}
+              strokeWidth={2.2}
+            />
+          </GlassBadge>
+        </View>
+      )}
+
+      {rating && (
+        <View style={[styles.badge, styles.right]}>
+          <GlassView style={styles.rating}>
+            <Star
+              size={13}
+              color={COLORS.text.primary}
+              fill={COLORS.text.primary}
+            />
+            <Text style={styles.ratingText}>{rating}</Text>
+          </GlassView>
+        </View>
       )}
     </Card>
   )
 }
 
 const styles = StyleSheet.create({
+  badge: {
+    position: 'absolute',
+    bottom: SPACINGS[2]
+  },
+  left: {
+    left: SPACINGS[2]
+  },
+  right: {
+    right: SPACINGS[2]
+  },
+  rating: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACINGS[1],
+    height: 26,
+    paddingHorizontal: SPACINGS[2],
+    paddingVertical: SPACINGS[1],
+    borderRadius: RADIUS.full
+  },
+  ratingText: {
+    fontSize: FONT_SIZE.xs,
+    color: COLORS.text.primary
+  },
   bookCover: {
     borderTopLeftRadius: RADIUS.sm,
     borderBottomLeftRadius: RADIUS.sm
