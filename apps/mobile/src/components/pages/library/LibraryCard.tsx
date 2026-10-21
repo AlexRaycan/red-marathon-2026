@@ -2,7 +2,7 @@ import type { LibraryEntryResponse } from '@app/api'
 import { toFixed } from '@app/utils'
 import { router } from 'expo-router'
 
-import { TitleCard } from '@/components/elements'
+import { TitleCard } from '@/components/elements/titles/title-card'
 
 interface LibraryCardProps {
   title: LibraryEntryResponse
