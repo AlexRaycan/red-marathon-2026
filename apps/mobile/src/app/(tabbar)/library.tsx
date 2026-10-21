@@ -67,7 +67,7 @@ export default function Library() {
       </ProgressiveBlur.Target>
 
       <View style={[styles.header, { paddingTop: inset.top * 2 }]}>
-        <ProgressiveBlur.Mask ref={blurTargetRef} />
+        <ProgressiveBlur.Blur ref={blurTargetRef} />
 
         <Toolbar
           leftSide='Library'

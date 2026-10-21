@@ -12,7 +12,7 @@ interface MaskProps {
   offset?: number
 }
 
-function Mask({ ref, height = BLUR_FADE_HEIGHT, offset = 0 }: MaskProps) {
+function Blur({ ref, height = BLUR_FADE_HEIGHT, offset = 0 }: MaskProps) {
   return (
     <MaskedView
       pointerEvents='none'
@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
 })
 
 export const ProgressiveBlur = {
-  Mask,
+  Blur,
   Target
 }
