@@ -38,7 +38,6 @@ export default function Onboarding() {
 
       <Screen
         edges={['bottom']}
-        isInfitinyMode
         hasBGColor={false}
         style={styles.content}
       >

@@ -87,7 +87,6 @@ export default function Library() {
 
 const styles = StyleSheet.create({
   toolbar: {
-    gap: SPACINGS[4],
-    paddingBottom: 0
+    gap: SPACINGS[4]
   }
 })

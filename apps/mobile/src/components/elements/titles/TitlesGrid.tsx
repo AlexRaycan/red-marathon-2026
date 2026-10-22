@@ -63,7 +63,7 @@ export function TitlesGrid({
         {
           gap: spacings.colGap,
           paddingHorizontal: spacings.padding,
-          paddingBottom: SPACINGS[4]
+          paddingBottom: LAYOUT['space-vertical']
         },
         style
       ]}

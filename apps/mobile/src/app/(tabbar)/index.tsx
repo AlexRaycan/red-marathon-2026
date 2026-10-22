@@ -1,5 +1,6 @@
 import { useTrendingTitles } from '@app/api'
 import { PROJECT_NAME } from '@app/constants'
+import { LAYOUT } from '@app/tokens'
 import { Bell } from 'lucide-react-native'
 import Animated from 'react-native-reanimated'
 
@@ -38,7 +39,7 @@ export default function Index() {
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingBottom: bottomSpace
+            paddingBottom: LAYOUT['space-vertical']
           }}
           scrollEventThrottle={16}
           onScroll={scrollHandler}
