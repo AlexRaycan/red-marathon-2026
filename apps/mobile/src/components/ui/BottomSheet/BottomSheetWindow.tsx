@@ -30,6 +30,8 @@ export function BottomSheetWindow({
   onSubmit,
   ...props
 }: BottomSheetWindowProps) {
+  // FIXME: поправить баги с тем, что при первом открытии footer оказывается за пределами экрана
+  // но если нажать на поле ввода текста, а потом убрать фокус, то нормально
   return (
     <BottomSheet
       ref={ref}

@@ -9,7 +9,7 @@ export const SUBSCRIPTIONS: ISubscription[] = [
     period: 'Month'
   },
   {
-    id: 'annualy',
+    id: 'annually',
     price: '$29.99',
     name: 'Annualy',
     trialPeriod: '14-Days free trial',

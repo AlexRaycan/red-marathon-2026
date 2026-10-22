@@ -38,7 +38,10 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
   const { redirect } = useRedirect()
 
   return (
-    <Screen withPaddings>
+    <Screen
+      edges={['top', 'bottom']}
+      withPaddings
+    >
       <Toolbar isBackButton />
 
       <ViewLayout.Root>
