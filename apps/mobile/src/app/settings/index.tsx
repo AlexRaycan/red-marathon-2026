@@ -5,7 +5,10 @@ import { DeleteAccount } from '@/components/pages/settings'
 
 export default function Settings() {
   return (
-    <Screen withPaddings>
+    <Screen
+      edges={['top']}
+      withPaddings
+    >
       <Toolbar
         leftSide='Settings'
         isBackButton

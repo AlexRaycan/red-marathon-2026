@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SPACINGS[2]
+    gap: SPACINGS[3]
   },
   leftContent: {
     justifyContent: 'flex-start'
