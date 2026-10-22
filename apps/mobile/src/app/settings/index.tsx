@@ -5,16 +5,13 @@ import { DeleteAccount } from '@/components/pages/settings'
 
 export default function Settings() {
   return (
-    <Screen isInfitinyMode>
+    <Screen withPaddings>
       <Toolbar
         leftSide='Settings'
         isBackButton
-        isAbsolute
       />
-      <ViewLayout.Root
-        isInfinity
-        withToolbar
-      >
+
+      <ViewLayout.Root withToolbar>
         <ViewLayout.Root>
           <MenuItem label='Change username' />
         </ViewLayout.Root>

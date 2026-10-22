@@ -3,21 +3,23 @@ import { useAuth } from '@app/hooks'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
 import { Redirect } from 'expo-router'
-import { useRef, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useState } from 'react'
+import { StyleSheet } from 'react-native'
 
-import { Screen } from '@/components/ui'
+import { Screen, ViewLayout } from '@/components/ui'
 
-import { ProgressiveBlur, TitlesGrid, Toolbar } from '@/components/elements'
+import { TitlesGrid, Toolbar } from '@/components/elements'
 import { StatusFilter } from '@/components/pages/library'
+
+import { useScrollAnimation, useSpaces } from '@/hooks'
 
 const PAGE_SIZE = 9
 
 export default function Library() {
   const [status, setStatus] = useState<TLibraryStatus | null>(null)
-  const blurTargetRef = useRef<View | null>(null)
-  const inset = useSafeAreaInsets()
+  const { toolbarSpace } = useSpaces()
+
+  const { scrollY, scrollHandler } = useScrollAnimation()
 
   const { user, isLoading, isError } = useAuth()
 
@@ -53,44 +55,39 @@ export default function Library() {
   }
 
   return (
-    <Screen
-      isInfitinyMode
-      withExtraMarginTop={false}
-    >
-      <ProgressiveBlur.Target ref={blurTargetRef}>
+    <Screen>
+      <ViewLayout.Root>
         <TitlesGrid
           titles={entries}
           isPending={isPending}
-          style={{ paddingTop: inset.top * 2 + SPACINGS[9] + SPACINGS[4] }}
+          style={{ paddingTop: toolbarSpace + SPACINGS[9] + SPACINGS[4] }}
           onEndReached={onEndReached}
+          onScroll={scrollHandler}
         />
-      </ProgressiveBlur.Target>
+      </ViewLayout.Root>
 
-      <View style={[styles.header, { paddingTop: inset.top * 2 }]}>
-        <ProgressiveBlur.Blur ref={blurTargetRef} />
-
-        <Toolbar
-          leftSide='Library'
-          withHorPaddings
-          titleSize={FONT_SIZE['3xl']}
-        />
-
+      <Toolbar
+        scrollY={scrollY}
+        withGradient
+        leftSide='Library'
+        titleSize={FONT_SIZE['3xl']}
+        gradientLocations={[0.0, 0.8, 1]}
+        style={styles.toolbar}
+      >
         <StatusFilter
           value={status}
           onChange={setStatus}
           counts={tasteStats?.data.byStatus ?? {}}
           total={tasteStats?.data.totalEntries ?? 0}
         />
-      </View>
+      </Toolbar>
     </Screen>
   )
 }
 
 const styles = StyleSheet.create({
-  header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0
+  toolbar: {
+    gap: SPACINGS[4],
+    paddingBottom: 0
   }
 })

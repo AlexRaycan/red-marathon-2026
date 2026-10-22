@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     gap: SPACINGS[4],
-    paddingVertical: SPACINGS[10]
+    paddingVertical: SPACINGS[20]
   },
   nameContainer: {
     alignItems: 'center',

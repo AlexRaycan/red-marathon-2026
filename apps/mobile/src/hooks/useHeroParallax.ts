@@ -61,6 +61,7 @@ export function useHeroParallax() {
   })
 
   return {
+    scrollY,
     heroHeight,
     heroStyle,
     scrollHandler

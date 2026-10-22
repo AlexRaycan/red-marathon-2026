@@ -1,10 +1,10 @@
-import { useMobileLogout, useCurrentUser } from '@app/api'
+import { useCurrentUser, useMobileLogout } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
 import { Redirect, router, useIsFocused } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { LogOut } from 'lucide-react-native'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import {
   Button,
@@ -73,31 +73,30 @@ export default function Account() {
           />
         }
       />
-      <ViewLayout.Root>
+
+      <ViewLayout.Root withToolbar>
         <GlassContainer style={styles.root}>
           <View style={styles.content}>
             <AccountUserInfo data={data?.data} />
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <GlassView
-                isInteractive
-                pointerEvents='box-none'
-                style={menuStyles.glass}
-              >
-                {ACCOUNT_MENU.map((item, index) => (
-                  <MenuItem
-                    {...item}
-                    key={item.label}
-                    isLastItem={index === ACCOUNT_MENU.length - 1}
-                    withChevron
-                  >
-                    {item.content && (
-                      <Text style={menuStyles.premium}>{item.content}</Text>
-                    )}
-                  </MenuItem>
-                ))}
-              </GlassView>
-            </ScrollView>
+            <GlassView
+              isInteractive
+              pointerEvents='box-none'
+              style={menuStyles.glass}
+            >
+              {ACCOUNT_MENU.map((item, index) => (
+                <MenuItem
+                  {...item}
+                  key={item.label}
+                  isLastItem={index === ACCOUNT_MENU.length - 1}
+                  withChevron
+                >
+                  {item.content && (
+                    <Text style={menuStyles.premium}>{item.content}</Text>
+                  )}
+                </MenuItem>
+              ))}
+            </GlassView>
           </View>
 
           {/*{__DEV__ && <TokenDebug />}*/}

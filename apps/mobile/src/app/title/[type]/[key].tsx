@@ -12,7 +12,7 @@ import { Toolbar } from '@/components/elements'
 import { HeroBackdrop } from '@/components/hero'
 import { DetailsInfo, ShareButton } from '@/components/pages/details'
 
-import { useBottomSpace, useHeroParallax } from '@/hooks'
+import { useHeroParallax, useSpaces } from '@/hooks'
 
 export default function ItemDetailScreen() {
   const { key } = useLocalSearchParams<{
@@ -22,8 +22,8 @@ export default function ItemDetailScreen() {
 
   const { data, isPending } = useTitle(key)
 
-  const { heroHeight, heroStyle, scrollHandler } = useHeroParallax()
-  const { bottomSpace } = useBottomSpace()
+  const { scrollY, heroHeight, heroStyle, scrollHandler } = useHeroParallax()
+  const { tabbarSpace: bottomSpace } = useSpaces()
 
   const handleGoHomeButton = useCallback(() => {
     clearReviewInStore()
@@ -35,10 +35,11 @@ export default function ItemDetailScreen() {
   const title = data.data
 
   return (
-    <Screen isInfitinyMode>
+    <Screen>
       <Toolbar
+        scrollY={scrollY}
         isBackButton
-        isAbsolute
+        withGradient
         rightSide={<ShareButton title={title} />}
       />
 

@@ -1,5 +1,5 @@
 import { STATUS_LABELS } from '@app/constants'
-import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
 import type { TLibraryStatus } from '@app/types'
 import hexToRgba from 'hex-to-rgba'
 import {
@@ -88,8 +88,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: 'row',
-    gap: SPACINGS[2],
-    paddingHorizontal: LAYOUT['space-horizontal']
+    gap: SPACINGS[2]
   },
   chip: {
     height: 36,

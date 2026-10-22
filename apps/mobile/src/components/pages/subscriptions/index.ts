@@ -1,6 +1,6 @@
 export * from './SubscriptionBackground'
 export * from './SubscriptionCard'
-export * from './SubscriptionFeature'
+export * from './SubscriptionFeatures'
 export * from './SubscriptionHeader'
 export * from './subscriptions.data'
 export * from './SubscriptionSelect'

@@ -2,6 +2,7 @@ import type { LibraryEntryResponse } from '@app/api'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import { getCardWidth } from '@app/utils'
 import {
+  type ScrollViewProps,
   type StyleProp,
   StyleSheet,
   Text,
@@ -18,7 +19,7 @@ interface ISpacings {
   padding?: number
 }
 
-interface TitlesGridProps {
+interface TitlesGridProps extends Pick<ScrollViewProps, 'onScroll'> {
   titles: LibraryEntryResponse[]
   numColumns?: 3
   spacings?: ISpacings
@@ -61,7 +62,8 @@ export function TitlesGrid({
       contentContainerStyle={[
         {
           gap: spacings.colGap,
-          padding: spacings.padding
+          paddingHorizontal: spacings.padding,
+          paddingBottom: SPACINGS[4]
         },
         style
       ]}

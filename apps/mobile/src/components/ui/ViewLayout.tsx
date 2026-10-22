@@ -1,33 +1,36 @@
 import { COLORS } from '@app/tokens'
 import { StyleSheet, View, type ViewProps } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { useBottomSpace } from '@/hooks'
+import { useSpaces } from '@/hooks'
 
 interface ViewLayoutRootProps extends ViewProps {
-  isInfinity?: boolean
-  withToolbar?: boolean
   hasBGColor?: boolean
+  withToolbar?: boolean
+  withTabbar?: boolean
 }
 
 function ViewLayoutRoot({
+  hasBGColor = false,
+  withToolbar,
+  withTabbar,
   style,
   children,
-  isInfinity,
-  withToolbar,
-  hasBGColor = false,
   ...props
 }: ViewLayoutRootProps) {
-  const insets = useSafeAreaInsets()
-  const marginTop = withToolbar ? insets.top + 44 : insets.top
+  const { toolbarSpace, tabbarSpace } = useSpaces()
 
   return (
     <View
       style={[
         styles.root,
         hasBGColor && styles.bgColor,
-        style,
-        isInfinity && { marginTop }
+        withToolbar && {
+          paddingTop: toolbarSpace
+        },
+        withTabbar && {
+          paddingBottom: tabbarSpace
+        },
+        style
       ]}
       {...props}
     >
@@ -48,11 +51,11 @@ function ViewLayoutCenter({ style, children, ...props }: ViewProps) {
 }
 
 function ViewLayoutFooter({ style, children, ...props }: ViewProps) {
-  const { bottomSpace } = useBottomSpace()
+  const { tabbarSpace } = useSpaces()
 
   return (
     <View
-      style={[{ paddingBottom: bottomSpace }, styles.footer, style]}
+      style={[{ paddingBottom: tabbarSpace }, styles.footer, style]}
       {...props}
     >
       {children}

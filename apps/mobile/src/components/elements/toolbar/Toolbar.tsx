@@ -1,5 +1,7 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { BlurView } from 'expo-blur'
+import { LinearGradient } from 'expo-linear-gradient'
+import hexToRgba from 'hex-to-rgba'
 import type { ReactNode } from 'react'
 import {
   type StyleProp,
@@ -27,8 +29,8 @@ interface Props extends ViewProps {
   isBackButton?: boolean
   isCloseButton?: boolean
   withBlur?: boolean
-  isAbsolute?: boolean
-  withHorPaddings?: boolean
+  withGradient?: boolean
+  gradientLocations?: [number, number, ...number[]]
   style?: StyleProp<ViewStyle>
   onPress?: () => void
 }
@@ -41,14 +43,15 @@ export function Toolbar({
   isBackButton,
   isCloseButton,
   withBlur,
-  isAbsolute,
-  withHorPaddings,
+  withGradient,
+  gradientLocations = [0.0, 0.5, 1],
   style,
   children,
   onPress
 }: Props) {
   // TODO: refactor todo smth with padding top
   const insets = useSafeAreaInsets()
+  const animationOverlay = withBlur ?? withGradient
 
   const blurStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY?.get() ?? 0, [0, 100], [0, 1], 'clamp')
@@ -56,34 +59,37 @@ export function Toolbar({
 
   return (
     <View
-      style={[
-        styles.root,
-        isAbsolute && {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          paddingTop: insets.top * 2,
-          paddingHorizontal: LAYOUT['space-horizontal']
-        },
-        withHorPaddings && {
-          paddingHorizontal: LAYOUT['space-horizontal']
-        },
-        style
-      ]}
+      style={[styles.root, { paddingTop: insets.top * 2 }, style]}
       pointerEvents='box-none'
     >
-      {withBlur && (
+      {animationOverlay && (
         <Animated.View
           pointerEvents='box-none'
           style={[StyleSheet.absoluteFill, blurStyle]}
         >
-          <BlurView
-            intensity={80}
-            tint='systemChromeMaterialDark'
-            style={StyleSheet.absoluteFill}
-          />
-          <View style={styles.overlay} />
+          {withBlur && (
+            <>
+              <BlurView
+                intensity={80}
+                tint='systemChromeMaterialDark'
+                style={StyleSheet.absoluteFill}
+              />
+
+              <View style={styles.overlay} />
+            </>
+          )}
+
+          {withGradient && (
+            <LinearGradient
+              colors={[
+                COLORS.bg.base,
+                hexToRgba(COLORS.bg.base, 0.7),
+                'transparent'
+              ]}
+              locations={gradientLocations}
+              style={StyleSheet.absoluteFill}
+            />
+          )}
         </Animated.View>
       )}
 
@@ -101,10 +107,10 @@ export function Toolbar({
           )}
         </View>
 
-        {children}
-
         <View style={[styles.content, styles.rightContent]}>{rightSide}</View>
       </View>
+
+      {children}
     </View>
   )
 }
@@ -113,7 +119,12 @@ const styles = StyleSheet.create({
   root: {
     zIndex: 10,
     paddingBottom: LAYOUT['space-vertical'],
-    overflow: 'hidden'
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: LAYOUT['space-horizontal']
   },
   overlay: {
     position: 'absolute',

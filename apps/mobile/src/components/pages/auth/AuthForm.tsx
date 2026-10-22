@@ -38,14 +38,8 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
   const { redirect } = useRedirect()
 
   return (
-    <Screen
-      isInfitinyMode
-      withPaddings
-    >
-      <Toolbar
-        isBackButton
-        isAbsolute
-      />
+    <Screen withPaddings>
+      <Toolbar isBackButton />
 
       <ViewLayout.Root>
         <ViewLayout.Center style={styles.center}>

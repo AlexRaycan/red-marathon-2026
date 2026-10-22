@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { Button } from '../../ui'
 
-import { SubscriptionFeature } from './SubscriptionFeature'
+import { SubscriptionFeatures } from './SubscriptionFeatures'
 
 interface SubscriptionCardProps {
   subsription: ISubscription
@@ -35,7 +35,7 @@ export function SubscriptionCard({
 
       <View style={styles.divider} />
 
-      <SubscriptionFeature />
+      <SubscriptionFeatures />
 
       <Button
         label='Get Started'

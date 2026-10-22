@@ -3,83 +3,75 @@ import type { TSubscriptionType } from '@app/types'
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button, GlassContainer, ViewLayout } from '@/components/ui'
+import { Button, GlassContainer, Screen, ViewLayout } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
 import {
   SUBSCRIPTIONS,
   SubscriptionBackground,
-  SubscriptionFeature,
+  SubscriptionFeatures,
   SubscriptionHeader,
   SubscriptionSelect
 } from '@/components/pages/subscriptions'
 
-import { useBottomSpace } from '@/hooks'
+import { useSpaces } from '@/hooks'
 
 export default function Subscriptions() {
-  const {
-    inset: { top },
-    bottomSpace
-  } = useBottomSpace()
+  const { tabbarSpace: bottomSpace } = useSpaces()
 
   const [selectedSubscription, setSelectedSubscription] =
-    useState<TSubscriptionType>('annualy')
+    useState<TSubscriptionType>('annually')
 
   return (
-    <ViewLayout.Root>
-      <SubscriptionBackground />
+    <Screen>
+      <Toolbar isCloseButton />
 
-      <Toolbar
-        isCloseButton
-        style={{
-          paddingHorizontal: LAYOUT['space-horizontal'],
-          position: 'absolute',
-          paddingVertical: top
-        }}
-      />
+      <ViewLayout.Root withToolbar>
+        <SubscriptionBackground />
 
-      <ViewLayout.Root>
-        <View style={[styles.content, { paddingTop: top + SPACINGS[16] }]}>
-          <SubscriptionHeader />
+        <ViewLayout.Root>
+          <View style={[styles.content, { paddingTop: SPACINGS[16] }]}>
+            <SubscriptionHeader />
 
-          <View
-            style={[
-              styles.inset,
-              styles.features,
-              { paddingBottom: bottomSpace }
-            ]}
-          >
-            <View style={[styles.featuresDesc]}>
-              <Text style={[styles.baseText, styles.upgradeText]}>
-                Upgrade to Premium
-              </Text>
-              <SubscriptionFeature />
-            </View>
-
-            <GlassContainer style={[styles.actionsContainer]}>
-              <View style={styles.subs}>
-                {SUBSCRIPTIONS.map(sub => (
-                  <SubscriptionSelect
-                    key={sub.id}
-                    subscription={sub}
-                    isSelected={selectedSubscription === sub.id}
-
-                    onPress={() => setSelectedSubscription(sub.id)}
-                  />
-                ))}
+            <View
+              style={[
+                styles.inset,
+                styles.features,
+                { paddingBottom: bottomSpace }
+              ]}
+            >
+              <View style={[styles.featuresDesc]}>
+                <Text style={[styles.baseText, styles.upgradeText]}>
+                  Upgrade to Premium
+                </Text>
+                <SubscriptionFeatures />
               </View>
 
-              <Button
-                label='Continue For Payment'
-                size='lg'
-                tintColor={COLORS.status.success}
-                onPress={() => {}}
-              />
-            </GlassContainer>
+              <GlassContainer style={[styles.actionsContainer]}>
+                <View style={styles.subs}>
+                  {SUBSCRIPTIONS.map(sub => (
+                    <SubscriptionSelect
+                      key={sub.id}
+                      subscription={sub}
+                      isSelected={selectedSubscription === sub.id}
+
+                      onPress={() => setSelectedSubscription(sub.id)}
+                    />
+                  ))}
+                </View>
+
+                <Button
+                  label='Continue For Payment'
+                  size='lg'
+                  tintColor={COLORS.status.success}
+                  onPress={() => {}}
+                />
+              </GlassContainer>
+            </View>
           </View>
-        </View>
+        </ViewLayout.Root>
       </ViewLayout.Root>
-    </ViewLayout.Root>
+    </Screen>
   )
 }
 

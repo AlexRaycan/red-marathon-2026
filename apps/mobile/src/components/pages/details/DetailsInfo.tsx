@@ -6,7 +6,7 @@ import { ViewLayout } from '@/components/ui'
 
 import { TITLE_CARD_CONFIG, TitlesCarousel } from '@/components/elements'
 
-import { useBottomSpace } from '@/hooks'
+import { useSpaces } from '@/hooks'
 
 import { CastCarousel } from './cast'
 import { DetailsActions } from './details-actions'
@@ -19,7 +19,7 @@ interface DetailsInfoProps {
 }
 
 export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
-  const { bottomSpace } = useBottomSpace()
+  const { tabbarSpace: bottomSpace } = useSpaces()
 
   const hasCast = !!title.cast?.length || !!title.creators?.length
 

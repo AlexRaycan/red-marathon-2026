@@ -1,6 +1,6 @@
 export const SUBSCRIPTION_TYPES = {
   MONTHLY: 'monthly',
-  ANNUALY: 'annualy'
+  ANNUALLY: 'annually'
 } as const
 
 export type TSubscriptionType =

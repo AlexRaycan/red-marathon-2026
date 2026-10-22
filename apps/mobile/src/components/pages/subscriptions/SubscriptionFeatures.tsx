@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { SUBSCRIPTION_FEATURES } from './subscriptions.data'
 
-export function SubscriptionFeature() {
+export function SubscriptionFeatures() {
   return (
     <View style={styles.features}>
       {SUBSCRIPTION_FEATURES.map(({ label, isPremium }) => (

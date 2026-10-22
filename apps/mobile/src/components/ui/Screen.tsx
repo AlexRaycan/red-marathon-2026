@@ -1,4 +1,4 @@
-import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
+import { COLORS, LAYOUT } from '@app/tokens'
 import { StyleSheet } from 'react-native'
 import {
   SafeAreaView,
@@ -7,39 +7,32 @@ import {
 } from 'react-native-safe-area-context'
 
 interface Props extends SafeAreaViewProps {
-  isInfitinyMode?: boolean
-  withPaddings?: boolean
-  withExtraMarginTop?: boolean
   hasBGColor?: boolean
+  withPaddings?: boolean
 }
 
 export function Screen({
-  edges = ['top'],
-  isInfitinyMode,
-  withPaddings,
-  withExtraMarginTop = true,
+  edges = [],
   hasBGColor = true,
+  withPaddings,
   style,
   children,
   ...props
 }: Props) {
-  const inset = useSafeAreaInsets()
-  const extraTop = withExtraMarginTop ? SPACINGS[4] : 0
+  const insets = useSafeAreaInsets()
 
-  // TODO: refactor, todo smth with marginTop
   return (
     <SafeAreaView
       {...props}
       edges={edges}
       style={[
         styles.root,
-        isInfitinyMode && { marginTop: -inset.top + extraTop },
-        withPaddings && {
-          paddingHorizontal: LAYOUT['space-horizontal'],
-          paddingBottom: inset.bottom + LAYOUT['space-vertical']
-        },
+        { marginTop: -insets.top },
         hasBGColor && {
           backgroundColor: COLORS.bg.base
+        },
+        withPaddings && {
+          paddingHorizontal: LAYOUT['space-horizontal']
         },
         style
       ]}
@@ -51,6 +44,7 @@ export function Screen({
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    flex: 1,
+    position: 'relative'
   }
 })
