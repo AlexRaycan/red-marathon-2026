@@ -26,6 +26,7 @@ export function FloatingButton({
   ...props
 }: FloatingButtonProps) {
   const inset = useSafeAreaInsets()
+  const position = placement === 'left' ? styles.left : styles.right
 
   return (
     <View
@@ -35,14 +36,14 @@ export function FloatingButton({
           position: 'absolute',
           bottom: inset.bottom
         },
-        styles[placement],
+        position,
         style
       ]}
     >
       <Button
         icon={Icon}
         size='lg'
-        variant='secondary'
+        variant='transparent'
         {...props}
       />
     </View>

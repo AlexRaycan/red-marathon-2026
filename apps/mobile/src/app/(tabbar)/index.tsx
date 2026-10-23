@@ -9,12 +9,10 @@ import { Button, Screen, ViewLayout } from '@/components/ui'
 import { Toolbar } from '@/components/elements'
 import { HomeHeroSlider, HomeSliders } from '@/components/pages/home'
 
-import { useScrollAnimation, useSpaces } from '@/hooks'
+import { useScrollAnimation } from '@/hooks'
 
 export default function Index() {
   const { data } = useTrendingTitles({ take: 20 })
-
-  const { tabbarSpace: bottomSpace } = useSpaces()
 
   const { scrollY, scrollHandler } = useScrollAnimation()
 

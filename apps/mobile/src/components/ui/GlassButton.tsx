@@ -1,4 +1,4 @@
-import { COLORS, RADIUS, SPACINGS } from '@app/tokens'
+import { RADIUS, SPACINGS } from '@app/tokens'
 import { type GlassViewProps } from 'expo-glass-effect'
 import hexToRgba from 'hex-to-rgba'
 import { type PropsWithChildren } from 'react'
@@ -34,7 +34,7 @@ const DISABLED_OPACITY = 0.4
 
 export function GlassButton({
   children,
-  tintColor = COLORS.primary,
+  tintColor,
   disabled,
   style,
   containerStyle,
@@ -72,7 +72,7 @@ export function GlassButton({
           {
             backgroundColor: disabled
               ? hexToRgba(tintColor as string, 0.3)
-              : tintColor
+              : (tintColor ?? 'transparent')
           },
           styles.buttonContainer,
           styles.button,
@@ -90,7 +90,8 @@ export function GlassButton({
 
   return (
     <GlassView
-      glassEffectStyle='clear'
+      glassEffectStyle={tintColor ? 'clear' : 'regular'}
+      // glassEffectStyle='clear'
       colorScheme='dark'
       isInteractive={!disabled}
       tintColor={disabled ? hexToRgba(tintColor as string, 0.3) : tintColor}

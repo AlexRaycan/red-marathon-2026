@@ -46,6 +46,8 @@ interface Props
   onPress?: () => void
 }
 
+// TODO: Add `clear` variatn: it's like transparent,
+// but with fallback color for android
 const CONTENT_COLOR: Record<TButtonVariant, string> = {
   primary: COLORS.text.secondary,
   secondary: COLORS.text.primary,
@@ -94,10 +96,10 @@ export function Button({
     primary: hasGlassEffect ? 'rgba(255, 255, 255, 0.24)' : COLORS.primary,
     secondary: hasGlassEffect ? 'rgba(255, 255, 255, 0.08)' : COLORS.bg.card
   }
-  const buttonTintColor: Record<TButtonVariant, ColorValue> = {
+  const buttonTintColor: Record<TButtonVariant, ColorValue | undefined> = {
     primary: tintColor ?? fallbackTintColor.primary,
     secondary: tintColor ?? fallbackTintColor.secondary,
-    transparent: ''
+    transparent: undefined
   }
 
   const hapticTrigger = hapticStyle
@@ -124,7 +126,6 @@ export function Button({
       containerStyle={fullWidth && styles.fullWidth}
       style={[
         sizeStyles[size],
-        // variantSyles[variant],
         isIconOnly && [styles.iconOnly, iconOnlySizes[size]],
         style,
         fullWidth && styles.fullWidth
