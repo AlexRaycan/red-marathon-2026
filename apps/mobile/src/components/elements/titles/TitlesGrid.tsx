@@ -1,6 +1,7 @@
 import type { LibraryEntryResponse } from '@app/api'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
-import { getCardWidth } from '@app/utils'
+import { getCardWidth, toFixed } from '@app/utils'
+import { router } from 'expo-router'
 import {
   type ScrollViewProps,
   type StyleProp,
@@ -11,7 +12,7 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import { LibraryCard } from '@/components/pages/library'
+import { TitleCard } from './title-card'
 
 interface ISpacings {
   rowGap?: number
@@ -51,10 +52,18 @@ export function TitlesGrid({
     <Animated.FlatList
       data={titles}
       keyExtractor={title => title.id}
-      renderItem={({ item: title }) => (
-        <LibraryCard
-          title={title}
+      renderItem={({ item: { title } }) => (
+        <TitleCard
+          label={title.name}
+          type={title.type}
+          coverUrl={title.coverUrl}
+          rating={toFixed(title.rating)}
           width={cardWidth}
+          withBadge
+          onPress={() => {
+            if (!title.key) return
+            router.push(`/title/${title.type}/${title.key}`)
+          }}
         />
       )}
       numColumns={numColumns}
