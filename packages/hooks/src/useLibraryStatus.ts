@@ -1,4 +1,9 @@
-import { invalidateTitleState, useSetTitleStatus, useUserTitle } from '@app/api'
+import {
+  invalidateTitleState,
+  useRemoveFromLibrary,
+  useSetTitleStatus,
+  useUserTitle
+} from '@app/api'
 import { ADD_TO_LIBRARY_ACTION, LIBRARY_STATUS_ACTIONS } from '@app/constants'
 import type { TLibraryStatus } from '@app/types'
 import { useQueryClient } from '@tanstack/react-query'
@@ -16,23 +21,36 @@ export function useLibraryStatus(key: string) {
     }
   })
 
-  const { mutate, variables, isPending } = useSetTitleStatus({
-    mutation: {
-      onSettled: () => invalidateTitleState(queryClient, key)
-    }
+  const onSettled = () => invalidateTitleState(queryClient, key)
+
+  const {
+    mutate: setStatusMutation,
+    variables: statusVariables,
+    isPending: isSettingStatus
+  } = useSetTitleStatus({
+    mutation: { onSettled: onSettled }
   })
 
-  const pendingStatus = isPending ? variables?.data.status : undefined
+  const { mutate: removeMutation, isPending: isRemovingPending } =
+    useRemoveFromLibrary({ mutation: { onSettled } })
+
+  const pendingStatus = isSettingStatus
+    ? statusVariables?.data.status
+    : undefined
   const savedStatus = myState?.data.libraryEntry?.status ?? null
-  const status = pendingStatus ?? savedStatus
+  const status = isRemovingPending ? null : (pendingStatus ?? savedStatus)
 
   const setStatus = (status: TLibraryStatus) => {
-    mutate({
+    setStatusMutation({
       key,
       data: {
         status
       }
     })
+  }
+
+  const removeFromLibrary = () => {
+    removeMutation({ key })
   }
 
   const action =
@@ -46,6 +64,7 @@ export function useLibraryStatus(key: string) {
     action,
     isCompletedStatus: status === 'COMPLETED',
     rating: myState?.data.review?.rating ?? null,
-    setStatus
+    setStatus,
+    removeFromLibrary
   }
 }

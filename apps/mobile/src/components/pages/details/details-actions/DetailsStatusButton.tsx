@@ -1,12 +1,12 @@
-import type {
-  DiscoverDetailsResponse,
-  TitleListItemResponseType
+import {
+  type DiscoverDetailsResponse,
+  type TitleListItemResponseType
 } from '@app/api'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { COLORS } from '@app/tokens'
 import { useLocalSearchParams } from 'expo-router'
-import { LogIn, type LucideIcon, Pen } from 'lucide-react-native'
+import { Check, LogIn, type LucideIcon, Pen } from 'lucide-react-native'
 import { type ColorValue } from 'react-native'
 
 import { Button } from '@/components/ui'
@@ -34,8 +34,14 @@ export function DetailsStatusButton({
     type: TitleListItemResponseType
   }>()
 
-  const { isAuthenticated, action, isCompletedStatus, setStatus } =
-    useLibraryStatus(title.key)
+  const {
+    isAuthenticated,
+    action,
+    isCompletedStatus,
+    status,
+    setStatus,
+    removeFromLibrary
+  } = useLibraryStatus(title.key)
 
   const pushProtected = useProtectedPush()
 
@@ -46,10 +52,14 @@ export function DetailsStatusButton({
     ? reviewButtonLabel
     : action.label
 
-  const baseIcon = Icon ?? LogIn
+  const baseIcon = status ? Check : (Icon ?? LIBRARY_ACTION_ICONS.PLANNED)
   const statusIcon = isCompletedStatus
     ? Pen
     : LIBRARY_ACTION_ICONS[action.nextStatus]
+
+  const actionIcon = type ? statusIcon : baseIcon
+  const icon = isAuthenticated ? actionIcon : LogIn
+
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
   const redirect = () => {
@@ -61,15 +71,22 @@ export function DetailsStatusButton({
       }
     })
   }
+
   const handleStatusPress = () => {
     if (isAuthenticated) {
+      if (!type) {
+        if (!status) setStatus('PLANNED')
+
+        if (status === 'PLANNED') removeFromLibrary()
+
+        return
+      }
+
       if (!isCompletedStatus) setStatus(action.nextStatus)
 
       if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
         if (type) {
           openSheet?.()
-        } else {
-          redirect()
         }
       }
 
@@ -81,7 +98,7 @@ export function DetailsStatusButton({
 
   return (
     <Button
-      icon={isAuthenticated ? statusIcon : baseIcon}
+      icon={icon}
       {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
       {...(!isIconOnly
         ? {

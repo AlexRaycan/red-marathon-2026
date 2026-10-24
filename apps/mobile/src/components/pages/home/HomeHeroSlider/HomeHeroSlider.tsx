@@ -1,7 +1,7 @@
 import type { DiscoverItemResponse } from '@app/api'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import { router } from 'expo-router'
-import { Play, Plus } from 'lucide-react-native'
+import { Play } from 'lucide-react-native'
 import { useState } from 'react'
 import {
   type NativeScrollEvent,
@@ -109,7 +109,6 @@ export function HomeHeroSlider({ titles: allTitles }: Props) {
             />
             <DetailsStatusButton
               title={currentTitle}
-              icon={Plus}
               isIconOnly
             />
           </GlassContainer>
