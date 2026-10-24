@@ -8,7 +8,7 @@ interface CardWidthOptions {
 
 export function getCardWidth(
   containerWidth: number,
-  visibleCount: number,
+  visibleCount = 3,
   {
     gap = SPACINGS[3],
     paddingLeft = 0,

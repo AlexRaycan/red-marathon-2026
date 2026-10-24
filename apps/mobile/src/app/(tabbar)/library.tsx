@@ -57,8 +57,12 @@ export default function Library() {
   return (
     <Screen>
       <ViewLayout.Root>
+        {/* Add skeleton */}
+
         <TitlesGrid
           titles={entries}
+          getTitle={entry => entry.title}
+          keyExtractor={entry => entry.title.key ?? entry.id}
           isPending={isPending}
           style={{ paddingTop: toolbarSpace + SPACINGS[9] + SPACINGS[4] }}
           onEndReached={onEndReached}

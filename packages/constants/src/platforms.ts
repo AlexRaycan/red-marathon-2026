@@ -10,3 +10,5 @@ export const PLATFORMS_LIST = [
 ] as const
 
 export type Platform = (typeof PLATFORMS_LIST)[number]
+
+// TODO: Add Wii, PSP

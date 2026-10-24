@@ -1,12 +1,14 @@
-import type { LibraryEntryResponse } from '@app/api'
 import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
+import type { TTitleGrid } from '@app/types'
 import { getCardWidth, toFixed } from '@app/utils'
 import { router } from 'expo-router'
+import type { ReactNode } from 'react'
 import {
   type ScrollViewProps,
   type StyleProp,
   StyleSheet,
   Text,
+  View,
   type ViewStyle,
   useWindowDimensions
 } from 'react-native'
@@ -20,27 +22,37 @@ interface ISpacings {
   padding?: number
 }
 
-interface TitlesGridProps extends Pick<ScrollViewProps, 'onScroll'> {
-  titles: LibraryEntryResponse[]
+interface TitlesGridProps<T> extends Pick<ScrollViewProps, 'onScroll'> {
+  titles: T[]
+  getTitle: (item: T) => TTitleGrid
+  keyExtractor: (item: T) => string
+  header?: ReactNode
   numColumns?: 3
   spacings?: ISpacings
-  style?: StyleProp<ViewStyle>
+  emptyText?: string
+  isStickyHeader?: boolean
   isPending?: boolean | null
+  style?: StyleProp<ViewStyle>
   onEndReached?: () => void
 }
 
-export function TitlesGrid({
+export function TitlesGrid<T>({
   titles,
+  getTitle,
+  keyExtractor,
+  header,
   numColumns = 3,
   spacings = {
     colGap: SPACINGS[4],
     rowGap: SPACINGS[3],
     padding: LAYOUT['space-horizontal']
   },
-  style,
+  emptyText,
+  isStickyHeader,
   isPending,
+  style,
   ...props
-}: TitlesGridProps) {
+}: TitlesGridProps<T>) {
   const { width } = useWindowDimensions()
   const cardWidth = getCardWidth(width, numColumns, {
     gap: spacings.rowGap,
@@ -51,21 +63,25 @@ export function TitlesGrid({
   return (
     <Animated.FlatList
       data={titles}
-      keyExtractor={title => title.id}
-      renderItem={({ item: { title } }) => (
-        <TitleCard
-          label={title.name}
-          type={title.type}
-          coverUrl={title.coverUrl}
-          rating={toFixed(title.rating)}
-          width={cardWidth}
-          withBadge
-          onPress={() => {
-            if (!title.key) return
-            router.push(`/title/${title.type}/${title.key}`)
-          }}
-        />
-      )}
+      keyExtractor={keyExtractor}
+      renderItem={({ item }) => {
+        const title = getTitle(item)
+
+        return (
+          <TitleCard
+            label={title.name}
+            type={title.type}
+            coverUrl={title.coverUrl}
+            {...(title.rating && { rating: toFixed(title.rating) })}
+            width={cardWidth}
+            withBadge
+            onPress={() => {
+              if (!title.key) return
+              router.push(`/title/${title.type}/${title.key}`)
+            }}
+          />
+        )
+      }}
       numColumns={numColumns}
       columnWrapperStyle={{ gap: spacings.rowGap }}
       contentContainerStyle={[
@@ -76,9 +92,14 @@ export function TitlesGrid({
         },
         style
       ]}
+      keyboardDismissMode='on-drag'
+      {...(isStickyHeader && { stickyHeaderIndices: [0] })}
+      {...(header && { ListHeaderComponent: <View>{header}</View> })}
       ListEmptyComponent={
         isPending ? null : (
-          <Text style={styles.emptyList}>Nothing here yet</Text>
+          <Text style={styles.emptyList}>
+            {emptyText ?? 'Nothing here yet'}
+          </Text>
         )
       }
       onEndReachedThreshold={0.5}

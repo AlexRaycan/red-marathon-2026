@@ -1,4 +1,5 @@
 import { TYPE_LABELS } from '@app/constants'
+import type { TTitleType } from '@app/types'
 import { LayoutGrid } from 'lucide-react-native'
 
 import {
@@ -6,8 +7,6 @@ import {
   type IChipOption,
   TITLE_CARD_CONFIG
 } from '@/components/elements'
-
-type TTitleType = keyof typeof TYPE_LABELS
 
 const TYPES = Object.keys(TYPE_LABELS) as TTitleType[]
 

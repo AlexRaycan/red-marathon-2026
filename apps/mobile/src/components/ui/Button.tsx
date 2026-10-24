@@ -59,6 +59,7 @@ const ICON_SIZE: Record<TButtonSize, number> = {
   lg: 20
 }
 
+// Add accessibilityLabel for buttons around
 export function Button({
   label,
   suffics,

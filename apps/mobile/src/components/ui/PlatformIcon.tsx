@@ -19,6 +19,8 @@ interface PlatformIconProps {
   size?: number
 }
 
+// TODO: Add Wii, PSP
+
 const ICONS: Record<
   Platform,
   ComponentType<{ color?: string; size?: number }>
@@ -82,7 +84,9 @@ const ICONS: Record<
 }
 
 export function PlatformIcon({ platform, color, size }: PlatformIconProps) {
-  const Icon = ICONS?.[platform] ?? <Gamepad2 />
+  const Icon = ICONS?.[platform] ?? Gamepad2
+
+  if (!ICONS?.[platform]) console.log('Platform:', platform)
 
   return (
     <Icon
