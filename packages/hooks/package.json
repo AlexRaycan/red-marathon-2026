@@ -7,6 +7,10 @@
     "@app/api": "workspace:^",
     "@app/constants": "workspace:^",
     "@app/schemas": "workspace:^",
-    "@app/types": "workspace:^"
+    "@app/types": "workspace:^",
+    "react": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0"
   }
 }
