@@ -1,5 +1,4 @@
 import { STATUS_LABELS } from '@app/constants'
-import { SPACINGS } from '@app/tokens'
 import type { TLibraryStatus } from '@app/types'
 import {
   Bookmark,
@@ -10,14 +9,10 @@ import {
   Play,
   X
 } from 'lucide-react-native'
-import { ScrollView, StyleSheet } from 'react-native'
 
-import { Chip, GlassContainer } from '@/components/ui'
+import { ChipFilter, type IChipOption } from '@/components/elements'
 
-const STATUSES = [
-  null,
-  ...Object.keys(STATUS_LABELS)
-] as (TLibraryStatus | null)[]
+const STATUSES = Object.keys(STATUS_LABELS) as TLibraryStatus[]
 
 const STATUS_ICONS: Record<TLibraryStatus, LucideIcon> = {
   PLANNED: Bookmark,
@@ -40,45 +35,26 @@ export function StatusFilter({
   total,
   onChange
 }: StatusFilterProps) {
-  return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      style={styles.root}
-      contentContainerStyle={styles.content}
-    >
-      <GlassContainer style={styles.content}>
-        {STATUSES.map(status => {
-          const isActive = status === value
-          const Icon = status ? STATUS_ICONS[status] : LayoutGrid
-          const isFilledIcon = status !== 'DROPPED' && status !== 'COMPLETED'
-          const count = status ? (counts[status] ?? 0) : total
+  const options: IChipOption<TLibraryStatus>[] = [
+    {
+      value: null,
+      label: 'All',
+      icon: LayoutGrid,
+      count: total
+    },
+    ...STATUSES.map(status => ({
+      value: status,
+      label: STATUS_LABELS[status],
+      icon: STATUS_ICONS[status],
+      count: counts[status] ?? 0
+    }))
+  ]
 
-          return (
-            <Chip
-              key={status ?? 'ALL'}
-              label={status ? STATUS_LABELS[status] : 'All'}
-              icon={Icon}
-              count={count}
-              isActive={isActive}
-              withFillIcon={isActive && isFilledIcon}
-              onPress={() => onChange(status)}
-            />
-          )
-        })}
-      </GlassContainer>
-    </ScrollView>
+  return (
+    <ChipFilter
+      options={options}
+      value={value}
+      onChange={onChange}
+    />
   )
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flexGrow: 0,
-    overflow: 'visible',
-    marginBottom: SPACINGS[4]
-  },
-  content: {
-    flexDirection: 'row',
-    gap: SPACINGS[2]
-  }
-})
