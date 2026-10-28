@@ -1,1 +1,5 @@
+export * from './DreamcastIcon'
+export * from './GameCubeIcon'
+export * from './Nintendo64Icon'
+export * from './PSPIcon'
 export * from './WiiRemoteIcon'

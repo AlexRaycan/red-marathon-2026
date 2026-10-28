@@ -1,6 +1,8 @@
 import { type Platform } from '@app/constants'
 import { COLORS } from '@app/tokens'
 import {
+  faAndroid,
+  faAppStore,
   faApple,
   faLinux,
   faPlaystation,
@@ -13,7 +15,13 @@ import { HugeiconsIcon } from '@hugeicons/react-native'
 import { Gamepad2 } from 'lucide-react-native'
 import type { ComponentType } from 'react'
 
-import { WiiRemoteIcon } from '@/assets/icons'
+import {
+  DreamcastIcon,
+  GameCubeIcon,
+  Nintendo64Icon,
+  PSPIcon,
+  WiiRemoteIcon
+} from '@/assets/icons'
 
 interface PlatformIconProps {
   platform: Platform
@@ -21,12 +29,24 @@ interface PlatformIconProps {
   size?: number
 }
 
-// TODO: Add Wii, PSP
-
 const ICONS: Record<
   Platform,
   ComponentType<{ color?: string; size?: number }>
 > = {
+  iOS: ({ color, size }) => (
+    <FontAwesomeIcon
+      icon={faAppStore}
+      style={{ color }}
+      size={size}
+    />
+  ),
+  Android: ({ color, size }) => (
+    <FontAwesomeIcon
+      icon={faAndroid}
+      style={{ color }}
+      size={size}
+    />
+  ),
   macOS: ({ color, size }) => (
     <FontAwesomeIcon
       icon={faApple}
@@ -77,9 +97,8 @@ const ICONS: Record<
     />
   ),
   PSP: ({ color, size }) => (
-    <FontAwesomeIcon
-      icon={faPlaystation}
-      style={{ color }}
+    <PSPIcon
+      color={color}
       size={size}
     />
   ),
@@ -90,8 +109,32 @@ const ICONS: Record<
       size={size}
     />
   ),
+  'Nintendo 64': ({ color, size }) => (
+    <Nintendo64Icon
+      color={color}
+      size={size}
+    />
+  ),
+  'Nintendo DS': ({ color, size }) => (
+    <PSPIcon
+      color={color}
+      size={size}
+    />
+  ),
   Wii: ({ color, size }) => (
     <WiiRemoteIcon
+      color={color}
+      size={size}
+    />
+  ),
+  Dreamcast: ({ color, size }) => (
+    <DreamcastIcon
+      color={color}
+      size={size}
+    />
+  ),
+  GameCube: ({ color, size }) => (
+    <GameCubeIcon
       color={color}
       size={size}
     />

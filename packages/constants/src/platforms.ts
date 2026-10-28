@@ -1,4 +1,6 @@
 export const PLATFORMS_LIST = [
+  'iOS',
+  'Android',
   'macOS',
   'Linux',
   'PC',
@@ -6,11 +8,13 @@ export const PLATFORMS_LIST = [
   'Xbox One',
   'PlayStation 4',
   'PlayStation 5',
+  'PSP',
   'Nintendo Switch',
   'Wii',
-  'PSP'
+  'Dreamcast',
+  'Nintendo 64',
+  'Nintendo DS',
+  'GameCube'
 ] as const
 
 export type Platform = (typeof PLATFORMS_LIST)[number]
-
-// TODO: Add Wii, PSP
