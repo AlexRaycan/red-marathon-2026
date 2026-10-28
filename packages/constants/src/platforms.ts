@@ -6,7 +6,9 @@ export const PLATFORMS_LIST = [
   'Xbox One',
   'PlayStation 4',
   'PlayStation 5',
-  'Nintendo Switch'
+  'Nintendo Switch',
+  'Wii',
+  'PSP'
 ] as const
 
 export type Platform = (typeof PLATFORMS_LIST)[number]

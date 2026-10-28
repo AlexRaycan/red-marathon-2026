@@ -13,6 +13,8 @@ import { HugeiconsIcon } from '@hugeicons/react-native'
 import { Gamepad2 } from 'lucide-react-native'
 import type { ComponentType } from 'react'
 
+import { WiiRemoteIcon } from '@/assets/icons'
+
 interface PlatformIconProps {
   platform: Platform
   color?: string
@@ -74,9 +76,22 @@ const ICONS: Record<
       size={size}
     />
   ),
+  PSP: ({ color, size }) => (
+    <FontAwesomeIcon
+      icon={faPlaystation}
+      style={{ color }}
+      size={size}
+    />
+  ),
   'Nintendo Switch': ({ color, size }) => (
     <HugeiconsIcon
       icon={NintendoSwitchIcon}
+      color={color}
+      size={size}
+    />
+  ),
+  Wii: ({ color, size }) => (
+    <WiiRemoteIcon
       color={color}
       size={size}
     />
