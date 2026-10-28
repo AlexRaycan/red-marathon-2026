@@ -1,7 +1,7 @@
 import { MAIN_MENU } from '@app/constants'
 import { useAuth } from '@app/hooks'
 import { COLORS } from '@app/tokens'
-import { NativeTabs } from 'expo-router/build/native-tabs'
+import { NativeTabs } from 'expo-router/native-tabs'
 
 export default function TabBarLayout() {
   const { isAuthenticated } = useAuth()

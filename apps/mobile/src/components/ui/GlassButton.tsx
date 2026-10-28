@@ -1,7 +1,6 @@
 import { RADIUS, SPACINGS } from '@app/tokens'
 import { type GlassViewProps } from 'expo-glass-effect'
 import hexToRgba from 'hex-to-rgba'
-import { type PropsWithChildren } from 'react'
 import {
   type GestureResponderEvent,
   Pressable,
@@ -21,10 +20,7 @@ import { isGlassEffectAvailable } from '@/utils'
 import { GlassView } from './GlassView'
 
 interface GlassButtonProps
-  extends
-    PropsWithChildren,
-    GlassViewProps,
-    Omit<PressableProps, 'children' | 'style'> {
+  extends GlassViewProps, Omit<PressableProps, keyof GlassViewProps> {
   style?: StyleProp<ViewStyle>
   containerStyle?: StyleProp<ViewStyle>
 }

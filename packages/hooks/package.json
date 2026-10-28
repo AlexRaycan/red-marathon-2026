@@ -8,7 +8,7 @@
     "@app/constants": "workspace:^",
     "@app/schemas": "workspace:^",
     "@app/types": "workspace:^",
-    "react": "^19.3.1"
+    "react": "19.3.0"
   },
   "devDependencies": {
     "@types/react": "^19.3.0"

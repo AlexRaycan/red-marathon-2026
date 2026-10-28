@@ -96,7 +96,7 @@ export function TitlesGrid<T>({
       {...(isStickyHeader && { stickyHeaderIndices: [0] })}
       {...(header && { ListHeaderComponent: <View>{header}</View> })}
       ListEmptyComponent={
-        isPending ? null : (
+        isPending ? undefined : (
           <Text style={styles.emptyList}>
             {emptyText ?? 'Nothing here yet'}
           </Text>

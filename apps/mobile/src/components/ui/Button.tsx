@@ -29,7 +29,7 @@ type TContentTypes = (typeof _CONTENT_TYPES)[keyof typeof _CONTENT_TYPES]
 type TContentStyle = Partial<Record<TContentTypes, StyleProp<ViewStyle>>>
 
 interface Props
-  extends GlassViewProps, Omit<PressableProps, 'children' | 'style'> {
+  extends GlassViewProps, Omit<PressableProps, keyof GlassViewProps> {
   label?: string
   suffics?: ReactNode
   variant?: TButtonVariant

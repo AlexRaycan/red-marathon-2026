@@ -2,12 +2,12 @@ import MaskedView from '@expo/ui/community/masked-view'
 import { BlurTargetView, BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { PropsWithChildren, RefObject } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, type ViewInstance } from 'react-native'
 
 const BLUR_FADE_HEIGHT = 64
 
 interface MaskProps {
-  ref: RefObject<View | null>
+  ref: RefObject<ViewInstance | null>
   height?: number
   offset?: number
 }
