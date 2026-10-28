@@ -1,4 +1,5 @@
 export * from './library'
+export * from './platforms'
 export * from './subscription'
 export * from './title'
 export * from './ui'

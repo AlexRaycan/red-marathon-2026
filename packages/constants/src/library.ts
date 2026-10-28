@@ -7,7 +7,7 @@ export const ADD_TO_LIBRARY_ACTION: TLibraryStatusAction = {
 
 export const WRITE_REVIEW_ACTION: TLibraryStatusAction = {
   label: 'Write a Review',
-  nextStatus: ''
+  nextStatus: 'COMPLETED'
 }
 
 const RESUME_ACTION: TLibraryStatusAction = {

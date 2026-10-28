@@ -18,7 +18,7 @@ export const ACCOUNT_MENU_LABELS = {
 export type AccountMenu = keyof typeof ACCOUNT_MENU_LABELS
 
 export interface IAccountMenuItem {
-  label: string
+  label: (typeof ACCOUNT_MENU_LABELS)[keyof typeof ACCOUNT_MENU_LABELS]
   path: string
   content?: string
 }

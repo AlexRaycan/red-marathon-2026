@@ -1,5 +1,5 @@
-import { type Platform } from '@app/constants'
 import { COLORS } from '@app/tokens'
+import type { Platform } from '@app/types'
 import {
   faAndroid,
   faAppStore,
