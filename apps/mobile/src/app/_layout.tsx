@@ -7,6 +7,10 @@ import '@/lib/api'
 
 import { RootRouter } from '@/routes'
 
+export const unstable_settings = {
+  anchor: '(tabbar)'
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

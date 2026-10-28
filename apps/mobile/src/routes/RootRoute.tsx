@@ -17,12 +17,20 @@ export function RootRouter() {
         headerShown: false
       }}
     >
-      <Stack.Protected guard={!isCompleted}>
+      <Stack.Protected
+        guard={!isCompleted}
+        redirectTo='/'
+      >
         <Stack.Screen name='onboarding' />
       </Stack.Protected>
 
-      <Stack.Protected guard={isCompleted}>
+      <Stack.Protected
+        guard={isCompleted}
+        redirectTo='/onboarding'
+      >
         <Stack.Screen name='(tabbar)' />
+        <Stack.Screen name='(auth)' />
+
         <Stack.Screen
           name='subscriptions'
           options={{ presentation: 'fullScreenModal' }}
