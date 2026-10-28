@@ -2,11 +2,12 @@ import { useLibraryTitlesInfinite, useMyTasteStats } from '@app/api'
 import { useAuth } from '@app/hooks'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
+import { GlassContainer } from 'expo-glass-effect'
 import { Redirect } from 'expo-router'
 import { useState } from 'react'
 import { StyleSheet } from 'react-native'
 
-import { Screen, ViewLayout } from '@/components/ui'
+import { Screen, SearchField, ViewLayout } from '@/components/ui'
 
 import { TitlesGrid, Toolbar } from '@/components/elements'
 import { StatusFilter } from '@/components/pages/library'
@@ -78,12 +79,20 @@ export default function Library() {
         gradientLocations={[0.0, 0.8, 1]}
         style={styles.toolbar}
       >
-        <StatusFilter
-          value={status}
-          onChange={setStatus}
-          counts={tasteStats?.data.byStatus ?? {}}
-          total={tasteStats?.data.totalEntries ?? 0}
-        />
+        <GlassContainer>
+          <StatusFilter
+            value={status}
+            onChange={setStatus}
+            counts={tasteStats?.data.byStatus ?? {}}
+            total={tasteStats?.data.totalEntries ?? 0}
+          />
+
+          <SearchField
+            value=''
+            placeholder='test'
+            onChangeText={e => console.log(e)}
+          />
+        </GlassContainer>
       </Toolbar>
     </Screen>
   )

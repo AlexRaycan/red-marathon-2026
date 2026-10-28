@@ -1,4 +1,4 @@
-import { STATUS_LABELS } from '@app/constants'
+import { LIBRARY_STATUSES, STATUS_LABELS } from '@app/constants'
 import type { TLibraryStatus } from '@app/types'
 import {
   Bookmark,
@@ -11,8 +11,6 @@ import {
 } from 'lucide-react-native'
 
 import { ChipFilter, type IChipOption } from '@/components/elements'
-
-const STATUSES = Object.keys(STATUS_LABELS) as TLibraryStatus[]
 
 const STATUS_ICONS: Record<TLibraryStatus, LucideIcon> = {
   PLANNED: Bookmark,
@@ -42,7 +40,7 @@ export function StatusFilter({
       icon: LayoutGrid,
       count: total
     },
-    ...STATUSES.map(status => ({
+    ...LIBRARY_STATUSES.map(status => ({
       value: status,
       label: STATUS_LABELS[status],
       icon: STATUS_ICONS[status],

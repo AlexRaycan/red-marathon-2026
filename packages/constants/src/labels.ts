@@ -11,6 +11,10 @@ export const STATUS_LABELS: Record<LibraryEntryResponseStatus, string> = {
   DROPPED: 'Dropped'
 }
 
+export const LIBRARY_STATUSES = Object.keys(
+  STATUS_LABELS
+) as LibraryEntryResponseStatus[]
+
 export const TYPE_LABELS: Record<TitleListItemResponseType, string> = {
   MOVIE: 'Movie',
   TV_SHOW: 'Series',

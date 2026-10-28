@@ -1,7 +1,7 @@
 import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
 import hexToRgba from 'hex-to-rgba'
 import { Eye, EyeOff } from 'lucide-react-native'
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 import {
   type ColorValue,
   type StyleProp,
@@ -20,6 +20,10 @@ interface InputProps extends TextInputProps {
   tintColor?: ColorValue
   error?: string
   isPassword?: boolean
+  elements?: {
+    prefix?: ReactNode
+    suffix?: ReactNode
+  }
   containerStyle?: StyleProp<ViewStyle>
 }
 
@@ -29,6 +33,7 @@ export function Input({
   error,
   isPassword,
   containerStyle,
+  elements,
   style,
   ...props
 }: InputProps) {
@@ -45,6 +50,8 @@ export function Input({
           containerStyle
         ]}
       >
+        {elements?.prefix}
+
         <TextInput
           placeholderTextColor={COLORS.text.muted}
           secureTextEntry={isPassword && isSecure}
@@ -52,6 +59,8 @@ export function Input({
           style={[styles.input, multiline && styles.multilineHeight, style]}
           {...props}
         />
+
+        {elements?.suffix}
 
         {isPassword && (
           <Pressable
@@ -83,6 +92,7 @@ const styles = StyleSheet.create({
     gap: SPACINGS[1]
   },
   container: {
+    gap: SPACINGS[2],
     alignItems: 'center',
     paddingHorizontal: SPACINGS[4],
     borderRadius: RADIUS.full,
