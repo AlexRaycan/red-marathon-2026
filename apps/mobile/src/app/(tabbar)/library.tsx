@@ -7,7 +7,7 @@ import { Redirect } from 'expo-router'
 import { useState } from 'react'
 import { StyleSheet } from 'react-native'
 
-import { Screen, SearchField, ViewLayout } from '@/components/ui'
+import { Button, Screen, SearchField, ViewLayout } from '@/components/ui'
 
 import { TitlesGrid, Toolbar } from '@/components/elements'
 import { StatusFilter } from '@/components/pages/library'
@@ -87,6 +87,7 @@ export default function Library() {
         scrollY={scrollY}
         withGradient
         leftSide='Library'
+        rightSide={<Button label='Collection' />}
         titleSize={FONT_SIZE['3xl']}
         gradientLocations={[0.0, 0.8, 1]}
         style={styles.toolbar}

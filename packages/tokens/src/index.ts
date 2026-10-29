@@ -1,3 +1,3 @@
-export * from './colors'
-export * from './layout'
-export * from './typo'
+export * from './colors.tokens'
+export * from './layout.tokens'
+export * from './typo.tokens'

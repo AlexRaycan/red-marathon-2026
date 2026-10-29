@@ -1,2 +1,2 @@
-export * from './auth'
-export * from './review'
+export * from './auth.schemas'
+export * from './review.schemas'
