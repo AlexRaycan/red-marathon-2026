@@ -7,6 +7,7 @@ interface IQueryText {
 }
 
 export type TQueryType = 'search'
+export type TScreenType = 'library'
 
 export const EMPTY_TEXT: Record<TQueryType, IQueryText> = {
   search: {
@@ -14,4 +15,8 @@ export const EMPTY_TEXT: Record<TQueryType, IQueryText> = {
     process: 'Searching...',
     empty: 'Nothing found'
   }
+}
+
+export const PLACEHOLDER_TEXT: Record<TScreenType, string> = {
+  library: 'Search Your Library'
 }

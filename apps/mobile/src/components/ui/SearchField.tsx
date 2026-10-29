@@ -2,7 +2,6 @@ import { COLORS } from '@app/tokens'
 import { Search } from 'lucide-react-native'
 import { StyleSheet } from 'react-native'
 
-import { GlassContainer } from './GlassContainer'
 import { Input } from './Input'
 
 interface SearchFieldProps {

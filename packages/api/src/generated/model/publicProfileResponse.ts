@@ -19,4 +19,9 @@ export interface PublicProfileResponse {
   country: string | null;
   createdAt: string;
   taste: TasteStatsResponse;
+  /**
+     * Текст от модели; null, пока владелец его не сгенерировал
+     * @nullable
+     */
+  tasteInsight: string | null;
 }

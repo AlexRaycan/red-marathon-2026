@@ -92,6 +92,7 @@ export function TitlesGrid<T>({
         },
         style
       ]}
+      showsVerticalScrollIndicator={false}
       keyboardDismissMode='on-drag'
       {...(isStickyHeader && { stickyHeaderIndices: [0] })}
       {...(header && { ListHeaderComponent: <View>{header}</View> })}

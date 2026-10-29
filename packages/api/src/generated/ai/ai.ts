@@ -27,6 +27,7 @@ import type {
 import type {
   AiSuggestionsResponse,
   AiSummaryResponse,
+  ErrorResponse,
   PickerDto
 } from '../model';
 
@@ -173,12 +174,19 @@ export type aiPickTitleResponse200 = {
   status: 200
 }
 
+export type aiPickTitleResponse429 = {
+  data: ErrorResponse
+  status: 429
+}
+
 export type aiPickTitleResponseSuccess = (aiPickTitleResponse200) & {
   headers: Headers;
 };
-;
+export type aiPickTitleResponseError = (aiPickTitleResponse429) & {
+  headers: Headers;
+};
 
-export type aiPickTitleResponse = (aiPickTitleResponseSuccess)
+export type aiPickTitleResponse = (aiPickTitleResponseSuccess | aiPickTitleResponseError)
 
 export const getAiPickTitleUrl = () => {
 
@@ -189,7 +197,7 @@ export const getAiPickTitleUrl = () => {
 }
 
 /**
- * @summary AI Picker — подбор под настроение
+ * @summary AI Picker — подбор под настроение. На бесплатном тарифе есть дневной лимит
  */
 export const aiPickTitle = async (pickerDto: PickerDto, options?: Parameters<typeof http>[1]): Promise<aiPickTitleResponse> => {
 
@@ -222,7 +230,7 @@ return http<aiPickTitleResponse>(getAiPickTitleUrl(),
 
 export const getAiPickTitleMutationKey = () => ['aiPickTitle'] as const;
 
-export const getAiPickTitleMutationOptions = <TError = unknown,
+export const getAiPickTitleMutationOptions = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPickTitle>>, TError,AiPickTitleMutationVariables, TContext>, request?: SecondParameter<typeof http>}
 ): UseMutationOptions<Awaited<ReturnType<typeof aiPickTitle>>, TError,AiPickTitleMutationVariables, TContext> => {
 
@@ -251,13 +259,13 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type AiPickTitleMutationResult = NonNullable<Awaited<ReturnType<typeof aiPickTitle>>>
     export type AiPickTitleMutationBody = PickerDto
-    export type AiPickTitleMutationError = unknown
+    export type AiPickTitleMutationError = ErrorResponse
     export type AiPickTitleMutationVariables = {data: PickerDto}
 
     /**
- * @summary AI Picker — подбор под настроение
+ * @summary AI Picker — подбор под настроение. На бесплатном тарифе есть дневной лимит
  */
-export const useAiPickTitle = <TError = unknown,
+export const useAiPickTitle = <TError = ErrorResponse,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof aiPickTitle>>, TError,AiPickTitleMutationVariables, TContext>, request?: SecondParameter<typeof http>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof aiPickTitle>>,

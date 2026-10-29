@@ -1,8 +1,8 @@
 import { useLibraryTitlesInfinite, useMyTasteStats } from '@app/api'
-import { useAuth } from '@app/hooks'
+import { EMPTY_TEXT, PLACEHOLDER_TEXT } from '@app/constants'
+import { useAuth, useDebouncedValue } from '@app/hooks'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
-import { GlassContainer } from 'expo-glass-effect'
 import { Redirect } from 'expo-router'
 import { useState } from 'react'
 import { StyleSheet } from 'react-native'
@@ -18,9 +18,13 @@ const PAGE_SIZE = 9
 
 export default function Library() {
   const [status, setStatus] = useState<TLibraryStatus | null>(null)
-  const { toolbarSpace } = useSpaces()
+  const [search, setSearch] = useState('')
+
+  const { toolbarSpace, tabbarSpace } = useSpaces()
 
   const { scrollY, scrollHandler } = useScrollAnimation()
+
+  const searchTerm = useDebouncedValue(search.trim())
 
   const { user, isLoading, isError } = useAuth()
 
@@ -31,6 +35,7 @@ export default function Library() {
     useLibraryTitlesInfinite(
       {
         status: status ? [status] : undefined,
+        searchTerm: searchTerm || undefined,
         take: PAGE_SIZE
       },
       {
@@ -55,6 +60,9 @@ export default function Library() {
     }
   }
 
+  const texts = EMPTY_TEXT.search
+  const emptyText = searchTerm ? texts.empty : undefined
+
   return (
     <Screen>
       <ViewLayout.Root>
@@ -65,7 +73,11 @@ export default function Library() {
           getTitle={entry => entry.title}
           keyExtractor={entry => entry.title.key ?? entry.id}
           isPending={isPending}
-          style={{ paddingTop: toolbarSpace + SPACINGS[9] + SPACINGS[4] }}
+          emptyText={emptyText}
+          style={{
+            paddingTop: toolbarSpace + SPACINGS[16] + SPACINGS[9] + SPACINGS[4],
+            paddingBottom: tabbarSpace
+          }}
           onEndReached={onEndReached}
           onScroll={scrollHandler}
         />
@@ -79,20 +91,18 @@ export default function Library() {
         gradientLocations={[0.0, 0.8, 1]}
         style={styles.toolbar}
       >
-        <GlassContainer>
-          <StatusFilter
-            value={status}
-            onChange={setStatus}
-            counts={tasteStats?.data.byStatus ?? {}}
-            total={tasteStats?.data.totalEntries ?? 0}
-          />
+        <SearchField
+          value={search}
+          placeholder={PLACEHOLDER_TEXT.library}
+          onChangeText={setSearch}
+        />
 
-          <SearchField
-            value=''
-            placeholder='test'
-            onChangeText={e => console.log(e)}
-          />
-        </GlassContainer>
+        <StatusFilter
+          value={status}
+          onChange={setStatus}
+          counts={tasteStats?.data.byStatus ?? {}}
+          total={tasteStats?.data.totalEntries ?? 0}
+        />
       </Toolbar>
     </Screen>
   )
@@ -100,6 +110,6 @@ export default function Library() {
 
 const styles = StyleSheet.create({
   toolbar: {
-    gap: SPACINGS[4]
+    gap: SPACINGS[3]
   }
 })

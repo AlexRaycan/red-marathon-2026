@@ -5,12 +5,29 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
+import type { GenreSlug } from './genreSlug';
 import type { SearchTitlesTypeItem } from './searchTitlesTypeItem';
 
 export type SearchTitlesParams = {
+/**
+ * slug из GET /external/genres; подходит тайтл с любым из жанров
+ */
+genre?: GenreSlug[];
 /**
  * @minLength 2
  */
 q: string;
 type?: SearchTitlesTypeItem[];
+/**
+ * Год выхода, от (включительно)
+ * @minimum 1900
+ * @maximum 2100
+ */
+yearFrom?: number;
+/**
+ * Год выхода, до (включительно)
+ * @minimum 1900
+ * @maximum 2100
+ */
+yearTo?: number;
 };

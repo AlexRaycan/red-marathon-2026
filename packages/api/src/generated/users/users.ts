@@ -26,7 +26,9 @@ import type {
 
 import type {
   ChangePasswordDto,
+  ErrorResponse,
   PublicProfileResponse,
+  TasteInsightResponse,
   TasteStatsResponse,
   UpdateProfileDto,
   UserResponse
@@ -431,6 +433,127 @@ export function useMyTasteStats<TData = Awaited<ReturnType<typeof myTasteStats>>
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getMyTasteStatsQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+export type myTasteInsightResponse200 = {
+  data: TasteInsightResponse
+  status: 200
+}
+
+export type myTasteInsightResponse429 = {
+  data: ErrorResponse
+  status: 429
+}
+
+export type myTasteInsightResponseSuccess = (myTasteInsightResponse200) & {
+  headers: Headers;
+};
+export type myTasteInsightResponseError = (myTasteInsightResponse429) & {
+  headers: Headers;
+};
+
+export type myTasteInsightResponse = (myTasteInsightResponseSuccess | myTasteInsightResponseError)
+
+export const getMyTasteInsightUrl = () => {
+
+
+
+
+  return `/users/me/taste/insight`
+}
+
+/**
+ * @summary Текст Taste DNA от модели. Обновляется раз в неделю; на бесплатном
+тарифе генерация входит в дневной лимит AI-запросов
+ */
+export const myTasteInsight = async ( options?: Parameters<typeof http>[1]): Promise<myTasteInsightResponse> => {
+
+  return http<myTasteInsightResponse>(getMyTasteInsightUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getMyTasteInsightQueryKey = () => {
+    return [
+    `/users/me/taste/insight`
+    ] as const;
+    }
+
+
+export const getMyTasteInsightQueryOptions = <TData = Awaited<ReturnType<typeof myTasteInsight>>, TError = ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteInsight>>, TError, TData>>, request?: SecondParameter<typeof http>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getMyTasteInsightQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof myTasteInsight>>> = ({ signal }) => myTasteInsight({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof myTasteInsight>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type MyTasteInsightQueryResult = NonNullable<Awaited<ReturnType<typeof myTasteInsight>>>
+export type MyTasteInsightQueryError = ErrorResponse
+
+
+export function useMyTasteInsight<TData = Awaited<ReturnType<typeof myTasteInsight>>, TError = ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteInsight>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof myTasteInsight>>,
+          TError,
+          Awaited<ReturnType<typeof myTasteInsight>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useMyTasteInsight<TData = Awaited<ReturnType<typeof myTasteInsight>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteInsight>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof myTasteInsight>>,
+          TError,
+          Awaited<ReturnType<typeof myTasteInsight>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useMyTasteInsight<TData = Awaited<ReturnType<typeof myTasteInsight>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteInsight>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Текст Taste DNA от модели. Обновляется раз в неделю; на бесплатном
+тарифе генерация входит в дневной лимит AI-запросов
+ */
+
+export function useMyTasteInsight<TData = Awaited<ReturnType<typeof myTasteInsight>>, TError = ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof myTasteInsight>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getMyTasteInsightQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

@@ -40,6 +40,8 @@ export function useLibraryStatus(key: string) {
   const savedStatus = myState?.data.libraryEntry?.status ?? null
   const status = isRemovingPending ? null : (pendingStatus ?? savedStatus)
 
+  const isCompletedStatus = status === 'COMPLETED'
+
   const setStatus = (status: TLibraryStatus) => {
     setStatusMutation({
       key,
@@ -54,7 +56,7 @@ export function useLibraryStatus(key: string) {
   }
 
   const action =
-    status && status !== 'COMPLETED'
+    status && !isCompletedStatus
       ? LIBRARY_STATUS_ACTIONS[status]
       : ADD_TO_LIBRARY_ACTION
 
@@ -62,7 +64,7 @@ export function useLibraryStatus(key: string) {
     isAuthenticated,
     status,
     action,
-    isCompletedStatus: status === 'COMPLETED',
+    isCompletedStatus,
     rating: myState?.data.review?.rating ?? null,
     setStatus,
     removeFromLibrary

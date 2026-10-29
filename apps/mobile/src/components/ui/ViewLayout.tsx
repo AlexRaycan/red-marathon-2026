@@ -17,7 +17,7 @@ function ViewLayoutRoot({
   children,
   ...props
 }: ViewLayoutRootProps) {
-  const { toolbarSpace, tabbarSpace } = useSpaces()
+  const { statusbarSpace, tabbarSpace } = useSpaces()
 
   return (
     <View
@@ -25,7 +25,7 @@ function ViewLayoutRoot({
         styles.root,
         hasBGColor && styles.bgColor,
         withToolbar && {
-          paddingTop: toolbarSpace
+          paddingTop: statusbarSpace
         },
         withTabbar && {
           paddingBottom: tabbarSpace

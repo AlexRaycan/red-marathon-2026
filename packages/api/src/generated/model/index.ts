@@ -7,7 +7,6 @@
  */
 
 export * from './aiSuggestionResponse';
-export * from './aiSuggestionResponseType';
 export * from './aiSuggestionsResponse';
 export * from './aiSummaryResponse';
 export * from './authResponse';
@@ -43,6 +42,8 @@ export * from './friendRequestDto';
 export * from './friendRequestListResponse';
 export * from './friendRequestResponse';
 export * from './friendResponse';
+export * from './genreResponse';
+export * from './genreSlug';
 export * from './libraryEntryResponse';
 export * from './libraryEntryResponseProgressUnit';
 export * from './libraryEntryResponseStatus';
@@ -91,6 +92,7 @@ export * from './subscriptionResponse';
 export * from './subscriptionResponsePlan';
 export * from './subscriptionResponseStatus';
 export * from './subscriptionUsageResponse';
+export * from './tasteInsightResponse';
 export * from './tasteStatsResponse';
 export * from './tasteStatsResponseByStatus';
 export * from './tasteStatsResponseByType';

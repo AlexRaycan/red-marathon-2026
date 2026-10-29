@@ -5,6 +5,7 @@ import {
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { COLORS } from '@app/tokens'
+import type { TLibraryStatus } from '@app/types'
 import { useLocalSearchParams } from 'expo-router'
 import { Check, LogIn, type LucideIcon, Pen } from 'lucide-react-native'
 import { type ColorValue } from 'react-native'
@@ -13,6 +14,7 @@ import { Button } from '@/components/ui'
 
 import { useProtectedPush } from '@/hooks'
 
+import { DetailsLongPress } from './DetailsLongPress.ios'
 import { LIBRARY_ACTION_ICONS } from './detials-actions.data'
 
 interface DetailsStatusButtonProps {
@@ -62,6 +64,18 @@ export function DetailsStatusButton({
 
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
+  const selectStatus = (nextStatus: TLibraryStatus) => {
+    if (!isCompletedStatus) {
+      setStatus(nextStatus)
+
+      return
+    }
+
+    if (type) {
+      openSheet?.()
+    }
+  }
+
   const redirect = () => {
     pushProtected({
       pathname: '/title/[type]/[key]',
@@ -73,30 +87,25 @@ export function DetailsStatusButton({
   }
 
   const handleStatusPress = () => {
-    if (isAuthenticated) {
-      if (!type) {
-        if (!status) setStatus('PLANNED')
-
-        if (status === 'PLANNED') removeFromLibrary()
-
-        return
-      }
-
-      if (!isCompletedStatus) setStatus(action.nextStatus)
-
-      if (isCompletedStatus || action.nextStatus === 'COMPLETED') {
-        if (type) {
-          openSheet?.()
-        }
-      }
+    if (!isAuthenticated) {
+      redirect()
 
       return
     }
 
-    redirect()
+    // !type - on the home screen
+    if (!type) {
+      if (!status) setStatus('PLANNED')
+
+      if (status === 'PLANNED') removeFromLibrary()
+
+      return
+    }
+
+    selectStatus(action.nextStatus)
   }
 
-  return (
+  const button = (
     <Button
       icon={icon}
       {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
@@ -110,5 +119,18 @@ export function DetailsStatusButton({
         : { variant: 'secondary' })}
       onPress={handleStatusPress}
     />
+  )
+
+  if (!isAuthenticated) return button
+
+  return (
+    <DetailsLongPress
+      status={status}
+      size={isIconOnly ? 'md' : 'lg'}
+      selectStatus={selectStatus}
+      removeFromLibrary={removeFromLibrary}
+    >
+      {button}
+    </DetailsLongPress>
   )
 }

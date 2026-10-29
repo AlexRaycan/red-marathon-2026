@@ -3,10 +3,9 @@ import { EMPTY_TEXT, MIN_QUERY_LENGTH } from '@app/constants'
 import { useDebouncedValue } from '@app/hooks'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import type { TTitleType } from '@app/types'
-import { getCardWidth } from '@app/utils'
 import { Stack } from 'expo-router'
 import { useState } from 'react'
-import { StyleSheet, useWindowDimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { Screen, ViewLayout } from '@/components/ui'
 
@@ -20,8 +19,6 @@ export default function Search() {
   const [type, setType] = useState<TTitleType | null>()
 
   const debouncedQuery = useDebouncedValue(query.trim())
-  const { width } = useWindowDimensions()
-  const cardWidth = getCardWidth(width)
 
   const { toolbarSpace } = useSpaces()
 
@@ -65,7 +62,7 @@ export default function Search() {
           keyExtractor={title => title.key}
           emptyText={emptyText}
           isPending={isFetching}
-          style={{ paddingTop: toolbarSpace + SPACINGS[9] + SPACINGS[4] }}
+          style={{ paddingTop: toolbarSpace }}
           onScroll={scrollHandler}
         />
       </ViewLayout.Root>

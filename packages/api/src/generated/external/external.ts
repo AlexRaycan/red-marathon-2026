@@ -23,6 +23,7 @@ import type {
 import type {
   ErrorResponse,
   ExternalTitleResponse,
+  GenreResponse,
   SearchTitlesParams
 } from '../model';
 
@@ -75,7 +76,7 @@ export const getSearchTitlesUrl = (params: SearchTitlesParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    const explodeParameters = ["type"];
+    const explodeParameters = ["genre","type"];
 
     if (Array.isArray(value) && explodeParameters.includes(key)) {
       value.forEach((v) => {
@@ -175,6 +176,118 @@ export function useSearchTitles<TData = Awaited<ReturnType<typeof searchTitles>>
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getSearchTitlesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+export type externalGenresResponse200 = {
+  data: GenreResponse[]
+  status: 200
+}
+
+export type externalGenresResponseSuccess = (externalGenresResponse200) & {
+  headers: Headers;
+};
+;
+
+export type externalGenresResponse = (externalGenresResponseSuccess)
+
+export const getExternalGenresUrl = () => {
+
+
+
+
+  return `/external/genres`
+}
+
+/**
+ * @summary Общий список жанров для фильтра: у каждого источника свои названия
+ */
+export const externalGenres = async ( options?: Parameters<typeof http>[1]): Promise<externalGenresResponse> => {
+
+  return http<externalGenresResponse>(getExternalGenresUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getExternalGenresQueryKey = () => {
+    return [
+    `/external/genres`
+    ] as const;
+    }
+
+
+export const getExternalGenresQueryOptions = <TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>>, request?: SecondParameter<typeof http>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getExternalGenresQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof externalGenres>>> = ({ signal }) => externalGenres({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ExternalGenresQueryResult = NonNullable<Awaited<ReturnType<typeof externalGenres>>>
+export type ExternalGenresQueryError = unknown
+
+
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof externalGenres>>,
+          TError,
+          Awaited<ReturnType<typeof externalGenres>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof externalGenres>>,
+          TError,
+          Awaited<ReturnType<typeof externalGenres>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Общий список жанров для фильтра: у каждого источника свои названия
+ */
+
+export function useExternalGenres<TData = Awaited<ReturnType<typeof externalGenres>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof externalGenres>>, TError, TData>>, request?: SecondParameter<typeof http>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getExternalGenresQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
