@@ -20,7 +20,7 @@ import { BOTTOM_SHEET_ACTIONS } from '@/constants'
 
 import { ReviewBottomSheet } from '../review-form'
 
-import { DetailsStatusButton } from './DetailsStatusButton'
+import { DetailsStatusButton } from './DetailsStatusButton.ios'
 
 interface DetailsActionButtonsProps {
   title: Pick<

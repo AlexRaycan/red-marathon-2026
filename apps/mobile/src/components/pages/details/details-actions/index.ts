@@ -1,2 +1,2 @@
 export * from './DetailsActions'
-export * from './DetailsStatusButton'
+export * from './DetailsStatusButton.ios'

@@ -121,14 +121,18 @@ export function DetailsStatusButton({
     />
   )
 
-  if (!isAuthenticated) return button
+  if (!isAuthenticated || isIconOnly) return button
 
   return (
     <DetailsLongPress
       status={status}
+      nextStatus={action.nextStatus}
+      label={isAuthenticated ? libraryStatusButtonLabel : 'Go to Login'}
       size={isIconOnly ? 'md' : 'lg'}
+      tintColor={isAuthenticated ? statusColor : COLORS.status.success}
       selectStatus={selectStatus}
       removeFromLibrary={removeFromLibrary}
+      onPrimaryAction={handleStatusPress}
     >
       {button}
     </DetailsLongPress>
