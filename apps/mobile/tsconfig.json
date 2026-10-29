@@ -13,7 +13,8 @@
       "@app/types": ["../../packages/types/src"],
       "@app/ui": ["../../packages/ui/src"],
       "@app/utils": ["../../packages/utils/src"]
-    }
+    },
+    "moduleSuffixes": [".ios", ".android", ".native", ""]
   },
   "include": [
     "**/*.ts",

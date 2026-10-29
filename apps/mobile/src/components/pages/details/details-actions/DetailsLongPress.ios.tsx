@@ -1,14 +1,11 @@
 import type { LibraryEntryResponseStatus } from '@app/api'
 import { STATUS_LABELS } from '@app/constants'
 import { COLORS, FONT_SIZE } from '@app/tokens'
-import type { TButtonSize, TNextLibraryStatus } from '@app/types'
 import {
   Host,
   Label,
   Menu,
   Button as MenuButton,
-  type MenuProps,
-  type RNHostViewProps,
   Section,
   Toggle
 } from '@expo/ui/swift-ui'
@@ -21,27 +18,14 @@ import {
   menuIndicator,
   tint
 } from '@expo/ui/swift-ui/modifiers'
-import type { GlassViewProps } from 'expo-glass-effect'
 
 import {
-  ACTION_SYMBOLS,
+  ACTION_SYMBOLS_IOS,
   MAIN_STATUSES,
   PAUSED_STATUSES,
-  STATUS_SYMBOLS
-} from './detials-actions.data'
-
-interface DetailsLongPressProps
-  extends
-    Pick<RNHostViewProps, 'children'>,
-    Pick<MenuProps, 'onPrimaryAction'>,
-    Pick<GlassViewProps, 'tintColor'> {
-  label: string
-  status: LibraryEntryResponseStatus | null
-  nextStatus: TNextLibraryStatus
-  size?: TButtonSize
-  selectStatus: (item: LibraryEntryResponseStatus) => void
-  removeFromLibrary: () => void
-}
+  STATUS_SYMBOLS_IOS
+} from './details-actions.data'
+import { type DetailsLongPressProps } from './details-actions.types'
 
 export function DetailsLongPress({
   label,
@@ -49,9 +33,9 @@ export function DetailsLongPress({
   nextStatus,
   size = 'md',
   tintColor,
+  onPress,
   selectStatus,
-  removeFromLibrary,
-  ...props
+  removeFromLibrary
 }: DetailsLongPressProps) {
   const height = size === 'md' ? 44 : 56
 
@@ -59,21 +43,20 @@ export function DetailsLongPress({
     <Toggle
       key={item}
       label={STATUS_LABELS[item]}
-      systemImage={STATUS_SYMBOLS[item]}
+      systemImage={STATUS_SYMBOLS_IOS[item]}
       isOn={item === status}
       modifiers={[tint(COLORS.text.primary)]}
       onIsOnChange={() => selectStatus(item)}
     />
   )
 
-  // DOC: Android `DropdownMenu`
   return (
     <Host style={{ height }}>
       <Menu
         label={
           <Label
             title={label}
-            systemImage={ACTION_SYMBOLS[nextStatus]}
+            systemImage={ACTION_SYMBOLS_IOS[nextStatus]}
             modifiers={[
               frame({
                 maxWidth: Infinity,
@@ -94,7 +77,7 @@ export function DetailsLongPress({
           foregroundStyle(COLORS.text.primary),
           frame({ height })
         ]}
-        {...props}
+        onPrimaryAction={onPress}
       >
         <Section>{MAIN_STATUSES.map(renderStatus)}</Section>
 

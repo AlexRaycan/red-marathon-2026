@@ -7,9 +7,9 @@ import { useOnboardingStore } from '@/store'
 export function RootRouter() {
   useOnboardingInit()
 
-  const isCompleted = useOnboardingStore(state => state.isCompleted)
+  const isOnboardingCompleted = useOnboardingStore(state => state.isCompleted)
 
-  if (isCompleted === null) return null
+  if (isOnboardingCompleted === null) return null
 
   return (
     <Stack
@@ -18,23 +18,36 @@ export function RootRouter() {
       }}
     >
       <Stack.Protected
-        guard={!isCompleted}
+        guard={!isOnboardingCompleted}
         redirectTo='/'
       >
         <Stack.Screen name='onboarding' />
       </Stack.Protected>
 
       <Stack.Protected
-        guard={isCompleted}
+        guard={isOnboardingCompleted}
         redirectTo='/onboarding'
       >
         <Stack.Screen name='(tabbar)' />
+        <Stack.Screen name='collections' />
+        <Stack.Screen name='collections/[id]' />
+
         <Stack.Screen name='(auth)' />
 
         <Stack.Screen
           name='subscriptions'
           options={{ presentation: 'fullScreenModal' }}
         />
+
+        {/* <Stack.Screen
+          name='collection-create'
+          options={{ presentation: 'fullScreenModal' }}
+        />
+
+        <Stack.Screen
+          name='add-to-collection/[key]'
+          options={{ presentation: 'fullScreenModal' }}
+        /> */}
       </Stack.Protected>
     </Stack>
   )

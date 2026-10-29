@@ -14,8 +14,8 @@ import { Button } from '@/components/ui'
 
 import { useProtectedPush } from '@/hooks'
 
-import { DetailsLongPress } from './DetailsLongPress.ios'
-import { LIBRARY_ACTION_ICONS } from './detials-actions.data'
+import { DetailsLongPress } from './DetailsLongPress'
+import { LIBRARY_ACTION_ICONS } from './details-actions.data'
 
 interface DetailsStatusButtonProps {
   title: Pick<DiscoverDetailsResponse, 'key' | 'type'>
@@ -65,14 +65,26 @@ export function DetailsStatusButton({
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
   const selectStatus = (nextStatus: TLibraryStatus) => {
-    if (!isCompletedStatus) {
-      setStatus(nextStatus)
+    const shouldOpenSheet = type && nextStatus === 'COMPLETED'
+
+    setStatus(nextStatus)
+
+    // When user hits 'Mark as Completed' button
+    if (
+      !isCompletedStatus &&
+      shouldOpenSheet &&
+      userRating?.rating === undefined
+    ) {
+      openSheet?.()
 
       return
     }
 
-    if (type) {
+    // When user hit 'Write/Edit review'
+    if (shouldOpenSheet) {
       openSheet?.()
+
+      return
     }
   }
 
@@ -105,7 +117,7 @@ export function DetailsStatusButton({
     selectStatus(action.nextStatus)
   }
 
-  const button = (
+  const renderButton = (onLongPress?: () => void) => (
     <Button
       icon={icon}
       {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
@@ -118,10 +130,11 @@ export function DetailsStatusButton({
           }
         : { variant: 'secondary' })}
       onPress={handleStatusPress}
+      onLongPress={onLongPress}
     />
   )
 
-  if (!isAuthenticated || isIconOnly) return button
+  if (!isAuthenticated || isIconOnly) return renderButton()
 
   return (
     <DetailsLongPress
@@ -130,11 +143,10 @@ export function DetailsStatusButton({
       label={isAuthenticated ? libraryStatusButtonLabel : 'Go to Login'}
       size={isIconOnly ? 'md' : 'lg'}
       tintColor={isAuthenticated ? statusColor : COLORS.status.success}
+      renderTrigger={({ onLongPress }) => renderButton(onLongPress)}
       selectStatus={selectStatus}
       removeFromLibrary={removeFromLibrary}
-      onPrimaryAction={handleStatusPress}
-    >
-      {button}
-    </DetailsLongPress>
+      onPress={handleStatusPress}
+    />
   )
 }

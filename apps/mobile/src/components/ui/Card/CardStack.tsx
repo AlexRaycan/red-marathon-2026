@@ -4,45 +4,44 @@ import { StyleSheet } from 'react-native'
 
 interface Props extends ImageProps {
   borderRadius?: number
+  count?: number
+  baseOffset?: number
+  direction?: 'top' | 'left' | 'right' | 'bottom'
 }
 
-export function CardStack({ source, borderRadius, style, ...props }: Props) {
+export function CardStack({
+  source,
+  borderRadius,
+  count = 2,
+  baseOffset = 16,
+  direction = 'left',
+  style,
+  ...props
+}: Props) {
+  const offsetMultiplayer = direction === 'left' ? 1 : -1
+
   return (
     <>
-      <Image
-        source={source}
-        transition={200}
-        contentFit='cover'
-        style={[
-          StyleSheet.absoluteFill,
-          style,
-          styles.stack,
-          {
-            borderRadius: borderRadius,
-            left: 16,
-            transform: [{ scale: 0.9 }],
-            opacity: 0.25
-          }
-        ]}
-        {...props}
-      />
-      <Image
-        source={source}
-        transition={200}
-        contentFit='cover'
-        style={[
-          StyleSheet.absoluteFill,
-          style,
-          styles.stack,
-          {
-            borderRadius: borderRadius,
-            left: 8,
-            transform: [{ scale: 0.95 }],
-            opacity: 0.45
-          }
-        ]}
-        {...props}
-      />
+      {Array.from({ length: count }, (_, i) => i).map(i => (
+        <Image
+          key={`conver-stack-${i}`}
+          source={source}
+          transition={200}
+          contentFit='cover'
+          style={[
+            StyleSheet.absoluteFill,
+            styles.stack,
+            {
+              borderRadius: borderRadius,
+              [direction]: (baseOffset * offsetMultiplayer) / (i + 1),
+              transform: [{ scale: 0.9 + i * 0.05 }],
+              opacity: 0.25 + i * 0.2
+            },
+            style
+          ]}
+          {...props}
+        />
+      ))}
     </>
   )
 }

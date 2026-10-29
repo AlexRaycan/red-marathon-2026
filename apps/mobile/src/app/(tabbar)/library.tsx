@@ -4,6 +4,7 @@ import { useAuth, useDebouncedValue } from '@app/hooks'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import { type TLibraryStatus } from '@app/types'
 import { Redirect } from 'expo-router'
+import { LucideLayers } from 'lucide-react-native'
 import { useState } from 'react'
 import { StyleSheet } from 'react-native'
 
@@ -12,7 +13,7 @@ import { Button, Screen, SearchField, ViewLayout } from '@/components/ui'
 import { TitlesGrid, Toolbar } from '@/components/elements'
 import { StatusFilter } from '@/components/pages/library'
 
-import { useScrollAnimation, useSpaces } from '@/hooks'
+import { useProtectedPush, useScrollAnimation, useSpaces } from '@/hooks'
 
 const PAGE_SIZE = 9
 
@@ -21,6 +22,7 @@ export default function Library() {
   const [search, setSearch] = useState('')
 
   const { toolbarSpace, tabbarSpace } = useSpaces()
+  const pushProtected = useProtectedPush()
 
   const { scrollY, scrollHandler } = useScrollAnimation()
 
@@ -87,7 +89,16 @@ export default function Library() {
         scrollY={scrollY}
         withGradient
         leftSide='Library'
-        rightSide={<Button label='Collection' />}
+        rightSide={
+          <Button
+            icon={LucideLayers}
+            variant='secondary'
+            accessibilityLabel='Collections'
+            onPress={() => {
+              pushProtected('/collections')
+            }}
+          />
+        }
         titleSize={FONT_SIZE['3xl']}
         gradientLocations={[0.0, 0.8, 1]}
         style={styles.toolbar}

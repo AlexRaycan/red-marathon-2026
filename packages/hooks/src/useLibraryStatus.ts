@@ -4,7 +4,11 @@ import {
   useSetTitleStatus,
   useUserTitle
 } from '@app/api'
-import { ADD_TO_LIBRARY_ACTION, LIBRARY_STATUS_ACTIONS } from '@app/constants'
+import {
+  ADD_TO_LIBRARY_ACTION,
+  LIBRARY_STATUS_ACTIONS,
+  WRITE_REVIEW_ACTION
+} from '@app/constants'
 import type { TLibraryStatus } from '@app/types'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -55,10 +59,11 @@ export function useLibraryStatus(key: string) {
     removeMutation({ key })
   }
 
-  const action =
-    status && !isCompletedStatus
+  const action = status
+    ? !isCompletedStatus
       ? LIBRARY_STATUS_ACTIONS[status]
-      : ADD_TO_LIBRARY_ACTION
+      : WRITE_REVIEW_ACTION
+    : ADD_TO_LIBRARY_ACTION
 
   return {
     isAuthenticated,

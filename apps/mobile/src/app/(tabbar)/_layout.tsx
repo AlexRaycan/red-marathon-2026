@@ -3,12 +3,8 @@ import { useAuth } from '@app/hooks'
 import { COLORS } from '@app/tokens'
 import { NativeTabs } from 'expo-router/native-tabs'
 
-import { Screen } from '@/components/ui'
-
 export default function TabBarLayout() {
-  const { isAuthenticated, isLoading } = useAuth()
-
-  if (isLoading) return <Screen />
+  const { isAuthenticated } = useAuth()
 
   return (
     <NativeTabs
