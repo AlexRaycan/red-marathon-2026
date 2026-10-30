@@ -1,5 +1,6 @@
 export * from './useBottomSheetAction'
 export * from './useBottomSheetControl'
+export * from './useCollection'
 export * from './useHeroParallax'
 export * from './useOnboardingInit'
 export * from './useProtectedPush'

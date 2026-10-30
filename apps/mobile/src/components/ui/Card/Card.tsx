@@ -9,6 +9,7 @@ import {
 import { getCardWidth } from '@app/utils'
 import { Image, type ImageStyle } from 'expo-image'
 import {
+  type Pressable,
   type StyleProp,
   StyleSheet,
   Text,
@@ -17,6 +18,7 @@ import {
   type ViewStyle,
   useWindowDimensions
 } from 'react-native'
+import type { AnimatedStyle } from 'react-native-reanimated'
 
 import { AnimatedPressable } from '../AnimatedPressable'
 
@@ -26,10 +28,11 @@ interface CardProps extends ViewProps {
   label?: string
   sourceImage: string | null
   cardWidth?: number
+  aspectRatio?: number
   isStacked?: boolean
+  animatedStyle?: AnimatedStyle<Pressable>
   cardStyle?: StyleProp<ViewStyle>
   coverStyle?: StyleProp<ImageStyle>
-  style?: StyleProp<ViewStyle>
   onPress?: () => void
 }
 
@@ -37,7 +40,9 @@ export function Card({
   label,
   sourceImage,
   cardWidth,
+  aspectRatio = 1.5,
   isStacked,
+  animatedStyle,
   cardStyle,
   coverStyle,
   children,
@@ -55,13 +60,13 @@ export function Card({
   return (
     <AnimatedPressable
       onPress={onPress}
-      style={[{ width }, styles.card, style]}
+      style={[{ width }, styles.card, style, animatedStyle]}
     >
       <View
         style={[
           styles.coverWrapper,
           {
-            height: width * 1.5
+            height: width * aspectRatio
           }
         ]}
       >
@@ -72,6 +77,7 @@ export function Card({
             style={styles.cover}
           />
         )}
+
         <View
           style={[StyleSheet.absoluteFill, styles.coverContainer, cardStyle]}
         >
@@ -82,6 +88,7 @@ export function Card({
             style={[StyleSheet.absoluteFill, styles.cover, coverStyle]}
           />
         </View>
+
         {children}
       </View>
 

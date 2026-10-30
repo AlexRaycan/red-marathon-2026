@@ -14,6 +14,7 @@ import { TypeFilter } from '@/components/pages/search'
 
 import { useScrollAnimation, useSpaces } from '@/hooks'
 
+// FIXME: fix android version
 export default function Search() {
   const [query, setQuery] = useState('')
   const [type, setType] = useState<TTitleType | null>()

@@ -18,8 +18,10 @@ interface AnimatedPressableProps extends PressableProps {
 }
 
 export function AnimatedPressable({
-  withScale: withScaleble = true,
+  withScale = true,
   onPress,
+  onPressIn,
+  onPressOut,
   style,
   children,
   ...props
@@ -29,7 +31,7 @@ export function AnimatedPressable({
 
   const animated = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    ...(withScaleble && { transform: [{ scale: scale.value }] })
+    ...(withScale && { transform: [{ scale: scale.value }] })
   }))
 
   const handlePressIn = () => {
@@ -44,10 +46,16 @@ export function AnimatedPressable({
   return (
     <AnimatedPressableCore
       hitSlop={12}
-      style={[styles.root, style, animated]}
+      style={[styles.root, animated, style]}
       onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
+      onPressIn={e => {
+        handlePressIn()
+        onPressIn?.(e)
+      }}
+      onPressOut={e => {
+        handlePressOut()
+        onPressOut?.(e)
+      }}
       {...props}
     >
       {children}
