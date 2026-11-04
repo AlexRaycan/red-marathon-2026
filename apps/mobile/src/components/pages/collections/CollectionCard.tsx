@@ -1,6 +1,7 @@
 import type { CollectionListItemResponse } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { Image } from 'expo-image'
+import { router } from 'expo-router'
 import { StyleSheet, Text, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
@@ -41,28 +42,34 @@ export function CollectionCard({
       accessibilityRole='button'
       accessibilityLabel={name}
       style={[{ width, height }, styles.root]}
-      // onPress={() => router.push(`/collections/${id}`)}
+      onPress={() => router.push(`/collections/${id}`)}
       onPressIn={() => pressed.set(withSpring(1))}
       onPressOut={() => pressed.set(withSpring(0))}
     >
       <View style={{ flex: 1 }}>
-        <Animated.View style={[styles.layer, styles.backLayer, backLayerStyle]}>
-          <Image
-            source={backCover ?? null}
-            contentFit='cover'
-            style={[styles.image]}
-          />
-        </Animated.View>
+        {backCover && (
+          <Animated.View
+            style={[styles.layer, styles.backLayer, backLayerStyle]}
+          >
+            <Image
+              source={backCover ?? null}
+              contentFit='cover'
+              style={[styles.image]}
+            />
+          </Animated.View>
+        )}
 
-        <Animated.View
-          style={[styles.layer, styles.middleLayer, middleLayerStyle]}
-        >
-          <Image
-            source={middleCover ?? null}
-            contentFit='cover'
-            style={[styles.image]}
-          />
-        </Animated.View>
+        {middleCover && (
+          <Animated.View
+            style={[styles.layer, styles.middleLayer, middleLayerStyle]}
+          >
+            <Image
+              source={middleCover ?? null}
+              contentFit='cover'
+              style={[styles.image]}
+            />
+          </Animated.View>
+        )}
 
         <View style={[styles.layer, styles.mainLayer]}>
           <Image

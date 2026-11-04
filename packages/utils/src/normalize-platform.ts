@@ -1,6 +1,4 @@
-import type { Platform } from '@app/constants'
-
-export const normalizePlatform = (platform: Platform): Platform => {
+export const normalizePlatform = (platform: string): string => {
   if (platform.toLowerCase().includes('xbox')) {
     return 'Xbox One'
   }

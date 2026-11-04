@@ -6,17 +6,28 @@ interface IQueryText {
   empty: string
 }
 
-export type TQueryType = 'search'
-export type TScreenType = 'library'
+export type TQueryType = 'search' | 'library' | 'collections'
 
 export const EMPTY_TEXT: Record<TQueryType, IQueryText> = {
   search: {
     default: 'Find movies, series, anime, books, and games',
     process: 'Searching...',
     empty: 'Nothing found'
+  },
+  library: {
+    default: 'No titles in your library yet',
+    process: 'Searching your library...',
+    empty: 'Nothing found in your library'
+  },
+  collections: {
+    default: 'No collection yet',
+    process: 'Searching your collections...',
+    empty: 'Nothing found in your collections'
   }
 }
 
-export const PLACEHOLDER_TEXT: Record<TScreenType, string> = {
-  library: 'Search Your Library'
+export const PLACEHOLDER_TEXT: Record<TQueryType, string> = {
+  search: 'Search titles',
+  library: 'Search your library',
+  collections: 'Search your collections'
 }

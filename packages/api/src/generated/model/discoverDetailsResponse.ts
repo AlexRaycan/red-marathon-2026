@@ -7,10 +7,10 @@
  */
 import type { CreatorResponse } from './creatorResponse';
 import type { DiscoverDetailsResponseExternalSource } from './discoverDetailsResponseExternalSource';
-import type { DiscoverDetailsResponseMetadata } from './discoverDetailsResponseMetadata';
 import type { DiscoverDetailsResponseType } from './discoverDetailsResponseType';
 import type { DiscoverItemResponse } from './discoverItemResponse';
 import type { PersonResponse } from './personResponse';
+import type { TitleMetadataResponse } from './titleMetadataResponse';
 
 export interface DiscoverDetailsResponse {
   /** @nullable */
@@ -41,8 +41,7 @@ export interface DiscoverDetailsResponse {
   cast: PersonResponse[];
   /** Режиссёр, автор идеи сериала, студия игры или аниме, автор книги */
   creators: CreatorResponse[];
-  /** Страницы книги, платформы игры, число серий */
-  metadata: DiscoverDetailsResponseMetadata;
+  metadata: TitleMetadataResponse;
   /** «You may also like» — приходит вместе со страницей, отдельный запрос не нужен */
   similar: DiscoverItemResponse[];
 }

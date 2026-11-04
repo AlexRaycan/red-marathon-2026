@@ -1,5 +1,5 @@
 import { useSearchTitles } from '@app/api'
-import { EMPTY_TEXT, MIN_QUERY_LENGTH } from '@app/constants'
+import { EMPTY_TEXT, MIN_QUERY_LENGTH, PLACEHOLDER_TEXT } from '@app/constants'
 import { useDebouncedValue } from '@app/hooks'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import type { TTitleType } from '@app/types'
@@ -51,7 +51,7 @@ export default function Search() {
       <Stack.Title>Search</Stack.Title>
       <Stack.SearchBar
         placement='automatic'
-        placeholder='Search titles'
+        placeholder={PLACEHOLDER_TEXT.search}
         onChangeText={event => setQuery(event.nativeEvent.text)}
       />
 
@@ -61,9 +61,11 @@ export default function Search() {
           titles={results}
           getTitle={title => title}
           keyExtractor={title => title.key}
-          emptyText={emptyText}
-          isPending={isFetching}
-          style={{ paddingTop: toolbarSpace }}
+          options={{
+            isPending: isFetching,
+            emptyText
+          }}
+          contentContainerStyle={{ paddingTop: toolbarSpace }}
           onScroll={scrollHandler}
         />
       </ViewLayout.Root>

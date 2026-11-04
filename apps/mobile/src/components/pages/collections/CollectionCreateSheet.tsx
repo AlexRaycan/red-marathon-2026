@@ -65,7 +65,7 @@ export function CollectionCreateSheet({ ref }: CollectionCreateSheetProps) {
 
 const styles = StyleSheet.create({
   inset: {
-    paddingTop: LAYOUT['space-vertical'],
+    paddingTop: LAYOUT['space-vertical'] - 1,
     paddingHorizontal: LAYOUT['space-horizontal']
   }
 })

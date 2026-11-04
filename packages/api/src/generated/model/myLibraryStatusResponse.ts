@@ -5,9 +5,14 @@
  * One library for movies, TV shows, anime, books and games
  * OpenAPI spec version: 1.0
  */
+import type { MyLibraryStatusResponseProgressUnit } from './myLibraryStatusResponseProgressUnit';
 import type { MyLibraryStatusResponseStatus } from './myLibraryStatusResponseStatus';
 
 export interface MyLibraryStatusResponse {
   id: string;
   status: MyLibraryStatusResponseStatus;
+  /** @nullable */
+  progress: number | null;
+  /** @nullable */
+  progressUnit: MyLibraryStatusResponseProgressUnit;
 }

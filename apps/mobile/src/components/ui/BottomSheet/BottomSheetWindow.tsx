@@ -2,7 +2,7 @@ import BottomSheet, {
   type BottomSheetProps,
   BottomSheetView
 } from '@expo/ui/community/bottom-sheet'
-import { type RefObject } from 'react'
+import { type ReactNode, type RefObject } from 'react'
 import { StyleSheet } from 'react-native'
 
 import { BottomSheetFooter } from './BottomSheetFooter'
@@ -11,6 +11,7 @@ import { BottomSheetTitle } from './BottomSheetTitle'
 interface BottomSheetWindowProps extends Omit<BottomSheetProps, 'ref'> {
   ref: RefObject<BottomSheet | null>
   title?: string
+  action?: ReactNode
   isSubmitButtonDisabled?: boolean
   isFooterHidden?: boolean
   submitButtonText?: string
@@ -23,6 +24,7 @@ export function BottomSheetWindow({
   children,
   index = -1,
   title,
+  action,
   isSubmitButtonDisabled,
   isFooterHidden,
   submitButtonText,
@@ -41,7 +43,12 @@ export function BottomSheetWindow({
       {...props}
     >
       <BottomSheetView style={styles.view}>
-        {title && <BottomSheetTitle title={title} />}
+        {title && (
+          <BottomSheetTitle
+            title={title}
+            action={action}
+          />
+        )}
 
         {children}
 

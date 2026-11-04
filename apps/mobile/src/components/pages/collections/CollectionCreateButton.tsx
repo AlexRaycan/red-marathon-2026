@@ -8,9 +8,7 @@ import { useBottomSheetControl } from '@/hooks'
 
 import { CollectionCreateSheet } from './CollectionCreateSheet'
 
-interface CollectionCreateButtonProps {}
-
-export function CollectionCreateButton({}: CollectionCreateButtonProps) {
+export function CollectionCreateButton() {
   const sheetRef = useRef<BottomSheet>(null)
   const { open } = useBottomSheetControl(sheetRef)
 
@@ -18,6 +16,7 @@ export function CollectionCreateButton({}: CollectionCreateButtonProps) {
     <>
       <Button
         icon={Plus}
+        variant='secondary'
         onPress={open}
       />
       <CollectionCreateSheet ref={sheetRef} />

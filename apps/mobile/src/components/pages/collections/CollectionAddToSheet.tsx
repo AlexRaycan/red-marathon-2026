@@ -1,12 +1,14 @@
-import { getApiErrorMessage } from '@app/api'
-import { LAYOUT } from '@app/tokens'
+import { COLORS, FONT_SIZE, LAYOUT } from '@app/tokens'
 import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { type RefObject } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 
-import { BottomSheetWindow, Input } from '@/components/ui'
+import { BottomSheetWindow } from '@/components/ui'
 
 import { useBottomSheetControl, useCollection } from '@/hooks'
+
+import { CollectionCreateButton } from './CollectionCreateButton'
+import { CollectionRow } from './CollectionRow'
 
 interface CollectionAddToSheetProps {
   titleKey: string
@@ -18,28 +20,42 @@ export function CollectionAddToSheet({
   ref
 }: CollectionAddToSheetProps) {
   const { collections, collectionIds, toggle } = useCollection(titleKey)
+  const hasSelectedCollections = collectionIds.length > 0
 
   const { close } = useBottomSheetControl(ref)
 
   return (
     <BottomSheetWindow
       ref={ref}
-      title='New Collection'
-      isSubmitButtonDisabled={isSubmitButtonDisabled}
-      submitButtonText='Create'
-      onSubmit={handleCreate}
+      title='Add to Collection'
+      action={!hasSelectedCollections && <CollectionCreateButton />}
+      submitButtonText='Add'
+      isSubmitButtonDisabled={!collectionIds.length}
+      onSubmit={() => console.log('Add to Collection')}
       onClose={close}
     >
-      <View style={[styles.inset]}>
-        <Input
-          value={name}
-          placeholder='Collection name'
-          autoFocus
-          error={getApiErrorMessage(error) ?? undefined}
-          tintColor={'rgba(255, 255, 255, 0.08)'}
-          onChangeText={setName}
+      {collections.map(collection => (
+        <CollectionRow
+          key={collection.id}
+          collection={collection}
+          isSelected={collectionIds.includes(collection.id)}
+          onPress={() => {
+            console.log(
+              'Press collection:',
+              collection,
+              collectionIds,
+              collectionIds.includes(collection.id)
+            )
+            toggle(collection.id)
+          }}
         />
-      </View>
+      ))}
+
+      {!collections.length && (
+        <Text style={[styles.inset, styles.emptyText]}>
+          Create your first collection
+        </Text>
+      )}
     </BottomSheetWindow>
   )
 }
@@ -48,5 +64,10 @@ const styles = StyleSheet.create({
   inset: {
     paddingTop: LAYOUT['space-vertical'],
     paddingHorizontal: LAYOUT['space-horizontal']
+  },
+  emptyText: {
+    textAlign: 'center',
+    color: COLORS.text.muted,
+    fontSize: FONT_SIZE.sm
   }
 })

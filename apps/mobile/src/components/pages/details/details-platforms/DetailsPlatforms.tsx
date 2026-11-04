@@ -1,4 +1,4 @@
-import type { DiscoverDetailsResponseMetadata } from '@app/api'
+import type { TitleMetadataResponse } from '@app/api'
 import { COLORS, FONT_SIZE, SPACINGS } from '@app/tokens'
 import { normalizePlatform } from '@app/utils'
 import { useMemo } from 'react'
@@ -7,34 +7,27 @@ import { StyleSheet, View } from 'react-native'
 import { PlatformIcon } from '@/components/ui'
 
 interface DetailsPlatformsProps {
-  metadata: DiscoverDetailsResponseMetadata
+  metadata: TitleMetadataResponse
 }
 
 export function DetailsPlatforms({ metadata }: DetailsPlatformsProps) {
-  const platforms = useMemo(() => {
-    if (
-      Object.hasOwn(metadata, 'platforms') &&
-      Array.isArray(metadata.platforms)
-    )
-      return [
-        ...new Set(Object.values(metadata.platforms).map(normalizePlatform))
-      ]
-  }, [metadata])
+  const platforms = useMemo(
+    () => [...new Set((metadata.platforms ?? []).map(normalizePlatform))],
+    [metadata.platforms]
+  )
 
-  return platforms
-    ? !!platforms.length && (
-        <View style={styles.platforms}>
-          {platforms.map(p => (
-            <PlatformIcon
-              key={p}
-              platform={p}
-              color={COLORS.text.primary}
-              size={FONT_SIZE.sm}
-            />
-          ))}
-        </View>
-      )
-    : null
+  return platforms.length ? (
+    <View style={styles.platforms}>
+      {platforms.map(p => (
+        <PlatformIcon
+          key={p}
+          platform={p}
+          color={COLORS.text.primary}
+          size={FONT_SIZE.sm}
+        />
+      ))}
+    </View>
+  ) : null
 }
 
 const styles = StyleSheet.create({

@@ -1,5 +1,4 @@
 import { COLORS } from '@app/tokens'
-import type { Platform } from '@app/types'
 import {
   faAndroid,
   faAppStore,
@@ -24,13 +23,13 @@ import {
 } from '@/assets/icons'
 
 interface PlatformIconProps {
-  platform: Platform
+  platform: string
   color?: string
   size?: number
 }
 
 const ICONS: Record<
-  Platform,
+  string,
   ComponentType<{ color?: string; size?: number }>
 > = {
   iOS: ({ color, size }) => (

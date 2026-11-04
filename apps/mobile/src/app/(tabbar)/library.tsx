@@ -62,8 +62,8 @@ export default function Library() {
     }
   }
 
-  const texts = EMPTY_TEXT.search
-  const emptyText = searchTerm ? texts.empty : undefined
+  const texts = EMPTY_TEXT.library
+  const emptyText = searchTerm ? texts.empty : texts.default
 
   return (
     <Screen>
@@ -74,9 +74,11 @@ export default function Library() {
           titles={entries}
           getTitle={entry => entry.title}
           keyExtractor={entry => entry.title.key ?? entry.id}
-          isPending={isPending}
-          emptyText={emptyText}
-          style={{
+          options={{
+            isPending,
+            emptyText
+          }}
+          contentContainerStyle={{
             paddingTop: toolbarSpace + SPACINGS[16] + SPACINGS[9] + SPACINGS[4],
             paddingBottom: tabbarSpace
           }}

@@ -18,14 +18,16 @@ export function CollectionRow({
   onPress
 }: CollectionRowProps) {
   const { name, previewCovers } = collection
+
   return (
     <AnimatedPressable
       accessibilityRole='checkbox'
       accessibilityState={{ checked: isSelected }}
       style={styles.root}
+      onPress={onPress}
     >
       <Image
-        source={previewCovers}
+        source={previewCovers[0] ?? null}
         contentFit='cover'
         style={styles.cover}
       />
