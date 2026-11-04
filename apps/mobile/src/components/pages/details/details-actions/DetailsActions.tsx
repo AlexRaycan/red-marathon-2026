@@ -4,11 +4,13 @@ import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
-import { Bookmark, Star } from 'lucide-react-native'
+import { FolderPlus, Star } from 'lucide-react-native'
 import { useRef } from 'react'
 import { type ColorValue, StyleSheet, View } from 'react-native'
 
 import { Button, GlassContainer } from '@/components/ui'
+
+import { CollectionAddToButton } from '@/components/elements'
 
 import {
   useBottomSheetAction,
@@ -75,12 +77,13 @@ export function DetailsActions({
           />
 
           <View style={[styles.actionButtonGroup]}>
-            <Button
-              label='Add to Watchlist'
-              variant='secondary'
-              icon={Bookmark}
-              fullWidth
-              onPress={() => console.log('Pressed Add to Watchlist')}
+            <CollectionAddToButton
+              titleKey={title.key}
+              options={{
+                icon: FolderPlus,
+                lable: 'Add to Collection',
+                fullWidth: true
+              }}
             />
 
             <Button

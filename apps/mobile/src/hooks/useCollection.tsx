@@ -1,7 +1,5 @@
 import {
-  getCollectionByIdQueryKey,
-  getMyCollectionsQueryKey,
-  getUserTitleQueryKey,
+  invalidateCollectionState,
   useAddToCollection,
   useMyCollections,
   useRemoveFromCollection,
@@ -17,16 +15,11 @@ export function useCollection(key: string) {
 
   const collections =
     collectionData?.status === 200 ? collectionData.data.items : []
+
   const collectionIds = userTitle?.data.collectionIds ?? []
 
   const onSettled = (_data: unknown, _error: unknown, { id }: { id: string }) =>
-    Promise.all(
-      [
-        getUserTitleQueryKey(key),
-        getMyCollectionsQueryKey(),
-        getCollectionByIdQueryKey(id)
-      ].map(queryKey => queryClient.invalidateQueries({ queryKey }))
-    )
+    invalidateCollectionState(queryClient, id, key)
 
   const addMutation = useAddToCollection({ mutation: { onSettled } })
   const removeMutation = useRemoveFromCollection({ mutation: { onSettled } })

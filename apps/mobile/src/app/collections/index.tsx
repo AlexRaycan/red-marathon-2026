@@ -10,13 +10,13 @@ import {
   CollectionCreateButton
 } from '@/components/pages/collections'
 
-import { useSpaces } from '@/hooks'
+import { useScrollAnimation } from '@/hooks'
 
 const COLUMNS = 2
 const GAP = SPACINGS[4]
 
 export default function CollectionsPage() {
-  const { toolbarSpace } = useSpaces()
+  const { scrollY, scrollHandler } = useScrollAnimation()
 
   const { data, isPending } = useMyCollections()
 
@@ -33,6 +33,7 @@ export default function CollectionsPage() {
         withGradient
         titleSize={FONT_SIZE['3xl']}
         isBackButton
+        scrollY={scrollY}
       />
 
       <Grid
@@ -55,6 +56,7 @@ export default function CollectionsPage() {
           emptyText,
           topPaddingOffset: SPACINGS[3]
         }}
+        onScroll={scrollHandler}
       />
     </Screen>
   )

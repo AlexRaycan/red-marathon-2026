@@ -40,13 +40,16 @@ export function BottomSheetFooter({
   return (
     <GlassContainer>
       <View style={[styles.inset, styles.buttonsContainer]}>
-        <Button
-          label={submitButtonText}
-          tintColor={COLORS.status.success}
-          size='lg'
-          disabled={isSubmitButtonDisabled}
-          onPress={handleSubmit}
-        />
+        {onSubmit && (
+          <Button
+            label={submitButtonText}
+            tintColor={COLORS.status.success}
+            size='lg'
+            disabled={isSubmitButtonDisabled}
+            onPress={handleSubmit}
+          />
+        )}
+
         <Button
           label={cancelButtonText}
           variant='secondary'

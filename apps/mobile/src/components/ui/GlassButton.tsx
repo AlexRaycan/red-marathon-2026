@@ -61,6 +61,7 @@ export function GlassButton({
   if (!isGlassEffectAvailable()) {
     return (
       <AnimatedPressable
+        accessibilityRole='button'
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         disabled={disabled}
@@ -98,6 +99,7 @@ export function GlassButton({
       ]}
     >
       <Pressable
+        accessibilityRole='button'
         disabled={disabled}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}

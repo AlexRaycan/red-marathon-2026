@@ -1,11 +1,13 @@
 import {
   getApiErrorMessage,
-  getMyCollectionsQueryKey,
+  invalidateCollectionState,
+  useAddToCollection,
   useCreateCollection
 } from '@app/api'
 import { LAYOUT } from '@app/tokens'
 import { type BottomSheet } from '@expo/ui/community/bottom-sheet'
 import { useQueryClient } from '@tanstack/react-query'
+import { router, useLocalSearchParams } from 'expo-router'
 import { type RefObject, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -18,19 +20,33 @@ interface CollectionCreateSheetProps {
 }
 
 export function CollectionCreateSheet({ ref }: CollectionCreateSheetProps) {
+  const { key: titleKey } = useLocalSearchParams<{ key?: string }>()
+
   const queryClient = useQueryClient()
   const [name, setName] = useState('')
 
   const { close } = useBottomSheetControl(ref)
 
+  const { mutateAsync: addToCollection } = useAddToCollection()
+
   const { mutate, isPending, error } = useCreateCollection({
     mutation: {
-      onSuccess: () => {
-        void queryClient.invalidateQueries({
-          queryKey: getMyCollectionsQueryKey()
-        })
+      onSuccess: async response => {
+        const collectionId = response.data.id
 
+        if (titleKey) {
+          await addToCollection({ id: collectionId, key: titleKey })
+          await invalidateCollectionState(queryClient, collectionId, titleKey)
+
+          close()
+
+          return
+        }
+
+        await invalidateCollectionState(queryClient, collectionId)
         close()
+
+        router.push(`/collections/${collectionId}`)
       }
     }
   })
