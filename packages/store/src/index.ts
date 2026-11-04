@@ -1,1 +1,1 @@
-export * from './useRatingStore'
+export * from './rating.store'
