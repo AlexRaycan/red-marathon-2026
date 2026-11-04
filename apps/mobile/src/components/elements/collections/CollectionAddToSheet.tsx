@@ -22,7 +22,7 @@ export function CollectionAddToSheet({
   ref
 }: CollectionAddToSheetProps) {
   const { collections, collectionIds, toggle } = useCollection(titleKey)
-  const hasSelectedCollections = collections.length > 0
+  const hasCollections = collections.length > 0
 
   const { close } = useBottomSheetControl(ref)
 
@@ -36,24 +36,20 @@ export function CollectionAddToSheet({
       cancelButtonText='Close'
       onClose={close}
     >
-      {hasSelectedCollections && (
-        <ViewLayout.Root style={styles.inset}>
-          {collections.map(collection => (
+      <ViewLayout.Root style={styles.inset}>
+        {hasCollections ? (
+          collections.map(collection => (
             <CollectionRow
               key={collection.id}
               collection={collection}
               isSelected={collectionIds.includes(collection.id)}
               onPress={() => toggle(collection.id)}
             />
-          ))}
-        </ViewLayout.Root>
-      )}
-
-      {!collections.length && (
-        <Text style={[styles.inset, styles.emptyText]}>
-          Create your first collection
-        </Text>
-      )}
+          ))
+        ) : (
+          <Text style={styles.emptyText}>Create your first collection</Text>
+        )}
+      </ViewLayout.Root>
     </BottomSheetWindow>
   )
 }
