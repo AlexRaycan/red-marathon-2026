@@ -22,7 +22,7 @@ export function CollectionAddToSheet({
   ref
 }: CollectionAddToSheetProps) {
   const { collections, collectionIds, toggle } = useCollection(titleKey)
-  const hasSelectedCollections = collectionIds.length > 0
+  const hasSelectedCollections = collections.length > 0
 
   const { close } = useBottomSheetControl(ref)
 
