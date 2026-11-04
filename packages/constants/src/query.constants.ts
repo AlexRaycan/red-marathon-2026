@@ -6,7 +6,7 @@ interface IQueryText {
   empty: string
 }
 
-export type TQueryType = 'search' | 'library' | 'collections'
+export type TQueryType = 'search' | 'library' | 'collections' | 'collection'
 
 export const EMPTY_TEXT: Record<TQueryType, IQueryText> = {
   search: {
@@ -23,11 +23,17 @@ export const EMPTY_TEXT: Record<TQueryType, IQueryText> = {
     default: 'No collection yet',
     process: 'Searching your collections...',
     empty: 'Nothing found in your collections'
+  },
+  collection: {
+    default: 'No titles in this collection yet',
+    process: 'Searching your titles in the collection...',
+    empty: 'Nothing found in your collection'
   }
 }
 
 export const PLACEHOLDER_TEXT: Record<TQueryType, string> = {
   search: 'Search titles',
   library: 'Search your library',
-  collections: 'Search your collections'
+  collections: 'Search your collections',
+  collection: 'Search titles in this collection'
 }

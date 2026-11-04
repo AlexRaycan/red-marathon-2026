@@ -13,4 +13,6 @@ export interface IGridOptions {
   header?: ReactNode
   emptyText?: string
   isPending?: boolean | null
+  topPaddingOffset?: number
+  bottomPaddingOffset?: number
 }

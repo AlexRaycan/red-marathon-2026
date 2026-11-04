@@ -47,29 +47,23 @@ export function CollectionCard({
       onPressOut={() => pressed.set(withSpring(0))}
     >
       <View style={{ flex: 1 }}>
-        {backCover && (
-          <Animated.View
-            style={[styles.layer, styles.backLayer, backLayerStyle]}
-          >
-            <Image
-              source={backCover ?? null}
-              contentFit='cover'
-              style={[styles.image]}
-            />
-          </Animated.View>
-        )}
+        <Animated.View style={[styles.layer, styles.backLayer, backLayerStyle]}>
+          <Image
+            source={backCover ?? null}
+            contentFit='cover'
+            style={[styles.image]}
+          />
+        </Animated.View>
 
-        {middleCover && (
-          <Animated.View
-            style={[styles.layer, styles.middleLayer, middleLayerStyle]}
-          >
-            <Image
-              source={middleCover ?? null}
-              contentFit='cover'
-              style={[styles.image]}
-            />
-          </Animated.View>
-        )}
+        <Animated.View
+          style={[styles.layer, styles.middleLayer, middleLayerStyle]}
+        >
+          <Image
+            source={middleCover ?? null}
+            contentFit='cover'
+            style={[styles.image]}
+          />
+        </Animated.View>
 
         <View style={[styles.layer, styles.mainLayer]}>
           <Image

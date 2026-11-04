@@ -10,6 +10,8 @@ import {
 } from 'react-native'
 import Animated, { type FlatListPropsWithLayout } from 'react-native-reanimated'
 
+import { useSpaces } from '@/hooks'
+
 import type { IGridOptions } from '@/types'
 
 type GridRenderItemInfo<T> = ListRenderItemInfo<T> & {
@@ -44,8 +46,11 @@ export function Grid<T>({
     isPending,
     isStickyHeader,
     emptyText,
-    header
+    header,
+    topPaddingOffset = 0
   } = options ?? {}
+
+  const { toolbarSpace } = useSpaces()
 
   const { width } = useWindowDimensions()
   const cardWidth = getCardWidth(width, columns, {
@@ -65,7 +70,8 @@ export function Grid<T>({
         {
           gap: spacings.colGap,
           paddingHorizontal: spacings.padding,
-          paddingBottom: LAYOUT['space-vertical']
+          paddingBottom: LAYOUT['space-vertical'],
+          paddingTop: toolbarSpace + topPaddingOffset
         },
         contentContainerStyle
       ]}

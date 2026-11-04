@@ -1,8 +1,6 @@
 import { useMyCollections } from '@app/api'
 import { EMPTY_TEXT } from '@app/constants'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
-import { getCardWidth } from '@app/utils'
-import { useWindowDimensions } from 'react-native'
 
 import { Grid, Screen } from '@/components/ui'
 
@@ -18,9 +16,6 @@ const COLUMNS = 2
 const GAP = SPACINGS[4]
 
 export default function CollectionsPage() {
-  const { width: windowWidth } = useWindowDimensions()
-  const cardWidth = getCardWidth(windowWidth, COLUMNS)
-
   const { toolbarSpace } = useSpaces()
 
   const { data, isPending } = useMyCollections()
@@ -43,7 +38,7 @@ export default function CollectionsPage() {
       <Grid
         data={collections}
         keyExtractor={collection => collection.id}
-        renderItem={({ item }) => (
+        renderItem={({ item, cardWidth }) => (
           <CollectionCard
             width={cardWidth}
             collection={item}
@@ -57,9 +52,9 @@ export default function CollectionsPage() {
             padding: GAP
           },
           isPending,
-          emptyText
+          emptyText,
+          topPaddingOffset: SPACINGS[3]
         }}
-        contentContainerStyle={{ paddingTop: toolbarSpace }}
       />
     </Screen>
   )

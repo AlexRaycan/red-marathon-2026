@@ -65,7 +65,6 @@ export default function Search() {
             isPending: isFetching,
             emptyText
           }}
-          contentContainerStyle={{ paddingTop: toolbarSpace }}
           onScroll={scrollHandler}
         />
       </ViewLayout.Root>

@@ -76,11 +76,9 @@ export default function Library() {
           keyExtractor={entry => entry.title.key ?? entry.id}
           options={{
             isPending,
-            emptyText
-          }}
-          contentContainerStyle={{
-            paddingTop: toolbarSpace + SPACINGS[16] + SPACINGS[9] + SPACINGS[4],
-            paddingBottom: tabbarSpace
+            emptyText,
+            topPaddingOffset: SPACINGS[16] + SPACINGS[9] + SPACINGS[4],
+            bottomPaddingOffset: tabbarSpace
           }}
           onEndReached={onEndReached}
           onScroll={scrollHandler}
