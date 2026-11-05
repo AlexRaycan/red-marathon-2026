@@ -17,12 +17,11 @@ import { Button, GlassView } from '@/components/ui'
 
 interface AiSummaryProps {
   titleKy: string
-  accentColor?: string
 }
 
 const SKELETON_WIDTHS = ['100%', '60%', '80%'] as const
 
-export function AiSummary({ titleKy, accentColor }: AiSummaryProps) {
+export function AiSummary({ titleKy }: AiSummaryProps) {
   const { isAuthenticated } = useAuth()
   const [isHide, setIsHide] = useState(true)
 

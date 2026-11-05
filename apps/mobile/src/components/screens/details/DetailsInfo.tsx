@@ -46,10 +46,7 @@ export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
         accentColor={accentColor}
       />
 
-      <AiSummary
-        titleKy={title.key}
-        accentColor={accentColor}
-      />
+      <AiSummary titleKy={title.key} />
 
       {!!title?.similar?.length && (
         <TitlesCarousel
