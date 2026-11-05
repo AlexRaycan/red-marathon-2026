@@ -45,7 +45,6 @@ export function SearchFiltersSheetSheet({ ref }: SearchFiltersSheetSheetProps) {
       snapPoints={['100%']}
       footerDirection='row'
       cancelButtonText='Reset'
-      onSubmit={() => console.log('submit')}
       onCancel={resetFilters}
     >
       <ScrollView>

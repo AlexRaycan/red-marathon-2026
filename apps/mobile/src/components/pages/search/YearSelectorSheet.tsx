@@ -1,6 +1,5 @@
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { type RefObject } from 'react'
-import { StyleSheet } from 'react-native'
 
 import { BottomSheetWindow } from '@/components/ui'
 
@@ -39,5 +38,3 @@ export function YearSelectorSheet({
     </BottomSheetWindow>
   )
 }
-
-const styles = StyleSheet.create({})
