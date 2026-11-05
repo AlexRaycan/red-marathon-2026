@@ -5,6 +5,8 @@ import BottomSheet, {
 import { type ReactNode, type RefObject } from 'react'
 import { StyleSheet } from 'react-native'
 
+import { ViewLayout } from '../ViewLayout'
+
 import { BottomSheetFooter } from './BottomSheetFooter'
 import { BottomSheetTitle } from './BottomSheetTitle'
 
@@ -12,11 +14,14 @@ interface BottomSheetWindowProps extends Omit<BottomSheetProps, 'ref'> {
   ref: RefObject<BottomSheet | null>
   title?: string
   action?: ReactNode
+  footerDirection?: 'row' | 'column'
   isSubmitButtonDisabled?: boolean
+  hasCancelButton?: boolean
   isFooterHidden?: boolean
   submitButtonText?: string
   cancelButtonText?: string
   onSubmit?: () => void
+  onCancel?: () => void
 }
 
 export function BottomSheetWindow({
@@ -25,15 +30,16 @@ export function BottomSheetWindow({
   index = -1,
   title,
   action,
+  footerDirection,
   isSubmitButtonDisabled,
+  hasCancelButton,
   isFooterHidden,
   submitButtonText,
   cancelButtonText,
   onSubmit,
+  onCancel,
   ...props
 }: BottomSheetWindowProps) {
-  // FIXME: поправить баги с тем, что при первом открытии footer оказывается за пределами экрана
-  // но если нажать на поле ввода текста, а потом убрать фокус, то нормально
   return (
     <BottomSheet
       ref={ref}
@@ -50,15 +56,18 @@ export function BottomSheetWindow({
           />
         )}
 
-        {children}
+        <ViewLayout.Root>{children}</ViewLayout.Root>
 
         {!isFooterHidden && (
           <BottomSheetFooter
             ref={ref}
+            flexDirection={footerDirection}
             isSubmitButtonDisabled={isSubmitButtonDisabled}
-            onSubmit={onSubmit}
+            hasCancelButton={hasCancelButton}
             submitButtonText={submitButtonText}
             cancelButtonText={cancelButtonText}
+            onSubmit={onSubmit}
+            onCancel={onCancel}
           />
         )}
       </BottomSheetView>

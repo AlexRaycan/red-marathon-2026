@@ -1,5 +1,5 @@
-export * from '../../types/src/platforms.types'
 export * from './auth.constants'
+export * from './filters.constants'
 export * from './labels.constants'
 export * from './library.contstants'
 export * from './menu.constants'

@@ -7,7 +7,7 @@ export interface IUserReviewStore {
 
 type TUserReviews = Record<string, IUserReviewStore> | null
 
-interface RatingState {
+interface IRatingState {
   userReviews: TUserReviews
   addReview: (newReview: {
     templateKey: string
@@ -16,7 +16,7 @@ interface RatingState {
   removeReviews: () => void
 }
 
-export const useRatingStore = create<RatingState>(set => ({
+export const useRatingStore = create<IRatingState>(set => ({
   userReviews: null,
   addReview: ({ templateKey, review }) =>
     set(state => ({

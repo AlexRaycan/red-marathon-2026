@@ -31,6 +31,7 @@ const DISABLED_OPACITY = 0.4
 export function GlassButton({
   children,
   tintColor,
+  accessibilityRole = 'button',
   disabled,
   style,
   containerStyle,
@@ -61,7 +62,7 @@ export function GlassButton({
   if (!isGlassEffectAvailable()) {
     return (
       <AnimatedPressable
-        accessibilityRole='button'
+        accessibilityRole={accessibilityRole}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         disabled={disabled}
@@ -99,7 +100,7 @@ export function GlassButton({
       ]}
     >
       <Pressable
-        accessibilityRole='button'
+        accessibilityRole={accessibilityRole}
         disabled={disabled}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}

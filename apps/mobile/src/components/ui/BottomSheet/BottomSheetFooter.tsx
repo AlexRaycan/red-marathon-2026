@@ -10,9 +10,11 @@ import { GlassContainer } from '../GlassContainer'
 
 interface BottomSheetActionButtonsProps {
   ref: RefObject<BottomSheet | null>
+  hasCancelButton?: boolean
   isSubmitButtonDisabled?: boolean
   submitButtonText?: string
   cancelButtonText?: string
+  flexDirection?: 'row' | 'column'
   onSubmit?: () => void
   onCancel?: () => void
 }
@@ -20,8 +22,10 @@ interface BottomSheetActionButtonsProps {
 export function BottomSheetFooter({
   ref,
   isSubmitButtonDisabled,
-  submitButtonText = 'Send',
+  hasCancelButton = true,
+  submitButtonText,
   cancelButtonText = 'Cancel',
+  flexDirection = 'column',
   onSubmit,
   onCancel
 }: BottomSheetActionButtonsProps) {
@@ -29,7 +33,9 @@ export function BottomSheetFooter({
 
   const handleSubmit = useCallback(() => {
     onSubmit?.()
-  }, [onSubmit])
+
+    close()
+  }, [close, onSubmit])
 
   const handleCancel = useCallback(() => {
     onCancel?.()
@@ -39,23 +45,33 @@ export function BottomSheetFooter({
 
   return (
     <GlassContainer>
-      <View style={[styles.inset, styles.buttonsContainer]}>
-        {onSubmit && (
+      <View
+        style={[
+          styles.inset,
+          styles.buttonsContainer,
+          { flexDirection: flexDirection === 'row' ? 'row-reverse' : 'column' }
+        ]}
+      >
+        {(submitButtonText || onSubmit) && (
           <Button
-            label={submitButtonText}
+            label={submitButtonText ?? 'Send'}
             tintColor={COLORS.status.success}
             size='lg'
+            fullWidth
             disabled={isSubmitButtonDisabled}
             onPress={handleSubmit}
           />
         )}
 
-        <Button
-          label={cancelButtonText}
-          variant='secondary'
-          size='lg'
-          onPress={handleCancel}
-        />
+        {hasCancelButton && (
+          <Button
+            label={cancelButtonText}
+            variant='secondary'
+            size='lg'
+            fullWidth
+            onPress={handleCancel}
+          />
+        )}
       </View>
     </GlassContainer>
   )
@@ -66,7 +82,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: LAYOUT['space-horizontal']
   },
   buttonsContainer: {
-    flexDirection: 'column',
     gap: SPACINGS[2],
     marginTop: SPACINGS[4]
   }

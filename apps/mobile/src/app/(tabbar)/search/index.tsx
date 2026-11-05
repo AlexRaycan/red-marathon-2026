@@ -1,6 +1,7 @@
 import { useSearchTitles } from '@app/api'
 import { EMPTY_TEXT, MIN_QUERY_LENGTH, PLACEHOLDER_TEXT } from '@app/constants'
 import { useDebouncedValue } from '@app/hooks'
+import { useSearchFilterStore } from '@app/store'
 import { FONT_SIZE, SPACINGS } from '@app/tokens'
 import type { TTitleType } from '@app/types'
 import { Stack } from 'expo-router'
@@ -10,18 +11,19 @@ import { StyleSheet } from 'react-native'
 import { Screen, ViewLayout } from '@/components/ui'
 
 import { TitlesGrid, Toolbar } from '@/components/elements'
-import { TypeFilter } from '@/components/pages/search'
+import { SearchFiltersButton, TypeFilter } from '@/components/pages/search'
 
-import { useScrollAnimation, useSpaces } from '@/hooks'
+import { useScrollAnimation } from '@/hooks'
 
 // FIXME: fix android version
 export default function Search() {
   const [query, setQuery] = useState('')
   const [type, setType] = useState<TTitleType | null>()
 
-  const debouncedQuery = useDebouncedValue(query.trim())
+  const filtres = useSearchFilterStore()
 
-  const { toolbarSpace } = useSpaces()
+  const debouncedQuery = useDebouncedValue(query.trim())
+  const { genres, yearFrom, yearTo } = useDebouncedValue(filtres) // Debounce filters to avoid excessive API calls
 
   const { scrollY, scrollHandler } = useScrollAnimation()
 
@@ -30,7 +32,10 @@ export default function Search() {
   const { data, isFetching } = useSearchTitles(
     {
       q: debouncedQuery,
-      type: type ? [type] : undefined
+      type: type ? [type] : undefined,
+      genre: genres.length ? genres : undefined,
+      yearFrom: yearFrom ?? undefined,
+      yearTo: yearTo ?? undefined
     },
     {
       query: { enabled: isQueryValid }
@@ -74,6 +79,7 @@ export default function Search() {
         withGradient
         leftSide='Search'
         titleSize={FONT_SIZE['3xl']}
+        rightSide={<SearchFiltersButton />}
         gradientLocations={[0.0, 0.8, 1]}
         style={styles.toolbar}
       >
