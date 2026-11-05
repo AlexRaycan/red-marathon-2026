@@ -1,7 +1,6 @@
-import type { ExternalTitleResponse } from '@app/api'
-import type { TYPE_LABELS } from '@app/constants'
+import type { ExternalTitleResponse, TitleListItemResponseType } from '@app/api'
 
-export type TTitleType = keyof typeof TYPE_LABELS
+export type TTitleType = TitleListItemResponseType
 
 export type TTitleGrid = Pick<
   ExternalTitleResponse,

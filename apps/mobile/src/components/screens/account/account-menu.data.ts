@@ -3,7 +3,7 @@ import { router } from 'expo-router'
 import {
   Bell,
   CreditCard,
-  Heart,
+  Layers,
   type LucideIcon,
   Users2
 } from 'lucide-react-native'
@@ -22,8 +22,8 @@ export const ACCOUNT_MENU: AccountMenuItemProps[] = [
     onPress: () => router.push(ACCOUNT_MENU_ITEMS.subscription.path)
   },
   {
-    label: 'Watchlist',
-    icon: Heart,
+    label: 'Collections',
+    icon: Layers,
     onPress: () => router.push(ACCOUNT_MENU_ITEMS.watchlist.path)
   },
   {

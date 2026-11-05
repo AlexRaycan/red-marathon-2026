@@ -113,6 +113,7 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
             style={styles.carouselTitle}
           >
             <TitleCardPreviewSmall
+              titleKey={title.key}
               type={title.type}
               coverUrl={title.coverUrl}
             />

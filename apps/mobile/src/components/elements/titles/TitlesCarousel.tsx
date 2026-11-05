@@ -22,6 +22,7 @@ export function TitlesCarousel({
       {titles.map(title => (
         <TitleCard
           key={title.key}
+          titleKey={title.key}
           type={title.type}
           coverUrl={title.coverUrl}
           withBadge

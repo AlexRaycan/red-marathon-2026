@@ -33,6 +33,7 @@ export function TitlesGrid<T>({
 
         return (
           <TitleCard
+            titleKey={title.key}
             label={title.name}
             type={title.type}
             coverUrl={title.coverUrl}

@@ -34,6 +34,7 @@ interface CardProps extends ViewProps {
   cardStyle?: StyleProp<ViewStyle>
   coverStyle?: StyleProp<ImageStyle>
   onPress?: () => void
+  onLongPress?: () => void
 }
 
 export function Card({
@@ -47,7 +48,8 @@ export function Card({
   coverStyle,
   children,
   style,
-  onPress
+  onPress,
+  onLongPress
 }: CardProps) {
   const { width: windowWidth } = useWindowDimensions()
   const width =
@@ -60,6 +62,7 @@ export function Card({
   return (
     <AnimatedPressable
       onPress={onPress}
+      onLongPress={onLongPress}
       style={[{ width }, styles.card, style, animatedStyle]}
     >
       <View

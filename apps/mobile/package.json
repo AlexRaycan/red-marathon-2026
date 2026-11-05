@@ -11,6 +11,7 @@
     "@app/tokens": "workspace:^",
     "@app/types": "workspace:^",
     "@app/utils": "workspace:^",
+    "@expo/material-symbols": "^0.1.1",
     "@expo/ui": "~58.0.27",
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
     "@fortawesome/free-brands-svg-icons": "^7.3.1",
@@ -62,7 +63,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "install-deps": "exec expo install"
+    "install-deps": "exec expo install",
+    "ts-check": "pnpm -r exec tsc --noEmit"
   },
   "private": true
 }

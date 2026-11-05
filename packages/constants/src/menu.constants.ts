@@ -10,7 +10,7 @@ export type MainMenu = keyof typeof MAIN_MENU
 
 export const ACCOUNT_MENU_LABELS = {
   subscription: 'Subscription',
-  watchlist: 'Watchlist',
+  watchlist: 'Collections',
   friends: 'Friends',
   notifications: 'Notifications'
 } as const
@@ -31,7 +31,7 @@ export const ACCOUNT_MENU_ITEMS = {
   },
   watchlist: {
     label: ACCOUNT_MENU_LABELS.watchlist,
-    path: '/watchlist'
+    path: '/collections'
   },
   friends: {
     label: ACCOUNT_MENU_LABELS.friends,

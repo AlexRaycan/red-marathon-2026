@@ -16,7 +16,7 @@ import { FriendCarousel } from './FriendCarousel'
 interface ShareBottomSheetProps {
   title: Pick<
     DiscoverDetailsResponse,
-    'type' | 'coverUrl' | 'name' | 'releaseDate'
+    'type' | 'coverUrl' | 'name' | 'releaseDate' | 'key'
   >
   ref: RefObject<BottomSheet | null>
 }
@@ -60,6 +60,7 @@ export function ShareBottomSheet({ title, ref }: ShareBottomSheetProps) {
           heading={getTitleHeading(title)}
           titlePreview={
             <TitleCardPreviewSmall
+              titleKey={title.key}
               type={title.type}
               coverUrl={title.coverUrl}
             />

@@ -4,6 +4,7 @@ import { RADIUS } from '@app/tokens'
 import { TitleCard } from './TitleCard'
 
 interface TitleCardPreviewSmallProps {
+  titleKey: string
   type: DiscoverItemResponseType
   coverUrl: string | null
 }

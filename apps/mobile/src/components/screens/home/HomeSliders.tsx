@@ -1,4 +1,5 @@
 import type { DiscoverItemResponse } from '@app/api/src/generated/model'
+import { useAiTopPicks } from '@app/hooks'
 import { SPACINGS } from '@app/tokens'
 import { StyleSheet, View } from 'react-native'
 
@@ -16,14 +17,16 @@ const getItems = (items: DiscoverItemResponse[]) => ({
 export function HomeSliders({ items: allItems }: HomeSlidersProps) {
   const { topPicksItems, popularNowItems } = getItems(allItems.slice(5))
 
+  const { picks: topPicks } = useAiTopPicks(topPicksItems)
+
   if (!allItems.length) return null
 
   return (
     <View style={styles.root}>
-      {!!topPicksItems.length && (
+      {!!topPicks.length && (
         <TitlesCarousel
           title={'Top picks for you'}
-          titles={topPicksItems}
+          titles={topPicks}
           onPress={() => console.debug('Top picks for you!')}
         />
       )}

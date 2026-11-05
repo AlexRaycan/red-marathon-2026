@@ -9,7 +9,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { router, useLocalSearchParams } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { Trash2 } from 'lucide-react-native'
-import { Alert, StyleSheet } from 'react-native'
+import { useEffect } from 'react'
+import { Alert } from 'react-native'
 
 import { Button, Screen } from '@/components/ui'
 
@@ -35,6 +36,10 @@ export default function CollectionDetailsPage() {
       }
     }
   })
+
+  useEffect(() => {
+    router.setParams({ id, collectionId: id })
+  }, [id])
 
   if (isPending) return <Screen />
 
@@ -91,5 +96,3 @@ export default function CollectionDetailsPage() {
     </Screen>
   )
 }
-
-const styles = StyleSheet.create({})
