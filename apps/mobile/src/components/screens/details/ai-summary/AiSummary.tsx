@@ -36,6 +36,8 @@ export function AiSummary({ titleKy }: AiSummaryProps) {
 
   if (!isAuthenticated || isError || (!isPending && !summary)) return null
 
+  const ChevronIcon = isHide ? ChevronDown : ChevronUp
+
   return (
     <GlassView style={styles.root}>
       <View style={styles.header}>
@@ -102,5 +104,9 @@ const styles = StyleSheet.create({
     color: COLORS.text['little-muted'],
     fontSize: FONT_SIZE.sm,
     lineHeight: FONT_SIZE.sm * 1.5
+  },
+  chevron: {
+    justifyContent: 'center',
+    alignContent: 'center'
   }
 })
