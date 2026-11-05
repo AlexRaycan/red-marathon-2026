@@ -10,7 +10,7 @@ import { FloatingButton, Screen } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
 import { HeroBackdrop } from '@/components/hero'
-import { DetailsInfo, ShareButton } from '@/components/pages/details'
+import { DetailsInfo, ShareButton } from '@/components/screens/details'
 
 import { useHeroParallax, useSpaces } from '@/hooks'
 

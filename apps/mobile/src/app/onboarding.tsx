@@ -13,7 +13,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import { Button, Screen, ViewLayout } from '@/components/ui'
 
-import { PosterWall } from '@/components/pages/onboarding'
+import { PosterWall } from '@/components/screens/onboarding'
 
 import { useOnboardingStore } from '@/store'
 

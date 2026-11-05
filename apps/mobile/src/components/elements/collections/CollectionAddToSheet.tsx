@@ -8,7 +8,7 @@ import { BottomSheetWindow, ViewLayout } from '@/components/ui'
 import {
   CollectionCreateButton,
   CollectionRow
-} from '@/components/pages/collections'
+} from '@/components/screens/collections'
 
 import { useBottomSheetControl, useCollection } from '@/hooks'
 

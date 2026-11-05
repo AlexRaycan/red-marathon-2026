@@ -11,7 +11,7 @@ import { StyleSheet } from 'react-native'
 import { Button, Screen, SearchField, ViewLayout } from '@/components/ui'
 
 import { TitlesGrid, Toolbar } from '@/components/elements'
-import { StatusFilter } from '@/components/pages/library'
+import { StatusFilter } from '@/components/screens/library'
 
 import { useProtectedPush, useScrollAnimation, useSpaces } from '@/hooks'
 

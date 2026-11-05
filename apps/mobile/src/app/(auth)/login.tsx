@@ -1,6 +1,6 @@
 import type { AUTH_CONTENT } from '@app/constants'
 
-import { AuthForm } from '@/components/pages/auth'
+import { AuthForm } from '@/components/screens/auth'
 
 import { useSigning } from '@/hooks'
 

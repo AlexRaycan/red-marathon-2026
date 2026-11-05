@@ -12,7 +12,7 @@ import {
   SubscriptionFeatures,
   SubscriptionHeader,
   SubscriptionSelect
-} from '@/components/pages/subscriptions'
+} from '@/components/screens/subscriptions'
 
 import { useSpaces } from '@/hooks'
 

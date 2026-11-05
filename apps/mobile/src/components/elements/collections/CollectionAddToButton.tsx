@@ -4,7 +4,7 @@ import { useRef } from 'react'
 
 import { Button } from '@/components/ui'
 
-import { CollectionCreateSheet } from '@/components/pages/collections'
+import { CollectionCreateSheet } from '@/components/screens/collections'
 
 import { useBottomSheetControl, useCollection } from '@/hooks'
 

@@ -16,7 +16,7 @@ import {
 } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { ACCOUNT_MENU, AccountUserInfo } from '@/components/pages/account'
+import { ACCOUNT_MENU, AccountUserInfo } from '@/components/screens/account'
 
 import { clearTokens, getRefreshToken } from '@/lib'
 

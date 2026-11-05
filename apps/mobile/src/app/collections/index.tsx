@@ -8,7 +8,7 @@ import { Toolbar } from '@/components/elements'
 import {
   CollectionCard,
   CollectionCreateButton
-} from '@/components/pages/collections'
+} from '@/components/screens/collections'
 
 import { useScrollAnimation } from '@/hooks'
 

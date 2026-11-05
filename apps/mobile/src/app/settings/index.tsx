@@ -1,7 +1,7 @@
 import { MenuItem, Screen, ViewLayout } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { DeleteAccount } from '@/components/pages/settings'
+import { DeleteAccount } from '@/components/screens/settings'
 
 export default function Settings() {
   return (

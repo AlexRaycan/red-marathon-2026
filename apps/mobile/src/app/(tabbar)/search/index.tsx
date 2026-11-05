@@ -11,7 +11,7 @@ import { StyleSheet } from 'react-native'
 import { Screen, ViewLayout } from '@/components/ui'
 
 import { TitlesGrid, Toolbar } from '@/components/elements'
-import { SearchFiltersButton, TypeFilter } from '@/components/pages/search'
+import { SearchFiltersButton, TypeFilter } from '@/components/screens/search'
 
 import { useScrollAnimation } from '@/hooks'
 

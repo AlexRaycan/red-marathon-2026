@@ -7,7 +7,7 @@ import Animated from 'react-native-reanimated'
 import { Button, Screen, ViewLayout } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { HomeHeroSlider, HomeSliders } from '@/components/pages/home'
+import { HomeHeroSlider, HomeSliders } from '@/components/screens/home'
 
 import { useScrollAnimation } from '@/hooks'
 
