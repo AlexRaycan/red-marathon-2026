@@ -79,7 +79,8 @@ export function Button({
   onPress,
   ...rest
 }: Props) {
-  const isIconOnly = !children && (!label || label.length === 0) && !!Icon
+  const isIconOnly =
+    !children && (!label || label.trim().length === 0) && !!Icon
 
   const hasGlassEffect = isGlassEffectAvailable()
 

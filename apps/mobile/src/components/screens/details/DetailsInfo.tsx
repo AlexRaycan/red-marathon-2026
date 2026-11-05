@@ -8,6 +8,7 @@ import { TITLE_CARD_CONFIG, TitlesCarousel } from '@/components/elements'
 
 import { useSpaces } from '@/hooks'
 
+import { AiSummary } from './ai-summary'
 import { CastCarousel } from './cast'
 import { DetailsActions } from './details-actions'
 import { HeroDetailsTitle } from './hero'
@@ -42,6 +43,11 @@ export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
 
       <DetailsActions
         title={title}
+        accentColor={accentColor}
+      />
+
+      <AiSummary
+        titleKy={title.key}
         accentColor={accentColor}
       />
 

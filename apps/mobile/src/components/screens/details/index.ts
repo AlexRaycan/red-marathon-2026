@@ -1,3 +1,4 @@
+export * from './ai-summary'
 export * from './cast'
 export * from './details-actions'
 export * from './details-platforms'
