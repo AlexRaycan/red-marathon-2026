@@ -1,4 +1,5 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
+import { getJoinedArray } from '@app/utils'
 import type { ReactNode } from 'react'
 import {
   type StyleProp,
@@ -63,7 +64,7 @@ export function HeroTitleInfo({
             exiting={exiting(50)}
             style={[styles.baseText, styles.genres]}
           >
-            {genres.slice(0, 3).join(' • ')}
+            {getJoinedArray(genres.slice(0, 3))}
           </Animated.Text>
         )}
 

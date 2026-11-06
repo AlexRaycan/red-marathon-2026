@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native'
 
 import { ViewLayout } from '@/components/ui'
 
-import { HeroTitleInfo } from '@/components/hero'
+import { HeroTitleInfo } from '@/components/elements'
 
 import { DetailsPlatforms } from '../details-platforms'
 

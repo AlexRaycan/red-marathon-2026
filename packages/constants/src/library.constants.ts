@@ -1,4 +1,8 @@
-import type { TActiveLibraryStatus, TLibraryStatusAction } from '@app/types'
+import type {
+  TActiveLibraryStatus,
+  TLibraryStatusAction,
+  TProgressUnit
+} from '@app/types'
 
 export const ADD_TO_LIBRARY_ACTION: TLibraryStatusAction = {
   label: 'Add to Library',
@@ -22,4 +26,15 @@ export const LIBRARY_STATUS_ACTIONS: Record<
   IN_PROGRESS: { label: 'Mark as Completed', nextStatus: 'COMPLETED' },
   ON_HOLD: RESUME_ACTION,
   DROPPED: RESUME_ACTION
+}
+
+export const PROGRESS_FORMATS: Record<
+  TProgressUnit,
+  (value: number) => string
+> = {
+  EPISODE: value => `Ep ${value}`,
+  CHAPTER: value => `Ch ${value}`,
+  PAGE: value => `p. ${value}`,
+  HOUR: value => `${value}h`,
+  PERCENT: value => `${value}%`
 }

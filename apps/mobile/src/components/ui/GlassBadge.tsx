@@ -6,6 +6,7 @@ import { GlassView } from './GlassView'
 
 interface Props extends PropsWithChildren {
   accentColor?: string
+  size?: number
   style?: StyleProp<ViewStyle>
 }
 
@@ -13,6 +14,7 @@ const SIZE = 26
 
 export function GlassBadge({
   accentColor = 'transparent',
+  size = SIZE,
   style,
   children
 }: Props) {
@@ -20,7 +22,7 @@ export function GlassBadge({
     <GlassView
       glassEffectStyle='clear'
       tintColor={accentColor}
-      style={[styles.glass, style]}
+      style={[styles.glass, { width: size, height: size }, style]}
     >
       {children}
     </GlassView>
@@ -29,8 +31,6 @@ export function GlassBadge({
 
 const styles = StyleSheet.create({
   glass: {
-    width: SIZE,
-    height: SIZE,
     borderRadius: RADIUS.full,
     justifyContent: 'center',
     alignItems: 'center',

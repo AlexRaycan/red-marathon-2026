@@ -1,6 +1,6 @@
 import type { DiscoverDetailsResponse } from '@app/api'
-import { SPACINGS } from '@app/tokens'
-import { StyleSheet } from 'react-native'
+import { LAYOUT, SPACINGS } from '@app/tokens'
+import { StyleSheet, View } from 'react-native'
 
 import { ViewLayout } from '@/components/ui'
 
@@ -12,6 +12,7 @@ import { AiSummary } from './ai-summary'
 import { CastCarousel } from './cast'
 import { DetailsActions } from './details-actions'
 import { HeroDetailsTitle } from './hero'
+import { RatingBadge } from './rating-badge'
 import { ReviewsSection } from './reviews-section'
 
 interface DetailsInfoProps {
@@ -40,6 +41,14 @@ export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
         title={title}
         heroHeight={heroHeight}
       />
+
+      <View style={styles.ratingContainer}>
+        <RatingBadge
+          source={title.externalSource}
+          rating={title.rating}
+          metacritic={title.metadata.metacritic}
+        />
+      </View>
 
       <DetailsActions
         title={title}
@@ -72,5 +81,9 @@ const styles = StyleSheet.create({
   root: {
     position: 'relative',
     gap: SPACINGS[5]
+  },
+  ratingContainer: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: LAYOUT['space-horizontal']
   }
 })

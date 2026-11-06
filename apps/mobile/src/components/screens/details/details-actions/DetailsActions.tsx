@@ -2,11 +2,11 @@ import type { DiscoverDetailsResponse } from '@app/api'
 import { REVIEWS_RATING } from '@app/constants'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
-import { LAYOUT, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, LAYOUT, SPACINGS } from '@app/tokens'
 import type BottomSheet from '@expo/ui/community/bottom-sheet'
 import { FolderPlus, Star } from 'lucide-react-native'
 import { useRef } from 'react'
-import { type ColorValue, StyleSheet, View } from 'react-native'
+import { type ColorValue, StyleSheet, Text, View } from 'react-native'
 
 import { Button, GlassContainer } from '@/components/ui'
 
@@ -36,8 +36,14 @@ export function DetailsActions({
   title,
   accentColor
 }: DetailsActionButtonsProps) {
-  const { isAuthenticated, action, isCompletedStatus, rating } =
-    useLibraryStatus(title.key)
+  const {
+    isAuthenticated,
+    action,
+    status,
+    isCompletedStatus,
+    rating,
+    progress
+  } = useLibraryStatus(title.key)
 
   const userRating = useRatingStore(state => state.userReviews?.[title.key])
 
@@ -66,6 +72,8 @@ export function DetailsActions({
   const shouldOpenSheet = isCompletedStatus || action.nextStatus === 'COMPLETED'
   useBottomSheetAction(sheetRef, 'review', isAuthenticated && shouldOpenSheet)
 
+  console.log(status, progress)
+
   return (
     <>
       <GlassContainer>
@@ -75,6 +83,10 @@ export function DetailsActions({
             accentColor={accentColor}
             openSheet={open}
           />
+
+          {status === 'IN_PROGRESS' && !!progress && (
+            <Text style={styles.progress}>Progress: {progress}</Text>
+          )}
 
           <View style={[styles.actionButtonGroup]}>
             <CollectionAddToButton
@@ -114,6 +126,11 @@ const styles = StyleSheet.create({
   },
   actionButtonContainer: {
     gap: SPACINGS[4]
+  },
+  progress: {
+    color: COLORS.text.muted,
+    fontSize: FONT_SIZE.xs,
+    textAlign: 'center'
   },
   actionButtonGroup: {
     flexDirection: 'row',

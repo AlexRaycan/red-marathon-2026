@@ -13,3 +13,5 @@ export interface TLibraryStatusAction {
   label: string
   nextStatus: TNextLibraryStatus
 }
+
+export type TProgressUnit = 'EPISODE' | 'CHAPTER' | 'PAGE' | 'HOUR' | 'PERCENT'

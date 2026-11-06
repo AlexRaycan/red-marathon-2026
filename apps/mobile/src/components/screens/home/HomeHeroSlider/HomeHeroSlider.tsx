@@ -17,10 +17,12 @@ import Animated, {
 
 import { Button, GlassContainer, PaginationDot } from '@/components/ui'
 
-import { TITLE_CARD_CONFIG } from '@/components/elements'
-import { HeroBackdrop, HeroTitleInfo } from '@/components/hero'
-
-import { DetailsStatusButton } from '../../details'
+import {
+  HeroBackdrop,
+  HeroTitleInfo,
+  TITLE_CARD_CONFIG
+} from '@/components/elements'
+import { DetailsStatusButton } from '@/components/screens/details'
 
 interface Props {
   titles: DiscoverItemResponse[]

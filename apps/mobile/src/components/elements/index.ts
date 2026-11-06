@@ -1,5 +1,6 @@
 export * from './chip-filter'
 export * from './collections'
+export * from './hero'
 export * from './progressive-blur'
 export * from './titles'
 export * from './toolbar'

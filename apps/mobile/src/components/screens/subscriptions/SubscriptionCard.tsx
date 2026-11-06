@@ -2,22 +2,21 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import type { ISubscription } from '@app/types'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Button } from '../../ui'
+import { Button } from '@/components/ui'
 
 import { SubscriptionFeatures } from './SubscriptionFeatures'
 
 interface SubscriptionCardProps {
-  subsription: ISubscription
+  subscription: ISubscription
   width: number
   onPress: () => void
 }
 
 export function SubscriptionCard({
-  subsription,
-  width,
+  subscription,
   onPress
 }: SubscriptionCardProps) {
-  const { price, name, trialPeriod: period, badge } = subsription
+  const { price, name, trialPeriod: period, badge } = subscription
 
   return (
     <View style={styles.root}>

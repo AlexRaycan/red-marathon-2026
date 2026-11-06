@@ -19,7 +19,7 @@
     "^app/api$",
     "^app/hooks$",
     "^app/ui$",
-    "@/components/pages$",
+    "@/components/screens$",
     "@/components/ui$",
     "^@/components/(.*)$",
     "^@/features/(.*)$",

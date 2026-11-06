@@ -8,6 +8,7 @@
     "@app/constants": "workspace:^",
     "@app/schemas": "workspace:^",
     "@app/types": "workspace:^",
+    "@app/utils": "workspace:^",
     "react": "19.3.0"
   },
   "devDependencies": {

@@ -10,6 +10,7 @@ import {
   WRITE_REVIEW_ACTION
 } from '@app/constants'
 import type { TLibraryStatus } from '@app/types'
+import { formatProgress } from '@app/utils'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { useAuth } from './useAuth'
@@ -71,6 +72,10 @@ export function useLibraryStatus(key: string) {
     action,
     isCompletedStatus,
     rating: myState?.data.review?.rating ?? null,
+    progress: formatProgress(
+      myState?.data.libraryEntry?.progress ?? null,
+      myState?.data.libraryEntry?.progressUnit ?? null
+    ),
     setStatus,
     removeFromLibrary
   }
