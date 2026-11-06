@@ -1,6 +1,6 @@
 import type { DiscoverDetailsResponse } from '@app/api'
 import { LAYOUT, SPACINGS } from '@app/tokens'
-import { metaDataFormating } from '@app/utils'
+import { metaDataFormatting } from '@app/utils'
 import { StyleSheet } from 'react-native'
 
 import { ViewLayout } from '@/components/ui'
@@ -15,7 +15,7 @@ interface HeroDetailsTitleProps {
 }
 
 export function HeroDetailsTitle({ title, heroHeight }: HeroDetailsTitleProps) {
-  const meta = metaDataFormating(title)
+  const meta = metaDataFormatting(title)
 
   return (
     <ViewLayout.Root
