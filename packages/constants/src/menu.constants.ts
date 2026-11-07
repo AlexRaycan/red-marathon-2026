@@ -11,7 +11,7 @@ export type MainMenu = keyof typeof MAIN_MENU
 
 export const ACCOUNT_MENU_LABELS = {
   subscription: 'Subscription',
-  watchlist: 'Collections',
+  collections: 'Collections',
   friends: 'Friends',
   notifications: 'Notifications'
 } as const
@@ -19,27 +19,32 @@ export const ACCOUNT_MENU_LABELS = {
 export type AccountMenu = keyof typeof ACCOUNT_MENU_LABELS
 
 export interface IAccountMenuItem {
+  value: AccountMenu
   label: (typeof ACCOUNT_MENU_LABELS)[keyof typeof ACCOUNT_MENU_LABELS]
   path: string
   content?: string
 }
 
-export const ACCOUNT_MENU_ITEMS = {
-  subscription: {
+export const ACCOUNT_MENU_ITEMS: IAccountMenuItem[] = [
+  {
+    value: 'subscription',
     label: ACCOUNT_MENU_LABELS.subscription,
     content: 'Premium',
     path: '/subscriptions'
   },
-  watchlist: {
-    label: ACCOUNT_MENU_LABELS.watchlist,
+  {
+    value: 'collections',
+    label: ACCOUNT_MENU_LABELS.collections,
     path: '/collections'
   },
-  friends: {
+  {
+    value: 'friends',
     label: ACCOUNT_MENU_LABELS.friends,
     path: '/friends'
   },
-  notifications: {
+  {
+    value: 'notifications',
     label: ACCOUNT_MENU_LABELS.notifications,
     path: '/notifications'
   }
-} as const satisfies Record<AccountMenu, IAccountMenuItem>
+] as const

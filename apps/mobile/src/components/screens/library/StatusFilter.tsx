@@ -10,7 +10,9 @@ import {
   X
 } from 'lucide-react-native'
 
-import { ChipFilter, type IChipOption } from '@/components/elements'
+import { ChipFilter } from '@/components/elements'
+
+import type { IChipOption } from '@/types'
 
 const STATUS_ICONS: Record<TLibraryStatus, LucideIcon> = {
   PLANNED: Bookmark,

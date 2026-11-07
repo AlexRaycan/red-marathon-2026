@@ -18,10 +18,13 @@ import {
 import { Toolbar } from '@/components/elements'
 import { ACCOUNT_MENU, AccountUserInfo } from '@/components/screens/account'
 
+import { useProtectedPush } from '@/hooks'
+
 import { clearTokens, getRefreshToken } from '@/lib'
 
 export default function Account() {
   const isFocused = useIsFocused()
+  const protectedPush = useProtectedPush()
 
   const queryClient = useQueryClient()
   const { data, isPending: isLoading, isError } = useCurrentUser()
@@ -84,12 +87,14 @@ export default function Account() {
               pointerEvents='box-none'
               style={menuStyles.glass}
             >
+              {/* TODO: instead of `onPress` from item use protectedPush with path */}
               {ACCOUNT_MENU.map((item, index) => (
                 <MenuItem
                   {...item}
                   key={item.label}
                   isLastItem={index === ACCOUNT_MENU.length - 1}
                   withChevron
+                  onPress={() => protectedPush(item.)}
                 >
                   {item.content && (
                     <Text style={menuStyles.premium}>{item.content}</Text>

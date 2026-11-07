@@ -1,5 +1,8 @@
-import { ACCOUNT_MENU_ITEMS, type IAccountMenuItem } from '@app/constants'
-import { router } from 'expo-router'
+import {
+  ACCOUNT_MENU_ITEMS,
+  type AccountMenu,
+  type IAccountMenuItem
+} from '@app/constants'
 import {
   Bell,
   CreditCard,
@@ -8,32 +11,20 @@ import {
   Users2
 } from 'lucide-react-native'
 
-export interface AccountMenuItemProps extends Omit<IAccountMenuItem, 'path'> {
+export interface AccountMenuItemProps extends IAccountMenuItem {
   icon: LucideIcon
-  onPress?: () => void
 }
 
-// FIXME: solve problem with string in the `router.push(...)`
-export const ACCOUNT_MENU: AccountMenuItemProps[] = [
-  {
-    label: 'Subscription',
-    icon: CreditCard,
-    content: ACCOUNT_MENU_ITEMS.subscription.content,
-    onPress: () => router.push(ACCOUNT_MENU_ITEMS.subscription.path)
-  },
-  {
-    label: 'Collections',
-    icon: Layers,
-    onPress: () => router.push(ACCOUNT_MENU_ITEMS.watchlist.path)
-  },
-  {
-    label: 'Friends',
-    icon: Users2,
-    onPress: () => router.push(ACCOUNT_MENU_ITEMS.friends.path)
-  },
-  {
-    label: 'Notifications',
-    icon: Bell,
-    onPress: () => router.push(ACCOUNT_MENU_ITEMS.notifications.path)
-  }
-]
+const ACCOUNT_MENU_ICONS: Record<AccountMenu, LucideIcon> = {
+  subscription: CreditCard,
+  collections: Layers,
+  friends: Users2,
+  notifications: Bell
+}
+
+export const ACCOUNT_MENU: AccountMenuItemProps[] = ACCOUNT_MENU_ITEMS.map(
+  item => ({
+    ...item,
+    icon: ACCOUNT_MENU_ICONS[item.value]
+  })
+)
