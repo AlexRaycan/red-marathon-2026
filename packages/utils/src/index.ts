@@ -1,3 +1,4 @@
+export * from './add-icon-to-options'
 export * from './convert-mins-to-hrs'
 export * from './first-letter-upper-case'
 export * from './format-duration'

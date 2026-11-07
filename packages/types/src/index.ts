@@ -1,4 +1,5 @@
 export * from './library.types'
+export * from './option.types'
 export * from './platforms.types'
 export * from './subscription.types'
 export * from './title.types'

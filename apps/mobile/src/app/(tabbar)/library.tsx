@@ -21,7 +21,7 @@ export default function Library() {
   const [status, setStatus] = useState<TLibraryStatus | null>(null)
   const [search, setSearch] = useState('')
 
-  const { toolbarSpace, tabbarSpace } = useSpaces()
+  const { tabbarSpace } = useSpaces()
   const pushProtected = useProtectedPush()
 
   const { scrollY, scrollHandler } = useScrollAnimation()

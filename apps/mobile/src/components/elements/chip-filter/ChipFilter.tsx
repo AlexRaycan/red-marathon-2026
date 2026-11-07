@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native'
 
 import { Chip, GlassContainer } from '@/components/ui'
 
-import type { IChipOption } from './chip-filter.types'
+import type { IChipOption } from '@/types'
 
 interface ChipFilterProps<T extends string> {
   options: IChipOption<T>[]
