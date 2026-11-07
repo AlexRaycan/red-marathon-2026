@@ -66,6 +66,7 @@ export function GlassButton({
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         disabled={disabled}
+        hitSlop={12}
         style={[
           {
             backgroundColor: disabled
@@ -102,9 +103,10 @@ export function GlassButton({
       <Pressable
         accessibilityRole={accessibilityRole}
         disabled={disabled}
+        hitSlop={12}
+        style={[styles.button, style]}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        style={[styles.button, style]}
         {...props}
       >
         {children}

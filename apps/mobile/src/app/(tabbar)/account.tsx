@@ -16,7 +16,11 @@ import {
 } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { ACCOUNT_MENU, AccountUserInfo } from '@/components/screens/account'
+import {
+  ACCOUNT_MENU,
+  AccountUserInfo,
+  TasteInsight
+} from '@/components/screens/account'
 
 import { useProtectedPush } from '@/hooks'
 
@@ -82,19 +86,20 @@ export default function Account() {
           <View style={styles.content}>
             <AccountUserInfo data={data?.data} />
 
+            <TasteInsight />
+
             <GlassView
               isInteractive
               pointerEvents='box-none'
               style={menuStyles.glass}
             >
-              {/* TODO: instead of `onPress` from item use protectedPush with path */}
               {ACCOUNT_MENU.map((item, index) => (
                 <MenuItem
                   {...item}
                   key={item.label}
                   isLastItem={index === ACCOUNT_MENU.length - 1}
                   withChevron
-                  onPress={() => protectedPush(item.)}
+                  onPress={() => protectedPush(item.path)}
                 >
                   {item.content && (
                     <Text style={menuStyles.premium}>{item.content}</Text>

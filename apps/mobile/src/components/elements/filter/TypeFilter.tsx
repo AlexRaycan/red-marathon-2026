@@ -2,8 +2,9 @@ import { TYPE_LABELS } from '@app/constants'
 import type { TTitleType } from '@app/types'
 import { LayoutGrid } from 'lucide-react-native'
 
-import { ChipFilter, TITLE_CARD_CONFIG } from '@/components/elements'
+import { TITLE_CARD_CONFIG } from '../titles'
 
+import { ChipFilter } from './ChipFilter'
 import type { IChipOption } from '@/types'
 
 const TYPES = Object.keys(TYPE_LABELS) as TTitleType[]

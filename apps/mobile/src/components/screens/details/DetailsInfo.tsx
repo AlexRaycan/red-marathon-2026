@@ -55,7 +55,10 @@ export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
         accentColor={accentColor}
       />
 
-      <AiSummary titleKy={title.key} />
+      <AiSummary
+        titleKey={title.key}
+        style={styles.aiSummary}
+      />
 
       {!!title?.similar?.length && (
         <TitlesCarousel
@@ -85,5 +88,8 @@ const styles = StyleSheet.create({
   ratingContainer: {
     alignSelf: 'flex-start',
     paddingHorizontal: LAYOUT['space-horizontal']
+  },
+  aiSummary: {
+    marginHorizontal: LAYOUT['space-horizontal']
   }
 })

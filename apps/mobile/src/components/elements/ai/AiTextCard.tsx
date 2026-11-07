@@ -9,7 +9,13 @@ import {
 import hexToRgba from 'hex-to-rgba'
 import { ChevronDown, Sparkles } from 'lucide-react-native'
 import { useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import {
+  type StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  type ViewStyle
+} from 'react-native'
 import Animated, {
   LinearTransition,
   useAnimatedStyle,
@@ -31,13 +37,15 @@ interface AiTextCardProps {
     setIsHide: (isHide: boolean) => void
   }
   isLoading: boolean
+  style?: StyleProp<ViewStyle>
 }
 
 export function AiTextCard({
   title,
   text,
   hidden,
-  isLoading
+  isLoading,
+  style
 }: AiTextCardProps) {
   const { isHide, setIsHide } = hidden ?? {}
   const withHidden = isHide !== undefined && setIsHide !== undefined
@@ -56,9 +64,10 @@ export function AiTextCard({
     <AnimatedGlassView
       layout={LinearTransition.duration(300)}
       tintColor={'transparency'}
-      style={styles.root}
+      style={[styles.root, style]}
     >
       <Pressable
+        hitSlop={12}
         style={styles.header}
         {...(withHidden && { onPress: () => setIsHide(!isHide) })}
       >
@@ -81,8 +90,7 @@ export function AiTextCard({
         )}
       </Pressable>
 
-      {withHidden &&
-        !isHide &&
+      {!isHide &&
         (isLoading ? (
           SKELETON_WIDTHS.map(width => (
             <GlassView
@@ -101,7 +109,6 @@ export function AiTextCard({
 const styles = StyleSheet.create({
   root: {
     gap: SPACINGS[2],
-    marginHorizontal: LAYOUT['space-horizontal'],
     padding: LAYOUT['space-horizontal'],
     borderRadius: RADIUS.lg,
     overflow: 'hidden'

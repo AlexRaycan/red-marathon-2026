@@ -12,7 +12,11 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { Button, Screen, ViewLayout } from '@/components/ui'
 
-import { ChipFilter, TitlesGrid, TypeFilter } from '@/components/elements'
+import {
+  AiSuggestionsGrid,
+  ChipFilter,
+  TypeFilter
+} from '@/components/elements'
 
 import { useProtectedPush, useSpaces } from '@/hooks'
 
@@ -27,7 +31,7 @@ export default function AiPicker() {
   const [duration, setDuration] = useState<PickerDtoDuration | null>(null)
 
   const pushProtected = useProtectedPush()
-  const { toolbarSpace, tabbarSpace } = useSpaces()
+  const { toolbarSpace } = useSpaces()
 
   const { mutate, data, isPending, error } = useAiPickTitle()
 
@@ -107,19 +111,12 @@ export default function AiPicker() {
             <Text style={styles.error}>{getApiErrorMessage(error)}</Text>
           )}
 
+          {/* TODO: skeleton grid */}
+
           {!!suggestions.length && (
             <>
               <Text style={styles.section}>AI picks for you</Text>
-
-              <TitlesGrid
-                titles={suggestions}
-                getTitle={entry => entry}
-                keyExtractor={entry => entry.key}
-                options={{
-                  isPending,
-                  bottomPaddingOffset: tabbarSpace
-                }}
-              />
+              <AiSuggestionsGrid suggestions={suggestions} />
             </>
           )}
         </ViewLayout.Root>
