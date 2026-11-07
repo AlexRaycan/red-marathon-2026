@@ -31,7 +31,7 @@ export function Chip({
   return (
     <Button
       label={label}
-      {...(count && { suffics: <Text style={styles.count}>{count}</Text> })}
+      {...(count && { suffix: <Text style={styles.count}>{count}</Text> })}
       icon={Icon}
       variant='secondary'
       tintColor={tintColor}

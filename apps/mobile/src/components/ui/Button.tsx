@@ -31,7 +31,7 @@ type TContentStyle = Partial<Record<TContentTypes, StyleProp<ViewStyle>>>
 interface Props
   extends GlassViewProps, Omit<PressableProps, keyof GlassViewProps> {
   label?: string
-  suffics?: ReactNode
+  suffix?: ReactNode
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
@@ -46,7 +46,7 @@ interface Props
   onPress?: () => void
 }
 
-// TODO: Add `clear` variatn: it's like transparent,
+// TODO: Add `clear` variant: it's like transparent,
 // but with fallback color for android
 const CONTENT_COLOR: Record<TButtonVariant, string> = {
   primary: COLORS.text.secondary,
@@ -59,10 +59,9 @@ const ICON_SIZE: Record<TButtonSize, number> = {
   lg: 20
 }
 
-// Add accessibilityLabel for buttons around
 export function Button({
   label,
-  suffics,
+  suffix,
   variant = 'primary',
   size = 'md',
   icon: Icon,
@@ -93,7 +92,7 @@ export function Button({
     ? COLORS.text.primary
     : fallbackContentColor
 
-  // tintColor принимать извне, тут только отрабатываем его отсуствие
+  // tintColor принимать извне, тут только отрабатываем его отсутствие
   const fallbackTintColor = {
     primary: hasGlassEffect ? 'rgba(255, 255, 255, 0.24)' : COLORS.primary,
     secondary: hasGlassEffect ? 'rgba(255, 255, 255, 0.08)' : COLORS.bg.card
@@ -159,7 +158,7 @@ export function Button({
               {label}
             </Text>
           )}
-          {suffics}
+          {suffix}
         </View>
         {children}
       </View>
