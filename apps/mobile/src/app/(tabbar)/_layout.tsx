@@ -30,20 +30,35 @@ export default function TabBarLayout() {
         <NativeTabs.Trigger.Label>{MAIN_MENU.index}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
 
-      {isAuthenticated && (
-        <NativeTabs.Trigger name='library'>
-          <NativeTabs.Trigger.Icon
-            sf={{
-              default: 'heart',
-              selected: 'heart.fill'
-            }}
-            md='favorite'
-          />
-          <NativeTabs.Trigger.Label>
-            {MAIN_MENU.library}
-          </NativeTabs.Trigger.Label>
-        </NativeTabs.Trigger>
-      )}
+      <NativeTabs.Trigger
+        name='library'
+        hidden={!isAuthenticated}
+      >
+        <NativeTabs.Trigger.Icon
+          sf={{
+            default: 'heart',
+            selected: 'heart.fill'
+          }}
+          md='favorite'
+        />
+        <NativeTabs.Trigger.Label>{MAIN_MENU.library}</NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger
+        name='ai-picker'
+        hidden={!isAuthenticated}
+      >
+        <NativeTabs.Trigger.Icon
+          sf={{
+            default: 'sparkles',
+            selected: 'sparkles'
+          }}
+          md='auto_awesome'
+        />
+        <NativeTabs.Trigger.Label>
+          {MAIN_MENU['ai-picker']}
+        </NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name='account'>
         <NativeTabs.Trigger.Icon

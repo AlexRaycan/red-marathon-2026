@@ -12,7 +12,7 @@ import { CollectionAddToSheet } from './CollectionAddToSheet'
 
 interface IOptions {
   icon?: LucideIcon
-  lable?: string
+  label?: string
   fullWidth?: boolean
 }
 
@@ -28,7 +28,7 @@ export function CollectionAddToButton({
   const sheetRef = useRef<BottomSheet>(null)
   const { open } = useBottomSheetControl(sheetRef)
 
-  const { icon: Icon = Plus, lable, fullWidth } = options ?? {}
+  const { icon: Icon = Plus, label, fullWidth } = options ?? {}
 
   const { collections } = useCollection(titleKey)
 
@@ -36,7 +36,7 @@ export function CollectionAddToButton({
     <>
       <Button
         icon={Icon}
-        {...(lable && { label: lable })}
+        {...(label && { label: label })}
         {...(fullWidth && { fullWidth: fullWidth })}
         variant='secondary'
         onPress={open}

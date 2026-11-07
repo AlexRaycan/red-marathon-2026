@@ -1,6 +1,6 @@
 export * from './ai'
-export * from './chip-filter'
 export * from './collections'
+export * from './filter'
 export * from './hero'
 export * from './progressive-blur'
 export * from './titles'

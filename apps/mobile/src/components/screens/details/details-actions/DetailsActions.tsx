@@ -93,7 +93,7 @@ export function DetailsActions({
               titleKey={title.key}
               options={{
                 icon: FolderPlus,
-                lable: 'Add to Collection',
+                label: 'Add to Collection',
                 fullWidth: true
               }}
             />

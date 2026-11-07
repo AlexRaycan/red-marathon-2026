@@ -1,6 +1,7 @@
 export const MAIN_MENU = {
   index: 'For You',
   library: 'My Library',
+  'ai-picker': 'AI Picker',
   account: 'Account',
   login: 'Log In',
   search: 'Search'

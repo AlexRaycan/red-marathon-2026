@@ -5,6 +5,8 @@ import { StyleSheet, View } from 'react-native'
 
 import { TitlesCarousel } from '@/components/elements'
 
+import { useProtectedPush } from '@/hooks'
+
 interface HomeSlidersProps {
   items: DiscoverItemResponse[]
 }
@@ -17,6 +19,8 @@ const getItems = (items: DiscoverItemResponse[]) => ({
 export function HomeSliders({ items: allItems }: HomeSlidersProps) {
   const { topPicksItems, popularNowItems } = getItems(allItems.slice(5))
 
+  const protectedPush = useProtectedPush()
+
   const { picks: topPicks } = useAiTopPicks(topPicksItems)
 
   if (!allItems.length) return null
@@ -27,7 +31,7 @@ export function HomeSliders({ items: allItems }: HomeSlidersProps) {
         <TitlesCarousel
           title={'Top picks for you'}
           titles={topPicks}
-          onPress={() => console.debug('Top picks for you!')}
+          onPress={() => protectedPush('/(tabbar)/ai-picker')}
         />
       )}
 
