@@ -1,3 +1,4 @@
+import { PROJECT_NAME } from '@app/constants'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SPACINGS } from '@app/tokens'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -6,7 +7,7 @@ export function SubscriptionHeader() {
     <View style={styles.header}>
       <Text style={[styles.baseText, styles.title]}>
         <Text style={styles.textAccent}>Get Access</Text>
-        <Text style={styles.subtituteText}> With SagaSet&nbsp;</Text>
+        <Text style={styles.substituteText}> With {PROJECT_NAME}&nbsp;</Text>
         <Text style={styles.textAccent}>Premium</Text>
       </Text>
     </View>
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     paddingBottom: SPACINGS[16]
   },
   baseText: { color: COLORS.text.primary },
-  subtituteText: { color: COLORS.text.primary, opacity: 0.65 },
+  substituteText: { color: COLORS.text.primary, opacity: 0.65 },
   title: {
     fontSize: FONT_SIZE.giant,
     fontWeight: FONT_WEIGHT.light,

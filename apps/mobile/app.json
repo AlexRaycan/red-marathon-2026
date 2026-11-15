@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "slug": "sagaset",
+    "description": "Track and discover movies, series, anime, books, and games with personal ratings, collections, and AI recommendations.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
+    "scheme": "sagaset",
     "userInterfaceStyle": "dark",
     "ios": {
       "icon": "./assets/expo.icon"

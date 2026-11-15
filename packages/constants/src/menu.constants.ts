@@ -1,7 +1,9 @@
+import { AI_NAME } from './project.constants'
+
 export const MAIN_MENU = {
   index: 'For You',
   library: 'My Library',
-  'ai-picker': 'AI Picker',
+  'ai-picker': AI_NAME,
   account: 'Account',
   login: 'Log In',
   search: 'Search'

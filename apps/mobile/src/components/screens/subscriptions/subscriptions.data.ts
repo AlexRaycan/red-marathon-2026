@@ -1,3 +1,4 @@
+import { AI_NAME } from '@app/constants'
 import type { ISubscription, ISubscriptionFeature } from '@app/types'
 
 export const SUBSCRIPTIONS: ISubscription[] = [
@@ -32,7 +33,7 @@ export const SUBSCRIPTION_FEATURES: ISubscriptionFeature[] = [
     isPremium: false
   },
   {
-    label: 'AI Picker',
+    label: AI_NAME,
     isPremium: true
   },
   {

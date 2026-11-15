@@ -3,6 +3,7 @@ import {
   getApiErrorMessage,
   useAiPickTitle
 } from '@app/api'
+import { AI_NAME } from '@app/constants'
 import { useAuth } from '@app/hooks'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
 import { type TTitleType } from '@app/types'
@@ -68,11 +69,12 @@ export default function AiPicker() {
                 size={26}
                 color={COLORS.text.primary}
               />
-              <Text style={styles.title}>AI Picker</Text>
+              <Text style={styles.title}>{AI_NAME}</Text>
             </View>
 
             <Text style={styles.subtitle}>
-              Set your mood and preferences, AI will find the perfect match
+              Set your mood and preferences, {AI_NAME} will find the perfect
+              match
             </Text>
           </View>
 
