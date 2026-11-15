@@ -1,5 +1,12 @@
 import { useCurrentUser, useMobileLogout } from '@app/api'
-import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
+import {
+  COLORS,
+  FONT_SIZE,
+  FONT_WEIGHT,
+  LAYOUT,
+  RADIUS,
+  SPACINGS
+} from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
 import { Redirect, router, useIsFocused } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
@@ -22,13 +29,15 @@ import {
   TasteInsight
 } from '@/components/screens/account'
 
-import { useProtectedPush } from '@/hooks'
+import { useProtectedPush, useSpaces } from '@/hooks'
 
 import { clearTokens, getRefreshToken } from '@/lib'
 
 export default function Account() {
   const isFocused = useIsFocused()
   const protectedPush = useProtectedPush()
+
+  const { tabbarSpace } = useSpaces()
 
   const queryClient = useQueryClient()
   const { data, isPending: isLoading, isError } = useCurrentUser()
@@ -67,7 +76,7 @@ export default function Account() {
   }
 
   return (
-    <Screen withPaddings>
+    <Screen>
       <Toolbar
         leftSide='Account'
         rightSide={
@@ -80,37 +89,38 @@ export default function Account() {
           />
         }
       />
-
       <ViewLayout.Root withToolbar>
-        <GlassContainer style={styles.root}>
+        <View style={styles.root}>
           <View style={styles.content}>
             <AccountUserInfo data={data?.data} />
 
             <TasteInsight />
 
-            <GlassView
-              isInteractive
-              pointerEvents='box-none'
-              style={menuStyles.glass}
-            >
-              {ACCOUNT_MENU.map((item, index) => (
-                <MenuItem
-                  {...item}
-                  key={item.label}
-                  isLastItem={index === ACCOUNT_MENU.length - 1}
-                  withChevron
-                  onPress={() => protectedPush(item.path)}
-                >
-                  {item.content && (
-                    <Text style={menuStyles.premium}>{item.content}</Text>
-                  )}
-                </MenuItem>
-              ))}
-            </GlassView>
+            <GlassContainer>
+              <GlassView
+                isInteractive
+                pointerEvents='box-none'
+                style={menuStyles.glass}
+              >
+                {ACCOUNT_MENU.map((item, index) => (
+                  <MenuItem
+                    {...item}
+                    key={item.label}
+                    isLastItem={index === ACCOUNT_MENU.length - 1}
+                    withChevron
+                    onPress={() => protectedPush(item.path)}
+                  >
+                    {item.content && (
+                      <Text style={menuStyles.premium}>{item.content}</Text>
+                    )}
+                  </MenuItem>
+                ))}
+              </GlassView>
+            </GlassContainer>
           </View>
 
           {/*{__DEV__ && <TokenDebug />}*/}
-        </GlassContainer>
+        </View>
       </ViewLayout.Root>
     </Screen>
   )
@@ -125,7 +135,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignSelf: 'stretch',
-    gap: SPACINGS[6]
+    gap: SPACINGS[6],
+    paddingHorizontal: LAYOUT['space-horizontal']
   }
 })
 

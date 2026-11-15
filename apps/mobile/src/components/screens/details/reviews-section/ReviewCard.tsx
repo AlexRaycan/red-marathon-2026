@@ -14,17 +14,6 @@ export function ReviewCard({ review }: ReviewCardProps) {
 
   return (
     <View style={styles.root}>
-      <View style={styles.rating}>
-        <Star
-          size={16}
-          color={COLORS.primary}
-          fill={COLORS.primary}
-        />
-        <Text style={[styles.baseText, styles.ratingText]}>
-          {rating}/{REVIEWS_RATING.max}
-        </Text>
-      </View>
-
       <View style={styles.meta}>
         <Text style={[styles.baseText, styles.author]}>
           {author.displayName ?? author.username}
@@ -40,6 +29,17 @@ export function ReviewCard({ review }: ReviewCardProps) {
       >
         {text}
       </Text>
+
+      <View style={styles.rating}>
+        <Star
+          size={16}
+          color={COLORS.primary}
+          fill={COLORS.primary}
+        />
+        <Text style={[styles.baseText, styles.ratingText]}>
+          {rating}/{REVIEWS_RATING.max}
+        </Text>
+      </View>
     </View>
   )
 }
@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.sm
   },
   ratingText: {
-    // color: COLORS.text.primary,
-    // fontSize: FONT_SIZE.sm,
     fontWeight: FONT_WEIGHT.medium
   },
   meta: {
@@ -68,7 +66,6 @@ const styles = StyleSheet.create({
   },
   author: {
     color: COLORS.text['little-muted']
-    // fontSize: FONT_SIZE.sm
   },
   date: {
     color: COLORS.text.muted,
@@ -76,6 +73,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.text.primary
-    // fontSize: FONT_SIZE.sm
   }
 })

@@ -36,6 +36,8 @@ export function DetailsStatusButton({
     type: TitleListItemResponseType
   }>()
 
+  const isDetailPage = !!type
+
   const {
     isAuthenticated,
     action,
@@ -59,13 +61,13 @@ export function DetailsStatusButton({
     ? Pen
     : LIBRARY_ACTION_ICONS[action.nextStatus]
 
-  const actionIcon = type ? statusIcon : baseIcon
+  const actionIcon = isDetailPage ? statusIcon : baseIcon
   const icon = isAuthenticated ? actionIcon : LogIn
 
   const statusColor = isCompletedStatus ? COLORS.status.success : accentColor
 
   const selectStatus = (nextStatus: TLibraryStatus) => {
-    const shouldOpenSheet = type && nextStatus === 'COMPLETED'
+    const shouldOpenSheet = isDetailPage && nextStatus === 'COMPLETED'
 
     setStatus(nextStatus)
 
@@ -106,7 +108,7 @@ export function DetailsStatusButton({
     }
 
     // !type - on the home screen
-    if (!type) {
+    if (!isDetailPage) {
       if (!status) setStatus('PLANNED')
 
       if (status === 'PLANNED') removeFromLibrary()
@@ -120,7 +122,9 @@ export function DetailsStatusButton({
   const renderButton = (onLongPress?: () => void) => (
     <Button
       icon={icon}
-      {...(isCompletedStatus && { withFillIcon: !!userRating?.text })}
+      {...(isCompletedStatus && {
+        withFillIcon: isDetailPage && !!userRating?.text
+      })}
       {...(!isIconOnly
         ? {
             label: isAuthenticated ? libraryStatusButtonLabel : 'Go to Login',

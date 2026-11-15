@@ -131,6 +131,7 @@ export function ReviewBottomSheet({ title, ref }: ReviewBottomSheetProps) {
           )}
         />
 
+        {/* FIXME: when open 'Edit review' input's value in one line and show outside the input */}
         <Controller
           control={control}
           name='text'

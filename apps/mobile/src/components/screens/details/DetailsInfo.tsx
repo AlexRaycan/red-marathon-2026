@@ -75,7 +75,9 @@ export function DetailsInfo({ title, heroHeight }: DetailsInfoProps) {
         />
       )}
 
-      <ReviewsSection titleKey={title.key} />
+      <View style={styles.reviews}>
+        <ReviewsSection titleKey={title.key} />
+      </View>
     </ViewLayout.Root>
   )
 }
@@ -91,5 +93,8 @@ const styles = StyleSheet.create({
   },
   aiSummary: {
     marginHorizontal: LAYOUT['space-horizontal']
+  },
+  reviews: {
+    paddingHorizontal: LAYOUT['space-horizontal']
   }
 })
