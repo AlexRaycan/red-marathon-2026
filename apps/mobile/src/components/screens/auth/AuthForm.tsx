@@ -48,7 +48,7 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
       withPaddings
     >
       <Toolbar isBackButton />
-      <ViewLayout.Root style={styles.root}>
+      <ViewLayout.Root isAdaptive>
         <ViewLayout.Center>
           <KeyboardAvoiding.View style={styles.center}>
             <Text style={styles.title}>{content.title}</Text>
@@ -124,11 +124,6 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
 }
 
 const styles = StyleSheet.create({
-  root: {
-    width: '100%',
-    maxWidth: 440,
-    alignSelf: 'center'
-  },
   center: {
     gap: SPACINGS[10]
   },

@@ -18,13 +18,6 @@ export function RootRouter() {
       }}
     >
       <Stack.Protected
-        guard={!isOnboardingCompleted}
-        redirectTo='/'
-      >
-        <Stack.Screen name='onboarding' />
-      </Stack.Protected>
-
-      <Stack.Protected
         guard={isOnboardingCompleted}
         redirectTo='/onboarding'
       >
@@ -38,16 +31,13 @@ export function RootRouter() {
           name='subscriptions'
           options={{ presentation: 'fullScreenModal' }}
         />
+      </Stack.Protected>
 
-        {/* <Stack.Screen
-          name='collection-create'
-          options={{ presentation: 'fullScreenModal' }}
-        />
-
-        <Stack.Screen
-          name='add-to-collection/[key]'
-          options={{ presentation: 'fullScreenModal' }}
-        /> */}
+      <Stack.Protected
+        guard={!isOnboardingCompleted}
+        redirectTo='/'
+      >
+        <Stack.Screen name='onboarding' />
       </Stack.Protected>
     </Stack>
   )

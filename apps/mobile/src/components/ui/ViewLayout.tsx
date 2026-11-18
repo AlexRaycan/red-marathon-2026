@@ -3,7 +3,14 @@ import { StyleSheet, View, type ViewProps } from 'react-native'
 
 import { useSpaces } from '@/hooks'
 
-interface ViewLayoutRootProps extends ViewProps {
+const DEFAULT_MAX_WIDTH = 440
+
+interface ViewContainerProps extends ViewProps {
+  isAdaptive?: boolean
+  maxWidth?: number
+}
+
+interface ViewLayoutRootProps extends ViewContainerProps {
   hasBGColor?: boolean
   withToolbar?: boolean
   withTabbar?: boolean
@@ -13,6 +20,8 @@ function ViewLayoutRoot({
   hasBGColor = false,
   withToolbar,
   withTabbar,
+  isAdaptive,
+  maxWidth = DEFAULT_MAX_WIDTH,
   style,
   children,
   ...props
@@ -30,6 +39,7 @@ function ViewLayoutRoot({
         withTabbar && {
           paddingBottom: tabbarSpace
         },
+        isAdaptive && [styles.adaptive, { maxWidth }],
         style
       ]}
       {...props}
@@ -39,10 +49,20 @@ function ViewLayoutRoot({
   )
 }
 
-function ViewLayoutCenter({ style, children, ...props }: ViewProps) {
+function ViewLayoutCenter({
+  isAdaptive,
+  maxWidth = DEFAULT_MAX_WIDTH,
+  style,
+  children,
+  ...props
+}: ViewContainerProps) {
   return (
     <View
-      style={[styles.centered, style]}
+      style={[
+        styles.centered,
+        isAdaptive && [styles.adaptive, { maxWidth }],
+        style
+      ]}
       {...props}
     >
       {children}
@@ -50,12 +70,23 @@ function ViewLayoutCenter({ style, children, ...props }: ViewProps) {
   )
 }
 
-function ViewLayoutFooter({ style, children, ...props }: ViewProps) {
+function ViewLayoutFooter({
+  isAdaptive,
+  maxWidth = DEFAULT_MAX_WIDTH,
+  style,
+  children,
+  ...props
+}: ViewContainerProps) {
   const { tabbarSpace } = useSpaces()
 
   return (
     <View
-      style={[{ paddingBottom: tabbarSpace }, styles.footer, style]}
+      style={[
+        { paddingBottom: tabbarSpace },
+        styles.footer,
+        isAdaptive && [styles.adaptive, { maxWidth }],
+        style
+      ]}
       {...props}
     >
       {children}
@@ -79,6 +110,10 @@ const styles = StyleSheet.create({
   },
   footer: {
     justifyContent: 'center'
+  },
+  adaptive: {
+    width: '100%',
+    alignSelf: 'center'
   },
   bgColor: { backgroundColor: COLORS.bg.base }
 })

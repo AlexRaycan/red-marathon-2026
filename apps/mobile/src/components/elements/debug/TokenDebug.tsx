@@ -8,6 +8,8 @@ import { Button, GlassContainer, GlassView } from '@/components/ui'
 
 import { SecureStore } from '@/utils'
 
+import { useOnboardingStore } from '@/store'
+
 const ACCESS_TOKEN = STORAGE_KEYS.TOKENS.ACCESS
 const REFRESH_TOKEN = STORAGE_KEYS.TOKENS.REFRESH
 
@@ -16,6 +18,8 @@ export function TokenDebug() {
 
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [refreshToken, setRefreshToken] = useState<string | null>(null)
+
+  const resetOnboarding = useOnboardingStore(state => state.resetOnboarding)
 
   const handleReadTokens = async () => {
     const aToken = await SecureStore.getItemAsync(ACCESS_TOKEN)
@@ -50,6 +54,10 @@ export function TokenDebug() {
       <Button
         label='Break access tokens'
         onPress={handleBreakAccessTokens}
+      />
+      <Button
+        label='Reset Onboarding'
+        onPress={resetOnboarding}
       />
     </GlassContainer>
   )

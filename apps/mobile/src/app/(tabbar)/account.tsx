@@ -92,6 +92,8 @@ export default function Account() {
       <ViewLayout.Root withToolbar>
         <View style={styles.root}>
           <View style={styles.content}>
+            {/*{__DEV__ && <TokenDebug />}*/}
+
             <AccountUserInfo data={data?.data} />
 
             <TasteInsight />
@@ -118,8 +120,6 @@ export default function Account() {
               </GlassView>
             </GlassContainer>
           </View>
-
-          {/*{__DEV__ && <TokenDebug />}*/}
         </View>
       </ViewLayout.Root>
     </Screen>
