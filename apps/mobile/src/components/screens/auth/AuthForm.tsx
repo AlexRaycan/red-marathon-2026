@@ -12,7 +12,8 @@ import {
   Button,
   GlassContainer,
   Input,
-  Pressable,
+  KeyboardAvoiding,
+  Link,
   Screen,
   ViewLayout
 } from '@/components/ui'
@@ -43,69 +44,65 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
       withPaddings
     >
       <Toolbar isBackButton />
-
       <ViewLayout.Root style={styles.root}>
-        <ViewLayout.Center style={styles.center}>
-          <Text style={styles.title}>{content.title}</Text>
+        <ViewLayout.Center>
+          <KeyboardAvoiding style={styles.center}>
+            <Text style={styles.title}>{content.title}</Text>
 
-          <GlassContainer style={styles.form}>
-            <GlassContainer style={styles.formInputs}>
-              <Controller
-                control={control}
-                name='email'
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error }
-                }) => (
-                  <Input
-                    placeholder='Enter email'
-                    autoCapitalize='none'
-                    keyboardType='email-address'
-                    value={value}
-                    error={error?.message}
-                    onChangeText={onChange}
-                  />
+            <GlassContainer style={styles.form}>
+              <GlassContainer style={styles.formInputs}>
+                <Controller
+                  control={control}
+                  name='email'
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error }
+                  }) => (
+                    <Input
+                      placeholder='Enter email'
+                      autoCapitalize='none'
+                      keyboardType='email-address'
+                      value={value}
+                      error={error?.message}
+                      onChangeText={onChange}
+                    />
+                  )}
+                />
+
+                <Controller
+                  control={control}
+                  name='password'
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error }
+                  }) => (
+                    <Input
+                      placeholder='Enter password'
+                      isPassword
+                      value={value}
+                      error={error?.message}
+                      onChangeText={onChange}
+                    />
+                  )}
+                />
+
+                {error instanceof ApiError && (
+                  <Text style={styles.error}>{error.message}</Text>
                 )}
-              />
+              </GlassContainer>
 
-              <Controller
-                control={control}
-                name='password'
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error }
-                }) => (
-                  <Input
-                    placeholder='Enter password'
-                    isPassword
-                    value={value}
-                    error={error?.message}
-                    onChangeText={onChange}
-                  />
-                )}
+              <Button
+                size='lg'
+                tintColor={hexToRgba(COLORS.status.success, 0.3)}
+                label={isPending ? content.pending : content.submit}
+                disabled={isPending}
+                onPress={handleSubmit(onSubmit)}
               />
-
-              {error instanceof ApiError && (
-                <Text style={styles.error}>{error.message}</Text>
-              )}
             </GlassContainer>
-
-            <Button
-              size='lg'
-              tintColor={hexToRgba(COLORS.status.success, 0.3)}
-              label={isPending ? content.pending : content.submit}
-              disabled={isPending}
-              onPress={handleSubmit(onSubmit)}
-            />
-          </GlassContainer>
+          </KeyboardAvoiding>
         </ViewLayout.Center>
 
-        <Pressable
-          style={({ pressed }) => ({
-            ...styles.textButton,
-            ...{ marginBottom: -SPACINGS[2] },
-            opacity: pressed ? 0.7 : 1
-          })}
+        <Link.Button
           onPress={() =>
             router.replace({
               pathname: content.footerHref,
@@ -113,11 +110,8 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
             })
           }
         >
-          <Text style={styles.link}>
-            {content.footerText}{' '}
-            <Text style={styles.linkAccent}>{content.footerAction}</Text>
-          </Text>
-        </Pressable>
+          {content.footerText} <Link.Text>{content.footerAction}</Link.Text>
+        </Link.Button>
       </ViewLayout.Root>
     </Screen>
   )
@@ -148,17 +142,5 @@ const styles = StyleSheet.create({
     color: COLORS.status.error,
     fontSize: FONT_SIZE.sm,
     textAlign: 'center'
-  },
-  textButton: {
-    paddingVertical: SPACINGS[2]
-  },
-  link: {
-    color: COLORS.text.primary,
-    textAlign: 'center',
-    fontSize: FONT_SIZE.sm
-  },
-  linkAccent: {
-    fontWeight: FONT_WEIGHT.semibold,
-    textDecorationLine: 'underline'
   }
 })
