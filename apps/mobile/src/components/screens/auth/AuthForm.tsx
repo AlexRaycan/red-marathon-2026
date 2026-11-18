@@ -68,6 +68,7 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
                       keyboardType='email-address'
                       value={value}
                       error={error?.message}
+                      autoFocus
                       onChangeText={onChange}
                     />
                   )}
