@@ -33,7 +33,11 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
   const content = AUTH_CONTENT[type]
 
   const { control, handleSubmit } = useForm<TAuthForm>({
-    resolver: zodResolver(authSchema)
+    resolver: zodResolver(authSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   })
 
   const { redirect } = useRedirect()
@@ -46,7 +50,7 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
       <Toolbar isBackButton />
       <ViewLayout.Root style={styles.root}>
         <ViewLayout.Center>
-          <KeyboardAvoiding style={styles.center}>
+          <KeyboardAvoiding.View style={styles.center}>
             <Text style={styles.title}>{content.title}</Text>
 
             <GlassContainer style={styles.form}>
@@ -99,7 +103,7 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
                 onPress={handleSubmit(onSubmit)}
               />
             </GlassContainer>
-          </KeyboardAvoiding>
+          </KeyboardAvoiding.View>
         </ViewLayout.Center>
 
         <Link.Button
@@ -113,6 +117,8 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
           {content.footerText} <Link.Text>{content.footerAction}</Link.Text>
         </Link.Button>
       </ViewLayout.Root>
+
+      <KeyboardAvoiding.Toolbar />
     </Screen>
   )
 }

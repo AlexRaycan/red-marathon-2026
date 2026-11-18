@@ -1,5 +1,6 @@
 import { COLORS, LAYOUT } from '@app/tokens'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { KeyboardController } from 'react-native-keyboard-controller'
 import {
   SafeAreaView,
   type SafeAreaViewProps,
@@ -9,12 +10,14 @@ import {
 interface Props extends SafeAreaViewProps {
   hasBGColor?: boolean
   withPaddings?: boolean
+  dismissKeyboardOnPress?: boolean
 }
 
 export function Screen({
   edges = [],
   hasBGColor = true,
   withPaddings,
+  dismissKeyboardOnPress = true,
   style,
   children,
   ...props
@@ -22,23 +25,30 @@ export function Screen({
   const insets = useSafeAreaInsets()
 
   return (
-    <SafeAreaView
-      {...props}
-      edges={edges}
-      style={[
-        styles.root,
-        { marginTop: -insets.top },
-        hasBGColor && {
-          backgroundColor: COLORS.bg.base
-        },
-        withPaddings && {
-          paddingHorizontal: LAYOUT['space-horizontal']
-        },
-        style
-      ]}
+    <TouchableWithoutFeedback
+      accessible={false}
+      onPress={() => {
+        if (dismissKeyboardOnPress) void KeyboardController.dismiss()
+      }}
     >
-      {children}
-    </SafeAreaView>
+      <SafeAreaView
+        {...props}
+        edges={edges}
+        style={[
+          styles.root,
+          { marginTop: -insets.top },
+          hasBGColor && {
+            backgroundColor: COLORS.bg.base
+          },
+          withPaddings && {
+            paddingHorizontal: LAYOUT['space-horizontal']
+          },
+          style
+        ]}
+      >
+        {children}
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   )
 }
 
