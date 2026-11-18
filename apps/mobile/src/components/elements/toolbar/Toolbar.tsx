@@ -1,5 +1,4 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, LAYOUT, SPACINGS } from '@app/tokens'
-import { BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import hexToRgba from 'hex-to-rgba'
 import type { ReactNode } from 'react'
@@ -17,7 +16,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ScreenTitle } from '@/components/ui'
+import { Blur, ScreenTitle } from '@/components/ui'
 
 import { ToolbarActionButton } from './ToolbarActionButton'
 
@@ -69,11 +68,7 @@ export function Toolbar({
         >
           {withBlur && (
             <>
-              <BlurView
-                intensity={80}
-                tint='systemChromeMaterialDark'
-                style={StyleSheet.absoluteFill}
-              />
+              <Blur intensity={80} />
 
               <View style={styles.overlay} />
             </>

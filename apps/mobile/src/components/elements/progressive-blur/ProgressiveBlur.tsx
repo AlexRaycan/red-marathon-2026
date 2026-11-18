@@ -1,8 +1,10 @@
 import MaskedView from '@expo/ui/community/masked-view'
-import { BlurTargetView, BlurView } from 'expo-blur'
+import { BlurTargetView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { PropsWithChildren, RefObject } from 'react'
 import { StyleSheet, View, type ViewInstance } from 'react-native'
+
+import { Blur } from '@/components/ui'
 
 const BLUR_FADE_HEIGHT = 64
 
@@ -12,7 +14,11 @@ interface MaskProps {
   offset?: number
 }
 
-function Blur({ ref, height = BLUR_FADE_HEIGHT, offset = 0 }: MaskProps) {
+function BlurContainer({
+  ref,
+  height = BLUR_FADE_HEIGHT,
+  offset = 0
+}: MaskProps) {
   return (
     <MaskedView
       pointerEvents='none'
@@ -29,12 +35,9 @@ function Blur({ ref, height = BLUR_FADE_HEIGHT, offset = 0 }: MaskProps) {
         </View>
       }
     >
-      <BlurView
+      <Blur
         blurTarget={ref}
-        blurMethod='dimezisBlurView'
         intensity={60}
-        tint='systemChromeMaterialDark'
-        style={StyleSheet.absoluteFill}
       />
     </MaskedView>
   )
@@ -67,6 +70,6 @@ const styles = StyleSheet.create({
 })
 
 export const ProgressiveBlur = {
-  Blur,
+  Blur: BlurContainer,
   Target
 }
