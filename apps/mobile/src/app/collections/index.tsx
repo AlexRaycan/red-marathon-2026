@@ -46,7 +46,7 @@ export default function CollectionsPage() {
           />
         )}
         options={{
-          columns: COLUMNS,
+          minColumns: COLUMNS,
           spacings: {
             colGap: GAP,
             rowGap: GAP,

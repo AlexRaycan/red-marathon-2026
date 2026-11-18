@@ -20,10 +20,10 @@ export default function Search() {
   const [query, setQuery] = useState('')
   const [type, setType] = useState<TTitleType | null>()
 
-  const filtres = useSearchFilterStore()
+  const filters = useSearchFilterStore()
 
   const debouncedQuery = useDebouncedValue(query.trim())
-  const { genres, yearFrom, yearTo } = useDebouncedValue(filtres) // Debounce filters to avoid excessive API calls
+  const { genres, yearFrom, yearTo } = useDebouncedValue(filters) // Debounce filters to avoid excessive API calls
 
   const { scrollY, scrollHandler } = useScrollAnimation()
 

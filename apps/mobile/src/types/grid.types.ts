@@ -7,7 +7,7 @@ export interface ISpacings {
 }
 
 export interface IGridOptions {
-  columns?: number
+  minColumns?: number
   spacings?: ISpacings
   isStickyHeader?: boolean
   header?: ReactNode

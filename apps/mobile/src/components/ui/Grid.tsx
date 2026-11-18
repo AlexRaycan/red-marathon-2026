@@ -14,6 +14,8 @@ import { useSpaces } from '@/hooks'
 
 import type { IGridOptions } from '@/types'
 
+const BASE_WIDTH_DIVIDER = 430
+
 type GridRenderItemInfo<T> = ListRenderItemInfo<T> & {
   cardWidth: number
 }
@@ -37,12 +39,14 @@ export function Grid<T>({
   ...props
 }: GridProps<T>) {
   const {
-    columns = 3,
+    minColumns = 3,
+
     spacings = {
       colGap: SPACINGS[4],
       rowGap: SPACINGS[3],
       padding: LAYOUT['space-horizontal']
     },
+
     isPending,
     isStickyHeader,
     emptyText,
@@ -52,8 +56,12 @@ export function Grid<T>({
 
   const { toolbarSpace } = useSpaces()
 
+  const divider = BASE_WIDTH_DIVIDER / minColumns
+
   const { width } = useWindowDimensions()
-  const cardWidth = getCardWidth(width, columns, {
+  const colNum = Math.floor(width / divider)
+
+  const cardWidth = getCardWidth(width, minColumns, {
     gap: spacings.rowGap,
     paddingLeft: spacings.padding,
     paddingRight: spacings.padding
@@ -63,7 +71,7 @@ export function Grid<T>({
     <Animated.FlatList
       data={data}
       keyExtractor={keyExtractor}
-      numColumns={columns}
+      numColumns={minColumns}
       renderItem={info => renderItem({ ...info, cardWidth })}
       columnWrapperStyle={{ gap: spacings.rowGap }}
       contentContainerStyle={[
