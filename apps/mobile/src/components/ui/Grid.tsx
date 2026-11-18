@@ -61,7 +61,7 @@ export function Grid<T>({
   const { width } = useWindowDimensions()
   const colNum = Math.floor(width / divider)
 
-  const cardWidth = getCardWidth(width, minColumns, {
+  const cardWidth = getCardWidth(width, colNum, {
     gap: spacings.rowGap,
     paddingLeft: spacings.padding,
     paddingRight: spacings.padding

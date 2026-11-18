@@ -91,13 +91,17 @@ export default function Account() {
       />
       <ViewLayout.Root withToolbar>
         <View style={styles.root}>
-          <View style={styles.content}>
+          <ViewLayout.Root
+            isAdaptive
+            style={styles.content}
+          >
             {/*{__DEV__ && <TokenDebug />}*/}
 
             <AccountUserInfo data={data?.data} />
 
             <TasteInsight />
 
+            {/* TODO: add ScrollView for menu */}
             <GlassContainer>
               <GlassView
                 isInteractive
@@ -119,7 +123,7 @@ export default function Account() {
                 ))}
               </GlassView>
             </GlassContainer>
-          </View>
+          </ViewLayout.Root>
         </View>
       </ViewLayout.Root>
     </Screen>
@@ -133,7 +137,6 @@ const styles = StyleSheet.create({
     gap: SPACINGS[5]
   },
   content: {
-    flex: 1,
     alignSelf: 'stretch',
     gap: SPACINGS[6],
     paddingHorizontal: LAYOUT['space-horizontal']
