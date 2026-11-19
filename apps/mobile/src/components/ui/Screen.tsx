@@ -7,6 +7,8 @@ import {
   useSafeAreaInsets
 } from 'react-native-safe-area-context'
 
+import { TokenDebug } from '../elements/debug/TokenDebug'
+
 interface Props extends SafeAreaViewProps {
   hasBGColor?: boolean
   withPaddings?: boolean
@@ -17,12 +19,36 @@ export function Screen({
   edges = [],
   hasBGColor = true,
   withPaddings,
-  dismissKeyboardOnPress = true,
+  dismissKeyboardOnPress = false,
   style,
   children,
   ...props
 }: Props) {
   const insets = useSafeAreaInsets()
+
+  const screen = (
+    <SafeAreaView
+      {...props}
+      edges={edges}
+      style={[
+        styles.root,
+        { marginTop: -insets.top },
+        hasBGColor && {
+          backgroundColor: COLORS.bg.base
+        },
+        withPaddings && {
+          paddingHorizontal: LAYOUT['space-horizontal']
+        },
+        style
+      ]}
+    >
+      {children}
+
+      {__DEV__ && <TokenDebug />}
+    </SafeAreaView>
+  )
+
+  if (!dismissKeyboardOnPress) return screen
 
   return (
     <TouchableWithoutFeedback
@@ -31,23 +57,7 @@ export function Screen({
         if (dismissKeyboardOnPress) void KeyboardController.dismiss()
       }}
     >
-      <SafeAreaView
-        {...props}
-        edges={edges}
-        style={[
-          styles.root,
-          { marginTop: -insets.top },
-          hasBGColor && {
-            backgroundColor: COLORS.bg.base
-          },
-          withPaddings && {
-            paddingHorizontal: LAYOUT['space-horizontal']
-          },
-          style
-        ]}
-      >
-        {children}
-      </SafeAreaView>
+      {screen}
     </TouchableWithoutFeedback>
   )
 }

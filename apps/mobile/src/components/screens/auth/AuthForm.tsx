@@ -46,6 +46,7 @@ export function AuthForm({ type, error, isPending, onSubmit }: AuthFormProps) {
     <Screen
       edges={['top', 'bottom']}
       withPaddings
+      dismissKeyboardOnPress
     >
       <Toolbar isBackButton />
       <ViewLayout.Root isAdaptive>

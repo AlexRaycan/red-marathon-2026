@@ -11,7 +11,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Redirect, router, useIsFocused } from 'expo-router'
 import hexToRgba from 'hex-to-rgba'
 import { LogOut } from 'lucide-react-native'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import {
   Button,
@@ -23,21 +23,20 @@ import {
 } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
+import { TokenDebug } from '@/components/elements/debug/TokenDebug'
 import {
   ACCOUNT_MENU,
   AccountUserInfo,
   TasteInsight
 } from '@/components/screens/account'
 
-import { useProtectedPush, useSpaces } from '@/hooks'
+import { useProtectedPush } from '@/hooks'
 
 import { clearTokens, getRefreshToken } from '@/lib'
 
 export default function Account() {
   const isFocused = useIsFocused()
   const protectedPush = useProtectedPush()
-
-  const { tabbarSpace } = useSpaces()
 
   const queryClient = useQueryClient()
   const { data, isPending: isLoading, isError } = useCurrentUser()
@@ -95,34 +94,36 @@ export default function Account() {
             isAdaptive
             style={styles.content}
           >
-            {/*{__DEV__ && <TokenDebug />}*/}
 
             <AccountUserInfo data={data?.data} />
 
             <TasteInsight />
 
-            {/* TODO: add ScrollView for menu */}
-            <GlassContainer>
-              <GlassView
-                isInteractive
-                pointerEvents='box-none'
-                style={menuStyles.glass}
-              >
-                {ACCOUNT_MENU.map((item, index) => (
-                  <MenuItem
-                    {...item}
-                    key={item.label}
-                    isLastItem={index === ACCOUNT_MENU.length - 1}
-                    withChevron
-                    onPress={() => protectedPush(item.path)}
+            <ScrollView contentContainerStyle={styles.scroll}>
+              <GlassContainer>
+                <View style={[styles.insets]}>
+                  <GlassView
+                    isInteractive
+                    pointerEvents='box-none'
+                    style={menuStyles.glass}
                   >
-                    {item.content && (
-                      <Text style={menuStyles.premium}>{item.content}</Text>
-                    )}
-                  </MenuItem>
-                ))}
-              </GlassView>
-            </GlassContainer>
+                    {ACCOUNT_MENU.map((item, index) => (
+                      <MenuItem
+                        {...item}
+                        key={item.label}
+                        isLastItem={index === ACCOUNT_MENU.length - 1}
+                        withChevron
+                        onPress={() => protectedPush(item.path)}
+                      >
+                        {item.content && (
+                          <Text style={menuStyles.premium}>{item.content}</Text>
+                        )}
+                      </MenuItem>
+                    ))}
+                  </GlassView>
+                </View>
+              </GlassContainer>
+            </ScrollView>
           </ViewLayout.Root>
         </View>
       </ViewLayout.Root>
@@ -137,9 +138,14 @@ const styles = StyleSheet.create({
     gap: SPACINGS[5]
   },
   content: {
-    alignSelf: 'stretch',
-    gap: SPACINGS[6],
+    alignSelf: 'stretch'
+  },
+  insets: {
     paddingHorizontal: LAYOUT['space-horizontal']
+  },
+  scroll: {
+    paddingTop: SPACINGS[6],
+    borderRadius: RADIUS.md
   }
 })
 

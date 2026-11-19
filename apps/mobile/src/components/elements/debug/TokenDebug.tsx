@@ -1,5 +1,5 @@
 import { STORAGE_KEYS } from '@app/constants'
-import { COLORS, FONT_SIZE, RADIUS, SPACINGS } from '@app/tokens'
+import { COLORS, FONT_SIZE, LAYOUT, RADIUS, SPACINGS } from '@app/tokens'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { StyleSheet, Text } from 'react-native'
@@ -66,7 +66,12 @@ export function TokenDebug() {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    gap: SPACINGS[3]
+    gap: SPACINGS[3],
+    position: 'absolute',
+    top: '50%',
+    transform: [{ translateY: '-50%' }],
+    left: LAYOUT['space-horizontal'],
+    right: LAYOUT['space-horizontal']
   },
   content: {
     padding: SPACINGS[3],
