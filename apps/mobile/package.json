@@ -68,7 +68,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "install-deps": "exec expo install",
-    "ts-check": "pnpm -r exec tsc --noEmit"
+    "ts-check": "pnpm -r exec tsc --noEmit",
+    "phone": "dotenv -e .env -- sh -c 'expo run:ios --device $IOS_DEVICE_ID --configuration Release --no-bundler'"
   },
   "private": true
 }
