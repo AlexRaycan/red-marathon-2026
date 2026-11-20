@@ -1,12 +1,15 @@
 import { useTrendingTitles } from '@app/api'
 import { PROJECT_NAME } from '@app/constants'
 import { LAYOUT } from '@app/tokens'
-import { Bell } from 'lucide-react-native'
 import Animated from 'react-native-reanimated'
 
-import { Button, Screen, ViewLayout } from '@/components/ui'
+import { Screen, ViewLayout } from '@/components/ui'
 
-import { SplashScreen, Toolbar } from '@/components/elements'
+import {
+  NotificationButton,
+  SplashScreen,
+  Toolbar
+} from '@/components/elements'
 import { HomeHeroSlider, HomeSliders } from '@/components/screens/home'
 
 import { useScrollAnimation } from '@/hooks'
@@ -24,13 +27,7 @@ export default function Index() {
         withBlur
         scrollY={scrollY}
         leftSide={PROJECT_NAME}
-        rightSide={
-          <Button
-            variant='transparent'
-            icon={Bell}
-            size='lg'
-          />
-        }
+        rightSide={<NotificationButton />}
       />
 
       <ViewLayout.Root>

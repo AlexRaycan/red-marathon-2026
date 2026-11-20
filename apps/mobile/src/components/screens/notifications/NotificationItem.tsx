@@ -1,4 +1,4 @@
-import { type NotificationResponse, title } from '@app/api'
+import { type NotificationResponse } from '@app/api'
 import { COLORS, FONT_SIZE, FONT_WEIGHT, RADIUS, SPACINGS } from '@app/tokens'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -12,7 +12,7 @@ interface NotificationItemProps {
 export function NotificationItem({ item, onPress }: NotificationItemProps) {
   return (
     <AnimatedPressable
-      style={styles.root}
+      style={[styles.root]}
       onPress={() => onPress(item)}
     >
       <View style={styles.content}>
