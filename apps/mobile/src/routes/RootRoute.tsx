@@ -1,4 +1,5 @@
-import { Stack } from 'expo-router'
+import { type Href, Stack, usePathname } from 'expo-router'
+import { useEffect } from 'react'
 
 import { useOnboardingInit } from '@/hooks'
 
@@ -7,7 +8,22 @@ import { useOnboardingStore } from '@/store'
 export function RootRouter() {
   useOnboardingInit()
 
+  const pathname = usePathname() as Href
+
+  const resetRedirectToOnboarding = useOnboardingStore(
+    state => state.resetRedirectTo
+  )
+
   const isOnboardingCompleted = useOnboardingStore(state => state.isCompleted)
+  const redirectToOnBoarding = useOnboardingStore(
+    state => state.completionRedirectTo
+  )
+
+  useEffect(() => {
+    if (pathname !== '/onboarding' && redirectToOnBoarding !== '/') {
+      void resetRedirectToOnboarding()
+    }
+  }, [pathname, redirectToOnBoarding, resetRedirectToOnboarding])
 
   if (isOnboardingCompleted === null) return null
 
@@ -35,7 +51,7 @@ export function RootRouter() {
 
       <Stack.Protected
         guard={!isOnboardingCompleted}
-        redirectTo='/'
+        redirectTo={redirectToOnBoarding}
       >
         <Stack.Screen name='onboarding' />
       </Stack.Protected>

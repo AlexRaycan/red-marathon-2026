@@ -7,8 +7,6 @@ import {
   useSafeAreaInsets
 } from 'react-native-safe-area-context'
 
-import { TokenDebug } from '../elements/debug/TokenDebug'
-
 interface Props extends SafeAreaViewProps {
   hasBGColor?: boolean
   withPaddings?: boolean
@@ -44,7 +42,7 @@ export function Screen({
     >
       {children}
 
-      {__DEV__ && <TokenDebug />}
+      {/*{__DEV__ && <TokenDebug />}*/}
     </SafeAreaView>
   )
 

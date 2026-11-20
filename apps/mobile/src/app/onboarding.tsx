@@ -28,7 +28,7 @@ export default function Onboarding() {
   )
 
   const onGetStarted = async (route: 'login' | 'register') => {
-    await completeOnboarding()
+    await completeOnboarding(`/${route}`)
     router.push(`/${route}`)
   }
 
