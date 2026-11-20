@@ -38,9 +38,8 @@ export function ShareButton({ title }: ShareButtonProps) {
     }
 
     pushProtected({
-      pathname: '/title/[type]/[key]',
+      pathname: '/title/[key]',
       params: {
-        type: title.type,
         key: title.key,
         action: BOTTOM_SHEET_ACTIONS.share
       }

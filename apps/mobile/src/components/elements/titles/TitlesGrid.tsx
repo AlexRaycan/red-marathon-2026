@@ -42,7 +42,7 @@ export function TitlesGrid<T>({
             withBadge
             onPress={() => {
               if (!title.key) return
-              router.push(`/title/${title.type}/${title.key}`)
+              router.push(`/title/${title.key}`)
             }}
           />
         )

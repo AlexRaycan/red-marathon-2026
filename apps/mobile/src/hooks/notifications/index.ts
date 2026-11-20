@@ -1,1 +1,2 @@
-export * from './useNotificationsAction'
+export * from './usePushRegistration'
+export * from './usePushTapRouting'

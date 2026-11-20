@@ -26,7 +26,7 @@ export function TitlesCarousel({
           type={title.type}
           coverUrl={title.coverUrl}
           withBadge
-          onPress={() => router.push(`/title/${title?.type}/${title?.key}`)}
+          onPress={() => router.push(`/title/${title?.key}`)}
         />
       ))}
     </Carousel>

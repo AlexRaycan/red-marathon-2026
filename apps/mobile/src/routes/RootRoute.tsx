@@ -1,12 +1,16 @@
 import { type Href, Stack, usePathname } from 'expo-router'
 import { useEffect } from 'react'
 
-import { useOnboardingInit } from '@/hooks'
+import { useOnboardingInit, usePushTapRouting } from '@/hooks'
+import { usePushRegistration } from '@/hooks/notifications/usePushRegistration'
 
 import { useOnboardingStore } from '@/store'
 
 export function RootRouter() {
   useOnboardingInit()
+
+  usePushRegistration()
+  usePushTapRouting()
 
   const pathname = usePathname() as Href
 
@@ -45,6 +49,11 @@ export function RootRouter() {
 
         <Stack.Screen
           name='subscriptions'
+          options={{ presentation: 'fullScreenModal' }}
+        />
+
+        <Stack.Screen
+          name='notifications'
           options={{ presentation: 'fullScreenModal' }}
         />
       </Stack.Protected>

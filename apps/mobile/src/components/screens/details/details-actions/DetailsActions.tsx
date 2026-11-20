@@ -60,9 +60,8 @@ export function DetailsActions({
     }
 
     pushProtected({
-      pathname: '/title/[type]/[key]',
+      pathname: '/title/[key]',
       params: {
-        type: title.type,
         key: title.key,
         action: BOTTOM_SHEET_ACTIONS.review
       }
@@ -71,8 +70,6 @@ export function DetailsActions({
 
   const shouldOpenSheet = isCompletedStatus || action.nextStatus === 'COMPLETED'
   useBottomSheetAction(sheetRef, 'review', isAuthenticated && shouldOpenSheet)
-
-  console.log(status, progress)
 
   return (
     <>

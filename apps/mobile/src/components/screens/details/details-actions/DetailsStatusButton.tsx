@@ -1,12 +1,8 @@
-import {
-  type DiscoverDetailsResponse,
-  type TitleListItemResponseType
-} from '@app/api'
+import { type DiscoverDetailsResponse } from '@app/api'
 import { useLibraryStatus } from '@app/hooks'
 import { useRatingStore } from '@app/store'
 import { COLORS } from '@app/tokens'
 import type { TLibraryStatus } from '@app/types'
-import { useLocalSearchParams } from 'expo-router'
 import { Check, LogIn, type LucideIcon, Pen } from 'lucide-react-native'
 import { type ColorValue } from 'react-native'
 
@@ -22,6 +18,7 @@ interface DetailsStatusButtonProps {
   accentColor?: ColorValue
   icon?: LucideIcon
   isIconOnly?: boolean
+  isFromHomePage?: boolean
   openSheet?: () => void
 }
 
@@ -30,13 +27,10 @@ export function DetailsStatusButton({
   accentColor,
   icon: Icon,
   isIconOnly,
+  isFromHomePage,
   openSheet
 }: DetailsStatusButtonProps) {
-  const { type } = useLocalSearchParams<{
-    type: TitleListItemResponseType
-  }>()
-
-  const isDetailPage = !!type
+  const isDetailPage = !isFromHomePage
 
   const {
     isAuthenticated,
@@ -92,9 +86,8 @@ export function DetailsStatusButton({
 
   const redirect = () => {
     pushProtected({
-      pathname: '/title/[type]/[key]',
+      pathname: '/title/[key]',
       params: {
-        type: title.type,
         key: title.key
       }
     })

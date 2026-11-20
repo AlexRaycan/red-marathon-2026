@@ -39,7 +39,7 @@ export function AiSuggestionsGrid({ suggestions }: AiSuggestionsGridProps) {
           withBadge
           onPress={() => {
             if (!item.key) return
-            protectedPush(`/title/${item.type}/${item.key}`)
+            protectedPush(`/title/${item.key}`)
           }}
         />
       ))}

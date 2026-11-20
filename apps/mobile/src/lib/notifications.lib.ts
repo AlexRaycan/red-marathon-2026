@@ -1,3 +1,4 @@
+import type { NotificationResponseEntityType } from '@app/api'
 import Constants from 'expo-constants'
 import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'
@@ -39,15 +40,18 @@ export async function getPushToken() {
 }
 
 export function getNotificationHref(
-  entityType: unknown,
-  entityId: unknown
+  entityType: NotificationResponseEntityType,
+  entityId: string | null,
+  titleType?: string
 ): Extract<Href, string> | null {
   if (typeof entityId !== 'string') return null
 
   switch (entityType) {
     case 'COLLECTION':
       return `/collections/${entityId}`
+    case 'TITLE':
+      return `/title/${entityId}`
     default:
-      return `/title/${entityType}/${entityId}`
+      return null
   }
 }

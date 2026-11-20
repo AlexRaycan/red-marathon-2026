@@ -106,12 +106,16 @@ export function HomeHeroSlider({ titles: allTitles }: Props) {
               icon={icon}
               tintColor={accentColor}
               onPress={() =>
-                router.push(`/title/${currentTitle?.type}/${currentTitle?.key}`)
+                router.push({
+                  pathname: '/title/[key]',
+                  params: { key: currentTitle?.key }
+                })
               }
             />
             <DetailsStatusButton
               title={currentTitle}
               isIconOnly
+              isFromHomePage
             />
           </GlassContainer>
         </View>
