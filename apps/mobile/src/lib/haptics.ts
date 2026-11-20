@@ -12,4 +12,12 @@ export const HAPTIC_TRIGGERS = {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle[style ?? 'Medium'])
 }
 
+export const HAPTIC_RAMP: (keyof typeof Haptics.ImpactFeedbackStyle)[] = [
+  'Soft',
+  'Light',
+  'Medium',
+  'Rigid',
+  'Heavy'
+]
+
 export type HapticTrigger = keyof typeof HAPTIC_TRIGGERS

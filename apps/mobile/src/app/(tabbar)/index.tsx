@@ -6,13 +6,13 @@ import Animated from 'react-native-reanimated'
 
 import { Button, Screen, ViewLayout } from '@/components/ui'
 
-import { Toolbar } from '@/components/elements'
+import { SplashScreen, Toolbar } from '@/components/elements'
 import { HomeHeroSlider, HomeSliders } from '@/components/screens/home'
 
 import { useScrollAnimation } from '@/hooks'
 
 export default function Index() {
-  const { data } = useTrendingTitles({ take: 20 })
+  const { data, isPending } = useTrendingTitles({ take: 20 })
 
   const { scrollY, scrollHandler } = useScrollAnimation()
 
@@ -47,6 +47,8 @@ export default function Index() {
           <HomeSliders items={items} />
         </Animated.ScrollView>
       </ViewLayout.Root>
+
+      {isPending && <SplashScreen />}
     </Screen>
   )
 }

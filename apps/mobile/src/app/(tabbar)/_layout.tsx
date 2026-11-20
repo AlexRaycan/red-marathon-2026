@@ -1,3 +1,4 @@
+import { useTrendingTitles } from '@app/api'
 import { MAIN_MENU } from '@app/constants'
 import { useAuth } from '@app/hooks'
 import { COLORS } from '@app/tokens'
@@ -5,6 +6,7 @@ import { NativeTabs } from 'expo-router/native-tabs'
 
 export default function TabBarLayout() {
   const { isAuthenticated } = useAuth()
+  const { isPending } = useTrendingTitles({ take: 20 })
 
   return (
     <NativeTabs
@@ -18,6 +20,7 @@ export default function TabBarLayout() {
         color: COLORS.text.primary
       }}
       blurEffect='systemChromeMaterial'
+      hidden={isPending}
     >
       <NativeTabs.Trigger name='index'>
         <NativeTabs.Trigger.Icon
