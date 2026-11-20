@@ -1,44 +1,18 @@
-import { type NotificationResponse, useMyNotifications } from '@app/api'
-import { usePushActions } from '@app/hooks'
 import { COLORS, LAYOUT, SPACINGS } from '@app/tokens'
-import { router } from 'expo-router'
 import { CheckCheck } from 'lucide-react-native'
 import { FlatList, StyleSheet, Text } from 'react-native'
 
 import { Button, Screen } from '@/components/ui'
 
-import { MOCK_NOTIFICATIONS, Toolbar } from '@/components/elements'
+import { Toolbar } from '@/components/elements'
 import { NotificationItem } from '@/components/screens/notifications'
 
-import { useSpaces } from '@/hooks'
-
-import { getNotificationHref } from '@/lib'
+import { useNotifications, useSpaces } from '@/hooks'
 
 export default function NotificationPage() {
-  const { data } = useMyNotifications(
-    { take: 50 },
-    { query: { enabled: !__DEV__ } }
-  )
-  const { markRead, markAllRead } = usePushActions()
+  const { items, hasUnread, markAllRead, onPressItem } = useNotifications()
 
   const { toolbarSpace } = useSpaces()
-
-  const items = __DEV__
-    ? MOCK_NOTIFICATIONS
-    : data?.status === 200
-      ? data.data.items
-      : []
-  const hasUnread = items.some(({ isRead }) => !isRead)
-
-  const onPressItem = (item: NotificationResponse) => {
-    if (__DEV__) return
-
-    if (!item.isRead) markRead(item.id)
-
-    const href = getNotificationHref(item.entityType, item.entityId)
-
-    if (href) router.push(href)
-  }
 
   return (
     <Screen>
@@ -56,7 +30,7 @@ export default function NotificationPage() {
             }}
           />
         }
-        isBackButton
+        isCloseButton
       />
 
       <FlatList

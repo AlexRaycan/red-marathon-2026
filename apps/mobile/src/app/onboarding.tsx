@@ -73,7 +73,7 @@ export default function Onboarding() {
               label='Explore First'
               size='lg'
               variant='secondary'
-              onPress={completeOnboarding}
+              onPress={() => completeOnboarding('/')}
             />
 
             <Pressable

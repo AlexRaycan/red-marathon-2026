@@ -35,6 +35,7 @@ interface Props
   variant?: TButtonVariant
   size?: TButtonSize
   icon?: LucideIcon
+  isIconOnly?: boolean
   withFillIcon?: boolean
   strokeWidth?: number
   disabled?: boolean
@@ -65,6 +66,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   icon: Icon,
+  isIconOnly: onlyIcon,
   withFillIcon = false,
   strokeWidth,
   tintColor,
@@ -79,7 +81,7 @@ export function Button({
   ...rest
 }: Props) {
   const isIconOnly =
-    !children && (!label || label.trim().length === 0) && !!Icon
+    onlyIcon ?? (!children && (!label || label.trim().length === 0) && !!Icon)
 
   const hasGlassEffect = isGlassEffectAvailable()
 
