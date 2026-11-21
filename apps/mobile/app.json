@@ -40,7 +40,8 @@
       "expo-image",
       "expo-web-browser",
       "expo-status-bar",
-      "expo-notifications"
+      "expo-notifications",
+      "expo-iap"
     ],
     "experiments": {
       "typedRoutes": true,

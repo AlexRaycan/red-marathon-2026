@@ -45,3 +45,10 @@ export const SUBSCRIPTION_FEATURES: ISubscriptionFeature[] = [
     isPremium: true
   }
 ]
+
+export const SUBSCRIPTION_PRODUCT_IDS: Record<string, string> = {
+  monthly: 'com.alexraycan.sagaset.pro.monthly',
+  annually: 'com.alexraycan.sagaset.pro.annually'
+}
+
+export const PRODUCT_IDS = Object.values(SUBSCRIPTION_PRODUCT_IDS)
