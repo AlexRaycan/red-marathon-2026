@@ -10,7 +10,7 @@ import type { VerifyPurchaseDtoProvider } from './verifyPurchaseDtoProvider';
 export interface VerifyPurchaseDto {
   provider: VerifyPurchaseDtoProvider;
   /**
-     * @minLength 4
+     * @minLength 1
      * @maxLength 4000
      */
   token: string;
