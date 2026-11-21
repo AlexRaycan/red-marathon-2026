@@ -23,7 +23,6 @@ import {
 } from '@/components/ui'
 
 import { Toolbar } from '@/components/elements'
-import { TokenDebug } from '@/components/elements/debug/TokenDebug'
 import {
   ACCOUNT_MENU,
   AccountUserInfo,
@@ -94,7 +93,6 @@ export default function Account() {
             isAdaptive
             style={styles.content}
           >
-
             <AccountUserInfo data={data?.data} />
 
             <TasteInsight />
@@ -107,19 +105,25 @@ export default function Account() {
                     pointerEvents='box-none'
                     style={menuStyles.glass}
                   >
-                    {ACCOUNT_MENU.map((item, index) => (
-                      <MenuItem
-                        {...item}
-                        key={item.label}
-                        isLastItem={index === ACCOUNT_MENU.length - 1}
-                        withChevron
-                        onPress={() => protectedPush(item.path)}
-                      >
-                        {item.content && (
-                          <Text style={menuStyles.premium}>{item.content}</Text>
-                        )}
-                      </MenuItem>
-                    ))}
+                    {ACCOUNT_MENU.map((item, index) => {
+                      // const isSub = item.value === 'subscription'
+
+                      return (
+                        <MenuItem
+                          {...item}
+                          key={item.label}
+                          isLastItem={index === ACCOUNT_MENU.length - 1}
+                          withChevron
+                          onPress={() => protectedPush(item.path)}
+                        >
+                          {item.content && (
+                            <Text style={menuStyles.premium}>
+                              {item.content}
+                            </Text>
+                          )}
+                        </MenuItem>
+                      )
+                    })}
                   </GlassView>
                 </View>
               </GlassContainer>

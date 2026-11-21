@@ -14,12 +14,14 @@ import {
   SubscriptionSelect
 } from '@/components/screens/subscriptions'
 
-import { useSpaces } from '@/hooks'
+import { usePurchaseSubscription, useSpaces } from '@/hooks'
 
 export default function Subscriptions() {
   const { tabbarSpace: bottomSpace } = useSpaces()
 
-  const [selectedSubscription, setSelectedSubscription] =
+  const purchasePlan = usePurchaseSubscription()
+
+  const [selectedSubscriptionId, setSelectedSubscriptionId] =
     useState<TSubscriptionType>('annually')
 
   return (
@@ -53,9 +55,9 @@ export default function Subscriptions() {
                     <SubscriptionSelect
                       key={sub.id}
                       subscription={sub}
-                      isSelected={selectedSubscription === sub.id}
+                      isSelected={selectedSubscriptionId === sub.id}
 
-                      onPress={() => setSelectedSubscription(sub.id)}
+                      onPress={() => setSelectedSubscriptionId(sub.id)}
                     />
                   ))}
                 </View>
@@ -64,7 +66,7 @@ export default function Subscriptions() {
                   label='Continue For Payment'
                   size='lg'
                   tintColor={COLORS.status.success}
-                  onPress={() => {}}
+                  onPress={() => purchasePlan(selectedSubscriptionId)}
                 />
               </GlassContainer>
             </View>

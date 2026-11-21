@@ -1,0 +1,94 @@
+{
+  "appPolicies": {
+    "eula": "",
+    "policies": [
+      {
+        "locale": "en_US",
+        "policyText": "",
+        "policyURL": ""
+      }
+    ]
+  },
+  "identifier": "D81E46AF",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_askToBuyEnabled": false,
+    "_billingGracePeriodEnabled": false,
+    "_billingIssuesEnabled": false,
+    "_disableDialogs": false,
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_renewalBillingIssuesEnabled": false,
+    "_storefront": "USA",
+    "_storeKitErrors": [],
+    "_timeRate": 0
+  },
+  "subscriptionGroups": [
+    {
+      "id": "72418369",
+      "localizations": [],
+      "name": "SagaSet Pro",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "3.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "B1D36F40",
+          "introductoryOffer": {
+            "internalID": "CF751A29",
+            "numberOfPeriods": 1,
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "SagaCue, spoiler-free AI summaries, and full Taste DNA.",
+              "displayName": "SagaSet Pro Monthly",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "com.alexraycan.sagaset.pro.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "SagaSet Pro Monthly",
+          "subscriptionGroupID": "72418369",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "29.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "7F2A0CB5",
+          "introductoryOffer": {
+            "internalID": "5DE602B8",
+            "numberOfPeriods": 1,
+            "paymentMode": "free",
+            "subscriptionPeriod": "P2W"
+          },
+          "localizations": [
+            {
+              "description": "SagaCue, spoiler-free AI summaries, and full Taste DNA.",
+              "displayName": "SagaSet Pro Annual",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "com.alexraycan.sagaset.pro.annually",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "SagaSet Pro Annual",
+          "subscriptionGroupID": "72418369",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 4,
+    "minor": 0
+  }
+}

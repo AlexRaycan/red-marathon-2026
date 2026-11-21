@@ -31,7 +31,7 @@ export const ACCOUNT_MENU_ITEMS: IAccountMenuItem[] = [
   {
     value: 'subscription',
     label: ACCOUNT_MENU_LABELS.subscription,
-    content: 'Premium',
+    // content: 'Premium',
     path: '/subscriptions'
   },
   {

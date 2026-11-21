@@ -513,7 +513,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       return useMutation(getMarkAllNotificationsReadMutationOptions(options), queryClient);
     }
     export type deleteNotificationResponse204 = {
-  data: boolean
+  data: void
   status: 204
 }
 

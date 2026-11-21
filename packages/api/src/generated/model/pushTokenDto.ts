@@ -10,7 +10,7 @@ import type { PushTokenDtoPlatform } from './pushTokenDtoPlatform';
 export interface PushTokenDto {
   /**
      * Токен из expo-notifications: ExponentPushToken[xxxxxxxx]
-     * @pattern ^ExponentPushToken\[.+\]$
+     * @pattern ^(ExponentPushToken|ExpoPushToken)\[.+\]$
      */
   token: string;
   platform: PushTokenDtoPlatform;
