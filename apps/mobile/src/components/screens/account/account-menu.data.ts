@@ -1,7 +1,9 @@
 import {
   ACCOUNT_MENU_ITEMS,
+  ACCOUNT_MENU_ITEMS_BILLED,
   type AccountMenu,
-  type IAccountMenuItem
+  type IAccountMenuItem,
+  IS_BILLING_ENABLED
 } from '@app/constants'
 import type { Href } from 'expo-router'
 import {
@@ -24,10 +26,12 @@ const ACCOUNT_MENU_ICONS: Record<AccountMenu, LucideIcon> = {
   notifications: Bell
 }
 
-export const ACCOUNT_MENU: AccountMenuItemProps[] = ACCOUNT_MENU_ITEMS.map(
-  item => ({
-    ...item,
-    path: item.path as Href,
-    icon: ACCOUNT_MENU_ICONS[item.value]
-  })
-)
+const MENU_ITEMS = IS_BILLING_ENABLED
+  ? ACCOUNT_MENU_ITEMS_BILLED
+  : ACCOUNT_MENU_ITEMS
+
+export const ACCOUNT_MENU: AccountMenuItemProps[] = MENU_ITEMS.map(item => ({
+  ...item,
+  path: item.path as Href,
+  icon: ACCOUNT_MENU_ICONS[item.value]
+}))

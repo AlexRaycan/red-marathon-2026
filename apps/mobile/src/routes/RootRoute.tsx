@@ -1,3 +1,4 @@
+import { IS_BILLING_ENABLED } from '@app/constants'
 import { useAuth } from '@app/hooks'
 import { type Href, Stack, usePathname } from 'expo-router'
 import { useEffect } from 'react'
@@ -51,10 +52,12 @@ export function RootRouter() {
           <Stack.Screen name='collections' />
           <Stack.Screen name='collections/[id]' />
 
-          <Stack.Screen
-            name='subscriptions'
-            options={{ presentation: 'fullScreenModal' }}
-          />
+          <Stack.Protected guard={IS_BILLING_ENABLED}>
+            <Stack.Screen
+              name='subscriptions'
+              options={{ presentation: 'fullScreenModal' }}
+            />
+          </Stack.Protected>
 
           <Stack.Screen name='notifications' />
         </Stack.Protected>

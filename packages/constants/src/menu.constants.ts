@@ -29,12 +29,6 @@ export interface IAccountMenuItem {
 
 export const ACCOUNT_MENU_ITEMS: IAccountMenuItem[] = [
   {
-    value: 'subscription',
-    label: ACCOUNT_MENU_LABELS.subscription,
-    // content: 'Premium',
-    path: '/subscriptions'
-  },
-  {
     value: 'collections',
     label: ACCOUNT_MENU_LABELS.collections,
     path: '/collections'
@@ -50,3 +44,13 @@ export const ACCOUNT_MENU_ITEMS: IAccountMenuItem[] = [
     path: '/notifications'
   }
 ] as const
+
+export const ACCOUNT_MENU_ITEMS_BILLED: IAccountMenuItem[] = [
+  {
+    value: 'subscription',
+    label: ACCOUNT_MENU_LABELS.subscription,
+    // content: 'Premium',
+    path: '/subscriptions'
+  },
+  ...ACCOUNT_MENU_ITEMS
+]
