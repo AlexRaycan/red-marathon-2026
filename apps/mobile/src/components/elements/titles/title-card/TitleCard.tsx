@@ -111,7 +111,7 @@ export function TitleCard({
           </View>
         )}
 
-        {rating && (
+        {!!rating && (
           <View style={[styles.badge, styles.right]}>
             <GlassView style={styles.rating}>
               <Star
