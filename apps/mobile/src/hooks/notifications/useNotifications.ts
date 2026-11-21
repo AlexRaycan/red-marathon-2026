@@ -1,7 +1,7 @@
 import { type NotificationResponse, useMyNotifications } from '@app/api'
 import { usePushActions } from '@app/hooks'
 
-import { MOCK_NOTIFICATIONS } from '@/components/elements'
+import { MOCK_NOTIFICATIONS } from '@/components/elements/notification/notifications.data'
 
 import { getNotificationHref } from '@/lib'
 
@@ -25,9 +25,7 @@ export function useNotifications() {
   const hasUnread = items.some(({ isRead }) => !isRead)
 
   const onPressItem = (item: NotificationResponse) => {
-    if (__DEV__) return
-
-    if (!item.isRead) markRead(item.id)
+    if (!__DEV__ && !item.isRead) markRead(item.id)
 
     const href = getNotificationHref(item.entityType, item.entityId)
 

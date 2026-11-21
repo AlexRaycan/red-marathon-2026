@@ -1,53 +1,56 @@
 import type { NotificationResponse } from '@app/api'
 
-export const MOCK_NOTIFICATIONS: NotificationResponse[] = [
+const mockTitles = [
+  { key: 'tmdb-movie-1368337', name: 'The Odyssey' },
+  { key: 'tmdb-tv_show-247718', name: 'MobLand' },
+  { key: 'rawg-game-248521', name: 'Valheim' },
   {
-    id: 'mock-1',
-    type: 'RECOMMENDATION',
-    title: 'A new recommendation',
-    message:
-      'Based on the sci-fi films and series in your library, we think you might enjoy Severance. Save it to your watchlist for the next time you’re looking for something new.',
-    isRead: false,
-    readAt: null,
-    entityType: null,
-    entityId: null,
-    actor: null,
-    createdAt: '2026-11-19T15:00:00Z'
+    key: 'shikimori-anime-58567',
+    name: 'Ore dake Level Up na Ken Season 2: Arise from the Shadow'
+  },
+  { key: 'google_books-book-HMAeEgAAQBAJ', name: 'Tender is the Night' },
+  {
+    key: 'tmdb-movie-1300968',
+    name: 'The Hunger Games: Sunrise on the Reaping'
   },
   {
-    id: 'mock-2',
-    type: 'COLLECTION_SHARED',
-    title: 'A collection was shared with you',
-    message: 'Maya shared her Weekend Watchlist collection with you.',
-    isRead: false,
-    readAt: null,
-    entityType: null,
-    entityId: null,
-    actor: null,
-    createdAt: '2026-11-18T12:00:00Z'
+    key: 'tmdb-tv_show-84773',
+    name: 'The Lord of the Rings: The Rings of Power'
   },
+  { key: 'rawg-game-972995', name: 'Grand Theft Auto VI' },
+  { key: 'shikimori-anime-59978', name: 'Sousou no Frieren 2nd Season' },
+  { key: 'google_books-book-E5QOEgAAQBAJ', name: 'In Desert and Wilderness' },
+  { key: 'tmdb-movie-1003596', name: 'Avengers: Doomsday' },
+  { key: 'tmdb-tv_show-291507', name: 'The Body' },
+  { key: 'rawg-game-1004298', name: '007 First Light' },
+  { key: 'shikimori-anime-60543', name: 'Dandadan 2nd Season' },
+  { key: 'google_books-book-7rzMEQAAQBAJ', name: 'The Maltese Falcon' },
+  { key: 'tmdb-movie-1185344', name: 'The Beast' },
+  { key: 'tmdb-tv_show-259909', name: 'Dexter: Resurrection' },
+  { key: 'rawg-game-975605', name: 'Enshrouded' },
   {
-    id: 'mock-3',
-    type: 'FRIEND_ACCEPTED',
-    title: 'Friend request accepted',
-    message: 'Alex accepted your friend request.',
-    isRead: true,
-    readAt: '2026-11-17T16:00:00Z',
-    entityType: null,
-    entityId: null,
-    actor: null,
-    createdAt: '2026-11-17T14:00:00Z'
+    key: 'shikimori-anime-57658',
+    name: 'Jujutsu Kaisen: Shimetsu Kaiyuu - Zenpen'
   },
-  {
-    id: 'mock-4',
-    type: 'SYSTEM',
-    title: 'Welcome to SagaSet',
-    message: 'Add a title to start building your library.',
-    isRead: true,
-    readAt: '2026-11-15T17:00:00Z',
-    entityType: null,
-    entityId: null,
-    actor: null,
-    createdAt: '2026-11-15T16:00:00Z'
-  }
+  { key: 'google_books-book-QR9rEQAAQBAJ', name: 'White fang' }
 ]
+
+export const MOCK_NOTIFICATIONS = mockTitles.map<NotificationResponse>(
+  ({ key, name }, index) => {
+    const createdAt = new Date(Date.UTC(2026, 10, 20 - index, 16)).toISOString()
+    const isRead = index % 2 === 1
+
+    return {
+      id: `mock-${key}`,
+      type: 'RECOMMENDATION',
+      title: name,
+      message: 'Recommended based on the titles in your library.',
+      isRead,
+      readAt: isRead ? createdAt : null,
+      entityType: 'TITLE',
+      entityId: key,
+      actor: null,
+      createdAt
+    }
+  }
+)

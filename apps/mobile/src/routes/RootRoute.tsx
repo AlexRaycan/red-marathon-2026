@@ -1,16 +1,12 @@
 import { type Href, Stack, usePathname } from 'expo-router'
 import { useEffect } from 'react'
 
-import { useOnboardingInit, usePushTapRouting } from '@/hooks'
-import { usePushRegistration } from '@/hooks/notifications/usePushRegistration'
+import { useOnboardingInit } from '@/hooks'
 
 import { useOnboardingStore } from '@/store'
 
 export function RootRouter() {
   useOnboardingInit()
-
-  usePushRegistration()
-  usePushTapRouting()
 
   const pathname = usePathname() as Href
 
@@ -42,6 +38,7 @@ export function RootRouter() {
         redirectTo='/onboarding'
       >
         <Stack.Screen name='(tabbar)' />
+
         <Stack.Screen name='collections' />
         <Stack.Screen name='collections/[id]' />
 
