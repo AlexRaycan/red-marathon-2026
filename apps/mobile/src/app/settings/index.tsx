@@ -4,6 +4,8 @@ import { Toolbar } from '@/components/elements'
 import { DeleteAccount } from '@/components/screens/settings'
 
 export default function Settings() {
+  // TODO: make page more useful
+
   return (
     <Screen
       edges={['top']}

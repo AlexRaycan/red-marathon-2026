@@ -10,6 +10,8 @@ import { Button } from '@/components/ui'
 
 import { useProtectedPush } from '@/hooks'
 
+import { HAPTIC_TRIGGERS } from '@/lib'
+
 import { DetailsLongPress } from './DetailsLongPress'
 import { LIBRARY_ACTION_ICONS } from './details-actions.data'
 
@@ -94,6 +96,8 @@ export function DetailsStatusButton({
   }
 
   const handleStatusPress = () => {
+    void HAPTIC_TRIGGERS.selection()
+
     if (!isAuthenticated) {
       redirect()
 
