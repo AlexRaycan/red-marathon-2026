@@ -30,7 +30,7 @@ export default function NotificationPage() {
             }}
           />
         }
-        isCloseButton
+        isBackButton
       />
 
       <FlatList
